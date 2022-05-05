@@ -7,6 +7,7 @@ use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\GetIndividualMendataire;
 // use App\Http\Controllers\MendataireController;
 use App\Http\Controllers\PersonneLieController;
+use App\Http\Controllers\updateMembre;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,4 +68,8 @@ Route::delete('/delete/mendataire/data/{idMendataire}',
 Route::delete('/delete/personnelie/data/{idPersonneLie}',
 [PersonneLieController::class,'destroy']);
 
+//update membre
+
+Route::post("/update/membre/data",
+[updateMembre::class,'updatingmembre']);
 

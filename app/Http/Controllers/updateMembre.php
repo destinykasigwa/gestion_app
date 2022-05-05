@@ -9,64 +9,85 @@ use Illuminate\Support\Facades\Log;
 
 class updateMembre extends Controller
 {
-   function update(Request $request){
+   function updatingmembre(Request $request){
     try {
      
+      $idMembre=$request->get('idMembre');
+      $intituleCompte=$request->get('intituleCompte');
+      $lieuNaiss=$request->get('lieuNaiss');
+      $dateNaiss=$request->get('dateNaiss');
+      $etatCivile=$request->get('etatCivile');
+      $conjoitName=$request->get('conjoitName');
+      $fatherName=$request->get('fatherName');
+      $motherName=$request->get('motherName');
+      $profession=$request->get('profession');
+      $workingPlace=$request->get('workingPlace');
+      $workingPlace=$request->get('workingPlace');
+      $cilivilty=$request->get('cilivilty');
+      $sexe=$request->get('sexe');
+      $phone1=$request->get('phone1');
+      $phone2=$request->get('phone2');
+      $email=$request->get('email');
+      $typepiece=$request->get('typepiece');
+      $numpiece=$request->get('numpiece');
+      $delivrancePlace=$request->get('delivrancePlace');
+      $delivranceDate=$request->get('delivranceDate');
+      $gestionnaire=$request->get('gestionnaire');
+      $provinceOrigine=$request->get('provinceOrigine');
+      $territoireOrigine=$request->get('territoireOrigine');
+      $collectiviteOrigine=$request->get('collectiviteOrigine');
+      $provinceActuelle=$request->get('provinceActuelle');
+      $villeActuelle=$request->get('villeActuelle');
+      $CommuneActuelle=$request->get('CommuneActuelle');
+      $QuartierActuelle=$request->get('QuartierActuelle');
+      $parainAccount=$request->get('parainAccount');
+      $parainName=$request->get('parainName');
+      $typeGestion=$request->get('typeGestion');
+      $critere1=$request->get('critere1');
+      $otherMention=$request->get('otherMention');
+
+      AdhesionMembre::where('refCompte',$idMembre)->update([
+         "intituleCompte"=>$intituleCompte,
+         "lieuNaiss"=>$lieuNaiss,
+         "dateNaiss"=>$dateNaiss,
+         "etatCivile"=>$etatCivile,
+         "conjoitName"=>$conjoitName,
+         "fatherName"=>$fatherName,
+         "motherName"=>$motherName,
+         "profession"=>$profession,
+         "workingPlace"=>$workingPlace,
+         "cilivilty"=>$cilivilty,
+         "sexe"=>$sexe,
+         "phone1"=>$phone1,
+         "phone2"=>$phone2,
+         "email"=>$email,
+         "typepiece"=>$typepiece,
+         "numpiece"=>$numpiece,
+         "delivrancePlace"=>$delivrancePlace,
+         "delivranceDate"=>$delivranceDate,
+         "gestionnaire"=>$gestionnaire,
+         "provinceOrigine"=>$provinceOrigine,
+         "territoireOrigine"=>$territoireOrigine,
+         "collectiviteOrigine"=>$collectiviteOrigine,
+         "provinceActuelle"=>$provinceActuelle,
+         "villeActuelle"=>$villeActuelle,
+         "CommuneActuelle"=>$CommuneActuelle,
+         "QuartierActuelle"=>$QuartierActuelle,
+         "parainAccount"=>$parainAccount,
+         "parainName"=>$parainName,
+         "typeGestion"=>$typeGestion,
+         "critere1"=>$critere1,
+         "otherMention"=>$otherMention,
+     ]);
       
-       return response()->json(["success" => 1, "num" =>  $request->All()]);
+     return response()->json(["success"=>1, "msg" => "Le membre a bien été mise à jour !"]);
     }
    catch(Exception $e) 
    {
       Log::error($e);
    }
 
-    // $request->getContent()
-   //  $data=[];
-   //  $data=$request->All().$request->toArray();
-   //  $result=AdhesionMembre::findOrFail($request->get('numCompte'));
-     
-   //  $membre = AdhesionMembre::where('numCompte', '=', $data->numCompte)->first();
-   //  $membre->numCompte = $data->numCompte;
-   //  $membre->codeAgence = $data->codeAgence;
-   //  $membre->codeMonaie = $data->codeMonaie;
-   //  $membre->intituleCompte = $data->intituleCompte;
-   //  $membre->produitEpargne = $data->produitEpargne;
-   //  $membre->typeClient = $data->typeClient;
-   //  $membre->guichetAdresse = $data->guichetAdresse;
-   //  $membre->dateOuverture = $data->dateOuverture;
-   //  $membre->lieuNaiss = $data->lieuNaiss;
-   //  $membre->etatCivile = $data->etatCivile;
-   //  $membre->conjoitName = $data->conjoitName;
-   //  $membre->fatherName = $data->fatherName;
-   //  $membre->motherName = $data->motherName;
-   //  $membre->profession = $data->profession;
-   //  $membre->workingPlace = $data->workingPlace;
-   //  $membre->cilivilty = $data->cilivilty;
-   //  $membre->sexe = $data->sexe;
-   //  $membre->phone1 = $data->phone1;
-   //  $membre->phone2 = $data->phone2;
-   //  $membre->email = $data->email;
-   //  $membre->typepiece = $data->typepiece;
-   //  $membre->numpiece = $data->numpiece;
-   //  $membre->delivrancePlace = $data->delivrancePlace;
-   //  $membre->delivranceDate = $data->delivranceDate;
-   //  $membre->gestionnaire = $data->gestionnaire;
-   //  $membre->provinceOrigine = $data->provinceOrigine;
-   //  $membre->territoireOrigine = $data->territoireOrigine;
-   //  $membre->collectiviteOrigine = $data->collectiviteOrigine;
-   //  $membre->provinceActuelle = $data->provinceActuelle;
-   //  $membre->villeActuelle = $data->villeActuelle;
-   //  $membre->CommuneActuelle = $data->CommuneActuelle;
-   //  $membre->QuartierActuelle = $data->QuartierActuelle;
-   //  $membre->parainAccount = $data->parainAccount;
-   //  $membre->parainName = $data->parainName;
-   //  $membre->typeGestion = $data->typeGestion;
-   //  $membre->critere1 = $data->critere1;
-   //  $membre->activationCompte = $data->activationCompte;
-   //  $membre->save();
-
-   //  $data=$request->all()
-       
+    
 
       
    }

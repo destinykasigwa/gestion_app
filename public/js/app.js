@@ -2273,8 +2273,6 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Adhesion);
 
   function Adhesion(props) {
-    var _this$state;
-
     var _this;
 
     _classCallCheck(this, Adhesion);
@@ -2283,8 +2281,6 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
 
     _defineProperty(_assertThisInitialized(_this), "handleNew", /*#__PURE__*/function () {
       var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(e) {
-        var _this$setState;
-
         var getData;
         return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
           while (1) {
@@ -2303,7 +2299,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                 //clean data in all in put
 
 
-                _this.setState((_this$setState = {
+                _this.setState({
                   compteToSearch: "",
                   intituleCompte: "",
                   produitEpargne: "",
@@ -2328,8 +2324,22 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                   gestionnaire: "",
                   provinceOrigine: "",
                   territoireOrigine: "",
-                  collectiviteOrigine: ""
-                }, _defineProperty(_this$setState, "territoireOrigine", ""), _defineProperty(_this$setState, "provinceActuelle", ""), _defineProperty(_this$setState, "villeActuelle", ""), _defineProperty(_this$setState, "CommuneActuelle", ""), _defineProperty(_this$setState, "QuartierActuelle", ""), _defineProperty(_this$setState, "parainAccount", ""), _defineProperty(_this$setState, "parainName", ""), _defineProperty(_this$setState, "typeGestion", ""), _defineProperty(_this$setState, "critere1", ""), _defineProperty(_this$setState, "otherMention", ""), _defineProperty(_this$setState, "personneLieName", ""), _defineProperty(_this$setState, "lieuNaissLie", ""), _defineProperty(_this$setState, "dateNaissLie", ""), _defineProperty(_this$setState, "degreParante", ""), _defineProperty(_this$setState, "activationCompte", "false"), _this$setState));
+                  collectiviteOrigine: "",
+                  provinceActuelle: "",
+                  villeActuelle: "",
+                  CommuneActuelle: "",
+                  QuartierActuelle: "",
+                  parainAccount: "",
+                  parainName: "",
+                  typeGestion: "",
+                  critere1: "",
+                  otherMention: "",
+                  personneLieName: "",
+                  lieuNaissLie: "",
+                  dateNaissLie: "",
+                  degreParante: "",
+                  activationCompte: "false"
+                });
 
                 _this.setState({
                   disabled: !_this.state.disabled
@@ -2449,7 +2459,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
-    _this.state = (_this$state = {
+    _this.state = {
       isloading: true,
       disabled: true,
       compteToSearch: "",
@@ -2482,8 +2492,21 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
       gestionnaire: "",
       provinceOrigine: "",
       territoireOrigine: "",
-      collectiviteOrigine: ""
-    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "otherMention", ""), _defineProperty(_this$state, "activationCompte", "false"), _defineProperty(_this$state, "fetchData", null), _defineProperty(_this$state, "fetchLastId", []), _defineProperty(_this$state, "error_list", []), _this$state);
+      collectiviteOrigine: "",
+      provinceActuelle: "",
+      villeActuelle: "",
+      CommuneActuelle: "",
+      QuartierActuelle: "",
+      parainAccount: "",
+      parainName: "",
+      typeGestion: "",
+      critere1: "",
+      otherMention: "",
+      activationCompte: "false",
+      fetchData: null,
+      fetchLastId: [],
+      error_list: []
+    };
     _this.textInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createRef();
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
@@ -5590,8 +5613,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -5611,6 +5632,8 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
 
 function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 
 
@@ -5632,6 +5655,57 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
     _classCallCheck(this, UpdateMembre);
 
     _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "UpdateMembreData", function (e) {
+      e.preventDefault();
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post('update/membre/data', {
+        idMembre: _this.props.dataMembre.refCompte,
+        intituleCompte: _this.state.intituleCompte,
+        lieuNaiss: _this.state.lieuNaiss,
+        dateNaiss: _this.state.dateNaiss,
+        etatCivile: _this.state.etatCivile,
+        conjoitName: _this.state.intituleCompte,
+        fatherName: _this.state.fatherName,
+        motherName: _this.state.motherName,
+        profession: _this.state.profession,
+        workingPlace: _this.state.workingPlace,
+        cilivilty: _this.state.cilivilty,
+        sexe: _this.state.sexe,
+        phone1: _this.state.phone1,
+        phone2: _this.state.phone2,
+        email: _this.state.email,
+        typepiece: _this.state.typepiece,
+        numpiece: _this.state.numpiece,
+        delivrancePlace: _this.state.delivrancePlace,
+        delivranceDate: _this.state.delivranceDate,
+        gestionnaire: _this.state.gestionnaire,
+        provinceOrigine: _this.state.provinceOrigine,
+        territoireOrigine: _this.state.territoireOrigine,
+        collectiviteOrigine: _this.state.collectiviteOrigine,
+        provinceActuelle: _this.state.provinceActuelle,
+        villeActuelle: _this.state.villeActuelle,
+        CommuneActuelle: _this.state.CommuneActuelle,
+        QuartierActuelle: _this.state.QuartierActuelle,
+        parainAccount: _this.state.parainAccount,
+        parainName: _this.state.parainName,
+        typeGestion: _this.state.typeGestion,
+        critere1: _this.state.critere1,
+        otherMention: _this.state.otherMention
+      }).then(function (response) {
+        if (response.data.success == 1) {
+          sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+            title: "Success",
+            text: response.data.msg,
+            icon: "success",
+            button: "OK!"
+          });
+          console.log(_this.props.modalId);
+        } else {
+          console.log(_this.state);
+        }
+      });
+    });
+
     _this.state = (_this$state = {
       intituleCompte: "",
       lieuNaiss: "",
@@ -5655,139 +5729,19 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
       provinceOrigine: "",
       territoireOrigine: "",
       collectiviteOrigine: ""
-    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "otherMention", ""), _defineProperty(_this$state, "error_list", []), _this$state); // this.handleChange=this.handleChange.bind(this);
-    // this.UpdateMendataireData=this.UpdateMendataireData.bind(this);
-
+    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "otherMention", ""), _defineProperty(_this$state, "error_list", []), _this$state);
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.UpdateMembreData = _this.UpdateMembreData.bind(_assertThisInitialized(_this));
     return _this;
-  } //get data in input
-  // handleChange(event){
-  //   this.setState({      
-  //   [event.target.name] : event.target.value
-  //   })
-  //     }
-  //    static getDerivedStateFromProps(props,current_state){
-  //      let mendataireUpdate={
-  //         idMendataire:"",
-  //         mendataireName:"",
-  //         lieuNaissM:"",
-  //         dateNaissM:"",
-  //         etatCivileM:"",
-  //         sexeM:"",
-  //         typePieceM:"",
-  //         professionM:"",
-  //         telephoneM:"",
-  //         adresseM:"",
-  //         observationM:"",
-  //      }
-  //      //updating data from input
-  //      if(current_state.mendataireName && (current_state.mendataireName !== props.mendatData.mendataireName)){
-  //         return null;
-  //     }
-  //      if(current_state.mendataireName && (current_state.mendataireName !== props.mendatData.mendataireName)){
-  //          return null;
-  //      }
-  //      if(current_state.lieuNaissM && (current_state.lieuNaissM !== props.mendatData.lieuNaissM)){
-  //         return null;
-  //     }
-  //     if(current_state.dateNaissM && (current_state.dateNaissM !== props.mendatData.dateNaissM)){
-  //         return null;
-  //     }
-  //     if(current_state.etatCivileM && (current_state.etatCivileM !== props.mendatData.etatCivileM)){
-  //         return null;
-  //     }
-  //     if(current_state.sexeM && (current_state.sexeM !== props.mendatData.sexeM)){
-  //         return null;
-  //     }
-  //     if(current_state.typePieceM && (current_state.typePieceM !== props.mendatData.typePieceM)){
-  //         return null;
-  //     }
-  //     if(current_state.professionM && (current_state.professionM !== props.mendatData.professionM)){
-  //         return null;
-  //     }
-  //     if(current_state.telephoneM && (current_state.adresseM !== props.mendatData.adresseM)){
-  //         return null;
-  //     }
-  //     if(current_state.adresseM && (current_state.adresseM !== props.mendatData.adresseM)){
-  //         return null;
-  //     }
-  //     if(current_state.observationM && (current_state.observationM !== props.mendatData.observationM)){
-  //         return null;
-  //     }
-  //      //updating data from props below
-  //      if(current_state.mendataireName !== props.mendatData.mendataireName || 
-  //         current_state.mendataireName === props.mendatData.mendataireName){
-  //        mendataireUpdate.mendataireName=props.mendatData.mendataireName; 
-  //      }
-  //      if(current_state.lieuNaissM !== props.mendatData.lieuNaissM || 
-  //         current_state.lieuNaissM === props.mendatData.lieuNaissM){
-  //         mendataireUpdate.lieuNaissM=props.mendatData.lieuNaissM; 
-  //       }
-  //       if(current_state.dateNaissM !== props.mendatData.dateNaissM || 
-  //         current_state.dateNaissM === props.mendatData.dateNaissM){
-  //         mendataireUpdate.dateNaissM=props.mendatData.dateNaissM; 
-  //       }
-  //       if(current_state.etatCivileM !== props.mendatData.etatCivileM || 
-  //         current_state.etatCivileM === props.mendatData.etatCivileM){
-  //         mendataireUpdate.etatCivileM=props.mendatData.etatCivileM; 
-  //       }
-  //       if(current_state.sexeM !== props.mendatData.sexeM || 
-  //         current_state.sexeM === props.mendatData.sexeM){
-  //         mendataireUpdate.sexeM=props.mendatData.sexeM; 
-  //       }
-  //       if(current_state.typePieceM !== props.mendatData.typePieceM || 
-  //         current_state.typePieceM === props.mendatData.typePieceM){
-  //         mendataireUpdate.typePieceM=props.mendatData.typePieceM; 
-  //       }
-  //       if(current_state.professionM !== props.mendatData.professionM || 
-  //         current_state.professionM === props.mendatData.professionM){
-  //         mendataireUpdate.professionM=props.mendatData.professionM; 
-  //       }
-  //       if(current_state.telephoneM !== props.mendatData.telephoneM || 
-  //         current_state.telephoneM === props.mendatData.telephoneM){
-  //         mendataireUpdate.telephoneM=props.mendatData.telephoneM; 
-  //       }
-  //       if(current_state.telephoneM !== props.mendatData.telephoneM || 
-  //         current_state.telephoneM === props.mendatData.telephoneM){
-  //         mendataireUpdate.telephoneM=props.mendatData.telephoneM; 
-  //       }
-  //       if(current_state.adresseM !== props.mendatData.adresseM || 
-  //         current_state.adresseM === props.mendatData.adresseM){
-  //         mendataireUpdate.adresseM=props.mendatData.adresseM; 
-  //       }
-  //      return mendataireUpdate;
-  //    }
-  //updating mendataire
-  //    UpdateMendataireData=(e)=>{
-  //        e.preventDefault();
-  //      axios.post('update/mendataire/data',{
-  //         mendataireId:this.props.modalId,
-  //         mendataireName: this.state.mendataireName ,
-  //         lieuNaissM:this.state.lieuNaissM,
-  //         dateNaissM:this.state.dateNaissM,
-  //         etatCivileM:this.state.etatCivileM,
-  //         sexeM:this.state.sexeM,
-  //         typePieceM:this.state.typePieceM,
-  //         professionM:this.state.professionM,
-  //         telephoneM:this.state.telephoneM,
-  //         adresseM:this.state.adresseM,
-  //         observationM:this.state.observationM,
-  //      }).then((response)=>{
-  //          if(response.data.success==1){
-  //             Swal.fire({
-  //                 title:"Success",
-  //                 text:response.data.msg,
-  //                 icon:"success",
-  //                 button:"OK!"
-  //             })
-  //             console.log(this.props.modalId);
-  //          }else{
-  //              console.log(this.state);
-  //          }
-  //      })  
-  // }
+  } // get data in input
 
 
   _createClass(UpdateMembre, [{
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
     key: "render",
     value: function render() {
       var labelColor = {
@@ -6303,6 +6257,20 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     value: this.state.otherMention,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                    type: "button",
+                                    style: {
+                                      borderRadius: "0px",
+                                      width: "100%",
+                                      height: "30px",
+                                      fontSize: "12px"
+                                    },
+                                    className: "btn btn-primary mt-2",
+                                    id: "addMbtn",
+                                    onClick: this.UpdateMembreData,
+                                    children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                      className: "fas fa-database"
+                                    })]
                                   })]
                                 })]
                               })]
@@ -6319,6 +6287,296 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
         })
       });
     }
+  }], [{
+    key: "getDerivedStateFromProps",
+    value: function getDerivedStateFromProps(props, current_state) {
+      var membreUpdate = {
+        idMembre: "",
+        intituleCompte: "",
+        lieuNaiss: "",
+        dateNaiss: "",
+        etatCivile: "",
+        conjoitName: "",
+        fatherName: "",
+        motherName: "",
+        profession: "",
+        workingPlace: "",
+        cilivilty: "",
+        sexe: "",
+        phone1: "243",
+        phone2: "243",
+        email: "",
+        typepiece: "",
+        numpiece: "",
+        delivrancePlace: "",
+        delivranceDate: "",
+        gestionnaire: "",
+        provinceOrigine: "",
+        territoireOrigine: "",
+        collectiviteOrigine: "",
+        provinceActuelle: "",
+        villeActuelle: "",
+        CommuneActuelle: "",
+        QuartierActuelle: "",
+        parainAccount: "",
+        parainName: "",
+        typeGestion: "",
+        critere1: "",
+        otherMention: ""
+      }; //updating data from input
+
+      if (current_state.intituleCompte && current_state.intituleCompte !== props.dataMembre.intituleCompte) {
+        return null;
+      }
+
+      if (current_state.lieuNaiss && current_state.lieuNaiss !== props.dataMembre.lieuNaiss) {
+        return null;
+      }
+
+      if (current_state.dateNaiss && current_state.dateNaiss !== props.dataMembre.dateNaiss) {
+        return null;
+      }
+
+      if (current_state.etatCivile && current_state.etatCivile !== props.dataMembre.etatCivile) {
+        return null;
+      }
+
+      if (current_state.conjoitName && current_state.conjoitName !== props.dataMembre.conjoitName) {
+        return null;
+      }
+
+      if (current_state.fatherName && current_state.fatherName !== props.dataMembre.fatherName) {
+        return null;
+      }
+
+      if (current_state.motherName && current_state.motherName !== props.dataMembre.motherName) {
+        return null;
+      }
+
+      if (current_state.profession && current_state.profession !== props.dataMembre.profession) {
+        return null;
+      }
+
+      if (current_state.workingPlace && current_state.workingPlace !== props.dataMembre.workingPlace) {
+        return null;
+      }
+
+      if (current_state.cilivilty && current_state.cilivilty !== props.dataMembre.cilivilty) {
+        return null;
+      }
+
+      if (current_state.sexe && current_state.sexe !== props.dataMembre.sexe) {
+        return null;
+      }
+
+      if (current_state.phone1 && current_state.phone1 !== props.dataMembre.phone1) {
+        return null;
+      }
+
+      if (current_state.phone2 && current_state.phone2 !== props.dataMembre.phone2) {
+        return null;
+      }
+
+      if (current_state.email && current_state.email !== props.dataMembre.email) {
+        return null;
+      }
+
+      if (current_state.typepiece && current_state.typepiece !== props.dataMembre.typepiece) {
+        return null;
+      }
+
+      if (current_state.numpiece && current_state.numpiece !== props.dataMembre.numpiece) {
+        return null;
+      }
+
+      if (current_state.delivrancePlace && current_state.delivrancePlace !== props.dataMembre.delivrancePlace) {
+        return null;
+      }
+
+      if (current_state.delivranceDate && current_state.delivranceDate !== props.dataMembre.delivranceDate) {
+        return null;
+      }
+
+      if (current_state.gestionnaire && current_state.gestionnaire !== props.dataMembre.gestionnaire) {
+        return null;
+      }
+
+      if (current_state.provinceOrigine && current_state.provinceOrigine !== props.dataMembre.provinceOrigine) {
+        return null;
+      }
+
+      if (current_state.territoireOrigine && current_state.territoireOrigine !== props.dataMembre.territoireOrigine) {
+        return null;
+      }
+
+      if (current_state.collectiviteOrigine && current_state.collectiviteOrigine !== props.dataMembre.collectiviteOrigine) {
+        return null;
+      }
+
+      if (current_state.provinceActuelle && current_state.provinceActuelle !== props.dataMembre.provinceActuelle) {
+        return null;
+      }
+
+      if (current_state.villeActuelle && current_state.villeActuelle !== props.dataMembre.villeActuelle) {
+        return null;
+      }
+
+      if (current_state.CommuneActuelle && current_state.CommuneActuelle !== props.dataMembre.CommuneActuelle) {
+        return null;
+      }
+
+      if (current_state.QuartierActuelle && current_state.QuartierActuelle !== props.dataMembre.QuartierActuelle) {
+        return null;
+      }
+
+      if (current_state.parainAccount && current_state.parainAccount !== props.dataMembre.parainAccount) {
+        return null;
+      }
+
+      if (current_state.parainName && current_state.parainName !== props.dataMembre.parainName) {
+        return null;
+      }
+
+      if (current_state.typeGestion && current_state.typeGestion !== props.dataMembre.typeGestion) {
+        return null;
+      }
+
+      if (current_state.critere1 && current_state.critere1 !== props.dataMembre.critere1) {
+        return null;
+      }
+
+      if (current_state.otherMention && current_state.otherMention !== props.dataMembre.otherMention) {
+        return null;
+      } //updating data from props below
+
+
+      if (current_state.intituleCompte !== props.dataMembre.intituleCompte || current_state.intituleCompte === props.dataMembre.intituleCompte) {
+        membreUpdate.intituleCompte = props.dataMembre.intituleCompte;
+      }
+
+      if (current_state.lieuNaiss !== props.dataMembre.lieuNaiss || current_state.lieuNaiss === props.dataMembre.lieuNaiss) {
+        membreUpdate.lieuNaiss = props.dataMembre.lieuNaiss;
+      }
+
+      if (current_state.dateNaiss !== props.dataMembre.dateNaiss || current_state.dateNaiss === props.dataMembre.dateNaiss) {
+        membreUpdate.dateNaiss = props.dataMembre.dateNaiss;
+      }
+
+      if (current_state.etatCivile !== props.dataMembre.etatCivile || current_state.etatCivile === props.dataMembre.etatCivile) {
+        membreUpdate.etatCivile = props.dataMembre.etatCivile;
+      }
+
+      if (current_state.conjoitName !== props.dataMembre.conjoitName || current_state.conjoitName === props.dataMembre.conjoitName) {
+        membreUpdate.conjoitName = props.dataMembre.conjoitName;
+      }
+
+      if (current_state.fatherName !== props.dataMembre.fatherName || current_state.fatherName === props.dataMembre.fatherName) {
+        membreUpdate.fatherName = props.dataMembre.fatherName;
+      }
+
+      if (current_state.motherName !== props.dataMembre.motherName || current_state.motherName === props.dataMembre.motherName) {
+        membreUpdate.motherName = props.dataMembre.motherName;
+      }
+
+      if (current_state.profession !== props.dataMembre.profession || current_state.profession === props.dataMembre.profession) {
+        membreUpdate.profession = props.dataMembre.profession;
+      }
+
+      if (current_state.workingPlace !== props.dataMembre.workingPlace || current_state.workingPlace === props.dataMembre.workingPlace) {
+        membreUpdate.workingPlace = props.dataMembre.workingPlace;
+      }
+
+      if (current_state.cilivilty !== props.dataMembre.cilivilty || current_state.cilivilty === props.dataMembre.cilivilty) {
+        membreUpdate.cilivilty = props.dataMembre.cilivilty;
+      }
+
+      if (current_state.sexe !== props.dataMembre.sexe || current_state.sexe === props.dataMembre.sexe) {
+        membreUpdate.sexe = props.dataMembre.sexe;
+      }
+
+      if (current_state.phone1 !== props.dataMembre.phone1 || current_state.phone1 === props.dataMembre.phone1) {
+        membreUpdate.phone1 = props.dataMembre.phone1;
+      }
+
+      if (current_state.phone2 !== props.dataMembre.phone2 || current_state.phone2 === props.dataMembre.phone2) {
+        membreUpdate.phone2 = props.dataMembre.phone2;
+      }
+
+      if (current_state.email !== props.dataMembre.email || current_state.email === props.dataMembre.email) {
+        membreUpdate.email = props.dataMembre.email;
+      }
+
+      if (current_state.typepiece !== props.dataMembre.typepiece || current_state.typepiece === props.dataMembre.typepiece) {
+        membreUpdate.typepiece = props.dataMembre.typepiece;
+      }
+
+      if (current_state.numpiece !== props.dataMembre.numpiece || current_state.numpiece === props.dataMembre.numpiece) {
+        membreUpdate.numpiece = props.dataMembre.numpiece;
+      }
+
+      if (current_state.delivrancePlace !== props.dataMembre.delivrancePlace || current_state.delivrancePlace === props.dataMembre.delivrancePlace) {
+        membreUpdate.delivrancePlace = props.dataMembre.delivrancePlace;
+      }
+
+      if (current_state.delivranceDate !== props.dataMembre.delivranceDate || current_state.delivranceDate === props.dataMembre.delivranceDate) {
+        membreUpdate.delivranceDate = props.dataMembre.delivranceDate;
+      }
+
+      if (current_state.gestionnaire !== props.dataMembre.gestionnaire || current_state.gestionnaire === props.dataMembre.gestionnaire) {
+        membreUpdate.gestionnaire = props.dataMembre.gestionnaire;
+      }
+
+      if (current_state.provinceOrigine !== props.dataMembre.provinceOrigine || current_state.provinceOrigine === props.dataMembre.provinceOrigine) {
+        membreUpdate.provinceOrigine = props.dataMembre.provinceOrigine;
+      }
+
+      if (current_state.territoireOrigine !== props.dataMembre.territoireOrigine || current_state.territoireOrigine === props.dataMembre.territoireOrigine) {
+        membreUpdate.territoireOrigine = props.dataMembre.territoireOrigine;
+      }
+
+      if (current_state.collectiviteOrigine !== props.dataMembre.collectiviteOrigine || current_state.collectiviteOrigine === props.dataMembre.collectiviteOrigine) {
+        membreUpdate.collectiviteOrigine = props.dataMembre.collectiviteOrigine;
+      }
+
+      if (current_state.provinceActuelle !== props.dataMembre.provinceActuelle || current_state.provinceActuelle === props.dataMembre.provinceActuelle) {
+        membreUpdate.provinceActuelle = props.dataMembre.provinceActuelle;
+      }
+
+      if (current_state.villeActuelle !== props.dataMembre.villeActuelle || current_state.villeActuelle === props.dataMembre.villeActuelle) {
+        membreUpdate.villeActuelle = props.dataMembre.villeActuelle;
+      }
+
+      if (current_state.CommuneActuelle !== props.dataMembre.CommuneActuelle || current_state.CommuneActuelle === props.dataMembre.CommuneActuelle) {
+        membreUpdate.CommuneActuelle = props.dataMembre.CommuneActuelle;
+      }
+
+      if (current_state.QuartierActuelle !== props.dataMembre.QuartierActuelle || current_state.QuartierActuelle === props.dataMembre.QuartierActuelle) {
+        membreUpdate.QuartierActuelle = props.dataMembre.QuartierActuelle;
+      }
+
+      if (current_state.parainAccount !== props.dataMembre.parainAccount || current_state.parainAccount === props.dataMembre.parainAccount) {
+        membreUpdate.parainAccount = props.dataMembre.parainAccount;
+      }
+
+      if (current_state.parainName !== props.dataMembre.parainName || current_state.parainName === props.dataMembre.parainName) {
+        membreUpdate.parainName = props.dataMembre.parainName;
+      }
+
+      if (current_state.typeGestion !== props.dataMembre.typeGestion || current_state.typeGestion === props.dataMembre.typeGestion) {
+        membreUpdate.typeGestion = props.dataMembre.typeGestion;
+      }
+
+      if (current_state.critere1 !== props.dataMembre.critere1 || current_state.critere1 === props.dataMembre.critere1) {
+        membreUpdate.critere1 = props.dataMembre.critere1;
+      }
+
+      if (current_state.otherMention !== props.dataMembre.otherMention || current_state.otherMention === props.dataMembre.otherMention) {
+        membreUpdate.otherMention = props.dataMembre.otherMention;
+      }
+
+      return membreUpdate;
+    } //updating membre
+
   }]);
 
   return UpdateMembre;
