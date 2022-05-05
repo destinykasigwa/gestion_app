@@ -2177,8 +2177,7 @@ module.exports = {
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react_dom__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react-dom */ "./node_modules/react-dom/index.js");
 /* harmony import */ var _components_Adhesion__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/Adhesion */ "./resources/js/components/Adhesion.js");
-/* harmony import */ var _components_EditMembre__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/EditMembre */ "./resources/js/components/EditMembre.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -2192,15 +2191,15 @@ __webpack_require__.r(__webpack_exports__);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-
+ //  import EditMembre from './components/EditMembre';
 
 
 
 if (document.getElementById('adhesionContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById('adhesionContainer'));
-} else if (document.getElementById('updateMembreContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)(_components_EditMembre__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('updateMembreContainer'));
-}
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_2__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById('adhesionContainer'));
+} //  else if(document.getElementById('updateMembreContainer')){
+//     ReactDOM.render(<EditMembre />, document.getElementById('updateMembreContainer'));
+//  }
 
 /***/ }),
 
@@ -2490,8 +2489,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
     _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleNew = _this.handleNew.bind(_assertThisInitialized(_this));
-    _this.handleGetRow = _this.handleGetRow.bind(_assertThisInitialized(_this));
-    _this.handUpdate = _this.handUpdate.bind(_assertThisInitialized(_this)); // this.handleUpdate=this.handleUpdate.bind(this);
+    _this.handleGetRow = _this.handleGetRow.bind(_assertThisInitialized(_this)); // this.handUpdate=this.handUpdate.bind(this);
+    // this.handleUpdate=this.handleUpdate.bind(this);
 
     return _this;
   }
@@ -2920,7 +2919,6 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                             "data-target": "#modal-update-membre",
                             id: "modifierbtn",
                             className: "btn btn-primary",
-                            onClick: this.handUpdate,
                             children: ["Modifier ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                               className: "fas fa-edit"
                             })]
@@ -3564,8 +3562,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                                         })
                                       })]
                                     })
-                                  }), this.fetchData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Modals_UpdateMembre__WEBPACK_IMPORTED_MODULE_6__["default"], {
-                                    dataToUpdate: this.fetchData
+                                  }), this.state.fetchData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_Modals_UpdateMembre__WEBPACK_IMPORTED_MODULE_6__["default"], {
+                                    dataMembre: this.state.fetchData
                                   })]
                                 })]
                               })
@@ -4409,2890 +4407,6 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Adhesion);
-
-/***/ }),
-
-/***/ "./resources/js/components/EditMembre.js":
-/*!***********************************************!*\
-  !*** ./resources/js/components/EditMembre.js ***!
-  \***********************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
-/* harmony export */ });
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
-/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
-function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
-
-
-
-function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
-
-function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-
- // import ReactDOM from "react-dom";
-
-
-
- // import EditMembre from './EditMembre';
-
-
-
-
-var UpdateMembre = /*#__PURE__*/function (_React$Component) {
-  _inherits(UpdateMembre, _React$Component);
-
-  var _super = _createSuper(UpdateMembre);
-
-  function UpdateMembre(props) {
-    var _this$state;
-
-    var _this;
-
-    _classCallCheck(this, UpdateMembre);
-
-    _this = _super.call(this, props);
-
-    _defineProperty(_assertThisInitialized(_this), "handUpdate", /*#__PURE__*/function () {
-      var _ref = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee(event) {
-        var data, res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
-          while (1) {
-            switch (_context.prev = _context.next) {
-              case 0:
-                event.preventDefault();
-                data = [_this.state];
-                _context.next = 4;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/updatemembre/", data);
-
-              case 4:
-                res = _context.sent;
-
-                if (res.data.success == 1) {
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-                    title: "Success",
-                    text: res.data.msg,
-                    icon: "success",
-                    button: "OK!"
-                  });
-
-                  _this.setState({
-                    disabled: !_this.state.disabled
-                  }); //    console.log(this.state);
-
-                } else {
-                  _this.setState({
-                    error_list: res.data.validate_error
-                  });
-                }
-
-                console.log(_this.state);
-
-              case 7:
-              case "end":
-                return _context.stop();
-            }
-          }
-        }, _callee);
-      }));
-
-      return function (_x) {
-        return _ref.apply(this, arguments);
-      };
-    }());
-
-    _defineProperty(_assertThisInitialized(_this), "handleNew", /*#__PURE__*/function () {
-      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
-        var _this$setState;
-
-        var getData;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
-          while (1) {
-            switch (_context2.prev = _context2.next) {
-              case 0:
-                e.preventDefault();
-                _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/createnew");
-
-              case 3:
-                getData = _context2.sent;
-
-                _this.setState({
-                  numCompte: "330000" + getData.data.lastId + "201"
-                }); // let {id} = this.props.match.params
-                // console.log(id);
-                // console.log(this.state.fetchLastId);
-                //clean data in all in put
-
-
-                _this.setState((_this$setState = {
-                  compteToSearch: "",
-                  intituleCompte: "",
-                  produitEpargne: "",
-                  typeClient: "",
-                  lieuNaiss: "",
-                  dateNaiss: "",
-                  etatCivile: "",
-                  conjoitName: "",
-                  fatherName: "",
-                  motherName: "",
-                  profession: "",
-                  workingPlace: "",
-                  cilivilty: "",
-                  sexe: "",
-                  phone1: "243",
-                  phone2: "243",
-                  email: "",
-                  typepiece: "",
-                  numpiece: "",
-                  delivrancePlace: "",
-                  delivranceDate: "",
-                  gestionnaire: "",
-                  provinceOrigine: "",
-                  territoireOrigine: "",
-                  collectiviteOrigine: ""
-                }, _defineProperty(_this$setState, "territoireOrigine", ""), _defineProperty(_this$setState, "provinceActuelle", ""), _defineProperty(_this$setState, "villeActuelle", ""), _defineProperty(_this$setState, "CommuneActuelle", ""), _defineProperty(_this$setState, "QuartierActuelle", ""), _defineProperty(_this$setState, "parainAccount", ""), _defineProperty(_this$setState, "parainName", ""), _defineProperty(_this$setState, "typeGestion", ""), _defineProperty(_this$setState, "critere1", ""), _defineProperty(_this$setState, "mendataireName", ""), _defineProperty(_this$setState, "otherMention", ""), _defineProperty(_this$setState, "lieuNaissM", ""), _defineProperty(_this$setState, "dateNaissM", ""), _defineProperty(_this$setState, "etatCivileM", ""), _defineProperty(_this$setState, "sexeM", ""), _defineProperty(_this$setState, "typePieceM", ""), _defineProperty(_this$setState, "professionM", ""), _defineProperty(_this$setState, "telephoneM", ""), _defineProperty(_this$setState, "adresseM", ""), _defineProperty(_this$setState, "observationM", ""), _defineProperty(_this$setState, "photoM", ""), _defineProperty(_this$setState, "personneLieName", ""), _defineProperty(_this$setState, "lieuNaissLie", ""), _defineProperty(_this$setState, "dateNaissLie", ""), _defineProperty(_this$setState, "degreParante", ""), _defineProperty(_this$setState, "activationCompte", "false"), _this$setState));
-
-                _this.setState({
-                  disabled: !_this.state.disabled
-                });
-
-                setTimeout(function () {
-                  _this.textInput.current.focus();
-                }, 10);
-                document.getElementById("validerbtn").removeAttribute('disabled');
-
-              case 9:
-              case "end":
-                return _context2.stop();
-            }
-          }
-        }, _callee2);
-      }));
-
-      return function (_x2) {
-        return _ref2.apply(this, arguments);
-      };
-    }());
-
-    _defineProperty(_assertThisInitialized(_this), "handleSubmit", /*#__PURE__*/function () {
-      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(event) {
-        var res;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
-          while (1) {
-            switch (_context3.prev = _context3.next) {
-              case 0:
-                event.preventDefault();
-                _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/createnew", _this.state);
-
-              case 3:
-                res = _context3.sent;
-
-                if (res.data.success == 1) {
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-                    title: "Success",
-                    text: res.data.msg + " Numero de compte :" + _this.state.numCompte,
-                    icon: "success",
-                    button: "OK!"
-                  });
-
-                  _this.setState({
-                    disabled: !_this.state.disabled
-                  });
-                } else {
-                  _this.setState({
-                    error_list: res.data.validate_error
-                  });
-                }
-
-                console.log(es.data.success);
-
-              case 6:
-              case "end":
-                return _context3.stop();
-            }
-          }
-        }, _callee3);
-      }));
-
-      return function (_x3) {
-        return _ref3.apply(this, arguments);
-      };
-    }());
-
-    _defineProperty(_assertThisInitialized(_this), "handleGetRow", /*#__PURE__*/function () {
-      var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(e) {
-        var getDataToUpDate;
-        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
-          while (1) {
-            switch (_context4.prev = _context4.next) {
-              case 0:
-                e.preventDefault();
-                _context4.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().get("api/" + _this.state.compteToSearch);
-
-              case 3:
-                getDataToUpDate = _context4.sent;
-
-                if (getDataToUpDate.data.success == 1) {
-                  _this.setState({
-                    fetchData: getDataToUpDate.data.data
-                  });
-
-                  _this.setState({
-                    disabled: !_this.state.disabled
-                  }); //disabled valider button
-
-
-                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
-                  document.getElementById("modifierbtn").removeAttribute("disabled");
-                  document.getElementById("ajouterbtn").setAttribute("disabled", "disabled");
-                } else {
-                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-                    title: "Erreur",
-                    text: getDataToUpDate.data.msg,
-                    icon: "error",
-                    button: "OK!"
-                  });
-                }
-
-              case 5:
-              case "end":
-                return _context4.stop();
-            }
-          }
-        }, _callee4);
-      }));
-
-      return function (_x4) {
-        return _ref4.apply(this, arguments);
-      };
-    }());
-
-    _this.state = (_this$state = {
-      isloading: true,
-      disabled: true,
-      compteToSearch: "",
-      codeAgence: "20",
-      codeMonaie: "USD",
-      intituleCompte: "",
-      produitEpargne: "",
-      typeClient: "",
-      // refCompte:"655",
-      guichetAdresse: "GOMA",
-      numCompte: "",
-      dateOuverture: new Date(),
-      lieuNaiss: "",
-      dateNaiss: "",
-      etatCivile: "",
-      conjoitName: "",
-      fatherName: "",
-      motherName: "",
-      profession: "",
-      workingPlace: "",
-      cilivilty: "",
-      sexe: "",
-      phone1: "243",
-      phone2: "243",
-      email: "",
-      typepiece: "",
-      numpiece: "",
-      delivrancePlace: "",
-      delivranceDate: "",
-      gestionnaire: "",
-      provinceOrigine: "",
-      territoireOrigine: "",
-      collectiviteOrigine: ""
-    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "mendataireName", ""), _defineProperty(_this$state, "otherMention", ""), _defineProperty(_this$state, "lieuNaissM", ""), _defineProperty(_this$state, "dateNaissM", ""), _defineProperty(_this$state, "etatCivileM", ""), _defineProperty(_this$state, "sexeM", ""), _defineProperty(_this$state, "typePieceM", ""), _defineProperty(_this$state, "professionM", ""), _defineProperty(_this$state, "telephoneM", ""), _defineProperty(_this$state, "adresseM", ""), _defineProperty(_this$state, "observationM", ""), _defineProperty(_this$state, "photoM", ""), _defineProperty(_this$state, "personneLieName", ""), _defineProperty(_this$state, "lieuNaissLie", ""), _defineProperty(_this$state, "dateNaissLie", ""), _defineProperty(_this$state, "degreParante", ""), _defineProperty(_this$state, "activationCompte", "false"), _defineProperty(_this$state, "fetchData", null), _defineProperty(_this$state, "fetchLastId", []), _defineProperty(_this$state, "error_list", []), _this$state);
-    _this.textInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createRef();
-    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
-    _this.handleSubmit = _this.handleSubmit.bind(_assertThisInitialized(_this));
-    _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
-    _this.handleNew = _this.handleNew.bind(_assertThisInitialized(_this));
-    _this.handleGetRow = _this.handleGetRow.bind(_assertThisInitialized(_this));
-    _this.handUpdate = _this.handUpdate.bind(_assertThisInitialized(_this)); // this.handleUpdate=this.handleUpdate.bind(this);
-
-    return _this;
-  }
-
-  _createClass(UpdateMembre, [{
-    key: "componentDidMount",
-    value: function componentDidMount() {
-      var _this2 = this;
-
-      setTimeout(function () {
-        _this2.setState({
-          isloading: false
-        });
-
-        document.getElementById("modifierbtn").setAttribute("disabled", "disabled");
-        document.getElementById("validerbtn").setAttribute("disabled", "disabled");
-      }, 1000);
-      var current_datetime = new Date();
-      var formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
-      this.setState({
-        dateOuverture: formatted_date
-      }); // axios
-      // .get(`/updatemembre/${params.id}`)
-      // .then(response => {
-      //   this.setState({ fetchLastId: response.data });
-      // })
-      // .catch(function(error) {
-      //   console.log(error);
-      // });
-    }
-  }, {
-    key: "focusTextInput",
-    value: //put focus on given input
-    function focusTextInput() {
-      this.textInput.current.focus();
-    } //add new account number
-
-  }, {
-    key: "handleChange",
-    value: //get data in input
-    function handleChange(event) {
-      this.setState(_defineProperty({}, event.target.name, event.target.value));
-    } //save new record
-
-  }, {
-    key: "actualiser",
-    value: //to refresh
-    function actualiser() {
-      location.reload();
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var myspinner = _defineProperty({
-        margin: "5px auto",
-        width: "3rem",
-        height: "3rem",
-        marginTop: "180px",
-        border: "0px"
-      }, "height", "200px");
-
-      var labelColor = {
-        fontWeight: "bold",
-        color: "steelblue",
-        padding: "3px",
-        fontSize: "14px"
-      };
-      var inputColor = {
-        height: "25px",
-        border: "1px solid steelblue",
-        padding: "3px",
-        borderRadius: "0px"
-      };
-      var inputColor2 = {
-        height: "25px",
-        border: "1px solid white",
-        padding: "3px",
-        width: "60px"
-      };
-      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-        children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "row",
-          id: "rowspinner",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-            className: "myspinner",
-            style: myspinner,
-            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              className: "spinner-border",
-              role: "status"
-            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
-              style: {
-                marginLeft: "-20px"
-              },
-              children: "Chargement..."
-            })]
-          })
-        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-          className: "row",
-          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-            className: "col-lg-12 card",
-            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-              className: "card card-default",
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                className: "card-header",
-                style: {
-                  background: "#DCDCDC",
-                  textAlign: "center",
-                  color: "#fff",
-                  marginTop: "5px"
-                },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                  style: {
-                    height: "30px",
-                    "float": "right",
-                    background: "green",
-                    border: "0px",
-                    padding: "3px",
-                    marginLeft: "5px"
-                  },
-                  onClick: this.actualiser,
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                    "class": "fas fa-sync"
-                  }), " Actualiser", " "]
-                })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                className: "card-body",
-                style: {
-                  background: "#dcdcdc"
-                },
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                  className: "row",
-                  style: {
-                    padding: "10px",
-                    border: "2px solid #fff"
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "col-md-2",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
-                      style: {
-                        padding: "10px",
-                        border: "2px solid #fff"
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                        className: "input-group input-group-sm ",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                          type: "text",
-                          style: {
-                            borderRadius: "0px"
-                          },
-                          className: "form-control",
-                          placeholder: "Num\xE9ro compte...",
-                          name: "compteToSearch",
-                          value: this.state.compteToSearch,
-                          onChange: this.handleChange
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                            type: "button",
-                            style: {
-                              borderRadius: "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize: "12px"
-                            },
-                            "class": "btn btn-primary",
-                            onClick: this.handleGetRow,
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-search"
-                            })]
-                          })
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                        className: "input-group input-group-sm ",
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                          value: this.state.fetchData && this.state.fetchData.numCompte,
-                          type: "text",
-                          readOnly: true,
-                          style: {
-                            height: "40px",
-                            background: "#dcdcdc",
-                            border: "4px solid #fff"
-                          },
-                          className: "form-control mt-1"
-                        })
-                      })]
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "col-md-3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Code Agence"
-                            })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "input-group input-group-sm ",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                type: "text",
-                                style: inputColor2,
-                                name: "codeAgence",
-                                value: this.state.codeAgence,
-                                onChange: this.handleChange,
-                                readOnly: true
-                              })
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Code monaie"
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-                              readOnly: true,
-                              style: inputColor2,
-                              name: "codeMonaie",
-                              value: this.state.codeMonaie,
-                              onChange: this.handleChange,
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "USD",
-                                children: "USD"
-                              })
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Epargne"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                              style: {
-                                borderRadius: "0px"
-                              },
-                              className: "form-control",
-                              name: "produitEpargne",
-                              value: this.state.produitEpargne,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : "",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "",
-                                children: "S\xE9lectionnez"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "Epargne \xE0 vie",
-                                children: "Epargne \xE0 vie"
-                              })]
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Type client"
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                              style: {
-                                borderRadius: "0px"
-                              },
-                              className: "form-control",
-                              name: "typeClient",
-                              value: this.state.typeClient,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : "",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "",
-                                children: "S\xE9lectionnez"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: " Personne phyisique",
-                                children: "Personne phyisique"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: " Personne morale",
-                                children: "Personne morale"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "groupe solidaire",
-                                children: "Groupe solidaire"
-                              })]
-                            })
-                          })]
-                        })]
-                      })
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "col-md-3",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Intitul\xE9 c."
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                              type: "text",
-                              style: {
-                                borderRadius: "0px"
-                              },
-                              className: "form-control ".concat(this.state.error_list.intituleCompte && "is-invalid"),
-                              name: "intituleCompte",
-                              value: this.state.intituleCompte ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : "",
-                              ref: this.textInput
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Guichet"
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-                              readOnly: true,
-                              style: inputColor2,
-                              name: "guichetAdresse",
-                              value: this.state.guichetAdresse,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : "",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "GOMA",
-                                children: "GOMA"
-                              })
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "N\xB0 Compte"
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                              type: "text",
-                              style: {
-                                borderRadius: "0px"
-                              },
-                              className: "form-control ".concat(this.state.error_list.numCompte && "is-invalid"),
-                              name: "numCompte",
-                              value: this.state.numCompte ? this.state.numCompte : this.state.fetchData && this.state.fetchData.numCompte,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : ""
-                            })
-                          })]
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                              style: labelColor,
-                              children: "Date"
-                            }), " "]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                              type: "text",
-                              style: {
-                                borderRadius: "0px"
-                              },
-                              className: "form-control",
-                              name: "dateOuverture",
-                              value: this.state.dateOuverture ? this.state.dateOuverture : this.state.fetchData && this.state.fetchData.dateOuverture,
-                              onChange: this.handleChange,
-                              disabled: this.state.disabled ? "disabled" : ""
-                            })
-                          })]
-                        })]
-                      })
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "col-md-2",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                      style: {
-                        marginLeft: "5px",
-                        border: "3px solid #fff"
-                      },
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                            type: "button",
-                            style: {
-                              borderRadius: "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize: "12px"
-                            },
-                            id: "ajouterbtn",
-                            "class": "btn btn-primary",
-                            onClick: this.handleNew,
-                            children: ["Ajouter ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-database"
-                            })]
-                          })
-                        })
-                      }), this.state.fetchData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            style: {
-                              borderRadius: "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize: "12px"
-                            },
-                            id: "modifierbtn",
-                            "class": "btn btn-primary",
-                            href: "edit-membre/".concat(this.state.compteToSearch),
-                            children: ["Modifier ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-edit"
-                            })]
-                          })
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                            type: "button",
-                            style: {
-                              borderRadius: "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize: "12px"
-                            },
-                            id: "validerbtn",
-                            "class": "btn btn-primary",
-                            onClick: this.handleSubmit,
-                            children: ["Valider ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-check"
-                            })]
-                          })
-                        })
-                      })]
-                    })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "col-md-2",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
-                      style: {
-                        border: "3px solid #fff",
-                        padding: "5px"
-                      },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                            src: "dist/img/user2-160x160.jpg",
-                            alt: "...",
-                            "class": "img-thumbnail"
-                          })
-                        })]
-                      })
-                    })
-                  })]
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                  method: "POST",
-                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                    className: "row",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                      className: "col-md-12",
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("ul", {
-                        className: "nav nav-tabs",
-                        id: "myTab",
-                        role: "tablist",
-                        style: {
-                          fontWeight: "bold",
-                          background: "#dcdcdc",
-                          color: "#fff",
-                          padding: "5px"
-                        },
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link active",
-                            id: "identite-tab",
-                            "data-toggle": "tab",
-                            href: "#identite",
-                            role: "tab",
-                            "aria-controls": "identite",
-                            "aria-selected": "true",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-plus"
-                            }), " ", "Identit\xE9"]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link",
-                            id: "adresse-tab",
-                            "data-toggle": "tab",
-                            href: "#adresse",
-                            role: "tab",
-                            "aria-controls": "adresse",
-                            "aria-selected": "false",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-plus"
-                            }), " ", "Adresse"]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link",
-                            id: "otherinfo-tab",
-                            "data-toggle": "tab",
-                            href: "#otherinfo",
-                            role: "tab",
-                            "aria-controls": "otherinfo",
-                            "aria-selected": "false",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fas fa-plus"
-                            }), " ", "Autres informations"]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link",
-                            id: "mendataire-tab",
-                            "data-toggle": "tab",
-                            href: "#mendataire",
-                            role: "tab",
-                            "aria-controls": "mendataire",
-                            "aria-selected": "false",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              "class": "fa fa-plus",
-                              "aria-hidden": "true"
-                            }), " ", "Mendataire"]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link",
-                            id: "personnelie-tab",
-                            "data-toggle": "tab",
-                            href: "#personnelie",
-                            role: "tab",
-                            "aria-controls": "personnelie",
-                            "aria-selected": "false",
-                            children: ["Personnes li\xE9s", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              className: "fa fa-plus"
-                            })]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
-                          className: "nav-item",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("a", {
-                            className: "nav-link",
-                            id: "compteparne-tab",
-                            "data-toggle": "tab",
-                            href: "#comptepargne",
-                            role: "tab",
-                            "aria-controls": "comptepargne",
-                            "aria-selected": "false",
-                            children: ["Compte epargne", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                              className: "fa fa-plus"
-                            })]
-                          })
-                        })]
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                        className: "tab-content",
-                        id: "myTabContent",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane fade show active mt-2 col-md-12 ",
-                          id: "identite",
-                          role: "tabpanel",
-                          "aria-labelledby": "identite-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "row",
-                            style: {
-                              padding: "10px",
-                              border: "2px solid #fff"
-                            },
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "col-lg-12",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "card card-default",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-header",
-                                  style: {
-                                    background: "#DCDCDC",
-                                    textAlign: "center",
-                                    color: "#fff"
-                                  }
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-body h-200",
-                                  style: {
-                                    background: "#dcdcdc"
-                                  },
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                    method: "POST",
-                                    style: {
-                                      padding: "10px",
-                                      border: "2px solid #fff"
-                                    },
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                      className: "row",
-                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-4",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "lieuNaiss",
-                                                style: labelColor,
-                                                children: "N\xE9 \xE0"
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "lieuNaiss",
-                                                style: inputColor,
-                                                name: "lieuNaiss",
-                                                value: this.state.lieuNaiss ? this.state.lieuNaiss : this.state.fetchData && this.state.fetchData.lieuNaiss,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "dateNaissance",
-                                                style: labelColor,
-                                                children: "Date Naissance"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "dateNaissance",
-                                                style: inputColor,
-                                                name: "dateNaiss",
-                                                value: this.state.dateNaiss ? this.state.dateNaiss : this.state.fetchData && this.state.fetchData.dateNaiss,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "etatCivile",
-                                                style: labelColor,
-                                                children: "Etat civile"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                className: "form-control ".concat(this.state.error_list.etatCivile && "is-invalid"),
-                                                id: "etatCivile",
-                                                style: inputColor,
-                                                name: "etatCivile",
-                                                value: this.state.etatCivile ? this.state.etatCivile : this.state.fetchData && this.state.fetchData.dateNaiss,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : "",
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "",
-                                                  children: "S\xE9lectionnez"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mari\xE9(e)",
-                                                  children: "Mari\xE9(e)"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "C\xE9libataire",
-                                                  children: "C\xE9libataire"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "veuf(ve)",
-                                                  children: "veuf(ve)"
-                                                })]
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "condjoint",
-                                                style: labelColor,
-                                                children: "Mari\xE9(e) \xE0"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "condjoint",
-                                                style: inputColor,
-                                                name: "conjoitName",
-                                                value: this.state.conjoitName ? this.state.conjoitName : this.state.fetchData && this.state.fetchData.conjoitName,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "nomPere",
-                                                style: labelColor,
-                                                children: "Nom du p\xE8re"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "nomPere",
-                                                style: inputColor,
-                                                name: "fatherName",
-                                                value: this.state.fatherName ? this.state.fatherName : this.state.fetchData && this.state.fetchData.fatherName,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "nomMere",
-                                                style: labelColor,
-                                                children: "Nom de la m\xE8re"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "nomMere",
-                                                style: inputColor,
-                                                name: "motherName",
-                                                value: this.state.motherName ? this.state.motherName : this.state.fetchData && this.state.fetchData.motherName,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "profession",
-                                                style: labelColor,
-                                                children: "Profession"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "profession",
-                                                style: inputColor,
-                                                name: "profession",
-                                                value: this.state.profession ? this.state.profession : this.state.fetchData && this.state.fetchData.profession,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "lieuTravail",
-                                                style: labelColor,
-                                                children: "Lieu de travail"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "lieuTravail",
-                                                style: inputColor,
-                                                name: "workingPlace",
-                                                value: this.state.workingPlace ? this.state.workingPlace : this.state.fetchData && this.state.fetchData.workingPlace,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          })]
-                                        })
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-4",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "civilite",
-                                                style: labelColor,
-                                                children: "Civilit\xE9"
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                id: "civilite",
-                                                style: inputColor,
-                                                name: "cilivilty",
-                                                value: this.state.cilivilty ? this.state.cilivilty : this.state.fetchData && this.state.fetchData.cilivilty,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : "",
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "",
-                                                  children: "S\xE9lectionnez"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Monsieur",
-                                                  children: "Monsieur"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Madame",
-                                                  children: "Madame"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ma demoiselle",
-                                                  children: "Ma demoiselle"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Groupe solidaire",
-                                                  children: "Groupe solidaire"
-                                                })]
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "sexe",
-                                                style: labelColor,
-                                                children: "Sexe"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                id: "sexe",
-                                                style: inputColor,
-                                                name: "sexe",
-                                                value: this.state.sexe ? this.state.sexe : this.state.fetchData && this.state.fetchData.sexe,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : "",
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "",
-                                                  children: "S\xE9lectionnez"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "M",
-                                                  children: "M"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "F",
-                                                  children: "F"
-                                                })]
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "tel1",
-                                                style: labelColor,
-                                                children: "T\xE9l\xE9phone 1"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                className: "form-control ".concat(this.state.error_list.phone1 && "is-invalid"),
-                                                id: "tel1",
-                                                style: inputColor,
-                                                name: "phone1",
-                                                value: this.state.phone1 ? this.state.phone1 : this.state.fetchData && this.state.fetchData.phone1,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "tel2",
-                                                style: labelColor,
-                                                children: "T\xE9l\xE9phone 2"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                className: "form-control ".concat(this.state.error_list.phone1 && "is-invalid"),
-                                                id: "tel2",
-                                                style: inputColor,
-                                                name: "phone2",
-                                                value: this.state.phone2 ? this.state.phone2 : this.state.fetchData && this.state.fetchData.phone2,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "email",
-                                                style: labelColor,
-                                                children: "Email"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "email",
-                                                style: inputColor,
-                                                name: "email",
-                                                value: this.state.email ? this.state.email : this.state.fetchData && this.state.fetchData.email,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "typepiece",
-                                                style: labelColor,
-                                                children: "Type pi\xE8ce"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                id: "typepiece",
-                                                style: inputColor,
-                                                name: "typepiece",
-                                                value: this.state.typepiece ? this.state.typepiece : this.state.fetchData && this.state.fetchData.typepiece,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : "",
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "",
-                                                  children: "S\xE9lectionnez"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Carte d'\xE9lecteur",
-                                                  children: "Carte d'\xE9lecteur"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Carte d'\xE9leve/Etudiant",
-                                                  children: "Carte d'\xE9leve/Etudiant"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "pass port",
-                                                  children: "Pass port"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Permis de conduire",
-                                                  children: "Permis de conduire"
-                                                })]
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "numpiece",
-                                                style: labelColor,
-                                                children: "Num pi\xE8ce"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "numpiece",
-                                                style: inputColor,
-                                                name: "numpiece",
-                                                value: this.state.numpiece ? this.state.numpiece : this.state.fetchData && this.state.fetchData.numpiece,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "delivranceplace",
-                                                style: labelColor,
-                                                children: "D\xE9livr\xE9 \xE0"
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "delivranceplace",
-                                                style: inputColor,
-                                                name: "delivrancePlace",
-                                                value: this.state.delivrancePlace ? this.state.delivrancePlace : this.state.fetchData && this.state.fetchData.delivrancePlace,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          })]
-                                        })
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-4",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "delivrancePiece",
-                                                style: labelColor,
-                                                children: "Date de d\xE9livrance"
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "delivrancePiece",
-                                                style: inputColor,
-                                                name: "delivranceDate",
-                                                value: this.state.delivranceDate ? this.state.delivranceDate : this.state.fetchData && this.state.fetchData.delivranceDate,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "gestionnaire",
-                                                style: labelColor,
-                                                children: "Gestionnaire"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                id: "gestionnaire",
-                                                style: inputColor,
-                                                name: "gestionnaire",
-                                                value: this.state.gestionnaire ? this.state.gestionnaire : this.state.fetchData && this.state.fetchData.gestionnaire,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : "",
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "S\xE9lectionnez",
-                                                  children: "S\xE9lectionnez"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "DESTIN KASIGWA",
-                                                  children: "DESTIN KASIGWA"
-                                                })]
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "provinceOrigine",
-                                                style: labelColor,
-                                                children: "Province d'origine"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "provinceOrigine",
-                                                style: inputColor,
-                                                name: "provinceOrigine",
-                                                value: this.state.provinceOrigine ? this.state.provinceOrigine : this.state.fetchData && this.state.fetchData.provinceOrigine,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "territoireOrigine",
-                                                style: labelColor,
-                                                children: "T\xE9rritoire d'origine"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "territoireOrigine",
-                                                style: inputColor,
-                                                name: "territoireOrigine",
-                                                value: this.state.territoireOrigine ? this.state.territoireOrigine : this.state.fetchData && this.state.fetchData.territoireOrigine,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "collectivite",
-                                                style: labelColor,
-                                                children: "Collectivit\xE9"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "collectivite",
-                                                style: inputColor,
-                                                name: "collectiviteOrigine",
-                                                value: this.state.collectiviteOrigine ? this.state.collectiviteOrigine : this.state.fetchData && this.state.fetchData.collectiviteOrigine,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "autremention",
-                                                style: labelColor,
-                                                children: "Autres mentions"
-                                              }), " "]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "autremention",
-                                                style: {
-                                                  height: "40px",
-                                                  border: "1px solid steelblue",
-                                                  padding: "3px"
-                                                },
-                                                name: "otherMention",
-                                                value: this.state.otherMention ? this.state.otherMention : this.state.fetchData && this.state.fetchData.otherMention,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })]
-                                            })]
-                                          })]
-                                        })
-                                      })]
-                                    })
-                                  })
-                                })]
-                              })
-                            })
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane fade mt-2 col-md-12",
-                          id: "adresse",
-                          role: "tabpanel",
-                          "aria-labelledby": "adresse-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "row",
-                            style: {
-                              padding: "10px",
-                              border: "2px solid #fff"
-                            },
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "col-lg-12",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "card card-default",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-header",
-                                  style: {
-                                    background: "#DCDCDC",
-                                    textAlign: "center",
-                                    color: "#fff"
-                                  }
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-body h-200",
-                                  style: {
-                                    background: "#dcdcdc"
-                                  },
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                    className: "col-md-12",
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                      method: "POST",
-                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "province",
-                                              style: labelColor,
-                                              children: "Province*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              className: "form-control ".concat(this.state.error_list.provinceActuelle && "is-invalid"),
-                                              id: "province",
-                                              style: inputColor,
-                                              name: "provinceActuelle",
-                                              value: this.state.provinceActuelle ? this.state.provinceActuelle : this.state.fetchData && this.state.fetchData.provinceActuelle,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Bas-Uele",
-                                                children: "Bas-Uele"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Equateur",
-                                                children: "Equateur"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Haut-katanga",
-                                                children: "Haut-katanga"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Haut-Lomani",
-                                                children: "Haut-Lomani"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Haut-Uele",
-                                                children: "Haut-Uele"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Ituri",
-                                                children: "Ituri"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kasai",
-                                                children: "Kasai"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kasai-Central",
-                                                children: "Kasai-Central"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kasai-Oiental",
-                                                children: "Kasai-Oriental"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kinshasa",
-                                                children: "Kinshasa"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Congo-Central",
-                                                children: "Congo-Cental"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kwango",
-                                                children: "Kwango"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Kwilu",
-                                                children: "Kwilu"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Lomami",
-                                                children: "Lomami"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Lualaba",
-                                                children: "Lualaba"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Mai-Ndombe",
-                                                children: "Mai-Ndombe"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Maniema",
-                                                children: "Maniema"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Mongala",
-                                                children: "Mongala"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Nord-Kivu",
-                                                children: "Nord-Kivu"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Nord-Ubangi",
-                                                children: "Nord-Ubangi"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Sankuru",
-                                                children: "Sankuru"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Sud-Kivu",
-                                                children: "Sud-Kivu"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Sud-Ubangi",
-                                                children: "Sud-Ubangi"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Tanganyika",
-                                                children: "Tanganyika"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Tshopo",
-                                                children: "Tshopo"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Tshapa",
-                                                children: "Tshapa"
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "terrouville",
-                                              style: labelColor,
-                                              children: "Territoire ou ville*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              className: "form-control ".concat(this.state.error_list.villeActuelle && "is-invalid"),
-                                              id: "terrouville",
-                                              style: inputColor,
-                                              name: "villeActuelle",
-                                              value: this.state.villeActuelle,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), this.state.provinceActuelle === "Bas-Uele" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Aketi",
-                                                  children: "Aketi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Aketi ville",
-                                                  children: "Aketi ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ango",
-                                                  children: "Ango"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bambesa",
-                                                  children: "Bambesa"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bando",
-                                                  children: "Bando"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bando ville",
-                                                  children: "Bando Ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Buta",
-                                                  children: "Buta"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Buta ville",
-                                                  children: "Buta ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Dingila ville",
-                                                  children: "Dingila ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Poko",
-                                                  children: "Poko"
-                                                })]
-                                              }), this.state.provinceActuelle === "Equateur" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Basankuru",
-                                                  children: "Basankuru"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bikoro",
-                                                  children: "Bikoro"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bolamba",
-                                                  children: "Bolamba"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bomongo",
-                                                  children: "Bomongo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Igende",
-                                                  children: "Igende"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Lokolela",
-                                                  children: "Lokolela"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Makanza",
-                                                  children: "Makanza"
-                                                })]
-                                              }), this.state.provinceActuelle === "Haut-Katanga" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kambove",
-                                                  children: "Kambove"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kisenga",
-                                                  children: "Kisenga"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kipushi",
-                                                  children: "Kipushi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kipushi ville",
-                                                  children: "Kipushi ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Likasi ville",
-                                                  children: "Likasi ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mitwaba",
-                                                  children: "Mitwaba"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Pweto",
-                                                  children: "Pweto"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Sakania",
-                                                  children: "Sakania"
-                                                })]
-                                              }), this.state.provinceActuelle === "Haut-Lomami" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bukama",
-                                                  children: "Bukama"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kabongo",
-                                                  children: "Kabongo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kamina",
-                                                  children: "Kamina"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kamina ville",
-                                                  children: "Kamina ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kaniama",
-                                                  children: "Kaniama"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Malemba nkulu",
-                                                  children: "Malemba nkulu"
-                                                })]
-                                              }), this.state.provinceActuelle === "Haut-Uele" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Aba ville",
-                                                  children: "Aba ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Dungu",
-                                                  children: "Dungu"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Dungu ville",
-                                                  children: "Dungu ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Faradje",
-                                                  children: "Faradje ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Isiro ville",
-                                                  children: "Isiro ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Rungu",
-                                                  children: "Rungu"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Wamba",
-                                                  children: "Wamba"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Wamba ville",
-                                                  children: "Wamba ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Watsa",
-                                                  children: "Watsa"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Watsa ville",
-                                                  children: "Watsa ville"
-                                                })]
-                                              }), this.state.provinceActuelle === "Ituri" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ari wara ville",
-                                                  children: "Ari wara ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Aru",
-                                                  children: "Aru ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bunia ville",
-                                                  children: "Bunia ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ingbokolo ville",
-                                                  children: "Ingbokolo ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Irumu",
-                                                  children: "Irumu"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mahagi",
-                                                  children: "Mahagi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mahagi ville",
-                                                  children: "Mahagi ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Wamba ville",
-                                                  children: "Wamba ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mambasa",
-                                                  children: "Mambasa"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mongwalu ville",
-                                                  children: "Mongwalu ville"
-                                                })]
-                                              }), this.state.provinceActuelle === "Nord-Kivu" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Beni",
-                                                  children: "Beni"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Beni ville",
-                                                  children: "Beni ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Butembo ville",
-                                                  children: "Butembo ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Goma ville",
-                                                  children: "Goma ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Lubero",
-                                                  children: "Lubero"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Masisi",
-                                                  children: "Masisi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Nyiragongo",
-                                                  children: "Nyiragongo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Rutshuru",
-                                                  children: "Rutshuru"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Walikale",
-                                                  children: "Walikale"
-                                                })]
-                                              }), this.state.provinceActuelle === "Sud-Kivu" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bukavu ville",
-                                                  children: "Bukavu ville"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Idjwi",
-                                                  children: "Idjwi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Fizi",
-                                                  children: "Fizi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kabare",
-                                                  children: "Kabare"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kalehe",
-                                                  children: "Kalehe"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mwenga",
-                                                  children: "Mwenga"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Shabunda",
-                                                  children: "Shabunda"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Uvira",
-                                                  children: "Uvira"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Walungu",
-                                                  children: "Walungu"
-                                                })]
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "secteur",
-                                              style: labelColor,
-                                              children: "Secteur chefferie ou commune*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              className: "form-control ".concat(this.state.error_list.CommuneActuelle && "is-invalid"),
-                                              id: "secteur",
-                                              style: inputColor,
-                                              name: "CommuneActuelle",
-                                              value: this.state.CommuneActuelle ? this.state.CommuneActuelle : this.state.fetchData && this.state.fetchData.CommuneActuelle,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), this.state.villeActuelle === "Bukavu ville" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bagira",
-                                                  children: "Bagira"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ibanda",
-                                                  children: "Ibanda"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kadutu",
-                                                  children: "Kadutu"
-                                                })]
-                                              }), this.state.villeActuelle === "Goma ville" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Goma",
-                                                  children: "Goma"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Karisimbi",
-                                                  children: "Karisimbi"
-                                                })]
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "groupement",
-                                              style: labelColor,
-                                              children: "Groupement ou quartier*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              className: "form-control ".concat(this.state.error_list.QuartierActuelle && "is-invalid"),
-                                              id: "groupement",
-                                              style: inputColor,
-                                              name: "QuartierActuelle",
-                                              value: this.state.QuartierActuelle ? this.state.QuartierActuelle : this.state.fetchData && this.state.fetchData.QuartierActuelle,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), this.state.CommuneActuelle === "Goma" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Himbi",
-                                                  children: "Himbi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Katindo",
-                                                  children: "Katindo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kyeshero",
-                                                  children: "Kyeshero"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Lac vert",
-                                                  children: "Lac vert"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mapendo",
-                                                  children: "Mapendo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mikeno",
-                                                  children: "Mikeno"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Volcan",
-                                                  children: "Volcan"
-                                                })]
-                                              }), this.state.CommuneActuelle === "Karisimbi" && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
-                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Bujovu",
-                                                  children: "Bujovu"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kahembe",
-                                                  children: "Kahembe"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Kasika",
-                                                  children: "Kasika"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Katoyi",
-                                                  children: "Katoyi"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mabanga nord",
-                                                  children: "Mabanga nord"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mabanga sud",
-                                                  children: "Mabanga sud"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Majengo",
-                                                  children: "Majengo"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Mugungu",
-                                                  children: "Mugungu"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Murara",
-                                                  children: "Murara"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Ndosho",
-                                                  children: "Ndosho"
-                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                  value: "Virunga",
-                                                  children: "Virunga"
-                                                })]
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "suiteadresse",
-                                              style: labelColor,
-                                              children: "Suite adresse"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                              id: "suiteadresse",
-                                              style: {
-                                                height: "40px",
-                                                border: "1px solid steelblue",
-                                                padding: "3px"
-                                              },
-                                              name: "address",
-                                              value: this.state.address ? this.state.address : this.state.fetchData && this.state.fetchData.address,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : ""
-                                            })]
-                                          })]
-                                        })]
-                                      })
-                                    })
-                                  })
-                                })]
-                              })
-                            })
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane fade mt-2 col-md-6",
-                          id: "otherinfo",
-                          role: "tabpanel",
-                          "aria-labelledby": "otherinfo-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "row",
-                            style: {
-                              padding: "10px",
-                              border: "2px solid #fff"
-                            },
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "col-lg-12",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "card card-default",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-header",
-                                  style: {
-                                    background: "#DCDCDC",
-                                    textAlign: "center",
-                                    color: "#fff"
-                                  }
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-body h-200",
-                                  style: {
-                                    background: "#dcdcdc"
-                                  },
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                    className: "col-md-8",
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                      method: "POST",
-                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "province",
-                                              style: labelColor,
-                                              children: "N\xB0 compte parain"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-                                              id: "province",
-                                              style: inputColor,
-                                              name: "parainAccount",
-                                              value: this.state.parainAccount ? this.state.parainAccount : this.state.fetchData && this.state.fetchData.parainAccount,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              })
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "nomparain",
-                                              style: labelColor,
-                                              children: "Nom du parain"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                              readOnly: true,
-                                              id: "nomparain",
-                                              type: "text",
-                                              style: inputColor,
-                                              name: "parainName",
-                                              value: this.state.parainName ? this.state.parainName : this.state.fetchData && this.state.fetchData.parainName,
-                                              onChange: this.handleChange
-                                            })
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "typegestion",
-                                              style: labelColor,
-                                              children: "Type de gestion*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              id: "typegestion",
-                                              style: inputColor,
-                                              name: "typeGestion",
-                                              value: this.state.typeGestion ? this.state.typeGestion : this.state.fetchData && this.state.fetchData.typeGestion,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Individuel",
-                                                children: "Individuel"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Collectif",
-                                                children: "Collectif"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "Condjoint",
-                                                children: "Condjoint"
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "critere",
-                                              style: labelColor,
-                                              children: "Crit\xE8re 1*"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                              id: "critere",
-                                              style: inputColor,
-                                              name: "critere1",
-                                              value: this.state.critere1 ? this.state.critere1 : this.state.fetchData && this.state.fetchData.critere1,
-                                              onChange: this.handleChange,
-                                              disabled: this.state.disabled ? "disabled" : "",
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "",
-                                                children: "S\xE9lectionnez"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "A",
-                                                children: "A"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "B",
-                                                children: "B"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "C",
-                                                children: "C"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                value: "D",
-                                                children: "D"
-                                              })]
-                                            })]
-                                          })]
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                              htmlFor: "critere2",
-                                              style: labelColor,
-                                              children: "Crit\xE8re 2"
-                                            }), " "]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("select", {
-                                              id: "critere2",
-                                              style: inputColor,
-                                              disabled: this.state.disabled ? "disabled" : ""
-                                            })]
-                                          })]
-                                        })]
-                                      })
-                                    })
-                                  })
-                                })]
-                              })
-                            })
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane col-md-12",
-                          id: "mendataire",
-                          role: "tabpanel",
-                          "aria-labelledby": "mendataire-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "row",
-                            style: {
-                              padding: "10px",
-                              border: "2px solid #fff"
-                            },
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                              className: "col-lg-12",
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "card card-default",
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "card-header",
-                                  style: {
-                                    background: "#DCDCDC",
-                                    textAlign: "center",
-                                    color: "#fff"
-                                  }
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                  className: "card-body h-200",
-                                  style: {
-                                    background: "#dcdcdc"
-                                  },
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                    className: "col-md-12",
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                      method: "POST",
-                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                        className: "row",
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                          className: "col-md-4",
-                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "nommendataire",
-                                                  style: labelColor,
-                                                  children: "Nom mdtr"
-                                                })]
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "nommendataire",
-                                                  style: inputColor,
-                                                  name: "mendataireName",
-                                                  value: this.state.mendataireName,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "lieuNaiss",
-                                                  style: labelColor,
-                                                  children: "N\xE9(e) \xE0"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "lieuNaiss",
-                                                  style: inputColor,
-                                                  name: "lieuNaissM",
-                                                  value: this.state.lieuNaissM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "dateNaiss",
-                                                  style: labelColor,
-                                                  children: "Date Naissance"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "dateNaiss",
-                                                  style: inputColor,
-                                                  name: "dateNaissM",
-                                                  value: this.state.dateNaissM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "etatCivile",
-                                                  style: labelColor,
-                                                  children: "Etat civile"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                  id: "etatCivile",
-                                                  style: inputColor,
-                                                  name: "etatCivileM",
-                                                  value: this.state.etatCivileM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : "",
-                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "",
-                                                    children: "S\xE9lectionnez"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Mari\xE9(e)",
-                                                    children: "Mari\xE9(e)"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "C\xE9lib\xE9taire",
-                                                    children: "C\xE9lib\xE9taire"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Veuf(ve)",
-                                                    children: "Veuf(ve)"
-                                                  })]
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "sexe",
-                                                  style: labelColor,
-                                                  children: "Sexe"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                  id: "sexe",
-                                                  style: inputColor,
-                                                  name: "sexeM",
-                                                  value: this.state.sexeM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : "",
-                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "",
-                                                    children: "S\xE9lectionnez"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "M",
-                                                    children: "M"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "F",
-                                                    children: "F"
-                                                  })]
-                                                })
-                                              })]
-                                            })]
-                                          })
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                          className: "col-md-4",
-                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "typePiece",
-                                                  style: labelColor,
-                                                  children: " Type pi\xE8ce"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                  id: "typePiece",
-                                                  style: inputColor,
-                                                  name: "typePieceM",
-                                                  value: this.state.typePieceM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : "",
-                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "",
-                                                    children: "S\xE9lectionnez"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Carte d'\xE9lecteur",
-                                                    children: "Carte d'\xE9lecteur"
-                                                  })]
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "profession",
-                                                  style: labelColor,
-                                                  children: "Profession"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                                  id: "profession",
-                                                  style: inputColor,
-                                                  name: "professionM",
-                                                  value: this.state.professionM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : "",
-                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "",
-                                                    children: "S\xE9lectionnez"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Commer\xE7ant",
-                                                    children: "Commer\xE7ant"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Enseignant",
-                                                    children: "Enseignant"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Humanitaire",
-                                                    children: "Humanitaire"
-                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                                    value: "Eleve ou Etudiant",
-                                                    children: "Eleve ou Etudiant"
-                                                  })]
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "telephone",
-                                                  style: labelColor,
-                                                  children: "T\xE9l\xE9phone"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "telephone",
-                                                  style: inputColor,
-                                                  name: "telephoneM",
-                                                  value: this.state.telephoneM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "adressemend",
-                                                  style: labelColor,
-                                                  children: "Adresse"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "adressemend",
-                                                  style: {
-                                                    height: "40px",
-                                                    border: "1px solid steelblue",
-                                                    padding: "3px"
-                                                  },
-                                                  name: "adresseM",
-                                                  value: this.state.adresseM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                  htmlFor: "observation",
-                                                  style: labelColor,
-                                                  children: "Observation"
-                                                })
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                  id: "observation",
-                                                  style: {
-                                                    height: "40px",
-                                                    border: "1px solid steelblue",
-                                                    padding: "3px"
-                                                  },
-                                                  name: "observationM",
-                                                  value: this.state.observationM,
-                                                  onChange: this.handleChange,
-                                                  disabled: this.state.disabled ? "disabled" : ""
-                                                })
-                                              })]
-                                            })]
-                                          })
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                          className: "col-md-2",
-                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
-                                            style: {
-                                              border: "3px solid #fff",
-                                              padding: "5px"
-                                            },
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
-                                                  src: "dist/img/user2-160x160.jpg",
-                                                  alt: "...",
-                                                  "class": "img-thumbnail"
-                                                })
-                                              })]
-                                            })
-                                          })
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                          className: "col-md-2",
-                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                            style: {
-                                              marginLeft: "5px",
-                                              border: "3px solid #fff"
-                                            },
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                  type: "button",
-                                                  style: {
-                                                    borderRadius: "0px",
-                                                    width: "100%",
-                                                    height: "30px",
-                                                    fontSize: "12px"
-                                                  },
-                                                  "class": "btn btn-primary",
-                                                  children: ["Ajouter ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                    "class": "fas fa-database"
-                                                  })]
-                                                })
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                  type: "button",
-                                                  style: {
-                                                    borderRadius: "0px",
-                                                    width: "100%",
-                                                    height: "30px",
-                                                    fontSize: "12px"
-                                                  },
-                                                  "class": "btn btn-primary",
-                                                  children: ["Modifier ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                    "class": "fas fa-edit"
-                                                  })]
-                                                })
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                  type: "button",
-                                                  style: {
-                                                    borderRadius: "0px",
-                                                    width: "100%",
-                                                    height: "30px",
-                                                    fontSize: "12px"
-                                                  },
-                                                  "class": "btn btn-primary",
-                                                  children: ["Valider ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                    "class": "fas fa-check"
-                                                  })]
-                                                })
-                                              })
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                  type: "button",
-                                                  style: {
-                                                    borderRadius: "0px",
-                                                    width: "100%",
-                                                    height: "30px",
-                                                    fontSize: "12px"
-                                                  },
-                                                  "class": "btn btn-danger",
-                                                  children: ["Supprimer ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                    "class": "fas fa-trash"
-                                                  })]
-                                                })
-                                              })
-                                            })]
-                                          })
-                                        })]
-                                      })
-                                    })
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                    className: "container-fluid",
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                      className: "col-md-12",
-                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                        "class": "table table-dark",
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "col",
-                                              children: "#"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "col",
-                                              children: "First"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "col",
-                                              children: "Last"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "col",
-                                              children: "Handle"
-                                            })]
-                                          })
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tbody", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "row",
-                                              children: "1"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "Mark"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "Otto"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "@mdo"
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "row",
-                                              children: "2"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "Jacob"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "Thornton"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "@fat"
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                              scope: "row",
-                                              children: "3"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "Larry"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "the Bird"
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: "@twitter"
-                                            })]
-                                          })]
-                                        })]
-                                      })
-                                    })
-                                  })]
-                                })]
-                              })
-                            })
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane fade mt-2",
-                          id: "personnelie",
-                          role: "tabpanel",
-                          "aria-labelledby": "personnelie-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "col-lg-12",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                              className: "card card-default",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                className: "card-header",
-                                style: {
-                                  background: "#DCDCDC",
-                                  textAlign: "center",
-                                  color: "#fff"
-                                }
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                className: "card-body h-200",
-                                style: {
-                                  background: "#dcdcdc"
-                                },
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "col-md-12",
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                    method: "POST",
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                      className: "row",
-                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-4",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "nomheritier",
-                                                style: labelColor,
-                                                children: "Nom"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "nomheritier",
-                                                style: inputColor,
-                                                name: "personneLieName",
-                                                value: this.state.personneLieName,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "lieuNaiss",
-                                                style: labelColor,
-                                                children: "Lieu naissance"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "lieuNaiss",
-                                                style: inputColor,
-                                                name: "lieuNaissLie",
-                                                value: this.state.lieuNaissLie,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "dateNaiss",
-                                                style: labelColor,
-                                                children: "Date naissance"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "dateNaiss",
-                                                style: inputColor,
-                                                name: "dateNaissLie",
-                                                value: this.state.dateNaissLie,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })
-                                            })]
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                                htmlFor: "degreParante",
-                                                style: labelColor,
-                                                children: "Degr\xE9 parent\xE9"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                                                id: "degreParante",
-                                                style: inputColor,
-                                                name: "degreParante",
-                                                value: this.state.degreParante,
-                                                onChange: this.handleChange,
-                                                disabled: this.state.disabled ? "disabled" : ""
-                                              })
-                                            })]
-                                          })]
-                                        })
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-4",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          "class": "table table-dark",
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "col",
-                                                children: "#"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "col",
-                                                children: "First"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "col",
-                                                children: "Last"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "col",
-                                                children: "Handle"
-                                              })]
-                                            })
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tbody", {
-                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "row",
-                                                children: "1"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "Mark"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "Otto"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "@mdo"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "row",
-                                                children: "2"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "Jacob"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "Thornton"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "@fat"
-                                              })]
-                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                                scope: "row",
-                                                children: "3"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "Larry"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "the Bird"
-                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                                children: "@twitter"
-                                              })]
-                                            })]
-                                          })]
-                                        })
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                        className: "col-md-2",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                          style: {
-                                            marginLeft: "5px",
-                                            border: "3px solid #fff"
-                                          },
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                type: "button",
-                                                style: {
-                                                  borderRadius: "0px",
-                                                  width: "100%",
-                                                  height: "30px",
-                                                  fontSize: "12px"
-                                                },
-                                                "class": "btn btn-primary",
-                                                children: ["Ajouter ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                  "class": "fas fa-database"
-                                                })]
-                                              })
-                                            })
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                type: "button",
-                                                style: {
-                                                  borderRadius: "0px",
-                                                  width: "100%",
-                                                  height: "30px",
-                                                  fontSize: "12px"
-                                                },
-                                                "class": "btn btn-primary",
-                                                children: ["Modifier ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                  "class": "fas fa-edit"
-                                                })]
-                                              })
-                                            })
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                type: "button",
-                                                style: {
-                                                  borderRadius: "0px",
-                                                  width: "100%",
-                                                  height: "30px",
-                                                  fontSize: "12px"
-                                                },
-                                                "class": "btn btn-primary",
-                                                children: ["Valider ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                  "class": "fas fa-check"
-                                                })]
-                                              })
-                                            })
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
-                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                                type: "button",
-                                                style: {
-                                                  borderRadius: "0px",
-                                                  width: "100%",
-                                                  height: "30px",
-                                                  fontSize: "12px"
-                                                },
-                                                "class": "btn btn-danger",
-                                                children: ["Supprimer ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                                  "class": "fas fa-trash"
-                                                })]
-                                              })
-                                            })
-                                          })]
-                                        })
-                                      })]
-                                    })
-                                  })
-                                })
-                              })]
-                            })
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                          className: "tab-pane fade mt-2",
-                          id: "comptepargne",
-                          role: "tabpanel",
-                          "aria-labelledby": "comptepargne-tab",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                            className: "col-lg-6",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                              className: "card card-default",
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                className: "card-header",
-                                style: {
-                                  background: "#DCDCDC",
-                                  textAlign: "center",
-                                  color: "#fff"
-                                }
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
-                                className: "card-body h-200",
-                                style: {
-                                  background: "#dcdcdc"
-                                },
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
-                                  method: "POST",
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
-                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                        children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
-                                          htmlFor: "compteE",
-                                          style: labelColor,
-                                          children: "Compte d'Epargne non encore cr\xE9e"
-                                        })]
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
-                                          id: "compteE",
-                                          style: inputColor,
-                                          name: "activationCompte",
-                                          value: this.state.activationCompte,
-                                          onChange: this.handleChange,
-                                          disabled: this.state.disabled ? "disabled" : "",
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                            value: "CompteUSD",
-                                            children: "Compte en USD"
-                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                            value: "CompteCDF",
-                                            children: "Compte en CDF"
-                                          })]
-                                        })
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
-                                          type: "button",
-                                          style: {
-                                            borderRadius: "0px",
-                                            width: "100%",
-                                            height: "30px",
-                                            fontSize: "12px"
-                                          },
-                                          "class": "btn btn-primary",
-                                          children: ["Cr\xE9er ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                            "class": "fas fa-check"
-                                          })]
-                                        })
-                                      })]
-                                    })
-                                  })
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
-                                  className: "col-md-12",
-                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                                    "class": "table table-dark",
-                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
-                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "col",
-                                          children: "#"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "col",
-                                          children: "First"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "col",
-                                          children: "Last"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "col",
-                                          children: "Handle"
-                                        })]
-                                      })
-                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tbody", {
-                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "row",
-                                          children: "1"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "Mark"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "Otto"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "@mdo"
-                                        })]
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "row",
-                                          children: "2"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "Jacob"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "Thornton"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "@fat"
-                                        })]
-                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
-                                          scope: "row",
-                                          children: "3"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "Larry"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "the Bird"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                          children: "@twitter"
-                                        })]
-                                      })]
-                                    })]
-                                  })
-                                })]
-                              })]
-                            })
-                          })
-                        })]
-                      })]
-                    })
-                  })
-                })]
-              })]
-            })
-          })
-        })
-      });
-    }
-  }]);
-
-  return UpdateMembre;
-}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
-
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (UpdateMembre);
 
 /***/ }),
 
@@ -8519,6 +5633,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
 
     _this = _super.call(this, props);
     _this.state = (_this$state = {
+      intituleCompte: "",
       lieuNaiss: "",
       dateNaiss: "",
       etatCivile: "",
@@ -8540,7 +5655,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
       provinceOrigine: "",
       territoireOrigine: "",
       collectiviteOrigine: ""
-    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "otherMention", ""), _this$state); // this.handleChange=this.handleChange.bind(this);
+    }, _defineProperty(_this$state, "territoireOrigine", ""), _defineProperty(_this$state, "provinceActuelle", ""), _defineProperty(_this$state, "villeActuelle", ""), _defineProperty(_this$state, "CommuneActuelle", ""), _defineProperty(_this$state, "QuartierActuelle", ""), _defineProperty(_this$state, "parainAccount", ""), _defineProperty(_this$state, "parainName", ""), _defineProperty(_this$state, "typeGestion", ""), _defineProperty(_this$state, "critere1", ""), _defineProperty(_this$state, "otherMention", ""), _defineProperty(_this$state, "error_list", []), _this$state); // this.handleChange=this.handleChange.bind(this);
     // this.UpdateMendataireData=this.UpdateMendataireData.bind(this);
 
     return _this;
@@ -8702,12 +5817,12 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                     color: "#000"
                   },
                   className: "modal-title",
-                  children: ["Modification d'un membre ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
-                    children: " Name here  "
+                  children: ["Modification du membre ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("strong", {
+                    children: [" ", this.props.dataMembre.intituleCompte, "  "]
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                   type: "button",
-                  "class": "close",
+                  className: "close",
                   "data-dismiss": "modal",
                   "aria-label": "Close",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("span", {
@@ -8749,7 +5864,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "lieuNaiss",
                                     style: inputColor,
                                     name: "lieuNaiss",
-                                    value: this.state.lieuNaiss ? this.state.lieuNaiss : this.state.fetchData && this.state.fetchData.lieuNaiss,
+                                    value: this.state.lieuNaiss,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8766,7 +5881,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "dateNaissance",
                                     style: inputColor,
                                     name: "dateNaiss",
-                                    value: this.state.dateNaiss ? this.state.dateNaiss : this.state.fetchData && this.state.fetchData.dateNaiss,
+                                    value: this.state.dateNaiss,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8784,7 +5899,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "etatCivile",
                                     style: inputColor,
                                     name: "etatCivile",
-                                    value: this.state.etatCivile ? this.state.etatCivile : this.state.fetchData && this.state.fetchData.dateNaiss,
+                                    value: this.state.etatCivile,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : "",
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -8814,7 +5929,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "condjoint",
                                     style: inputColor,
                                     name: "conjoitName",
-                                    value: this.state.conjoitName ? this.state.conjoitName : this.state.fetchData && this.state.fetchData.conjoitName,
+                                    value: this.state.conjoitName,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8831,7 +5946,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "nomPere",
                                     style: inputColor,
                                     name: "fatherName",
-                                    value: this.state.fatherName ? this.state.fatherName : this.state.fetchData && this.state.fetchData.fatherName,
+                                    value: this.state.fatherName,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8848,7 +5963,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "nomMere",
                                     style: inputColor,
                                     name: "motherName",
-                                    value: this.state.motherName ? this.state.motherName : this.state.fetchData && this.state.fetchData.motherName,
+                                    value: this.state.motherName,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8865,7 +5980,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "profession",
                                     style: inputColor,
                                     name: "profession",
-                                    value: this.state.profession ? this.state.profession : this.state.fetchData && this.state.fetchData.profession,
+                                    value: this.state.profession,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8882,7 +5997,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "lieuTravail",
                                     style: inputColor,
                                     name: "workingPlace",
-                                    value: this.state.workingPlace ? this.state.workingPlace : this.state.fetchData && this.state.fetchData.workingPlace,
+                                    value: this.state.workingPlace,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8904,7 +6019,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "civilite",
                                     style: inputColor,
                                     name: "cilivilty",
-                                    value: this.state.cilivilty ? this.state.cilivilty : this.state.fetchData && this.state.fetchData.cilivilty,
+                                    value: this.state.cilivilty,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : "",
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -8937,7 +6052,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "sexe",
                                     style: inputColor,
                                     name: "sexe",
-                                    value: this.state.sexe ? this.state.sexe : this.state.fetchData && this.state.fetchData.sexe,
+                                    value: this.state.sexe,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : "",
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -8965,7 +6080,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "tel1",
                                     style: inputColor,
                                     name: "phone1",
-                                    value: this.state.phone1 ? this.state.phone1 : this.state.fetchData && this.state.fetchData.phone1,
+                                    value: this.state.phone1,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -8983,7 +6098,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "tel2",
                                     style: inputColor,
                                     name: "phone2",
-                                    value: this.state.phone2 ? this.state.phone2 : this.state.fetchData && this.state.fetchData.phone2,
+                                    value: this.state.phone2,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9000,7 +6115,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "email",
                                     style: inputColor,
                                     name: "email",
-                                    value: this.state.email ? this.state.email : this.state.fetchData && this.state.fetchData.email,
+                                    value: this.state.email,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9017,7 +6132,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "typepiece",
                                     style: inputColor,
                                     name: "typepiece",
-                                    value: this.state.typepiece ? this.state.typepiece : this.state.fetchData && this.state.fetchData.typepiece,
+                                    value: this.state.typepiece,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : "",
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -9050,7 +6165,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "numpiece",
                                     style: inputColor,
                                     name: "numpiece",
-                                    value: this.state.numpiece ? this.state.numpiece : this.state.fetchData && this.state.fetchData.numpiece,
+                                    value: this.state.numpiece,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9067,7 +6182,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "delivranceplace",
                                     style: inputColor,
                                     name: "delivrancePlace",
-                                    value: this.state.delivrancePlace ? this.state.delivrancePlace : this.state.fetchData && this.state.fetchData.delivrancePlace,
+                                    value: this.state.delivrancePlace,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9089,7 +6204,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "delivrancePiece",
                                     style: inputColor,
                                     name: "delivranceDate",
-                                    value: this.state.delivranceDate ? this.state.delivranceDate : this.state.fetchData && this.state.fetchData.delivranceDate,
+                                    value: this.state.delivranceDate,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9106,7 +6221,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "gestionnaire",
                                     style: inputColor,
                                     name: "gestionnaire",
-                                    value: this.state.gestionnaire ? this.state.gestionnaire : this.state.fetchData && this.state.fetchData.gestionnaire,
+                                    value: this.state.gestionnaire,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : "",
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
@@ -9130,7 +6245,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "provinceOrigine",
                                     style: inputColor,
                                     name: "provinceOrigine",
-                                    value: this.state.provinceOrigine ? this.state.provinceOrigine : this.state.fetchData && this.state.fetchData.provinceOrigine,
+                                    value: this.state.provinceOrigine,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9147,7 +6262,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "territoireOrigine",
                                     style: inputColor,
                                     name: "territoireOrigine",
-                                    value: this.state.territoireOrigine ? this.state.territoireOrigine : this.state.fetchData && this.state.fetchData.territoireOrigine,
+                                    value: this.state.territoireOrigine,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9164,7 +6279,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     id: "collectivite",
                                     style: inputColor,
                                     name: "collectiviteOrigine",
-                                    value: this.state.collectiviteOrigine ? this.state.collectiviteOrigine : this.state.fetchData && this.state.fetchData.collectiviteOrigine,
+                                    value: this.state.collectiviteOrigine,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9185,7 +6300,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                       padding: "3px"
                                     },
                                     name: "otherMention",
-                                    value: this.state.otherMention ? this.state.otherMention : this.state.fetchData && this.state.fetchData.otherMention,
+                                    value: this.state.otherMention,
                                     onChange: this.handleChange,
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
@@ -9379,274 +6494,280 @@ var UpdateMendataire = /*#__PURE__*/function (_React$Component) {
                   className: "row",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-md-12",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
-                      method: "POST",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
-                        className: "row",
-                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                          className: "col-md-6",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-                                style: tableBorder,
-                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "nommendataire",
-                                  style: labelColor,
-                                  children: "Nom mdtr"
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "card-body h-200",
+                      style: {
+                        background: "#dcdcdc"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        method: "POST",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                          className: "row",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "col-md-6",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                  style: tableBorder,
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "nommendataire",
+                                    style: labelColor,
+                                    children: "Nom mdtr"
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "nommendataire",
+                                    style: inputColor,
+                                    name: "mendataireName",
+                                    value: (_this$state$mendatair = this.state.mendataireName) !== null && _this$state$mendatair !== void 0 ? _this$state$mendatair : "",
+                                    onChange: this.handleChange
+                                  })
                                 })]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "nommendataire",
-                                  style: inputColor,
-                                  name: "mendataireName",
-                                  value: (_this$state$mendatair = this.state.mendataireName) !== null && _this$state$mendatair !== void 0 ? _this$state$mendatair : "",
-                                  onChange: this.handleChange
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "lieuNaiss",
+                                    style: labelColor,
+                                    children: "N\xE9(e) \xE0"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "lieuNaiss",
+                                    style: inputColor,
+                                    name: "lieuNaissM",
+                                    value: (_this$state$lieuNaiss = this.state.lieuNaissM) !== null && _this$state$lieuNaiss !== void 0 ? _this$state$lieuNaiss : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "dateNaiss",
+                                    style: labelColor,
+                                    children: "Date Naissance"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "dateNaiss",
+                                    style: inputColor,
+                                    name: "dateNaissM",
+                                    value: (_this$state$dateNaiss = this.state.dateNaissM) !== null && _this$state$dateNaiss !== void 0 ? _this$state$dateNaiss : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "etatCivile",
+                                    style: labelColor,
+                                    children: "Etat civile"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                    id: "etatCivile",
+                                    style: inputColor,
+                                    name: "etatCivileM",
+                                    value: (_this$state$etatCivil = this.state.etatCivileM) !== null && _this$state$etatCivil !== void 0 ? _this$state$etatCivil : "",
+                                    onChange: this.handleChange,
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "",
+                                      children: "S\xE9lectionnez"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Mari\xE9(e)",
+                                      children: "Mari\xE9(e)"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "C\xE9lib\xE9taire",
+                                      children: "C\xE9lib\xE9taire"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Veuf(ve)",
+                                      children: "Veuf(ve)"
+                                    })]
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "sexe",
+                                    style: labelColor,
+                                    children: "Sexe"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                    id: "sexe",
+                                    style: inputColor,
+                                    name: "sexeM",
+                                    value: (_this$state$sexeM = this.state.sexeM) !== null && _this$state$sexeM !== void 0 ? _this$state$sexeM : "",
+                                    onChange: this.handleChange,
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "",
+                                      children: "S\xE9lectionnez"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "M",
+                                      children: "M"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "F",
+                                      children: "F"
+                                    })]
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                    type: "button",
+                                    style: {
+                                      borderRadius: "0px",
+                                      width: "100%",
+                                      height: "30px",
+                                      fontSize: "12px"
+                                    },
+                                    className: "btn btn-primary",
+                                    id: "addMbtn",
+                                    onClick: this.UpdateMendataireData,
+                                    children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                      className: "fas fa-database"
+                                    })]
+                                  })
                                 })
                               })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "lieuNaiss",
-                                  style: labelColor,
-                                  children: "N\xE9(e) \xE0"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "lieuNaiss",
-                                  style: inputColor,
-                                  name: "lieuNaissM",
-                                  value: (_this$state$lieuNaiss = this.state.lieuNaissM) !== null && _this$state$lieuNaiss !== void 0 ? _this$state$lieuNaiss : "",
-                                  onChange: this.handleChange
-                                })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "col-md-6",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "profession",
+                                    style: labelColor,
+                                    children: "Profession"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                    id: "profession",
+                                    style: inputColor,
+                                    name: "professionM",
+                                    value: (_this$state$professio = this.state.professionM) !== null && _this$state$professio !== void 0 ? _this$state$professio : "",
+                                    onChange: this.handleChange,
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "",
+                                      children: "S\xE9lectionnez"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Commer\xE7ant",
+                                      children: "Commer\xE7ant"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Enseignant",
+                                      children: "Enseignant"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Humanitaire",
+                                      children: "Humanitaire"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Eleve ou Etudiant",
+                                      children: "Eleve ou Etudiant"
+                                    })]
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "telephone",
+                                    style: labelColor,
+                                    children: "T\xE9l\xE9phone"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "telephone",
+                                    style: inputColor,
+                                    name: "telephoneM",
+                                    value: (_this$state$telephone = this.state.telephoneM) !== null && _this$state$telephone !== void 0 ? _this$state$telephone : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "adressemend",
+                                    style: labelColor,
+                                    children: "Adresse"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "adressemend",
+                                    style: {
+                                      height: "40px",
+                                      border: "1px solid steelblue",
+                                      padding: "3px"
+                                    },
+                                    name: "adresseM",
+                                    value: (_this$state$adresseM = this.state.adresseM) !== null && _this$state$adresseM !== void 0 ? _this$state$adresseM : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "observation",
+                                    style: labelColor,
+                                    children: "Observation"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "observation",
+                                    style: {
+                                      height: "40px",
+                                      border: "1px solid steelblue",
+                                      padding: "3px"
+                                    },
+                                    name: "observationM",
+                                    value: (_this$state$observati = this.state.observationM) !== null && _this$state$observati !== void 0 ? _this$state$observati : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
+                                    htmlFor: "typePiece",
+                                    style: labelColor,
+                                    children: [" ", "Type pi\xE8ce"]
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                    id: "typePiece",
+                                    style: inputColor,
+                                    name: "typePieceM",
+                                    value: (_this$state$typePiece = this.state.typePieceM) !== null && _this$state$typePiece !== void 0 ? _this$state$typePiece : "",
+                                    onChange: this.handleChange,
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "",
+                                      children: "S\xE9lectionnez"
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                      value: "Carte d'\xE9lecteur",
+                                      children: "Carte d'\xE9lecteur"
+                                    })]
+                                  })
+                                })]
                               })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "dateNaiss",
-                                  style: labelColor,
-                                  children: "Date Naissance"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "dateNaiss",
-                                  style: inputColor,
-                                  name: "dateNaissM",
-                                  value: (_this$state$dateNaiss = this.state.dateNaissM) !== null && _this$state$dateNaiss !== void 0 ? _this$state$dateNaiss : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "etatCivile",
-                                  style: labelColor,
-                                  children: "Etat civile"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-                                  id: "etatCivile",
-                                  style: inputColor,
-                                  name: "etatCivileM",
-                                  value: (_this$state$etatCivil = this.state.etatCivileM) !== null && _this$state$etatCivil !== void 0 ? _this$state$etatCivil : "",
-                                  onChange: this.handleChange,
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "",
-                                    children: "S\xE9lectionnez"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Mari\xE9(e)",
-                                    children: "Mari\xE9(e)"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "C\xE9lib\xE9taire",
-                                    children: "C\xE9lib\xE9taire"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Veuf(ve)",
-                                    children: "Veuf(ve)"
-                                  })]
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "sexe",
-                                  style: labelColor,
-                                  children: "Sexe"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-                                  id: "sexe",
-                                  style: inputColor,
-                                  name: "sexeM",
-                                  value: (_this$state$sexeM = this.state.sexeM) !== null && _this$state$sexeM !== void 0 ? _this$state$sexeM : "",
-                                  onChange: this.handleChange,
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "",
-                                    children: "S\xE9lectionnez"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "M",
-                                    children: "M"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "F",
-                                    children: "F"
-                                  })]
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-                                  type: "button",
-                                  style: {
-                                    borderRadius: "0px",
-                                    width: "100%",
-                                    height: "30px",
-                                    fontSize: "12px"
-                                  },
-                                  className: "btn btn-primary",
-                                  id: "addMbtn",
-                                  onClick: this.UpdateMendataireData,
-                                  children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                                    className: "fas fa-database"
-                                  })]
-                                })
-                              })
-                            })]
-                          })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                          className: "col-md-6",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "profession",
-                                  style: labelColor,
-                                  children: "Profession"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-                                  id: "profession",
-                                  style: inputColor,
-                                  name: "professionM",
-                                  value: (_this$state$professio = this.state.professionM) !== null && _this$state$professio !== void 0 ? _this$state$professio : "",
-                                  onChange: this.handleChange,
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "",
-                                    children: "S\xE9lectionnez"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Commer\xE7ant",
-                                    children: "Commer\xE7ant"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Enseignant",
-                                    children: "Enseignant"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Humanitaire",
-                                    children: "Humanitaire"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Eleve ou Etudiant",
-                                    children: "Eleve ou Etudiant"
-                                  })]
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "telephone",
-                                  style: labelColor,
-                                  children: "T\xE9l\xE9phone"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "telephone",
-                                  style: inputColor,
-                                  name: "telephoneM",
-                                  value: (_this$state$telephone = this.state.telephoneM) !== null && _this$state$telephone !== void 0 ? _this$state$telephone : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "adressemend",
-                                  style: labelColor,
-                                  children: "Adresse"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "adressemend",
-                                  style: {
-                                    height: "40px",
-                                    border: "1px solid steelblue",
-                                    padding: "3px"
-                                  },
-                                  name: "adresseM",
-                                  value: (_this$state$adresseM = this.state.adresseM) !== null && _this$state$adresseM !== void 0 ? _this$state$adresseM : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "observation",
-                                  style: labelColor,
-                                  children: "Observation"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "observation",
-                                  style: {
-                                    height: "40px",
-                                    border: "1px solid steelblue",
-                                    padding: "3px"
-                                  },
-                                  name: "observationM",
-                                  value: (_this$state$observati = this.state.observationM) !== null && _this$state$observati !== void 0 ? _this$state$observati : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("label", {
-                                  htmlFor: "typePiece",
-                                  style: labelColor,
-                                  children: [" ", "Type pi\xE8ce"]
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
-                                  id: "typePiece",
-                                  style: inputColor,
-                                  name: "typePieceM",
-                                  value: (_this$state$typePiece = this.state.typePieceM) !== null && _this$state$typePiece !== void 0 ? _this$state$typePiece : "",
-                                  onChange: this.handleChange,
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "",
-                                    children: "S\xE9lectionnez"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
-                                    value: "Carte d'\xE9lecteur",
-                                    children: "Carte d'\xE9lecteur"
-                                  })]
-                                })
-                              })]
-                            })]
-                          })
-                        })]
+                            })
+                          })]
+                        })
                       })
                     })
                   })
@@ -9925,105 +7046,111 @@ var UpdatePersonneLie = /*#__PURE__*/function (_React$Component) {
                   className: "row",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
                     className: "col-md-12",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
-                      method: "POST",
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                        className: "row",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "card-body h-200",
+                      style: {
+                        background: "#dcdcdc"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        method: "POST",
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                          className: "col-md-6",
-                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-                                style: tableBorder,
-                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "personneLieName",
-                                  style: labelColor,
-                                  children: "Nom mdtr"
-                                })]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "personneLieName",
-                                  style: inputColor,
-                                  name: "personneLieName",
-                                  value: (_this$state$personneL = this.state.personneLieName) !== null && _this$state$personneL !== void 0 ? _this$state$personneL : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "lieuNaissLie",
-                                  style: labelColor,
-                                  children: "N\xE9(e) \xE0"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "lieuNaissLie",
-                                  style: inputColor,
-                                  name: "lieuNaissLie",
-                                  value: (_this$state$lieuNaiss = this.state.lieuNaissLie) !== null && _this$state$lieuNaiss !== void 0 ? _this$state$lieuNaiss : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "dateNaissLie",
-                                  style: labelColor,
-                                  children: "Date Naissance"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "dateNaissLie",
-                                  style: inputColor,
-                                  name: "dateNaissLie",
-                                  value: (_this$state$dateNaiss = this.state.dateNaissLie) !== null && _this$state$dateNaiss !== void 0 ? _this$state$dateNaiss : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                  htmlFor: "degreParante",
-                                  style: labelColor,
-                                  children: "Etat civile"
-                                })
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                  id: "degreParante",
-                                  style: inputColor,
-                                  name: "degreParante",
-                                  value: (_this$state$degrePara = this.state.degreParante) !== null && _this$state$degrePara !== void 0 ? _this$state$degrePara : "",
-                                  onChange: this.handleChange
-                                })
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
-                                style: tableBorder,
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
-                                  type: "button",
-                                  style: {
-                                    borderRadius: "0px",
-                                    width: "100%",
-                                    height: "30px",
-                                    fontSize: "12px"
-                                  },
-                                  className: "btn btn-primary",
-                                  id: "addMbtn",
-                                  onClick: this.UpdatePersonneLieData,
-                                  children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
-                                    className: "fas fa-database"
+                          className: "row",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "col-md-6",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                  style: tableBorder,
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "personneLieName",
+                                    style: labelColor,
+                                    children: "Nom mdtr"
                                   })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "personneLieName",
+                                    style: inputColor,
+                                    name: "personneLieName",
+                                    value: (_this$state$personneL = this.state.personneLieName) !== null && _this$state$personneL !== void 0 ? _this$state$personneL : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "lieuNaissLie",
+                                    style: labelColor,
+                                    children: "N\xE9(e) \xE0"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "lieuNaissLie",
+                                    style: inputColor,
+                                    name: "lieuNaissLie",
+                                    value: (_this$state$lieuNaiss = this.state.lieuNaissLie) !== null && _this$state$lieuNaiss !== void 0 ? _this$state$lieuNaiss : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "dateNaissLie",
+                                    style: labelColor,
+                                    children: "Date Naissance"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "dateNaissLie",
+                                    style: inputColor,
+                                    name: "dateNaissLie",
+                                    value: (_this$state$dateNaiss = this.state.dateNaissLie) !== null && _this$state$dateNaiss !== void 0 ? _this$state$dateNaiss : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "degreParante",
+                                    style: labelColor,
+                                    children: "Etat civile"
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "degreParante",
+                                    style: inputColor,
+                                    name: "degreParante",
+                                    value: (_this$state$degrePara = this.state.degreParante) !== null && _this$state$degrePara !== void 0 ? _this$state$degrePara : "",
+                                    onChange: this.handleChange
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                    type: "button",
+                                    style: {
+                                      borderRadius: "0px",
+                                      width: "100%",
+                                      height: "30px",
+                                      fontSize: "12px"
+                                    },
+                                    className: "btn btn-primary",
+                                    id: "addMbtn",
+                                    onClick: this.UpdatePersonneLieData,
+                                    children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                      className: "fas fa-database"
+                                    })]
+                                  })
                                 })
-                              })
-                            })]
+                              })]
+                            })
                           })
                         })
                       })

@@ -14,10 +14,11 @@
 
  import ReactDOM from 'react-dom';
  import Adhesion from './components/Adhesion';
- import UpdateMembre from './components/EditMembre';
+//  import EditMembre from './components/EditMembre';
  
  if (document.getElementById('adhesionContainer')) {
      ReactDOM.render(<Adhesion />, document.getElementById('adhesionContainer'));
- }else if(document.getElementById('updateMembreContainer')){
-    ReactDOM.render(<UpdateMembre />, document.getElementById('updateMembreContainer'));
  }
+//  else if(document.getElementById('updateMembreContainer')){
+//     ReactDOM.render(<EditMembre />, document.getElementById('updateMembreContainer'));
+//  }

@@ -67,7 +67,7 @@ constructor(props) {
     this.actualiser=this.actualiser.bind(this);
     this.handleNew=this.handleNew.bind(this);
     this.handleGetRow=this.handleGetRow.bind(this);
-    this.handUpdate=this.handUpdate.bind(this);
+    // this.handUpdate=this.handUpdate.bind(this);
     // this.handleUpdate=this.handleUpdate.bind(this);
     }
 
@@ -614,7 +614,7 @@ className="form-control mt-1 font-weight-bold"
        
            {this.state.fetchData &&
         <tr>
-            <td><button style={{borderRadius:"0px",width:"100%",height:"30px",fontSize:"12px"}} data-toggle="modal" data-target="#modal-update-membre" id="modifierbtn" className="btn btn-primary" onClick={this.handUpdate}  >Modifier <i className="fas fa-edit"></i></button></td>
+            <td><button style={{borderRadius:"0px",width:"100%",height:"30px",fontSize:"12px"}} data-toggle="modal" data-target="#modal-update-membre" id="modifierbtn" className="btn btn-primary" >Modifier <i className="fas fa-edit"></i></button></td>
         </tr>
         }
         <tr>
@@ -1460,9 +1460,9 @@ style={{
                 </div>
             </form>
             {/* display here the update membre modal */}
-             {this.fetchData &&
-            <UpdateMembre  dataToUpdate={this.fetchData}/>
-             }
+          {this.state.fetchData && 
+            <UpdateMembre   dataMembre={this.state.fetchData} />
+          } 
         </div>
     </div>
 </div>

@@ -128,6 +128,13 @@ export default class UpdatePersonneLie extends React.Component {
             <div className="modal-body">
               <div className="row">
              <div className="col-md-12">
+             <div
+            className="card-body h-200"
+            style={{
+                background:
+                    "#dcdcdc",
+            }}
+        >
                      <form method="POST">
                   <div className="row">
                       <div className="col-md-6">
@@ -292,6 +299,7 @@ export default class UpdatePersonneLie extends React.Component {
                   </div>
               </form>
              
+              </div>
               </div>
               </div>
 

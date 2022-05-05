@@ -6,7 +6,7 @@ import Swal from "sweetalert2";
 
 // import EditMembre from './EditMembre';
 
-class UpdateMembre extends React.Component {
+class EditMembre extends React.Component {
 constructor(props) {
     super(props)
     this.state = { 
@@ -3072,4 +3072,4 @@ aria-labelledby="comptepargne-tab"
 );
 }
 }
-export default UpdateMembre;
+export default EditMembre;

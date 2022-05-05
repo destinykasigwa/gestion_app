@@ -6,6 +6,7 @@ export default class UpdateMembre extends React.Component {
     constructor(props) {
         super(props);
         this.state={
+            intituleCompte:"",
             lieuNaiss:"",
             dateNaiss:"",
             etatCivile:"",
@@ -37,6 +38,7 @@ export default class UpdateMembre extends React.Component {
             typeGestion:"",
             critere1:"",
             otherMention:"",
+            error_list:[]
         }
         // this.handleChange=this.handleChange.bind(this);
         // this.UpdateMendataireData=this.UpdateMendataireData.bind(this);
@@ -206,8 +208,8 @@ export default class UpdateMembre extends React.Component {
         <div className="modal-dialog modal-xl">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 style={{color:"#000"}} className="modal-title">Modification d'un membre <strong> Name here  </strong></h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <h4 style={{color:"#000"}} className="modal-title">Modification du membre <strong> {this.props.dataMembre.intituleCompte}  </strong></h4>
+              <button type="button" className="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
@@ -252,7 +254,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="lieuNaiss"
-                                        value={this.state.lieuNaiss ? this.state.lieuNaiss : this.state.fetchData && this.state.fetchData.lieuNaiss}
+                                        value={this.state.lieuNaiss}
 
                                         
                                         onChange={this.handleChange}
@@ -281,7 +283,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="dateNaiss"
-                                        value={this.state.dateNaiss ? this.state.dateNaiss : this.state.fetchData && this.state.fetchData.dateNaiss}
+                                        value={this.state.dateNaiss}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -310,7 +312,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="etatCivile"
-                                        value={this.state.etatCivile ? this.state.etatCivile : this.state.fetchData && this.state.fetchData.dateNaiss}
+                                        value={this.state.etatCivile}
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                           >
@@ -346,7 +348,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="conjoitName"
-                                        value={this.state.conjoitName ? this.state.conjoitName : this.state.fetchData && this.state.fetchData.conjoitName}
+                                        value={this.state.conjoitName}
                                        
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -375,7 +377,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="fatherName"
-                                        value={this.state.fatherName ? this.state.fatherName : this.state.fetchData && this.state.fetchData.fatherName}
+                                        value={this.state.fatherName}
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                     />
@@ -404,7 +406,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="motherName"
-                                        value={this.state.motherName ? this.state.motherName : this.state.fetchData && this.state.fetchData.motherName}
+                                        value={this.state.motherName}
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                     />
@@ -430,7 +432,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="profession"
-                                        value={this.state.profession ? this.state.profession : this.state.fetchData && this.state.fetchData.profession}
+                                        value={this.state.profession}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -459,7 +461,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="workingPlace"
-                                        value={this.state.workingPlace ? this.state.workingPlace : this.state.fetchData && this.state.fetchData.workingPlace}
+                                        value={this.state.workingPlace }
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                     />
@@ -490,7 +492,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="cilivilty"
-                                        value={this.state.cilivilty ? this.state.cilivilty : this.state.fetchData && this.state.fetchData.cilivilty}
+                                        value={this.state.cilivilty}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -524,7 +526,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="sexe"
-                                        value={this.state.sexe ? this.state.sexe : this.state.fetchData && this.state.fetchData.sexe}
+                                        value={this.state.sexe}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -563,7 +565,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="phone1"
-                                        value={this.state.phone1 ? this.state.phone1 : this.state.fetchData && this.state.fetchData.phone1}
+                                        value={this.state.phone1}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -592,7 +594,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="phone2"
-                                        value={this.state.phone2 ? this.state.phone2 : this.state.fetchData && this.state.fetchData.phone2}
+                                        value={this.state.phone2}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -620,7 +622,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="email"
-                                        value={this.state.email ? this.state.email : this.state.fetchData && this.state.fetchData.email}
+                                        value={this.state.email}
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                     />
@@ -647,7 +649,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="typepiece"
-                                        value={this.state.typepiece ? this.state.typepiece : this.state.fetchData && this.state.fetchData.typepiece}
+                                        value={this.state.typepiece}
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
                                     >
@@ -680,7 +682,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="numpiece"
-                                        value={this.state.numpiece ? this.state.numpiece : this.state.fetchData && this.state.fetchData.numpiece}
+                                        value={this.state.numpiece}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -707,7 +709,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="delivrancePlace"
-                                        value={this.state.delivrancePlace ? this.state.delivrancePlace : this.state.fetchData && this.state.fetchData.delivrancePlace}
+                                        value={this.state.delivrancePlace}
 
                                
                                         onChange={this.handleChange}
@@ -742,7 +744,7 @@ export default class UpdateMembre extends React.Component {
                                         }
                                         name="delivranceDate"
                                        
-                                        value={this.state.delivranceDate ? this.state.delivranceDate : this.state.fetchData && this.state.fetchData.delivranceDate}
+                                        value={this.state.delivranceDate}
                                          
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -769,7 +771,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="gestionnaire"
-                                        value={this.state.gestionnaire ? this.state.gestionnaire : this.state.fetchData && this.state.fetchData.gestionnaire}
+                                        value={this.state.gestionnaire}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -803,7 +805,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="provinceOrigine"
-                                        value={this.state.provinceOrigine ? this.state.provinceOrigine : this.state.fetchData && this.state.fetchData.provinceOrigine}
+                                        value={this.state.provinceOrigine}
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -831,7 +833,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="territoireOrigine"
-                                        value={this.state.territoireOrigine ? this.state.territoireOrigine : this.state.fetchData && this.state.fetchData.territoireOrigine}
+                                        value={this.state.territoireOrigine }
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -858,7 +860,7 @@ export default class UpdateMembre extends React.Component {
                                             inputColor
                                         }
                                         name="collectiviteOrigine"
-                                        value={this.state.collectiviteOrigine ? this.state.collectiviteOrigine : this.state.fetchData && this.state.fetchData.collectiviteOrigine}
+                                        value={this.state.collectiviteOrigine }
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
@@ -889,7 +891,7 @@ export default class UpdateMembre extends React.Component {
                                                 "3px",
                                         }}
                                         name="otherMention"
-                                        value={this.state.otherMention ? this.state.otherMention : this.state.fetchData && this.state.fetchData.otherMention}
+                                        value={this.state.otherMention }
 
                                         onChange={this.handleChange}
                                         disabled={this.state.disabled ? "disabled" : ""}
