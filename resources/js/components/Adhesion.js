@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import Mendataire from "./Mendataire";
 import PersonneLie from "./PesonneLie";
+import UpdateMembre from "./Modals/UpdateMembre";
 
 // import EditMembre from './EditMembre';
 
@@ -81,30 +82,30 @@ let formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMon
 this.setState({dateOuverture:formatted_date})
 
 }
-handUpdate = async (event)=>{
+// handUpdate = async (event)=>{
    
-    event.preventDefault();
+//     event.preventDefault();
   
-    const res=await axios.post("/updatemembre/",this.state.fetchData);
+//     const res=await axios.post("/updatemembre/",this.state.fetchData);
     
-    if(res.data.success==1){
-        Swal.fire({
-           title:"Success",
-           text:res.data.msg,
-           icon:"success",
-           button:"OK!"
-       })
-       this.setState({ disabled: !this.state.disabled });
+//     if(res.data.success==1){
+//         Swal.fire({
+//            title:"Success",
+//            text:res.data.msg,
+//            icon:"success",
+//            button:"OK!"
+//        })
+//        this.setState({ disabled: !this.state.disabled });
        
-    //    console.log(this.state);
-    }else{
+//     //    console.log(this.state);
+//     }else{
      
-    this.setState({
-        error_list:res.data.validate_error
-    });
-    }
-    console.log(this.state);
-    } 
+//     this.setState({
+//         error_list:res.data.validate_error
+//     });
+//     }
+//     console.log(this.state);
+//     } 
 //put focus on given input
 focusTextInput() {
     this.textInput.current.focus();
@@ -613,7 +614,7 @@ className="form-control mt-1 font-weight-bold"
        
            {this.state.fetchData &&
         <tr>
-            <td><button style={{borderRadius:"0px",width:"100%",height:"30px",fontSize:"12px"}} id="modifierbtn" className="btn btn-primary" onClick={this.handUpdate}  >Modifier <i className="fas fa-edit"></i></button></td>
+            <td><button style={{borderRadius:"0px",width:"100%",height:"30px",fontSize:"12px"}} data-toggle="modal" data-target="#modal-update-membre" id="modifierbtn" className="btn btn-primary" onClick={this.handUpdate}  >Modifier <i className="fas fa-edit"></i></button></td>
         </tr>
         }
         <tr>
@@ -1458,6 +1459,10 @@ style={{
                     </div>
                 </div>
             </form>
+            {/* display here the update membre modal */}
+             {this.fetchData &&
+            <UpdateMembre  dataToUpdate={this.fetchData}/>
+             }
         </div>
     </div>
 </div>
