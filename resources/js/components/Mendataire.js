@@ -9,172 +9,171 @@ import DeleteMendataire from "./Modals/DeleteMendataire";
 export default class Mendataire extends React.Component {
     constructor(props) {
         super(props);
-        this.state={
-        disabled: true,
-        idMendataire:"",
-        mendataireName:"",
-        lieuNaissM:"",
-        dateNaissM:"",
-        etatCivileM:"",
-        sexeM:"",
-        typePieceM:"",
-        professionM:"",
-        telephoneM:"",
-        adresseM:"",
-        observationM:"",
-        photoM:"",
-        fetchData:null,
-        refCompte:"",
-        error_list:[],
-        itemToDropId :"",
-        itemToDropName :"",
-        
-        }
+        this.state = {
+            disabled: true,
+            idMendataire: "",
+            mendataireName: "",
+            lieuNaissM: "",
+            dateNaissM: "",
+            etatCivileM: "",
+            sexeM: "",
+            typePieceM: "",
+            professionM: "",
+            telephoneM: "",
+            adresseM: "",
+            observationM: "",
+            photoM: "",
+            fetchData: null,
+            refCompte: "",
+            error_list: [],
+            itemToDropId: "",
+            itemToDropName: "",
+        };
         this.textInput = React.createRef();
-       this.getData=this.getData.bind(this);
-       this.addNewMendataire=this.addNewMendataire.bind(this);
-       this.handleChange = this.handleChange.bind(this)
-       this.saveNewMendataire=this.saveNewMendataire.bind(this);
-       this.getMendataireDetails=this.getMendataireDetails.bind(this);
-    //    this.deleteMendatair=this.deleteMendatair.bind();
-
+        this.getData = this.getData.bind(this);
+        this.addNewMendataire = this.addNewMendataire.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.saveNewMendataire = this.saveNewMendataire.bind(this);
+        this.getMendataireDetails = this.getMendataireDetails.bind(this);
+        //    this.deleteMendatair=this.deleteMendatair.bind();
     }
-  
-      componentDidMount(){
+
+    componentDidMount() {
         setTimeout(() => {
-            document.getElementById("validerMbtn").setAttribute("disabled","disabled");
-            document.getElementById("addMbtn").setAttribute("disabled","disabled");
-            
-      
-            }, 1000);
-      }
-      //put focus on given input
+            document
+                .getElementById("validerMbtn")
+                .setAttribute("disabled", "disabled");
+            // document.getElementById("addMbtn").setAttribute("disabled","disabled");
+        }, 1000);
+    }
+    //put focus on given input
     focusTextInput() {
-    this.textInput.current.focus();
-     }
-    
+        this.textInput.current.focus();
+    }
+
     //   componentDidUpdate(){
     //     this.getData();
     //   }
-      
-      //get data in input
-    handleChange(event){
-	this.setState({
-	// Computed property names
-	// keys of the objects are computed dynamically
 
-	[event.target.name] : event.target.value
-	})
+    //get data in input
+    handleChange(event) {
+        this.setState({
+            // Computed property names
+            // keys of the objects are computed dynamically
+
+            [event.target.name]: event.target.value,
+        });
     }
-   
-      getData=async()=>{
-          if(this.props.num) {
+
+    getData = async () => {
+        if (this.props.num) {
             try {
-                const data=await axios.get("/mendataire/getmendataire/"+this.props.num)
-                if(data.data){
-                    this.setState({fetchData:data.data})
+                const data = await axios.get(
+                    "/mendataire/getmendataire/" + this.props.num
+                );
+                if (data.data) {
+                    this.setState({ fetchData: data.data });
                     // console.log(this.state.fetchData.data[0].name)
                     setTimeout(() => {
-                        document.getElementById("addMbtn").removeAttribute('disabled');
-                        }, 10);
-                }  
-                } catch (error) {
-                  console.log(error);
-                  }
-                }else{
-                    Swal.fire({
-                        title:"Erreur",
-                        text:"Ooops Aucun numéro de compte recherché!",
-                        icon:"error",
-                        button:"OK!"
-                    })
+                        document
+                            .getElementById("addMbtn")
+                            .removeAttribute("disabled");
+                    }, 10);
                 }
+            } catch (error) {
+                console.log(error);
+            }
+        } else {
+            Swal.fire({
+                title: "Erreur",
+                text: "Ooops Aucun numéro de compte recherché!",
+                icon: "error",
+                button: "OK!",
+            });
+        }
+    };
+    addNewMendataire = async (event) => {
+        event.preventDefault();
+        //initialise les champs
 
-                
-               }
-               addNewMendataire=async(event)=>{
-                   event.preventDefault();
-                   //initialise les champs
+        this.setState({
+            disabled: !this.state.disabled,
+            refCompte: this.props.refCompt,
+        });
+        this.setState({ disabled: !this.state.disabled });
+        setTimeout(() => {
+            this.textInput.current.focus();
+            document.getElementById("validerMbtn").removeAttribute("disabled");
+            document.getElementById("addMbtn").setAttribute("disabled");
+        }, 10);
 
-                   this.setState({ disabled: !this.state.disabled , refCompte:this.props.refCompt });    
-                   this.setState({ disabled: !this.state.disabled });
-                   setTimeout(() => {
-                  this.textInput.current.focus();
-                  document.getElementById("validerMbtn").removeAttribute('disabled');
-                  document.getElementById("addMbtn").setAttribute('disabled');
-                  }, 10);
-                  
-                   this.setState({
-                    mendataireName:"",
-                    lieuNaissM:"",
-                    dateNaissM:"",
-                    etatCivileM:"",
-                    sexeM:"",
-                    typePieceM:"",
-                    professionM:"",
-                    telephoneM:"",
-                    adresseM:"",
-                    observationM:"",  
-                   })
-                   
-                   
+        this.setState({
+            mendataireName: "",
+            lieuNaissM: "",
+            dateNaissM: "",
+            etatCivileM: "",
+            sexeM: "",
+            typePieceM: "",
+            professionM: "",
+            telephoneM: "",
+            adresseM: "",
+            observationM: "",
+        });
+    };
 
-                }
-                 
-                saveNewMendataire=async(event)=>{
-                   event.preventDefault();
-                     //Insert le nouveau membre
-               const res=await axios.post("/mendataire/", this.state);
-               if(res.data.success==1){
-                Swal.fire({
-                   title:"Success",
-                   text:res.data.msg,
-                   icon:"success",
-                   button:"OK!"
-               })
-               setTimeout(() => {
-                
-                document.getElementById("addMbtn").removeAttribute('disabled');
-                }, 10);
-               console.log(this.state);
-               this.setState({ disabled: !this.state.disabled });       
-               }else{
-                this.setState({
-                    error_list:res.data.validate_error
-                });
-               }
-             console.log(this.state);
-               }
-             
-       //getting individual mendataire details
-
-       getMendataireDetails=(id)=>{
-         axios.post('/get/getindividual/mendataire/details',{
-             mendataireId:id
-         }).then((response)=>{
-
+    saveNewMendataire = async (event) => {
+        event.preventDefault();
+        //Insert le nouveau membre
+        const res = await axios.post("/mendataire/", this.state);
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Success",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            setTimeout(() => {
+                document.getElementById("addMbtn").removeAttribute("disabled");
+            }, 10);
+            console.log(this.state);
+            this.setState({ disabled: !this.state.disabled });
+        } else {
             this.setState({
-                idMendataire:response.data.id,
-                mendataireName:response.data.mendataireName,
-                lieuNaissM:response.data.lieuNaissM,
-                dateNaissM:response.data.dateNaissM,
-                etatCivileM:response.data.etatCivileM,
-                sexeM:response.data.sexeM,
-                typePieceM:response.data.typePieceM,
-                professionM:response.data.professionM,
-                telephoneM:response.data.telephoneM,
-                adresseM:response.data.adresseM,
-                observationM:response.data.observationM, 
-               })
-           console.log(this.state)
-         })
-       }
+                error_list: res.data.validate_error,
+            });
+        }
+        console.log(this.state);
+    };
 
-       deleteMendatair(num){
-        this.setState({itemToDropId:num});
+    //getting individual mendataire details
+
+    getMendataireDetails = (id) => {
+        axios
+            .post("/get/getindividual/mendataire/details", {
+                mendataireId: id,
+            })
+            .then((response) => {
+                this.setState({
+                    idMendataire: response.data.id,
+                    mendataireName: response.data.mendataireName,
+                    lieuNaissM: response.data.lieuNaissM,
+                    dateNaissM: response.data.dateNaissM,
+                    etatCivileM: response.data.etatCivileM,
+                    sexeM: response.data.sexeM,
+                    typePieceM: response.data.typePieceM,
+                    professionM: response.data.professionM,
+                    telephoneM: response.data.telephoneM,
+                    adresseM: response.data.adresseM,
+                    observationM: response.data.observationM,
+                });
+                console.log(this.state);
+            });
+    };
+
+    deleteMendatair(num) {
+        this.setState({ itemToDropId: num });
         console.log(this.state.itemToDropId);
-       }
-
+    }
 
     render() {
         var labelColor = {
@@ -182,20 +181,18 @@ export default class Mendataire extends React.Component {
             color: "steelblue",
             padding: "3px",
             fontSize: "14px",
-            };
-            var inputColor = {
+        };
+        var inputColor = {
             height: "25px",
             border: "1px solid steelblue",
             padding: "3px",
-            borderRadius:"0px",
-            
-            
-            };
-            var tableBorder={
-                border:"2px solid #fff",
-                fontSize:"10px"
-            }
-            let compteur=1;
+            borderRadius: "0px",
+        };
+        var tableBorder = {
+            border: "2px solid #fff",
+            fontSize: "10px",
+        };
+        let compteur = 1;
         return (
             <>
                 <div
@@ -245,15 +242,20 @@ export default class Mendataire extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
-                                                              className={`form-control ${this.state.error_list.mendataireName && "is-invalid"}`}
+                                                                className={`form-control ${
+                                                                    this.state
+                                                                        .error_list
+                                                                        .mendataireName &&
+                                                                    "is-invalid"
+                                                                }`}
                                                                 id="nommendataire"
                                                                 style={
                                                                     inputColor
                                                                 }
                                                                 name="mendataireName"
-                                                                value={ this.state
+                                                                value={
+                                                                    this.state
                                                                         .mendataireName
-                                                                          
                                                                 }
                                                                 onChange={
                                                                     this
@@ -265,10 +267,11 @@ export default class Mendataire extends React.Component {
                                                                         ? "disabled"
                                                                         : ""
                                                                 }
-                                                                ref={this.textInput}
-                                                                
+                                                                ref={
+                                                                    this
+                                                                        .textInput
+                                                                }
                                                             />
-                                                           
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -284,17 +287,20 @@ export default class Mendataire extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
-                                                             className={`form-control ${this.state.error_list.lieuNaissM && "is-invalid"}`}
+                                                                className={`form-control ${
+                                                                    this.state
+                                                                        .error_list
+                                                                        .lieuNaissM &&
+                                                                    "is-invalid"
+                                                                }`}
                                                                 id="lieuNaiss"
                                                                 style={
                                                                     inputColor
                                                                 }
                                                                 name="lieuNaissM"
                                                                 value={
-                                                                    
                                                                     this.state
-                                                                    .lieuNaissM
-                                                                   
+                                                                        .lieuNaissM
                                                                 }
                                                                 onChange={
                                                                     this
@@ -322,18 +328,21 @@ export default class Mendataire extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
-                                                             className={`form-control ${this.state.error_list.dateNaissM && "is-invalid"}`}
+                                                                className={`form-control ${
+                                                                    this.state
+                                                                        .error_list
+                                                                        .dateNaissM &&
+                                                                    "is-invalid"
+                                                                }`}
                                                                 id="dateNaiss"
                                                                 style={
                                                                     inputColor
                                                                 }
                                                                 name="dateNaissM"
                                                                 value={
-                                                                  this.state
+                                                                    this.state
                                                                         .dateNaissM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -366,11 +375,9 @@ export default class Mendataire extends React.Component {
                                                                 }
                                                                 name="etatCivileM"
                                                                 value={
-                                                                   this.state
+                                                                    this.state
                                                                         .etatCivileM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -418,9 +425,7 @@ export default class Mendataire extends React.Component {
                                                                 value={
                                                                     this.state
                                                                         .sexeM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -468,11 +473,9 @@ export default class Mendataire extends React.Component {
                                                                 }
                                                                 name="typePieceM"
                                                                 value={
-                                                                      this.state
+                                                                    this.state
                                                                         .typePieceM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -513,11 +516,9 @@ export default class Mendataire extends React.Component {
                                                                 }
                                                                 name="professionM"
                                                                 value={
-                                                                      this.state
+                                                                    this.state
                                                                         .professionM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -567,11 +568,9 @@ export default class Mendataire extends React.Component {
                                                                 }
                                                                 name="telephoneM"
                                                                 value={
-                                                                      this.state
+                                                                    this.state
                                                                         .telephoneM
-                                                                          
                                                                 }
-                                                               
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -607,11 +606,9 @@ export default class Mendataire extends React.Component {
                                                                 }}
                                                                 name="adresseM"
                                                                 value={
-                                                                      this.state
+                                                                    this.state
                                                                         .adresseM
-                                                                          
                                                                 }
-                                                              
                                                                 onChange={
                                                                     this
                                                                         .handleChange
@@ -692,9 +689,8 @@ export default class Mendataire extends React.Component {
                                                         border: "3px solid #fff",
                                                     }}
                                                 >
-                                                     <tr>
+                                                    <tr>
                                                         <td>
-                                                           
                                                             <button
                                                                 type="button"
                                                                 style={{
@@ -705,16 +701,14 @@ export default class Mendataire extends React.Component {
                                                                     fontSize:
                                                                         "12px",
                                                                 }}
-                                                                
                                                                 className="btn btn-success"
-
-                                                                onClick={this.getData}
+                                                                onClick={
+                                                                    this.getData
+                                                                }
                                                             >
-                                                                Afficher{" "}
-                                                            
+                                                                Actualiser{" "}
                                                                 <i class="fas fa-sync"></i>
                                                             </button>
-
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -731,14 +725,17 @@ export default class Mendataire extends React.Component {
                                                                 }}
                                                                 className="btn btn-primary"
                                                                 id="addMbtn"
-                                                                onClick={this.addNewMendataire}
+                                                                onClick={
+                                                                    this
+                                                                        .addNewMendataire
+                                                                }
                                                             >
                                                                 Ajouter{" "}
                                                                 <i className="fas fa-database"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
-                                               
+
                                                     <tr>
                                                         <td>
                                                             <button
@@ -753,15 +750,16 @@ export default class Mendataire extends React.Component {
                                                                 }}
                                                                 className="btn btn-primary"
                                                                 id="validerMbtn"
-                                                                onClick={this.saveNewMendataire}
-
-                                                                >
+                                                                onClick={
+                                                                    this
+                                                                        .saveNewMendataire
+                                                                }
+                                                            >
                                                                 Valider{" "}
                                                                 <i className="fas fa-check"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
-                                                   
                                                 </table>
                                             </div>
                                         </div>
@@ -769,53 +767,218 @@ export default class Mendataire extends React.Component {
                                 </div>
                                 <div className="container-fluid">
                                     <div className="col-md-12">
-                                        <table className="table table-dark" style={tableBorder}>
+                                        <table
+                                            className="table table-dark"
+                                            style={tableBorder}
+                                        >
                                             <thead>
-                                               
                                                 <tr>
-                                                    <td style={tableBorder}>#</td>
-                                                    <td style={tableBorder}>Nom</td>
-                                                    <td style={tableBorder}>Lieu Naissance</td>
-                                                    <td style={tableBorder}>Date Naissance</td>
-                                                    <td style={tableBorder}>Etat c.</td>
-                                                    <td style={tableBorder}>sexe</td>
-                                                    <td style={tableBorder}>Type p.</td>
-                                                    <td style={tableBorder}>Profession</td>
-                                                    <td style={tableBorder}>Téléphone</td>
-                                                    <td style={tableBorder}>Adresse</td>
-                                                    <td style={tableBorder}>Action</td>
+                                                    <td style={tableBorder}>
+                                                        #
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Nom
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Lieu Naissance
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Date Naissance
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Etat c.
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        sexe
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Type p.
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Profession
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Téléphone
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Adresse
+                                                    </td>
+                                                    <td style={tableBorder}>
+                                                        Action
+                                                    </td>
                                                 </tr>
-                                                
                                             </thead>
                                             <tbody>
-                                            {this.state.fetchData &&   this.state.fetchData.data.map((res,index)=>{
-                                                     return(
-                                                        <tr key={index}>
-                                                        <td style={tableBorder}> {compteur++} </td>
-                                                        <td style={tableBorder}>{res.name}</td>
-                                                        <td style={tableBorder}>{res.lieuN}</td>
-                                                        <td style={tableBorder}>{res.dateN}</td>
-                                                        <td style={tableBorder}>{res.etatC}</td>
-                                                        <td style={tableBorder}>{res.sexM}</td>
-                                                        <td style={tableBorder}>{res.typePiec}</td>
-                                                        <td style={tableBorder}>{res.profession}</td>
-                                                        <td style={tableBorder}>{res.telephone}</td>
-                                                        <td style={tableBorder}>{res.adresse}</td>
-                                                        <td style={tableBorder}><div class="btn-group" role="group" aria-label="Basic example">
-                                                         <button style={{fontSize:"10px"}} type="button" className="btn btn-primary" data-toggle="modal" data-target="#modal-mendataire" onClick={()=> {this.getMendataireDetails(res.idMendataire)}}>Modifier  <i className="fas fa-edit"></i> </button>
-                                                        <button style={{fontSize:"10px"}} type="button" className="btn btn-danger" data-toggle="modal" data-target="#modal-delete-mendataire" onClick={()=>{ this.deleteMendatair(res.idMendataire) }}>Supprimer   <i className="fas fa-trash"></i> </button>
-                                                         {/* <button type="button" class="btn btn-success" onClick={this.getData} data-toggle="modal" data-target="#modal-delete-mendataire" > <i class="fas fa-sync"></i></button> */}
-                                                       </div></td> 
-                                                       <UpdateMendataire  modalId={this.state.idMendataire} mendatData={this.state}  />
+                                                {this.state.fetchData &&
+                                                    this.state.fetchData.data.map(
+                                                        (res, index) => {
+                                                            return (
+                                                                <tr key={index}>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {" "}
+                                                                        {
+                                                                            compteur++
+                                                                        }{" "}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.name
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.lieuN
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.dateN
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.etatC
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.sexM
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.typePiec
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.profession
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.telephone
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            res.adresse
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        <div
+                                                                            class="btn-group"
+                                                                            role="group"
+                                                                            aria-label="Basic example"
+                                                                        >
+                                                                            <button
+                                                                                style={{
+                                                                                    fontSize:
+                                                                                        "10px",
+                                                                                }}
+                                                                                type="button"
+                                                                                className="btn btn-primary"
+                                                                                data-toggle="modal"
+                                                                                data-target="#modal-mendataire"
+                                                                                onClick={() => {
+                                                                                    this.getMendataireDetails(
+                                                                                        res.idMendataire
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                Modifier{" "}
+                                                                                <i className="fas fa-edit"></i>{" "}
+                                                                            </button>
+                                                                            <button
+                                                                                style={{
+                                                                                    fontSize:
+                                                                                        "10px",
+                                                                                }}
+                                                                                type="button"
+                                                                                className="btn btn-danger"
+                                                                                data-toggle="modal"
+                                                                                data-target="#modal-delete-mendataire"
+                                                                                onClick={() => {
+                                                                                    this.deleteMendatair(
+                                                                                        res.idMendataire
+                                                                                    );
+                                                                                }}
+                                                                            >
+                                                                                Supprimer{" "}
+                                                                                <i className="fas fa-trash"></i>{" "}
+                                                                            </button>
+                                                                            {/* <button type="button" class="btn btn-success" onClick={this.getData} data-toggle="modal" data-target="#modal-delete-mendataire" > <i class="fas fa-sync"></i></button> */}
+                                                                        </div>
+                                                                    </td>
+                                                                    <UpdateMendataire
+                                                                        modalId={
+                                                                            this
+                                                                                .state
+                                                                                .idMendataire
+                                                                        }
+                                                                        mendatData={
+                                                                            this
+                                                                                .state
+                                                                        }
+                                                                    />
 
-                                                       <DeleteMendataire modalId={this.state.itemToDropId} />
-                                                   </tr>
-                                                  )
-                                                  })}
-                                                
+                                                                    <DeleteMendataire
+                                                                        modalId={
+                                                                            this
+                                                                                .state
+                                                                                .itemToDropId
+                                                                        }
+                                                                    />
+                                                                </tr>
+                                                            );
+                                                        }
+                                                    )}
                                             </tbody>
                                         </table>
-                                      
                                     </div>
                                 </div>
                             </div>

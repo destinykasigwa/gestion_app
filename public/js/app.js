@@ -2348,7 +2348,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                 setTimeout(function () {
                   _this.textInput.current.focus();
                 }, 10);
-                document.getElementById("validerbtn").removeAttribute('disabled');
+                document.getElementById("validerbtn").removeAttribute("disabled");
 
               case 9:
               case "end":
@@ -2482,8 +2482,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
       workingPlace: "",
       cilivilty: "",
       sexe: "",
-      phone1: "243",
-      phone2: "243",
+      phone1: "",
+      phone2: "",
       email: "",
       typepiece: "",
       numpiece: "",
@@ -2554,7 +2554,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
     //     });
     //     }
     //     console.log(this.state);
-    //     } 
+    //     }
     //put focus on given input
 
   }, {
@@ -2648,7 +2648,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                   onClick: this.actualiser,
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                     className: "fas fa-sync"
-                  }), " Actualiser", " "]
+                  }), " ", "Actualiser", " "]
                 })
               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                 className: "card-body",
@@ -2924,7 +2924,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                             id: "ajouterbtn",
                             className: "btn btn-primary",
                             onClick: this.handleNew,
-                            children: ["Ajouter ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                            children: ["Ajouter", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                               className: "fas fa-database"
                             })]
                           })
@@ -2942,7 +2942,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                             "data-target": "#modal-update-membre",
                             id: "modifierbtn",
                             className: "btn btn-primary",
-                            children: ["Modifier ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                            children: ["Modifier", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                               className: "fas fa-edit"
                             })]
                           })
@@ -2960,7 +2960,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                             id: "validerbtn",
                             className: "btn btn-primary",
                             onClick: this.handleSubmit,
-                            children: ["Valider ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                            children: ["Valider", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                               className: "fas fa-check"
                             })]
                           })
@@ -3370,7 +3370,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                                               }), " "]
                                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("td", {
                                               children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
-                                                className: "form-control ".concat(this.state.error_list.phone1 && "is-invalid"),
+                                                className: "form-control ".concat(this.state.error_list.phone2 && "is-invalid"),
                                                 id: "tel2",
                                                 style: inputColor,
                                                 name: "phone2",
@@ -4372,7 +4372,7 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                                             fontSize: "12px"
                                           },
                                           className: "btn btn-primary",
-                                          children: ["Cr\xE9er ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                                          children: ["Cr\xE9er", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                                             className: "fas fa-check"
                                           })]
                                         })
@@ -4531,7 +4531,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
 
 
                 setTimeout(function () {
-                  document.getElementById("addMbtn").removeAttribute('disabled');
+                  document.getElementById("addMbtn").removeAttribute("disabled");
                 }, 10);
               }
 
@@ -4583,8 +4583,8 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
                 setTimeout(function () {
                   _this.textInput.current.focus();
 
-                  document.getElementById("validerMbtn").removeAttribute('disabled');
-                  document.getElementById("addMbtn").setAttribute('disabled');
+                  document.getElementById("validerMbtn").removeAttribute("disabled");
+                  document.getElementById("addMbtn").setAttribute("disabled");
                 }, 10);
 
                 _this.setState({
@@ -4636,7 +4636,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
                     button: "OK!"
                   });
                   setTimeout(function () {
-                    document.getElementById("addMbtn").removeAttribute('disabled');
+                    document.getElementById("addMbtn").removeAttribute("disabled");
                   }, 10);
                   console.log(_this.state);
 
@@ -4665,7 +4665,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
     }());
 
     _defineProperty(_assertThisInitialized(_this), "getMendataireDetails", function (id) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('/get/getindividual/mendataire/details', {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/get/getindividual/mendataire/details", {
         mendataireId: id
       }).then(function (response) {
         _this.setState({
@@ -4720,8 +4720,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       setTimeout(function () {
-        document.getElementById("validerMbtn").setAttribute("disabled", "disabled");
-        document.getElementById("addMbtn").setAttribute("disabled", "disabled");
+        document.getElementById("validerMbtn").setAttribute("disabled", "disabled"); // document.getElementById("addMbtn").setAttribute("disabled","disabled");
       }, 1000);
     } //put focus on given input
 
@@ -5072,7 +5071,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
                                 },
                                 className: "btn btn-success",
                                 onClick: this.getData,
-                                children: ["Afficher", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                                children: ["Actualiser", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                                   "class": "fas fa-sync"
                                 })]
                               })
@@ -5212,7 +5211,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
                                   onClick: function onClick() {
                                     _this2.getMendataireDetails(res.idMendataire);
                                   },
-                                  children: ["Modifier  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                                  children: ["Modifier", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                                     className: "fas fa-edit"
                                   }), " "]
                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
@@ -5226,7 +5225,7 @@ var Mendataire = /*#__PURE__*/function (_React$Component) {
                                   onClick: function onClick() {
                                     _this2.deleteMendatair(res.idMendataire);
                                   },
-                                  children: ["Supprimer   ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                                  children: ["Supprimer", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                                     className: "fas fa-trash"
                                   }), " "]
                                 })]
@@ -5664,7 +5663,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
         lieuNaiss: _this.state.lieuNaiss,
         dateNaiss: _this.state.dateNaiss,
         etatCivile: _this.state.etatCivile,
-        conjoitName: _this.state.intituleCompte,
+        conjoitName: _this.state.conjoitName,
         fatherName: _this.state.fatherName,
         motherName: _this.state.motherName,
         profession: _this.state.profession,
@@ -5699,7 +5698,10 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
             icon: "success",
             button: "OK!"
           });
-          console.log(_this.props.modalId);
+
+          _this.setState({
+            disabled: !_this.state.disabled
+          });
         } else {
           console.log(_this.state);
         }
@@ -5707,6 +5709,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
     });
 
     _this.state = (_this$state = {
+      disabled: false,
       intituleCompte: "",
       lieuNaiss: "",
       dateNaiss: "",
@@ -5718,8 +5721,8 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
       workingPlace: "",
       cilivilty: "",
       sexe: "",
-      phone1: "243",
-      phone2: "243",
+      phone1: "",
+      phone2: "",
       email: "",
       typepiece: "",
       numpiece: "",
@@ -5807,6 +5810,26 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                             className: "col-md-4",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    style: labelColor,
+                                    children: "Intitul\xE9 c."
+                                  }), " "]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control ".concat(this.state.error_list.intituleCompte && "is-invalid"),
+                                    name: "intituleCompte",
+                                    value: this.state.intituleCompte,
+                                    onChange: this.handleChange,
+                                    disabled: this.state.disabled ? "disabled" : ""
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                                     htmlFor: "lieuNaiss",
@@ -5962,6 +5985,23 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                             className: "col-md-4",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                    htmlFor: "lieuTravail",
+                                    style: labelColor,
+                                    children: "Lieu de travail"
+                                  }), " "]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    id: "lieuTravail",
+                                    style: inputColor,
+                                    name: "workingPlace",
+                                    value: this.state.workingPlace,
+                                    onChange: this.handleChange,
+                                    disabled: this.state.disabled ? "disabled" : ""
+                                  })]
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                                     htmlFor: "civilite",
@@ -6124,7 +6164,12 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
                                 })]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              })]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "col-md-4",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                                     htmlFor: "delivranceplace",
@@ -6141,12 +6186,7 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
                                 })]
-                              })]
-                            })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
-                            className: "col-md-4",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
                                     htmlFor: "delivrancePiece",
@@ -6303,8 +6343,8 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
         workingPlace: "",
         cilivilty: "",
         sexe: "",
-        phone1: "243",
-        phone2: "243",
+        phone1: "",
+        phone2: "",
         email: "",
         typepiece: "",
         numpiece: "",
@@ -7572,7 +7612,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
 
 
                 setTimeout(function () {
-                  document.getElementById("addMbtnP").removeAttribute('disabled');
+                  document.getElementById("addMbtnP").removeAttribute("disabled");
                 }, 10);
               }
 
@@ -7620,8 +7660,8 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
                 setTimeout(function () {
                   _this.textInput.current.focus();
 
-                  document.getElementById("validerP").removeAttribute('disabled');
-                  document.getElementById("addMbtnP").setAttribute('disabled');
+                  document.getElementById("validerP").removeAttribute("disabled");
+                  document.getElementById("addMbtnP").setAttribute("disabled");
                 }, 10);
 
                 _this.setState({
@@ -7666,7 +7706,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
                     button: "OK!"
                   });
                   setTimeout(function () {
-                    document.getElementById("addMbtnP").removeAttribute('disabled');
+                    document.getElementById("addMbtnP").removeAttribute("disabled");
                   }, 10);
                   console.log(_this.state);
 
@@ -7695,7 +7735,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
     }());
 
     _defineProperty(_assertThisInitialized(_this), "getPersonneLieDetails", function (id) {
-      axios__WEBPACK_IMPORTED_MODULE_2___default().post('/get/getindividual/personnelie/details', {
+      axios__WEBPACK_IMPORTED_MODULE_2___default().post("/get/getindividual/personnelie/details", {
         pesonneLieId: id
       }).then(function (response) {
         _this.setState({
@@ -7910,7 +7950,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
                             onClick: function onClick() {
                               _this2.getPersonneLieDetails(res.idPersonneLie);
                             },
-                            children: ["Modifier  ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                            children: ["Modifier", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                               className: "fas fa-edit"
                             }), " "]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
@@ -7924,7 +7964,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
                             onClick: function onClick() {
                               _this2.deletePersonneLie(res.idPersonneLie);
                             },
-                            children: ["Supprimer   ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                            children: ["Supprimer", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                               className: "fas fa-trash"
                             }), " "]
                           })]
@@ -7958,7 +7998,7 @@ var PersonneLie = /*#__PURE__*/function (_React$Component) {
                       },
                       className: "btn btn-success",
                       onClick: this.getData,
-                      children: ["Afficher", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
+                      children: ["Actualiser", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
                         "class": "fas fa-sync"
                       })]
                     })

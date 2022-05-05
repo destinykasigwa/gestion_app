@@ -6,6 +6,7 @@ export default class UpdateMembre extends React.Component {
     constructor(props) {
         super(props);
         this.state={
+            disabled: false,
             intituleCompte:"",
             lieuNaiss:"",
             dateNaiss:"",
@@ -17,8 +18,8 @@ export default class UpdateMembre extends React.Component {
             workingPlace:"",
             cilivilty:"",
             sexe:"",
-            phone1:"243",
-            phone2:"243",
+            phone1:"",
+            phone2:"",
             email:"",
             typepiece:"",
             numpiece:"",
@@ -65,8 +66,8 @@ export default class UpdateMembre extends React.Component {
                 workingPlace:"",
                 cilivilty:"",
                 sexe:"",
-                phone1:"243",
-                phone2:"243",
+                phone1:"",
+                phone2:"",
                 email:"",
                 typepiece:"",
                 numpiece:"",
@@ -380,7 +381,7 @@ export default class UpdateMembre extends React.Component {
                 lieuNaiss:this.state.lieuNaiss,
                 dateNaiss:this.state.dateNaiss,
                 etatCivile:this.state.etatCivile,
-                conjoitName:this.state.intituleCompte,
+                conjoitName:this.state.conjoitName,
                 fatherName:this.state.fatherName,
                 motherName:this.state.motherName,
                 profession:this.state.profession,
@@ -415,7 +416,8 @@ export default class UpdateMembre extends React.Component {
                         icon:"success",
                         button:"OK!"
                     })
-                    console.log(this.props.modalId);
+                   
+                    this.setState({ disabled: !this.state.disabled });
                  }else{
                      console.log(this.state);
                  }
@@ -469,6 +471,34 @@ export default class UpdateMembre extends React.Component {
                 <div className="row">
                     <div className="col-md-4">
                         <table>
+                        <tr>
+                        <td>
+                        {" "}
+                        <label
+                            style={
+                                labelColor
+                            }
+                        >
+                            Intitulé c.
+                        </label>{" "}
+                        </td>
+                        <div className="input-group input-group-sm ">
+                        <input
+                            type="text"
+                            style={{
+                                borderRadius:
+                                    "0px",
+                            }}
+                            className={`form-control ${this.state.error_list.intituleCompte && "is-invalid"}`}
+                            name="intituleCompte"
+                            value={this.state.intituleCompte}
+                            onChange={this.handleChange}
+                            disabled={this.state.disabled ? "disabled" : ""}
+        
+                        />
+                        </div>
+
+                        </tr>
                             <tr>
                                 <td>
                                     <label
@@ -710,6 +740,35 @@ export default class UpdateMembre extends React.Component {
                         <table>
                         <tr>
                                 <td>
+                                    {" "}
+                                    <label
+                                        htmlFor="lieuTravail"
+                                        style={
+                                            labelColor
+                                        }
+                                    >
+                                        Lieu
+                                        de
+                                        travail
+                                    </label>{" "}
+                                </td>
+                                <td>
+                                    {" "}
+                                    <input
+                                        id="lieuTravail"
+                                        style={
+                                            inputColor
+                                        }
+                                        name="workingPlace"
+                                        value={this.state.workingPlace }
+                                        onChange={this.handleChange}
+                                        disabled={this.state.disabled ? "disabled" : ""}
+                                    />
+                                </td>
+                            </tr>
+                            
+                            <tr>
+                                <td>
                                     <label
                                         htmlFor="civilite"
                                         style={
@@ -924,7 +983,12 @@ export default class UpdateMembre extends React.Component {
                                     />
                                 </td>
                             </tr>
-                            <tr>
+                           
+                        </table>
+                    </div>
+                    <div className="col-md-4">
+                        <table>
+                        <tr>
                                 <td>
                                     <label
                                         htmlFor="delivranceplace"
@@ -952,11 +1016,6 @@ export default class UpdateMembre extends React.Component {
                                     />
                                 </td>
                             </tr>
-                        </table>
-                    </div>
-                    <div className="col-md-4">
-                        <table>
-                            
                             <tr>
                                 <td>
                                     <label
