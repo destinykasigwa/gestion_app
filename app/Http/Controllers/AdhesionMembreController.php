@@ -139,9 +139,9 @@ class AdhesionMembreController extends Controller
    
     PersonneLie::create([
         "refCompte"=>$lastId->refCompte,
-        "personneLieName"=>$request->personneLieName,
-        "lieuNaissLie"=>$request->lieuNaissLie,
-        "dateNaissLie"=>$request->dateNaissLie,
+        "personneLieName"=>$request->intituleCompte,
+        "lieuNaissLie"=>$request->lieuNaiss,
+        "dateNaissLie"=>$request->dateNaiss,
         "degreParante"=>$request->degreParante,
         
     ]);

@@ -120,7 +120,7 @@ export default class UpdatePersonneLie extends React.Component {
         <div className="modal-dialog modal-lg">
           <div className="modal-content">
             <div className="modal-header">
-              <h4 style={{color:"#000"}} className="modal-title">Modification d'une personne liée <strong> {this.props.personneLieData.personneLieName} {this.props.modalId}  </strong></h4>
+              <h4 style={{color:"#000"}} className="modal-title">Modification d'une personne liée </h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>

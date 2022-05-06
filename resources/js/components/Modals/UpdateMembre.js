@@ -704,34 +704,7 @@ export default class UpdateMembre extends React.Component {
                                     />
                                 </td>
                             </tr>
-                            <tr>
-                                <td>
-                                    {" "}
-                                    <label
-                                        htmlFor="lieuTravail"
-                                        style={
-                                            labelColor
-                                        }
-                                    >
-                                        Lieu
-                                        de
-                                        travail
-                                    </label>{" "}
-                                </td>
-                                <td>
-                                    {" "}
-                                    <input
-                                        id="lieuTravail"
-                                        style={
-                                            inputColor
-                                        }
-                                        name="workingPlace"
-                                        value={this.state.workingPlace }
-                                        onChange={this.handleChange}
-                                        disabled={this.state.disabled ? "disabled" : ""}
-                                    />
-                                </td>
-                            </tr>
+                            
                             
                            
                         </table>

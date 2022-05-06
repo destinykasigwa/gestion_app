@@ -5962,23 +5962,6 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
                                     disabled: this.state.disabled ? "disabled" : ""
                                   })]
                                 })]
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
-                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
-                                    htmlFor: "lieuTravail",
-                                    style: labelColor,
-                                    children: "Lieu de travail"
-                                  }), " "]
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
-                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
-                                    id: "lieuTravail",
-                                    style: inputColor,
-                                    name: "workingPlace",
-                                    value: this.state.workingPlace,
-                                    onChange: this.handleChange,
-                                    disabled: this.state.disabled ? "disabled" : ""
-                                  })]
-                                })]
                               })]
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
@@ -7320,14 +7303,12 @@ var UpdatePersonneLie = /*#__PURE__*/function (_React$Component) {
               className: "modal-content",
               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                 className: "modal-header",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("h4", {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("h4", {
                   style: {
                     color: "#000"
                   },
                   className: "modal-title",
-                  children: ["Modification d'une personne li\xE9e ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("strong", {
-                    children: [" ", this.props.personneLieData.personneLieName, " ", this.props.modalId, "  "]
-                  })]
+                  children: "Modification d'une personne li\xE9e "
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
                   type: "button",
                   "class": "close",
