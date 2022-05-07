@@ -14,11 +14,11 @@
 
  import ReactDOM from 'react-dom';
  import Adhesion from './components/Adhesion';
-//  import EditMembre from './components/EditMembre';
+import DepotEspece from './components/DepotEspece';
  
  if (document.getElementById('adhesionContainer')) {
      ReactDOM.render(<Adhesion />, document.getElementById('adhesionContainer'));
  }
-//  else if(document.getElementById('updateMembreContainer')){
-//     ReactDOM.render(<EditMembre />, document.getElementById('updateMembreContainer'));
-//  }
+ else if(document.getElementById('DepotEspeceContainer')){
+    ReactDOM.render(<DepotEspece />, document.getElementById('DepotEspeceContainer'));
+ }

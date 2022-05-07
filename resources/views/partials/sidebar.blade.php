@@ -21,7 +21,7 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="./index.html" class="nav-link">
+                            <a href="{{route('depot.espece')}}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>Dépot</p>
                             </a>

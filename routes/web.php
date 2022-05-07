@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\updateMembre;
 use App\Http\Controllers\AdhesionMembreController;
+use App\Http\Controllers\DepotEspeceController;
 use App\Http\Controllers\GetIndividualMendataire;
 // use App\Http\Controllers\MendataireController;
 use App\Http\Controllers\PersonneLieController;
@@ -28,6 +29,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('membre.adhesion');
+Route::get('/depot-espece', [DepotEspeceController::class,'depotEspece'])->name('depot.espece');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew","App\Http\Controllers\AdhesionMembreController")->except(["destroy","update","edit"]);

@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+
+class DepotEspeceController extends Controller
+{
+//function to store data in to data base when makeking deposit
+
+public function depotEspece(Request $request){
+
+
+// return response()->json(["success"=>1,"msg"=>"great....."]);
+
+}
+}
