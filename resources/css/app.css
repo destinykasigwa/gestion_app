@@ -1,6 +1,6 @@
 .tableDepotEspece{
-    background: #444;
-      color: #fff;
+    background: #dcdcdc;
+      color: #0000;
       padding: 8px;
       margin: 3px;
       border: 2px solid #fff;
@@ -8,12 +8,12 @@
       width: 100%;
    }
    .tableDepotEspece tr,td{
-    border: 2px solid #fff;
+    border: 2px solid #FFF;
     padding: 5px;
    }
-   .tableDepotEspeceCDF{
-    background: #444;
-      color: #fff;
+   .tableDepotEspece{
+    background: #dcdcdc;
+      color: #000;
       padding: 8px;
       margin: 3px;
       border: 2px solid #fff;
@@ -21,7 +21,7 @@
       width: 100%; 
    }
 
-   .tableDepotEspeceCDF tr,td{
+   .tableDepotEspece tr,td{
     border: 2px solid #fff;
     padding: 0px;
 

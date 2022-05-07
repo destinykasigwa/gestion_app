@@ -58,7 +58,7 @@ export default class DepotEspece extends React.Component {
             current_datetime.getFullYear();
         this.setState({ dateOuverture: formatted_date });
     }
-
+ 
     render() {
         var myspinner = {
             margin: "5px auto",
@@ -88,8 +88,9 @@ export default class DepotEspece extends React.Component {
         };
         var tableBorder = {
             border: "2px solid #fff",
-            fontSize: "10px",
+            fontSize: "16px",
         };
+        let compteur=1;
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -563,7 +564,7 @@ export default class DepotEspece extends React.Component {
                     </form>
                   ) : (
                     <form method="POST" style={{ height: "340px" }}>
-                      <table className="tableDepotEspeceCDF">
+                      <table className="tableDepotEspece">
                         <thead>
                           <tr>
                             <th class="col-md-4">Coupures</th>
@@ -812,6 +813,306 @@ export default class DepotEspece extends React.Component {
                          </div>
                             </div>
                         </div>
+                        <div className="container-fluid">
+                          <div className="row"> 
+                          <h3 className="text-muted">Billetage</h3>
+                                    <div className="col-md-6">
+                                        <table
+                                            className="table"
+                                            style={{background:"#dcdcdc"}}
+                                        >
+                                          <thead>
+                                            <th style={
+                                                tableBorder
+                                            }>Num</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Coupure</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Nombre</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant</th>
+                                          </thead>
+                                           <tr>
+                                             <td className="col-md-1">
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                           
+                                            style={
+                                                tableBorder
+                                            }
+                                        >
+                                            20 000 x
+                                        </td>
+                                        <td
+                                       
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          1
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                                  
+                                             
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                               >
+                                          
+                                            10 000 x
+                                        </td> 
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                         2
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                            5000 x
+                                        </td>
+                                       
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                        3
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                           1000 x
+                                        </td>
+                                       
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          4
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                        >
+                                           500 x
+                                        </td>
+                                      
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          5
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                           >
+                                           200 x
+                                        </td>
+                                      
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          6
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                            100 x
+                                        </td>
+                                       
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          7
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                           >
+                                           50 x
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          8
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          Montant
+                                        </td>
+                                      
+                                           </tr>
+                                        </table>
+                                    </div>
+                                    <div className="col-md-6">
+                                    <h3 className="text-muted">Opérations recentes</h3>
+                                    <table
+                                            className="table"
+                                            style={{background:"#dcdcdc"}}
+                                        >
+                                          <thead>
+                                            <th style={
+                                                tableBorder
+                                            }>#</th>
+                                            <th style={
+                                                tableBorder
+                                            }>numCompte</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant Débit</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant Crédit</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Libellé</th>
+                                          </thead>
+                                          <tr>
+                                            <td style={
+                                                tableBorder
+                                            }>{compteur++}</td>
+                                             <td style={
+                                                tableBorder
+                                            }>3496</td>
+                                            <td style={
+                                                tableBorder
+                                            }>5000</td>
+                                            <td style={
+                                                tableBorder
+                                            }>4000</td>
+                                            <td style={
+                                                tableBorder
+                                            }>RETRAIT ESPECE</td>
+                                          </tr>
+
+
+
+
+
+                                         </table>
+
+
+                                    </div>
+                                    </div>
+                                </div>
                     </div>
                 )}
             </React.Fragment>
