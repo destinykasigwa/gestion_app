@@ -14,4 +14,10 @@ public function depotEspece(Request $request){
 // return response()->json(["success"=>1,"msg"=>"great....."]);
 
 }
+
+
+public function depot(){
+ 
+    return view("depot-espece");
+}
 }

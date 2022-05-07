@@ -29,7 +29,7 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('membre.adhesion');
-Route::get('/depot-espece', [DepotEspeceController::class,'depotEspece'])->name('depot.espece');
+Route::get('/depot-espece', [DepotEspeceController::class,'depot'])->name('depot.espece');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew","App\Http\Controllers\AdhesionMembreController")->except(["destroy","update","edit"]);

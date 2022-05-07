@@ -1,6 +1,28 @@
-/* .btn  
-{margin-right: 10px;margin-left: 10px}  */
+.tableDepotEspece{
+    background: #444;
+      color: #fff;
+      padding: 8px;
+      margin: 3px;
+      border: 2px solid #fff;
+      text-align: center;
+      width: 100%;
+   }
+   .tableDepotEspece tr,td{
+    border: 2px solid #fff;
+    padding: 5px;
+   }
+   .tableDepotEspeceCDF{
+    background: #444;
+      color: #fff;
+      padding: 8px;
+      margin: 3px;
+      border: 2px solid #fff;
+      text-align: center;
+      width: 100%; 
+   }
 
-/* .modal{
-background-color: #dcdcdc;
-} */
+   .tableDepotEspeceCDF tr,td{
+    border: 2px solid #fff;
+    padding: 0px;
+
+   }
