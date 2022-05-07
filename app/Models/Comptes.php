@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Comptes extends Model
 {
     use HasFactory;
+    protected $fillable=[
+        'CodeAgence',
+        'NumCompte',
+        'NumCompteAmo',
+        'NomCompte',
+        'NumeTelephone',
+        'DateNaissance',
+        'NumAdherant',
+    ];
 }

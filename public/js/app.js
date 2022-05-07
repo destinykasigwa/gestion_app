@@ -2294,7 +2294,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                 getData = _context.sent;
 
                 _this.setState({
-                  numCompte: "330000" + getData.data.lastId + "201"
+                  numCompte: "330000" + getData.data.lastId + "201",
+                  compteAbrege: getData.data.lastId + "20"
                 }); // console.log(this.state.fetchLastId);
                 //clean data in all in put
 
@@ -2505,7 +2506,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
       activationCompte: "false",
       fetchData: null,
       fetchLastId: [],
-      error_list: []
+      error_list: [],
+      compteAbrege: ""
     };
     _this.textInput = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_1__.createRef();
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));

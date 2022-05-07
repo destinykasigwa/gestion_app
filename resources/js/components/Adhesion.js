@@ -59,6 +59,7 @@ class Adhesion extends React.Component {
             fetchData: null,
             fetchLastId: [],
             error_list: [],
+            compteAbrege:""
         };
         this.textInput = React.createRef();
         this.handleChange = this.handleChange.bind(this);
@@ -121,8 +122,8 @@ class Adhesion extends React.Component {
     handleNew = async (e) => {
         e.preventDefault();
         const getData = await axios.post("/createnew");
-        this.setState({ numCompte: "330000" + getData.data.lastId + "201" });
-
+        this.setState({ numCompte: "330000" + getData.data.lastId + "201",compteAbrege: getData.data.lastId + "20"});
+        
         // console.log(this.state.fetchLastId);
         //clean data in all in put
 
@@ -166,6 +167,7 @@ class Adhesion extends React.Component {
             dateNaissLie: "",
             degreParante: "",
             activationCompte: "false",
+            
         });
         this.setState({ disabled: !this.state.disabled });
         setTimeout(() => {

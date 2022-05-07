@@ -5,6 +5,7 @@ use App\Models\Mandataire;
 use App\Models\PersonneLie;
 use Illuminate\Http\Request;
 use App\Models\AdhesionMembre;
+use App\Models\Comptes;
 use App\Models\CompteurCompte;
 // use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -113,13 +114,23 @@ class AdhesionMembreController extends Controller
          "parainName"=>$request->parainName, 
          "typeGestion"=>$request->typeGestion, 
          "critere1"=>$request->critere1, 
-         "activationCompte"=>$request->activationCompte,        
+         "activationCompte"=>$request->activationCompte, 
+         "compteAbrege" =>$request->compteAbrege 
        
     ]);
+
+    Comptes::create([
+        'CodeAgence' =>$request->codeAgence,
+        'NumCompte' =>$request->numCompte,
+        'NomCompte' =>$request->intituleCompte,
+        'Civilite'=>$request->cilivilty,  
+        'NumeTelephone'=>$request->phone1,
+        'DateNaissance'=>$request->dateNaiss,
+        'NumAdherant' =>$request->compteAbrege
+    ]);
+   
      $lastId=[];
      $lastId=AdhesionMembre::latest()->first();
-
-
 
         Mandataire::create([
             "refCompte"=>$lastId->refCompte,
@@ -150,7 +161,8 @@ class AdhesionMembreController extends Controller
     ]);
     }
     
-  
+    
+
 
     return response()->json(["success" => 1, "msg" => "Compte crée avec succès!",'validate_error' => $validator->errors()],);
     

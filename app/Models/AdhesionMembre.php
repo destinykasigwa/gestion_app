@@ -48,7 +48,8 @@ class AdhesionMembre extends Model
      'parainName',
      'typeGestion',
      'critere1',
-     'activationCompte'
+     'activationCompte',
+     'compteAbrege'
      ];
       
 }

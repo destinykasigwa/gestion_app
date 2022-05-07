@@ -19,10 +19,10 @@ return new class extends Migration
             $table->string('NumCompte',20)->nullable();
             $table->string('NumCompteAmo',20)->nullable();
             $table->string('NomCompte',20)->nullable();
-            $table->string('RefTypeCompte',20)->nullable();
-            $table->string('RefCadre',20)->nullable();
-            $table->string('RefGroupe',20)->nullable();
-            $table->string('RefSousGroupe',20)->nullable();
+            $table->string('RefTypeCompte',20)->nullable()->default('3');
+            $table->string('RefCadre',20)->nullable()->default('33');
+            $table->string('RefGroupe',20)->nullable()->default('330');
+            $table->string('RefSousGroupe',20)->nullable()->default('3300');
             $table->string('Desactive',20)->nullable();
             $table->string('Protege',20)->nullable();
             $table->string('Contentieux',20)->nullable();
@@ -87,6 +87,7 @@ return new class extends Migration
             $table->string('Ferme',20)->nullable();
             $table->string('DateFermeture',20)->nullable();
             $table->string('MotifFermeture',20)->nullable();
+            $table->timestamps();
         });
     }
 
