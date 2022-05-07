@@ -262,6 +262,10 @@ class Adhesion extends React.Component {
             padding: "3px",
             width: "60px",
         };
+        var tableBorder = {
+            border: "2px solid #fff",
+            fontSize: "10px",
+        };
 
         return (
             <React.Fragment>
@@ -3528,37 +3532,33 @@ class Adhesion extends React.Component {
                                                                         </table>
                                                                     </form>
                                                                     <div className="col-md-12">
-                                                                        <table className="table table-dark">
+                                                                        <table className="table table-dark"  style={tableBorder}>
                                                                             <thead>
                                                                                 <tr>
-                                                                                    <th>
+                                                                                    <th  style={tableBorder}>
                                                                                         #
                                                                                     </th>
-                                                                                    <th>
-                                                                                        First
+                                                                                    <th  style={tableBorder}>
+                                                                                        Num compte
                                                                                     </th>
-                                                                                    <th>
-                                                                                        Last
+                                                                                    <th  style={tableBorder}>
+                                                                                        Nom compte
                                                                                     </th>
-                                                                                    <th>
-                                                                                        Handle
-                                                                                    </th>
+                                                                                    
                                                                                 </tr>
                                                                             </thead>
                                                                             <tbody>
                                                                                 <tr>
-                                                                                    <th>
+                                                                                    <td  style={tableBorder}>
                                                                                         1
-                                                                                    </th>
-                                                                                    <td>
+                                                                                    </td>
+                                                                                    <td  style={tableBorder}>
                                                                                         Mark
                                                                                     </td>
-                                                                                    <td>
+                                                                                    <td  style={tableBorder}>
                                                                                         Otto
                                                                                     </td>
-                                                                                    <td>
-                                                                                        @mdo
-                                                                                    </td>
+                                                                                    
                                                                                 </tr>
                                                                             </tbody>
                                                                         </table>

@@ -2605,6 +2605,10 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
         padding: "3px",
         width: "60px"
       };
+      var tableBorder = {
+        border: "2px solid #fff",
+        fontSize: "10px"
+      };
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
           className: "row",
@@ -4383,28 +4387,31 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
                                   className: "col-md-12",
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("table", {
                                     className: "table table-dark",
+                                    style: tableBorder,
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("thead", {
                                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
                                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                                          style: tableBorder,
                                           children: "#"
                                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-                                          children: "First"
+                                          style: tableBorder,
+                                          children: "Num compte"
                                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-                                          children: "Last"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
-                                          children: "Handle"
+                                          style: tableBorder,
+                                          children: "Nom compte"
                                         })]
                                       })
                                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tbody", {
                                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
-                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("th", {
+                                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                                          style: tableBorder,
                                           children: "1"
                                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                                          style: tableBorder,
                                           children: "Mark"
                                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                                          style: tableBorder,
                                           children: "Otto"
-                                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
-                                          children: "@mdo"
                                         })]
                                       })
                                     })]
