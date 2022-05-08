@@ -1,11 +1,12 @@
 import React from "react";
 // import ReactDOM from "react-dom";
 import axios from "axios";
-import { NavLink } from "react-router-dom";
+// import { NavLink } from "react-router-dom";
 import Swal from "sweetalert2";
 import Mendataire from "./Mendataire";
 import PersonneLie from "./PesonneLie";
 import UpdateMembre from "./Modals/UpdateMembre";
+import ActivationCompte from "./ActivationCompte";
 
 // import EditMembre from './EditMembre';
 
@@ -264,10 +265,10 @@ class Adhesion extends React.Component {
             padding: "3px",
             width: "60px",
         };
-        var tableBorder = {
-            border: "2px solid #fff",
-            fontSize: "10px",
-        };
+        // var tableBorder = {
+        //     border: "2px solid #fff",
+        //     fontSize: "10px",
+        // };
 
         return (
             <React.Fragment>
@@ -810,7 +811,7 @@ class Adhesion extends React.Component {
                                                                 data-toggle="modal"
                                                                 data-target="#modal-update-membre"
                                                                 id="modifierbtn"
-                                                                className="btn btn-primary"
+                                                                className="btn btn-primary mt-1"
                                                             >
                                                                 Modifier{" "}
                                                                 <i className="fas fa-edit"></i>
@@ -831,7 +832,7 @@ class Adhesion extends React.Component {
                                                                     "12px",
                                                             }}
                                                             id="validerbtn"
-                                                            className="btn btn-primary"
+                                                            className="btn btn-primary mt-1"
                                                             onClick={
                                                                 this
                                                                     .handleSubmit
@@ -3434,140 +3435,10 @@ class Adhesion extends React.Component {
                                                         id="comptepargne"
                                                         role="tabpanel"
                                                         aria-labelledby="comptepargne-tab"
-                                                    >
-                                                        <div className="col-lg-6">
-                                                            <div className="card card-default">
-                                                                <div
-                                                                    className="card-header"
-                                                                    style={{
-                                                                        background:
-                                                                            "#DCDCDC",
-                                                                        textAlign:
-                                                                            "center",
-                                                                        color: "#fff",
-                                                                    }}
-                                                                >
-                                                                    {/* <h3 className="card-title">
-<b>Personnes liés</b>
-</h3> */}
-                                                                </div>
+                                                         >
+                                                         {/* //ACTIVATE COMPTE */}
 
-                                                                <div
-                                                                    className="card-body h-200"
-                                                                    style={{
-                                                                        background:
-                                                                            "#dcdcdc",
-                                                                    }}
-                                                                >
-                                                                    <form method="POST">
-                                                                        <table>
-                                                                            <tr>
-                                                                                <td>
-                                                                                    {" "}
-                                                                                    <label
-                                                                                        htmlFor="compteE"
-                                                                                        style={
-                                                                                            labelColor
-                                                                                        }
-                                                                                    >
-                                                                                        Compte
-                                                                                        d'Epargne
-                                                                                        non
-                                                                                        encore
-                                                                                        crée
-                                                                                    </label>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <select
-                                                                                        id="compteE"
-                                                                                        style={
-                                                                                            inputColor
-                                                                                        }
-                                                                                        name="activationCompte"
-                                                                                        value={
-                                                                                            this
-                                                                                                .state
-                                                                                                .activationCompte
-                                                                                        }
-                                                                                        onChange={
-                                                                                            this
-                                                                                                .handleChange
-                                                                                        }
-                                                                                        disabled={
-                                                                                            this
-                                                                                                .state
-                                                                                                .disabled
-                                                                                                ? "disabled"
-                                                                                                : ""
-                                                                                        }
-                                                                                    >
-                                                                                        <option value="CompteUSD">
-                                                                                            Compte
-                                                                                            en
-                                                                                            USD
-                                                                                        </option>
-                                                                                        <option value="CompteCDF">
-                                                                                            Compte
-                                                                                            en
-                                                                                            CDF
-                                                                                        </option>
-                                                                                    </select>
-                                                                                </td>
-                                                                                <td>
-                                                                                    <button
-                                                                                        type="button"
-                                                                                        style={{
-                                                                                            borderRadius:
-                                                                                                "0px",
-                                                                                            width: "100%",
-                                                                                            height: "30px",
-                                                                                            fontSize:
-                                                                                                "12px",
-                                                                                        }}
-                                                                                        className="btn btn-primary"
-                                                                                    >
-                                                                                        Créer{" "}
-                                                                                        <i className="fas fa-check"></i>
-                                                                                    </button>
-                                                                                </td>
-                                                                            </tr>
-                                                                        </table>
-                                                                    </form>
-                                                                    <div className="col-md-12">
-                                                                        <table className="table table-dark"  style={tableBorder}>
-                                                                            <thead>
-                                                                                <tr>
-                                                                                    <th  style={tableBorder}>
-                                                                                        #
-                                                                                    </th>
-                                                                                    <th  style={tableBorder}>
-                                                                                        Num compte
-                                                                                    </th>
-                                                                                    <th  style={tableBorder}>
-                                                                                        Nom compte
-                                                                                    </th>
-                                                                                    
-                                                                                </tr>
-                                                                            </thead>
-                                                                            <tbody>
-                                                                                <tr>
-                                                                                    <td  style={tableBorder}>
-                                                                                        1
-                                                                                    </td>
-                                                                                    <td  style={tableBorder}>
-                                                                                        Mark
-                                                                                    </td>
-                                                                                    <td  style={tableBorder}>
-                                                                                        Otto
-                                                                                    </td>
-                                                                                    
-                                                                                </tr>
-                                                                            </tbody>
-                                                                        </table>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
+                                                         <ActivationCompte refCompte={this.state.compteToSearch ?  this.state.compteToSearch:null}  />
                                                     </div>
                                                 </div>
                                             </div>

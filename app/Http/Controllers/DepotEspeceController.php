@@ -6,6 +6,11 @@ use Illuminate\Http\Request;
 
 class DepotEspeceController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
 //function to store data in to data base when makeking deposit
 
 public function depotEspece(Request $request){

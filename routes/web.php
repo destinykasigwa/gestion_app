@@ -75,3 +75,10 @@ Route::delete('/delete/personnelie/data/{idPersonneLie}',
 Route::post("/update/membre/data",
 [updateMembre::class,'updatingmembre']);
 
+//Activatate a new account
+
+Route::post("/activationcompte/membre/data",
+[updateMembre::class,'activateAccount']);
+
+
+

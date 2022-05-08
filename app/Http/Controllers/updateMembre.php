@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdhesionMembre;
+use App\Models\CompteurTransaction;
+use App\Models\Transactions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -90,5 +92,95 @@ class updateMembre extends Controller
     
 
       
+   }
+   //ACTIVATE NEW ACCOUNT
+   public function activateAccount(Request $request){
+    $refCompte=$request->get("refCompte");
+   $compteEnFranc=$request->get("compteEnFranc");
+    $dateOuverture=$request->get("dateOuverture");
+
+    $data= AdhesionMembre::where('numCompte', 'like', '%' . $refCompte . '%')->first();
+    if($data->critere1=="A"){
+    CompteurTransaction::create([
+      'fakevalue'=>"0000", 
+    ]);
+    $numOperation=[];
+    $numOperation=CompteurTransaction::latest()->first();
+   
+
+    Transactions::create([
+   "NumTransaction"=>$numOperation->id,
+    "DateTransaction" =>$dateOuverture,
+    "DateSaisie" =>$dateOuverture,
+    "Taux"=>1,
+    "TypeTransaction" =>"D",
+    "CodeMonnaie" =>"DOC".$numOperation->id,
+    "CodeAgence" =>"20",
+    "CodeAgenceOrigine",
+    "CodeTypeJournal",
+    "NumDossier",
+    "NumDemande",
+    "NumCompte",
+    "NumComptecp",
+    "NumCompteEpargne",
+    "NombreLettre",
+    "Debit",
+    "Credit",
+    "Operant",
+    "AgenceDestination",
+    "Expediteur",
+      "AdresseExpediteur",
+    "Destinataire",
+    "Destination",
+    "Provenance",
+    "NumTelDestinataire",
+    "AdresseDestinataire",
+    "TypePieceDestinataire",
+    "NumPieceDestinataire",
+    "CodeVirement",
+    "FraisVirement",
+    "Reduction",
+    "TVA",
+    "TVAApplicable",
+    "Concerne",
+    "DateRetrait",
+    "DateEnvoie",
+    "Retire",
+    "Tresor",
+    "Virement",
+    "DocJustificatif",
+    "Superviseur",
+     "Collecteur",
+    "Libelle",
+    "Debit$",
+      "Credit$",
+    "Debitfc",
+    "Creditfc",
+    "Auto",
+    "Dureepret",
+    "DateEcheance",
+    "TauxInteret",
+    "Secteur",
+    "SousSecteur",
+    "CodeGuichet",
+    "Garantie",
+    "NumTransactioncp",
+    "NomUtilisateur",
+    "Traite",
+    "Envoye",
+    "Cat",
+    "Suspens",
+    "Imprime",
+    "sms",
+    "SousCompte",
+    "Valide",
+     "ValidePar",
+    "DateValidation",   
+    ]);
+    }
+
+
+
+    return response()->json(["success"=>1, "data"=>$data->intituleCompte]);
    }
 }

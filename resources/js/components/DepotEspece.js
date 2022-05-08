@@ -814,7 +814,7 @@ export default class DepotEspece extends React.Component {
                             </div>
                         </div>
                         <div className="container-fluid">
-                          <div className="row"> 
+                          <div className="row" style={{border:"4px solid #dcdcdc"}}> 
                           <h3 className="text-muted">Billetage</h3>
                                     <div className="col-md-6">
                                         <table
