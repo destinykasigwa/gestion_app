@@ -1,5 +1,5 @@
 import React from "react";
-// import Swal from "sweetalert2";
+import Swal from "sweetalert2";
 import axios from "axios";
 import ActivateCompteM from "./Modals/ActivateCompteM";
 
@@ -11,10 +11,27 @@ export default class ActivationCompte extends React.Component{
   super(props)
    this.state={
      disabled:false,
+     devise:"",
+     fetchActivatedCompte:null
    }
+   this.getActivatedCompte=this.getActivatedCompte.bind(this);
+ }
+componentDidMount(){
+this.getActivatedCompte();  
+}
+
+
+ getActivatedCompte= async(e)=>{
+    e.preventDefault();
+    const getData = await axios.get(
+        "membre/compteactive/" + this.props.idCompteMembre
+    );
+    if(getData.data.success==1){
+      this.setState({fetchActivatedCompte:getData.data.data})
+    }
+    // console.log(this.props.idCompteMembre);
  }
 
- 
  render(){
     var labelColor = {
         fontWeight: "bold",
@@ -38,7 +55,7 @@ export default class ActivationCompte extends React.Component{
             border: "2px solid #fff",
             fontSize: "10px",
         };
-
+  let compteur=1;
  return(
     <div className="col-lg-6">
     <div className="card card-default">
@@ -94,28 +111,35 @@ export default class ActivationCompte extends React.Component{
                                         .state
                                         .activationCompte
                                 }
-                                onChange={
-                                    this
-                                        .handleChange
-                                }
                                 disabled={
                                     this
                                         .state
                                         .disabled
                                         ? "disabled"
+                                    
+                                       
                                         : ""
                                 }
-                            >
-                                <option value="CompteUSD">
+                            
+                                onChange={((e)=>this.setState({devise:e.target.value}))}
+                                 >
+                                 <option value="">
+                                    Sélectionnez
+                                </option>
+                            
+                                <option value="USD">
                                     Compte
                                     en
                                     USD
                                 </option>
-                                <option value="CompteCDF">
+                            
+                     
+                                <option value="CDF">
                                     Compte
                                     en
                                     CDF
                                 </option>
+                               
                             </select>
                         </td>
                         <td>
@@ -125,7 +149,7 @@ export default class ActivationCompte extends React.Component{
                                     borderRadius:
                                         "0px",
                                     width: "100%",
-                                    height: "30px",
+                                    height: "25px",
                                     fontSize:
                                         "12px",
                                 }}
@@ -136,6 +160,28 @@ export default class ActivationCompte extends React.Component{
                                 Créer{" "}
                                 <i className="fas fa-check"></i>
                             </button>
+                            
+                        </td>
+                        <td>
+                        <button
+                            type="button"
+                            style={{
+                                borderRadius:
+                                    "0px",
+                                width: "100%",
+                                height: "25px",
+                                fontSize:
+                                    "12px",
+                            }}
+                            className="btn btn-success"
+                            onClick={
+                                this
+                                    .getActivatedCompte
+                            }
+                        >
+                            {" "}
+                            <i className="fas fa-refresh"></i>
+                        </button>
                         </td>
                     </tr>
                 </table>
@@ -157,21 +203,27 @@ export default class ActivationCompte extends React.Component{
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td  style={tableBorder}>
-                                1
-                            </td>
-                            <td  style={tableBorder}>
-                                Mark
-                            </td>
-                            <td  style={tableBorder}>
-                                Otto
-                            </td>
-                            
-                        </tr>
+                        {this.state.fetchActivatedCompte && 
+                        this.state.fetchActivatedCompte.data.map((result,index)=>{
+                            return(
+                                <tr key={index}>
+                                <td  style={tableBorder}>
+                                    {compteur ++}
+                                </td>
+                                <td  style={tableBorder}>
+                                   {result.numcompte}
+                                </td>
+                                <td  style={tableBorder}>
+                                {result.name}
+                                </td>
+                                
+                            </tr>
+                            )
+                        })
+                        }
                     </tbody>
                 </table>
-                <ActivateCompteM refCompt={this.props.refCompte}/>
+                <ActivateCompteM refCompt={this.props.refCompte} devise={this.state.devise} idComptM={this.props.idCompteMembre}/>
             </div>
         </div>
     </div>

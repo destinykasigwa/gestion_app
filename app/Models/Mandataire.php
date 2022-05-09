@@ -9,20 +9,20 @@ class Mandataire extends Model
 {
     use HasFactory;
 
-    protected $fillable=[
-       'refCompte',
-       'mendataireName',
-       'lieuNaissM',
-       'dateNaissM',
-       'etatCivileM',
-       'sexeM',
-       'typePieceM',
+    protected $fillable = [
+        'refCompte',
+        'mendataireName',
+        'lieuNaissM',
+        'dateNaissM',
+        'etatCivileM',
+        'sexeM',
+        'typePieceM',
         'professionM',
         'telephoneM',
         'adresseM',
         'observationM',
         'photoM',
-       'otherMention',
-       
+        'otherMention',
+
     ];
 }

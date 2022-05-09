@@ -3268,6 +3268,13 @@ class Adhesion extends React.Component {
                                                                                         <td>
                                                                                             {" "}
                                                                                             <select
+                                                                                             className={`form-control ${
+                                                                                                this
+                                                                                                    .state
+                                                                                                    .error_list
+                                                                                                    .critere1 &&
+                                                                                                "is-invalid"
+                                                                                            }`}
                                                                                                 id="critere"
                                                                                                 style={
                                                                                                     inputColor
@@ -3438,7 +3445,7 @@ class Adhesion extends React.Component {
                                                          >
                                                          {/* //ACTIVATE COMPTE */}
 
-                                                         <ActivationCompte refCompte={this.state.compteToSearch ?  this.state.compteToSearch:null}  />
+                                                         <ActivationCompte refCompte={this.state.compteToSearch ?  this.state.compteToSearch:null}  idCompteMembre={this.state.fetchData ? this.state.fetchData.refCompte:null} />
                                                     </div>
                                                 </div>
                                             </div>

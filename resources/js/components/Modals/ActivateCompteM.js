@@ -6,7 +6,7 @@ export default class ActivateCompteM extends React.Component {
     constructor(props) {
         super(props);
         this.state={
-            dateOuverture,
+            dateOuverture:"",
         }
         
 
@@ -28,8 +28,11 @@ export default class ActivateCompteM extends React.Component {
          
              axios.post('activationcompte/membre/data',{
                 refCompte:this.props.refCompt,
-                compteEnFranc:"3301000"+this.props.refCompt+"202",
-                dateOuverture:this.state.dateOuverture
+                compteEnFranc:"330100"+this.props.refCompt+"202",
+                numCompteDollars:"330000"+this.props.refCompt+"201",
+                dateOuverture:this.state.dateOuverture,
+                devise: this.props.devise,
+                idComptMembre:this.props.idComptM,
              }).then((response)=>{
                 if(response.data.success==1){
                     Swal.fire({

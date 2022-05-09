@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class PersonneLie extends Model
 {
     use HasFactory;
- protected   $fillable=[
-    'refCompte',
-     'personneLieName',
-     'lieuNaissLie',
-     'dateNaissLie',
-     'degreParante',
+    protected   $fillable = [
+        'refCompte',
+        'personneLieName',
+        'lieuNaissLie',
+        'dateNaissLie',
+        'degreParante',
     ];
 }

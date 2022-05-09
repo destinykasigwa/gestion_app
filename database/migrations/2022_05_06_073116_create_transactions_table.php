@@ -33,8 +33,8 @@ return new class extends Migration
             $table->string("NumComptecp",20)->nullable();
             $table->string("NumCompteEpargne",30)->nullable();
             $table->string("NombreLettre",30)->nullable();
-            $table->string("Debit",30)->nullable();
-            $table->string("Credit",30)->nullable();
+            $table->float("Debit",30)->nullable()->default("0.00");
+            $table->float("Credit",30)->nullable()->default("0.00");
             $table->string("Operant",30)->nullable();
             $table->string("AgenceDestination",30)->nullable();
             $table->string("Expediteur",30)->nullable();
@@ -61,10 +61,10 @@ return new class extends Migration
             $table->string("Superviseur",30)->nullable();
             $table->string("Collecteur",30)->nullable();
             $table->string("Libelle",30)->nullable();
-            $table->string("Debit$",30)->nullable();
-            $table->string("Credit$",30)->nullable();
-            $table->string("Debitfc",30)->nullable();
-            $table->string("Creditfc",30)->nullable();
+            $table->float("Debit$",30)->nullable()->default("0.00");
+            $table->float("Credit$",30)->nullable()->default("0.00");
+            $table->float("Debitfc",30)->nullable()->default("0.00");
+            $table->float("Creditfc",30)->nullable()->default("0.00");
             $table->string("Auto",30)->nullable();
             $table->string("Dureepret",30)->nullable();
             $table->string("DateEcheance",30)->nullable();
@@ -85,6 +85,8 @@ return new class extends Migration
             $table->string("Valide",30)->nullable();
             $table->string("ValidePar",30)->nullable();
             $table->string("DateValidation",30)->nullable();
+            $table->string("refCompteMembre",20)->nullable();
+            $table->timestamps();
         });
     }
 

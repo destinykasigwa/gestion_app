@@ -80,5 +80,10 @@ Route::post("/update/membre/data",
 Route::post("/activationcompte/membre/data",
 [updateMembre::class,'activateAccount']);
 
+//getActived accounts
+Route::get("membre/compteactive/{id}",
+[updateMembre::class,'activatedAccount']);
+
+
 
 
