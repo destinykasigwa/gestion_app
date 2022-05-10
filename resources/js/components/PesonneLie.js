@@ -413,7 +413,7 @@ export default class PersonneLie extends React.Component {
                                                 height: "30px",
                                                 fontSize: "12px",
                                             }}
-                                            className="btn btn-primary"
+                                            className="btn btn-primary mt-1"
                                             id="addMbtnP"
                                             onClick={this.addNewPersonneLie}
                                         >
@@ -433,7 +433,7 @@ export default class PersonneLie extends React.Component {
                                                 height: "30px",
                                                 fontSize: "12px",
                                             }}
-                                            className="btn btn-primary"
+                                            className="btn btn-primary mt-1"
                                             id="validerP"
                                             onClick={this.saveNewPersonneLie}
                                         >

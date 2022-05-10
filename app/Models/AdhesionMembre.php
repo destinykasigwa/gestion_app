@@ -49,6 +49,7 @@ class AdhesionMembre extends Model
         'typeGestion',
         'critere1',
         'activationCompte',
-        'compteAbrege'
+        'compteAbrege',
+        'photoMembre'
     ];
 }

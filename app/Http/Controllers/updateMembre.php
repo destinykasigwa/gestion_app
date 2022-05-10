@@ -178,4 +178,31 @@ class updateMembre extends Controller
       ));
     return response()->json(["success" => 1, "data" => $data]);
   }
+
+
+
+public function uploadphoto(Request $request)
+{
+  try {
+   $idMembre=$request->get('idMembre');
+  //  $uploaded_image=$request->get('uploaded_image');
+
+   if($request->hasFile('uploaded_image'))
+{
+  $file=$request->file('uploaded_image');
+  $extension=$file->getClientOriginalExtension();
+  $filename=time().'.'.$extension;
+  $file->move('uploads/membres/',$filename);
+  $uploaded_image=$filename;
+}
+AdhesionMembre::where('refCompte', $idMembre)->update([
+"photoMembre"=>$uploaded_image,
+]);
+
+  } catch (Exception $e) {
+    Log::error($e);
+  }
+
+  return response()->json(["success"=>1,"msg"=>"Compte mise à jour avec succès."]);
+}
 }

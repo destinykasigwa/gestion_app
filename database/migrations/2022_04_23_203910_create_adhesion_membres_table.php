@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     { 
         Schema::create('adhesion_membres', function (Blueprint $table) {
-        $table->bigInteger("refCompte ");
+        $table->bigInteger("refCompte",20);
         $table->string('codeAgence', 15)->nullable();
         $table->string('codeMonaie', 5)->nullable();
         $table->string('intituleCompte', 250)->nullable();
@@ -22,7 +22,7 @@ return new class extends Migration
         $table->string('typeClient', 100)->nullable();
         $table->string('numCompte', 20)->nullable();
         $table->string('guichetAdresse', 20)->nullable();
-        $table->string('dateOuverture', 20)->nullable();
+        $table->date('dateOuverture')->nullable();
         $table->string('lieuNaiss', 250)->nullable();
         $table->string('dateNaiss', 250)->nullable();
         $table->string('etatCivile', 250)->nullable();
@@ -44,6 +44,10 @@ return new class extends Migration
         $table->string('provinceOrigine', 100)->nullable();
         $table->string('territoireOrigine', 100)->nullable();
         $table->string('collectiviteOrigine', 100)->nullable();
+        $table->string('provinceActuelle', 100)->nullable();
+        $table->string('villeActuelle', 100)->nullable();
+        $table->string('CommuneActuelle', 100)->nullable();
+        $table->string('QuartierActuelle', 100)->nullable();
         $table->string('otherMother', 100)->nullable();
         $table->string('Commune', 100)->nullable();
         $table->string('parainAccount', 100)->nullable();
@@ -51,8 +55,9 @@ return new class extends Migration
         $table->string('typeGestion', 100)->nullable();
         $table->string('critere1', 100)->nullable();
         $table->string('otherMention', 100)->nullable();
-        $table->boolean('activationCompte',10);
-        $table->bigInteger('compteAbrege',20);
+        $table->string('activationCompte',20)->nullable();
+        $table->string('compteAbrege',20)->nullable();
+        $table->string('photoMembre',250)->nullable()->default("default.jpg");
         $table->timestamps();
         });
     }

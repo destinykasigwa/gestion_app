@@ -635,6 +635,7 @@ export default class Mendataire extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
+                                                            className="mt-1"
                                                                 id="observation"
                                                                 style={{
                                                                     height: "40px",
@@ -674,8 +675,8 @@ export default class Mendataire extends React.Component {
                                                         <td></td>
                                                         <td>
                                                             <img
-                                                                src="dist/img/user2-160x160.jpg"
-                                                                alt="..."
+                                                                src={`uploads/membres/${this.props.membreImage?this.props.membreImage:"default.jpg"}`}
+                                                                alt="image-du-membre"
                                                                 className="img-thumbnail"
                                                             />
                                                         </td>
@@ -723,7 +724,7 @@ export default class Mendataire extends React.Component {
                                                                     fontSize:
                                                                         "12px",
                                                                 }}
-                                                                className="btn btn-primary"
+                                                                className="btn btn-primary mt-1"
                                                                 id="addMbtn"
                                                                 onClick={
                                                                     this
@@ -748,7 +749,7 @@ export default class Mendataire extends React.Component {
                                                                     fontSize:
                                                                         "12px",
                                                                 }}
-                                                                className="btn btn-primary"
+                                                                className="btn btn-primary mt-1"
                                                                 id="validerMbtn"
                                                                 onClick={
                                                                     this

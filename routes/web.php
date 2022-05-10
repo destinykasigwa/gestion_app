@@ -32,10 +32,10 @@ Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('mem
 Route::get('/depot-espece', [DepotEspeceController::class,'depot'])->name('depot.espece');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
-Route::resource("/createnew","App\Http\Controllers\AdhesionMembreController")->except(["destroy","update","edit"]);
+Route::resource("/createnew","App\Http\Controllers\AdhesionMembreController")->except(["destroy","update","edit","index"]);
 
 
-Route::resource("mendataire","App\Http\Controllers\MendataireController")->except(["destroy","update","edit"]);
+Route::resource("mendataire","App\Http\Controllers\MendataireController")->except(["destroy","update","edit","index"]);
 Route::post('/get/getindividual/mendataire/details',
 [GetIndividualMendataire::class,'getMendatireDetails']);
 
@@ -83,6 +83,12 @@ Route::post("/activationcompte/membre/data",
 //getActived accounts
 Route::get("membre/compteactive/{id}",
 [updateMembre::class,'activatedAccount']);
+
+//adding a photo to a member
+
+Route::post("/membre/addphoto",
+[updateMembre::class,'uploadphoto']);
+
 
 
 

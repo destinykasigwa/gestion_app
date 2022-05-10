@@ -7,6 +7,7 @@ import Mendataire from "./Mendataire";
 import PersonneLie from "./PesonneLie";
 import UpdateMembre from "./Modals/UpdateMembre";
 import ActivationCompte from "./ActivationCompte";
+import WebCame from "./WebCame";
 
 // import EditMembre from './EditMembre';
 
@@ -84,11 +85,14 @@ class Adhesion extends React.Component {
         }, 1000);
         let current_datetime = new Date();
         let formatted_date =
-            current_datetime.getDate() +
-            "/" +
+             //year
+            current_datetime.getFullYear()  +
+            "-" +
+            //month
             (current_datetime.getMonth() + 1) +
-            "/" +
-            current_datetime.getFullYear();
+            "-" +
+            //day
+            current_datetime.getDate()  ;
         this.setState({ dateOuverture: formatted_date });
     }
     // handUpdate = async (event)=>{
@@ -856,8 +860,8 @@ class Adhesion extends React.Component {
                                                     <td></td>
                                                     <td>
                                                         <img
-                                                            src="dist/img/user2-160x160.jpg"
-                                                            alt="..."
+                                                            src={`uploads/membres/${this.state.fetchData?this.state.fetchData.photoMembre:"default.jpg"}`}
+                                                            alt="photo-du-membre"
                                                             className="img-thumbnail"
                                                         />
                                                     </td>
@@ -964,6 +968,20 @@ class Adhesion extends React.Component {
                                                             aria-selected="false"
                                                         >
                                                             Compte epargne{" "}
+                                                            <i className="fa fa-plus"></i>
+                                                        </a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a
+                                                            className="nav-link"
+                                                            id="webcame-tab"
+                                                            data-toggle="tab"
+                                                            href="#webcame"
+                                                            role="tab"
+                                                            aria-controls="webcame"
+                                                            aria-selected="false"
+                                                        >
+                                                           Web came{" "}
                                                             <i className="fa fa-plus"></i>
                                                         </a>
                                                     </li>
@@ -3383,6 +3401,11 @@ class Adhesion extends React.Component {
                                                                     .fetchData
                                                                     .refCompte
                                                             }
+                                                            membreImage={this.state
+                                                                .fetchData &&
+                                                            this.state
+                                                                .fetchData
+                                                                .photoMembre}
                                                         />
                                                     </div>
 
@@ -3446,6 +3469,17 @@ class Adhesion extends React.Component {
                                                          {/* //ACTIVATE COMPTE */}
 
                                                          <ActivationCompte refCompte={this.state.compteToSearch ?  this.state.compteToSearch:null}  idCompteMembre={this.state.fetchData ? this.state.fetchData.refCompte:null} />
+                                                    </div>
+
+                                                    <div
+                                                        className="tab-pane fade mt-2"
+                                                        id="webcame"
+                                                        role="tabpanel"
+                                                        aria-labelledby="webcame-tab"
+                                                         >
+                                                         {/* //ACTIVATE COMPTE */}
+
+                                                         <WebCame  idCompteMembre={this.state.fetchData ? this.state.fetchData.refCompte:null} />
                                                     </div>
                                                 </div>
                                             </div>
