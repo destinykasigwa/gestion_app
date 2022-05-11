@@ -89,6 +89,18 @@ Route::get("membre/compteactive/{id}",
 Route::post("/membre/addphoto",
 [updateMembre::class,'uploadphoto']);
 
+//saving a currency deposit
+
+Route::post("depot/espece",
+[DepotEspeceController::class,'depotEspece']);
+
+//get searched account
+Route::get("/compte/search/{id}",
+[DepotEspeceController::class,'getAccount']);
+
+
+
+
 
 
 

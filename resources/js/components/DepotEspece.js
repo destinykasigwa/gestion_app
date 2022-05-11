@@ -8,10 +8,10 @@ export default class DepotEspece extends React.Component {
         super(props);
 
         this.state = {
-            disabled:false,
+            disabled:true,
             isloading: true,
             loading:false,
-            dateOuverture:"",
+            DateTransaction:"",
             hundred: 0,
             fitfty: 0,
             twenty: 0,
@@ -31,33 +31,104 @@ export default class DepotEspece extends React.Component {
             deuxCentFranc: 0,
             centFranc: 0,
             cinquanteFanc: 0,
+            telDeposant:"",
+            deposantName:"",
+            codeAgence:"20",
+            libelle:"",
+            error_list: [],
+            taux:"2000",
+            fetchData: null,
+            compteToSearch:"",
+            refCompte:""
+            
         };
         this.actualiser = this.actualiser.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        this.handleAccount=this.handleAccount.bind(this);
     }
       //to refresh
       actualiser() {
         location.reload();
     }
 
+
+     //GET DATA FROM INPUT
+     handleChange(event) {
+      this.setState({
+          // Computed property names
+          // keys of the objects are computed dynamically
+          [event.target.name]: event.target.value,
+      });
+  }
+
+
+
+
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
-            document
-                .getElementById("modifierbtn")
-                .setAttribute("disabled", "disabled");
-            document
+                document
                 .getElementById("validerbtn")
                 .setAttribute("disabled", "disabled");
         }, 1000);
         let current_datetime = new Date();
         let formatted_date =
-            current_datetime.getDate() +
-            "/" +
+             //year
+            current_datetime.getFullYear()  +
+            "-" +
+            //month
             (current_datetime.getMonth() + 1) +
-            "/" +
-            current_datetime.getFullYear();
-        this.setState({ dateOuverture: formatted_date });
+            "-" +
+            //day
+            current_datetime.getDate()  ;
+        this.setState({ DateTransaction: formatted_date });
     }
+
+    saveOperation=async(e)=>{
+      e.preventDefault();
+      const res = await axios.post("/depot/espece", this.state);
+       this.setState({loading:true})
+      if (res.data.success == 1) {
+          Swal.fire({
+              title: "Success",
+              text:
+                  res.data.msg,
+              icon: "success",
+              button: "OK!",
+          });
+          this.setState({ disabled: !this.state.disabled,loading:false});
+      } else {
+          this.setState({
+              error_list: res.data.validate_error,
+          });
+      }
+      console.log(res.data.success);
+    }
+
+    //GET A SEACHED NUMBER 
+    handleAccount = async (e) => {
+      e.preventDefault();
+      const getData = await axios.get(
+          "compte/search/" + this.state.compteToSearch
+      );
+      if (getData.data.success == 1) {
+          this.setState({ fetchData: getData.data.data });
+          this.setState({ disabled: !this.state.disabled,refCompte:this.state.fetchData.refCompte });
+          //  console.log(this.state.fetchData);
+          //disabled valider button
+          document
+              .getElementById("validerbtn")
+              .removeAttribute("disabled", "disabled");
+      } else {
+          Swal.fire({
+              title: "Erreur",
+              text: getData.data.msg,
+              icon: "error",
+              button: "OK!",
+          });
+      }
+      console.log(this.state.fetchData);
+  };
  
     render() {
         var myspinner = {
@@ -80,12 +151,12 @@ export default class DepotEspece extends React.Component {
             padding: "3px",
             borderRadius: "0px",
         };
-        var inputColor2 = {
-            height: "25px",
-            border: "1px solid white",
-            padding: "3px",
-            width: "60px",
-        };
+        // var inputColor2 = {
+        //     height: "25px",
+        //     border: "1px solid white",
+        //     padding: "3px",
+        //     width: "60px",
+        // };
         var tableBorder = {
             border: "2px solid #fff",
             fontSize: "16px",
@@ -161,6 +232,13 @@ export default class DepotEspece extends React.Component {
                                                         className="form-control font-weight-bold"
                                                         placeholder="Numéro compte..."
                                                         name="compteToSearch"
+                                                        value={
+                                                          this.state
+                                                              .compteToSearch
+                                                      }
+                                                      onChange={
+                                                          this.handleChange
+                                                      }
                                                     />
                                                     <td>
                                                         <button
@@ -174,6 +252,7 @@ export default class DepotEspece extends React.Component {
                                                                     "12px",
                                                             }}
                                                             className="btn btn-primary"
+                                                            onClick={this.handleAccount}
                                                             >
                                                             <i className="fas fa-search"></i>
                                                         </button>
@@ -181,7 +260,6 @@ export default class DepotEspece extends React.Component {
                                                 </div>
                                                 <div className="input-group input-group-sm ">
                                                     <input
-                                                        value={""}
                                                         type="text"
                                                         readOnly
                                                         style={{
@@ -191,6 +269,13 @@ export default class DepotEspece extends React.Component {
                                                             border: "4px solid #fff",
                                                         }}
                                                         className="form-control mt-1 font-weight-bold"
+
+                                                        value={
+                                                          this.state
+                                                              .fetchData &&
+                                                          this.state.fetchData
+                                                              .numCompte
+                                                      }
                                                     />
                                                 </div>
                                             </form>
@@ -221,9 +306,29 @@ export default class DepotEspece extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                               
+                                                            
                                                                 name="intituleCompte"
+                                                                value={
+                                                                  this
+                                                                      .state
+                                                                      .otherMention
+                                                                      ? this
+                                                                            .state
+                                                                            .intituleCompte
+                                                                      : this
+                                                                            .state
+                                                                            .fetchData &&
+                                                                        this
+                                                                            .state
+                                                                            .fetchData
+                                                                            .intituleCompte
+                                                              }
+                                                                
                                                                 disabled
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                               
                                                             />
                                                         </div>
@@ -246,10 +351,14 @@ export default class DepotEspece extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                name="numCompte"
-                                                                value={""}
+                                                                name="codeAgence"
+                                                                value={this.state.codeAgence}
                                                                
                                                                 disabled
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                             />
                                                         </div>
                                                     </tr>
@@ -273,9 +382,27 @@ export default class DepotEspece extends React.Component {
                                                                         "0px",
                                                                 }}
                                                                 name="numCompte"
-                                                                value={""}
                                                                
+                                                                    value={
+                                                                  this
+                                                                      .state
+                                                                      .numcompte
+                                                                      ? this
+                                                                            .state
+                                                                            .numcompte
+                                                                      : this
+                                                                            .state
+                                                                            .fetchData &&
+                                                                        this
+                                                                            .state
+                                                                            .fetchData
+                                                                            .numCompte
+                                                              }
                                                                 disabled
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                             />
                                                         </div>
                                                     </tr>
@@ -310,13 +437,24 @@ export default class DepotEspece extends React.Component {
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <select
-                                                             onChange={(e) =>
-                                                              this.setState({ devise: e.target.value })
-                                                            }
+                                                            name="devise"
+                                                             className={`form-control ${
+                                                              this.state
+                                                                  .error_list
+                                                                  .devise &&
+                                                              "is-invalid"
+                                                          }`}
+                                                                 onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                                 readOnly
                                                                 style={inputColor}
-                                                                name="devise"
+                                                                value={this.state.devise}
                                                                 >
+                                                                 <option value="">
+                                                                   Sélectionnez
+                                                                </option>
                                                                 <option value="CDF">
                                                                     CDF
                                                                 </option>
@@ -339,10 +477,17 @@ export default class DepotEspece extends React.Component {
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <input
+                                                            name="libelle"
+                                                            className={`form-control ${
+                                                              this.state
+                                                                  .error_list
+                                                                  .libelle &&
+                                                              "is-invalid"
+                                                          }`}
                                                                 type="text"
                                                                 style={inputColor}
-                                                                name="numCompte"
-                                                                value={""}
+                                                                
+                                                                value={this.state.libelle}
                                                                
                                                                 disabled={
                                                                     this.state
@@ -350,6 +495,10 @@ export default class DepotEspece extends React.Component {
                                                                         ? "disabled"
                                                                         : ""
                                                                 }
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                             />
                                                         </div>
                                                     </tr>
@@ -369,13 +518,17 @@ export default class DepotEspece extends React.Component {
                                                                 type="text"
                                                                 style={inputColor}
                                                                 name="deposantName"
-                                                                value={""}
+                                                                value={this.state.deposantName}
                                                                
                                                                 disabled={
                                                                     this.state
                                                                         .disabled
                                                                         ? "disabled"
                                                                         : ""
+                                                                }
+                                                                 onChange={
+                                                                    this
+                                                                        .handleChange
                                                                 }
                                                             />
                                                         </div>
@@ -395,8 +548,8 @@ export default class DepotEspece extends React.Component {
                                                             <input
                                                                 type="text"
                                                                 style={inputColor}
-                                                                name="phoneDeposant"
-                                                                value={""}
+                                                                name="telDeposant"
+                                                                value={this.state.telDeposant}
                                                                
                                                                 disabled={
                                                                     this.state
@@ -404,6 +557,11 @@ export default class DepotEspece extends React.Component {
                                                                         ? "disabled"
                                                                         : ""
                                                                 }
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
+                                                             
                                                             />
                                                         </div>
                                                     </tr>
@@ -420,12 +578,16 @@ export default class DepotEspece extends React.Component {
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <input
+                                                              name="montantDepot"
+                                                            className={`form-control ${
+                                                              this.state
+                                                                  .error_list
+                                                                  .montantDepot &&
+                                                              "is-invalid"
+                                                          }`}
                                                                 type="text"
                                                                 style={inputColor}
-                                                                name="montant"
-                                                                onChange={(e) =>
-                                                                  this.setState({ montantDepot: e.target.value })
-                                                                }
+                                                              
                                                                 value={this.state.montantDepot}
                                                                
                                                                 disabled={
@@ -434,6 +596,10 @@ export default class DepotEspece extends React.Component {
                                                                         ? "disabled"
                                                                         : ""
                                                                 }
+                                                                onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
                                                             />
                                                         </div>
                                                     </tr>
@@ -459,10 +625,12 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ hundred: e.target.value })
-                                }
+                                name="hundred"
                                 value={this.state.hundred}
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                               />
                             </td>
                             <td>{this.state.hundred * 100}</td>
@@ -472,9 +640,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ fitfty: e.target.value })
-                                }
+                                name="fitfty"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.fitfty}
                               />
                             </td>
@@ -485,9 +655,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ twenty: e.target.value })
-                                }
+                                name="twenty"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.twenty}
                               />
                             </td>
@@ -498,9 +670,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ ten: e.target.value })
-                                }
+                                name="ten"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.ten}
                               />
                             </td>
@@ -511,9 +685,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ five: e.target.value })
-                                }
+                                name="five"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.five}
                               />
                             </td>
@@ -524,9 +700,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ oneDollar: e.target.value })
-                                }
+                                name="oneDollar"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.oneDollar}
                               />
                             </td>
@@ -578,9 +756,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ vightMille: e.target.value })
-                                }
+                                name="vightMille"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.vightMille}
                               />
                             </td>
@@ -591,9 +771,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ dixMille: e.target.value })
-                                }
+                                name="dixMille"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.dixMille}
                               />
                             </td>
@@ -604,9 +786,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ cinqMille: e.target.value })
-                                }
+                                name="cinqMille"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.cinqMille}
                               />
                             </td>
@@ -617,9 +801,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ milleFranc: e.target.value })
-                                }
+                                name="milleFranc"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.milleFranc}
                               />
                             </td>
@@ -630,9 +816,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ cinqCentFr: e.target.value })
-                                }
+                                name="cinqCentFr"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.cinqCentFr}
                               />
                             </td>
@@ -643,11 +831,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({
-                                    deuxCentFranc: e.target.value,
-                                  })
-                                }
+                                name="deuxCentFranc"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.deuxCentFranc}
                               />
                             </td>
@@ -658,9 +846,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({ centFranc: e.target.value })
-                                }
+                                name="centFranc"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.centFranc}
                               />
                             </td>
@@ -671,11 +861,11 @@ export default class DepotEspece extends React.Component {
                             <td>
                               <input
                                 type="text"
-                                onChange={(e) =>
-                                  this.setState({
-                                    cinquanteFanc: e.target.value,
-                                  })
-                                }
+                                name="cinquanteFanc"
+                                onChange={
+                                  this
+                                      .handleChange
+                                 }
                                 value={this.state.cinquanteFanc}
                               />
                             </td>
@@ -748,7 +938,7 @@ export default class DepotEspece extends React.Component {
                                   "12px",
                                 }}
                               className="btn btn-primary"
-                              id="btnsave"
+                              id="validerbtn"
                               onClick={this.saveOperation}
                             >
                               <i className={`${this.state.loading ? "spinner-border spinner-border-sm":"fas fa-check"}`}></i> Valider {""}

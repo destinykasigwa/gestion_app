@@ -95,30 +95,7 @@ class Adhesion extends React.Component {
             current_datetime.getDate()  ;
         this.setState({ dateOuverture: formatted_date });
     }
-    // handUpdate = async (event)=>{
-
-    //     event.preventDefault();
-
-    //     const res=await axios.post("/updatemembre/",this.state.fetchData);
-
-    //     if(res.data.success==1){
-    //         Swal.fire({
-    //            title:"Success",
-    //            text:res.data.msg,
-    //            icon:"success",
-    //            button:"OK!"
-    //        })
-    //        this.setState({ disabled: !this.state.disabled });
-
-    //     //    console.log(this.state);
-    //     }else{
-
-    //     this.setState({
-    //         error_list:res.data.validate_error
-    //     });
-    //     }
-    //     console.log(this.state);
-    //     }
+  
     //put focus on given input
     focusTextInput() {
         this.textInput.current.focus();
