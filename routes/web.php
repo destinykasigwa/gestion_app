@@ -99,6 +99,13 @@ Route::get("/compte/search/{id}",
 [DepotEspeceController::class,'getAccount']);
 
 
+//get billetage fom DB
+
+
+//get searched account
+Route::get("/billetage/getbilletage",
+[DepotEspeceController::class,'getBilletage']);
+
 
 
 

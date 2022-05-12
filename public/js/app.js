@@ -4701,6 +4701,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
 
 
+
 var DepotEspece = /*#__PURE__*/function (_React$Component) {
   _inherits(DepotEspece, _React$Component);
 
@@ -4743,6 +4744,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     disabled: !_this.state.disabled,
                     loading: false
                   });
+
+                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+                  document.getElementById("printBtn").removeAttribute("disabled", "disabled");
                 } else {
                   _this.setState({
                     error_list: res.data.validate_error
@@ -4785,7 +4789,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
 
                   _this.setState({
                     disabled: !_this.state.disabled,
-                    refCompte: _this.state.fetchData.refCompte
+                    refCompte: _this.state.fetchData.refCompte,
+                    numCompte: _this.state.fetchData.numCompte,
+                    operant: _this.state.fetchData.intituleCompte
                   }); //  console.log(this.state.fetchData);
                   //disabled valider button
 
@@ -4798,11 +4804,10 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     icon: "error",
                     button: "OK!"
                   });
-                }
+                } // console.log(this.state.fetchData);
 
-                console.log(_this.state.fetchData);
 
-              case 6:
+              case 5:
               case "end":
                 return _context2.stop();
             }
@@ -4814,6 +4819,35 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
         return _ref2.apply(this, arguments);
       };
     }());
+
+    _defineProperty(_assertThisInitialized(_this), "getBilletage", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var getBilletag;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().get("billetage/getbilletage");
+
+            case 2:
+              getBilletag = _context3.sent;
+
+              _this.setState({
+                getAllBilletage: getBilletag.data.data,
+                getBilletageUSD: getBilletag.data.data2,
+                getLastestOperationCDF: getBilletag.data.data3,
+                getLastestOperationUSD: getBilletag.data.data4
+              });
+
+              console.log(_this.state.getLastestOperationCDF);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })));
 
     _this.state = {
       disabled: true,
@@ -4828,7 +4862,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       oneDollar: 0,
       montantDepot: 0,
       devise: "",
-      numcompte: "",
+      numCompte: "",
       commission: 0,
       intitule: "",
       vightMille: 0,
@@ -4840,6 +4874,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       centFranc: 0,
       cinquanteFanc: 0,
       telDeposant: "",
+      operant: "",
       deposantName: "",
       codeAgence: "20",
       libelle: "",
@@ -4847,11 +4882,16 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       taux: "2000",
       fetchData: null,
       compteToSearch: "",
-      refCompte: ""
+      refCompte: "",
+      getAllBilletage: null,
+      getBilletageUSD: null,
+      getLastestOperationCDF: null,
+      getLastestOperationUSD: null
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleAccount = _this.handleAccount.bind(_assertThisInitialized(_this));
+    _this.getBilletage = _this.getBilletage.bind(_assertThisInitialized(_this));
     return _this;
   } //to refresh
 
@@ -4878,6 +4918,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
         });
 
         document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+        document.getElementById("printBtn").setAttribute("disabled", "disabled");
       }, 1000);
       var current_datetime = new Date();
       var formatted_date = //year
@@ -4887,6 +4928,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       this.setState({
         DateTransaction: formatted_date
       });
+      this.getBilletage();
     }
   }, {
     key: "render",
@@ -4919,9 +4961,35 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
 
       var tableBorder = {
         border: "2px solid #fff",
-        fontSize: "16px"
+        fontSize: "16px",
+        textAlign: "center"
       };
       var compteur = 1;
+      var compteur2 = 1;
+      var compteur3 = 1;
+      var compteur4 = 1; //PERMET DE FORMATER LES CHIFFRES
+
+      var numberFormat = function numberFormat() {
+        var number = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var locales = [//undefined,  // Your own browser
+        "en-US" // United States
+        //'de-DE',    // Germany
+        //'ru-RU',    // Russia
+        //'hi-IN',    // India
+        ];
+        var opts = {
+          minimumFractionDigits: 2
+        };
+        var index = 3;
+        var nombre = number.toLocaleString(locales[index], opts);
+
+        if (nombre === isNaN) {
+          nombre = 0.0;
+        } else {
+          return nombre;
+        }
+      };
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
           className: "row",
@@ -5089,7 +5157,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "numCompte",
-                                value: this.state.numcompte ? this.state.numcompte : this.state.fetchData && this.state.fetchData.numCompte,
+                                value: this.state.numCompte ? this.state.numCompte : this.state.fetchData && this.state.fetchData.numCompte,
                                 disabled: true,
                                 onChange: this.handleChange
                               })
@@ -5230,13 +5298,13 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-4",
+                                className: "col-md-4",
                                 children: "Coupures"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-4",
+                                className: "col-md-4",
                                 children: "Nbr Billets"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-2",
+                                className: "col-md-2",
                                 children: "Total"
                               })]
                             })
@@ -5354,13 +5422,13 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-4",
+                                className: "col-md-4",
                                 children: "Coupures"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-4",
+                                className: "col-md-4",
                                 children: "Nbr Billets"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                                "class": "col-md-2",
+                                className: "col-md-2",
                                 children: "Total"
                               })]
                             })
@@ -5541,7 +5609,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         style: {
                           padding: "2px"
                         },
-                        children: this.state.disabled ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
                           style: {
                             borderRadius: "0px",
                             width: "100%",
@@ -5549,18 +5617,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             fontSize: "12px"
                           },
                           className: "btn btn-primary",
-                          disabled: true,
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                            className: "fas fa-print"
-                          }), " Imprimer ", ""]
-                        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-                          style: {
-                            borderRadius: "0px",
-                            width: "100%",
-                            height: "30px",
-                            fontSize: "12px"
-                          },
-                          className: "btn btn-primary",
+                          id: "printBtn",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
                             className: "fas fa-print"
                           }), " Imprimer ", ""]
@@ -5578,184 +5635,411 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
               style: {
                 border: "4px solid #dcdcdc"
               },
-              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
-                className: "text-muted",
-                children: "Billetage"
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                className: "col-md-6",
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                  className: "table",
-                  style: {
-                    background: "#dcdcdc"
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Num"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Coupure"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Nombre"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Montant"
+              children: [this.state.devise == "CDF" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                  className: "text-muted",
+                  children: "Billetage en CDF"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "col-md-4",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                    className: "table",
+                    style: {
+                      background: "#dcdcdc"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "#"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Coupure"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Nombre"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant"
+                      })]
+                    }), this.state.getAllBilletage[0] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          className: "col-md-1",
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "20 000 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getAllBilletage[0].vightMilleFran
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran) * 20000)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "10 000 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getAllBilletage[0].dixMilleFran
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].dixMilleFran) * 10000)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "5000 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getAllBilletage[0].cinqMilleFran
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].cinqMilleFran) * 5000)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "1000 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getAllBilletage[0].milleFran
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].milleFran) * 1000)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "500 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getAllBilletage[0].cinqCentFran)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].cinqCentFran) * 500)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "200 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getAllBilletage[0].deuxCentFran)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].deuxCentFran) * 200)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "100 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getAllBilletage[0].centFran)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].centFran) * 100)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "50 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getAllBilletage[0].cinquanteFan)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getAllBilletage[0].cinquanteFan) * 50)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("strong", {
+                            children: "TOT"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: {
+                            border: "0px",
+                            textAlign: "center"
+                          },
+                          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                            children: [" ", parseInt(this.state.getAllBilletage[0].vightMilleFran) + parseInt(this.state.getAllBilletage[0].dixMilleFran) + parseInt(this.state.getAllBilletage[0].cinqMilleFran) + parseInt(this.state.getAllBilletage[0].milleFran) + parseInt(this.state.getAllBilletage[0].cinqCentFran) + parseInt(this.state.getAllBilletage[0].deuxCentFran) + parseInt(this.state.getAllBilletage[0].centFran) + parseInt(this.state.getAllBilletage[0].cinquanteFan), " "]
+                          }), " "]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: {
+                            background: "green",
+                            color: "#fff",
+                            fontSize: "28px",
+                            textAlign: "center",
+                            fontWeight: "bold"
+                          },
+                          children: ["  ", numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran) * 20000 + parseInt(this.state.getAllBilletage[0].dixMilleFran) * 10000 + parseInt(this.state.getAllBilletage[0].cinqMilleFran) * 5000 + parseInt(this.state.getAllBilletage[0].milleFran) * 1000 + parseInt(this.state.getAllBilletage[0].cinqCentFran) * 500 + parseInt(this.state.getAllBilletage[0].deuxCentFran) * 200 + parseInt(this.state.getAllBilletage[0].centFran) * 100 + parseInt(this.state.getAllBilletage[0].cinquanteFan) * 50), " "]
+                        })]
+                      })]
                     })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      className: "col-md-1",
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "20 000 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "1"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
+                  })
+                })]
+              }) : this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                  className: "text-muted",
+                  children: "Billetage en USD"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                  className: "col-md-4",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                    className: "table",
+                    style: {
+                      background: "#dcdcdc"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "#"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Coupure"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Nombre"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant"
+                      })]
+                    }), this.state.getBilletageUSD[0] && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          className: "col-md-1",
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "100 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getBilletageUSD[0].centDollar
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar) * 100)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "50 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getBilletageUSD[0].cinquanteDollar
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].cinquanteDollar) * 50)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "20 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getBilletageUSD[0].vightDollar
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].vightDollar) * 20)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "10 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: this.state.getBilletageUSD[0].dixDollar
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].dixDollar) * 10)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "5 x"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getBilletageUSD[0].cinqDollar)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].cinqDollar) * 5)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          children: compteur2++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: "1"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: parseInt(this.state.getBilletageUSD[0].unDollar)
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(this.state.getBilletageUSD[0].unDollar) * 1)
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("strong", {
+                            children: "TOT"
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: {
+                            border: "0px",
+                            textAlign: "center"
+                          },
+                          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("strong", {
+                            children: [" ", parseInt(this.state.getBilletageUSD[0].centDollar) + parseInt(this.state.getBilletageUSD[0].cinquanteDollar) + parseInt(this.state.getBilletageUSD[0].vightDollar) + parseInt(this.state.getBilletageUSD[0].dixDollar) + parseInt(this.state.getBilletageUSD[0].cinqDollar) + parseInt(this.state.getBilletageUSD[0].unDollar), " "]
+                          }), " "]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: {
+                            background: "green",
+                            color: "#fff",
+                            fontSize: "28px",
+                            textAlign: "center",
+                            fontWeight: "bold"
+                          },
+                          children: ["  ", numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar) * 100 + parseInt(this.state.getBilletageUSD[0].cinquanteDollar) * 50 + parseInt(this.state.getBilletageUSD[0].vightDollar) * 20 + parseInt(this.state.getBilletageUSD[0].dixDollar) * 10 + parseInt(this.state.getBilletageUSD[0].cinqDollar) * 5 + parseInt(this.state.getBilletageUSD[0].unDollar) * 1), " "]
+                        })]
+                      })]
                     })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "10 000 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "2"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "5000 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "3"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "1000 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "4"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "500 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "5"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "200 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "6"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "100 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "7"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "50 x"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "8"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "Montant"
+                  })
+                })]
+              }) : null, this.state.devise == "CDF" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "col-md-8",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                    className: "text-muted",
+                    children: "Op\xE9rations recentes en CDF"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                    className: "table",
+                    style: {
+                      background: "#dcdcdc"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "#"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "numCompte"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Intitul\xE9"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant D\xE9bit"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant Cr\xE9dit"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Libell\xE9"
+                      })]
+                    }), this.state.getLastestOperationCDF[0] && this.state.getLastestOperationCDF.map(function (result, index) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: compteur3++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.NumCompte
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.Operant
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(result.Debitfc))
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(result.Creditfc))
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.Libelle
+                        })]
+                      }, index);
                     })]
                   })]
                 })
-              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                className: "col-md-6",
-                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
-                  className: "text-muted",
-                  children: "Op\xE9rations recentes"
-                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                  className: "table",
-                  style: {
-                    background: "#dcdcdc"
-                  },
-                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "#"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "numCompte"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Montant D\xE9bit"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Montant Cr\xE9dit"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
-                      style: tableBorder,
-                      children: "Libell\xE9"
-                    })]
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: compteur++
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "3496"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "5000"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "4000"
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                      style: tableBorder,
-                      children: "RETRAIT ESPECE"
+              }) : this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
+                  className: "col-md-6",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
+                    className: "text-muted",
+                    children: "Op\xE9rations recentes en USD"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                    className: "table",
+                    style: {
+                      background: "#dcdcdc"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "#"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "numCompte"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Intitul\xE9"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant D\xE9bit"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Montant Cr\xE9dit"
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
+                        style: tableBorder,
+                        children: "Libell\xE9"
+                      })]
+                    }), this.state.getLastestOperationUSD[0] && this.state.getLastestOperationUSD.map(function (result, index) {
+                      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: compteur4++
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.NumCompte
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.Operant
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(result.Debit$))
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: numberFormat(parseInt(result.Credit$))
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: tableBorder,
+                          children: result.Libelle
+                        })]
+                      }, index);
                     })]
                   })]
-                })]
-              })]
+                })
+              }) : null]
             })
           })]
         })
@@ -6686,7 +6970,10 @@ var ActivateCompteM = /*#__PURE__*/function (_React$Component) {
     key: "componentDidMount",
     value: function componentDidMount() {
       var current_datetime = new Date();
-      var formatted_date = current_datetime.getDate() + "/" + (current_datetime.getMonth() + 1) + "/" + current_datetime.getFullYear();
+      var formatted_date = //year
+      current_datetime.getFullYear() + "-" + ( //month
+      current_datetime.getMonth() + 1) + "-" + //day
+      current_datetime.getDate();
       this.setState({
         dateOuverture: formatted_date
       });

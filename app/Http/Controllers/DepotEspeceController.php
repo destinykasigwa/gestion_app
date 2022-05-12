@@ -3,12 +3,17 @@
 namespace App\Http\Controllers;
 
 use App\Models\BilletageCdf;
+use App\Models\BilletageUsd;
 use App\Models\Transactions;
 use Illuminate\Http\Request;
 use App\Models\AdhesionMembre;
+use App\Models\Comptes;
+use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
+use App\Models\Dummy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+
 
 class DepotEspeceController extends Controller
 {
@@ -58,14 +63,23 @@ public function getAccount($id){
               $numOperation = [];
               $numOperation = CompteurTransaction::latest()->first();
               $NumTransaction= Auth::user()->name[0]. Auth::user()->name[1]."D00".$numOperation->id;
-        $numCompteContrePartie="5700003032202";
-        $numCompteContrePartieUSD="5700003032201";
+              
+              //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
+              $numCompteCaissierUSD=Comptes::where("NumAdherant","=",Auth::user()->id)->where("CodeMonnaie","=","1")->first();
+              $CompteCaissierUSD=$numCompteCaissierUSD->NumCompte;
+
+              //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
+              $numCompteCaissierCDF=Comptes::where("NumAdherant","=",Auth::user()->id)->where("CodeMonnaie","=","2")->first();
+              $CompteCaissierCDF=$numCompteCaissierCDF->NumCompte;
+
+            //  $numCompteContrePartie="5700003032202";
+            //  $numCompteContrePartieUSD="5700003032201";
            if($request->devise=="CDF"){
                 //RECUPERE LE NUMERO DE COMPTE CDF DU MEMBRE CONCERNE
-                $getCompteMembreCDF=Transactions::where("refCompteMembre","=",$request->refCompte,"and","CodeMonnaie","=","2")->first();
+                $getCompteMembreCDF=Transactions::where("refCompteMembre","=",$request->refCompte)->Where("CodeMonnaie","=","2")->first();
                 $compteCDF=$getCompteMembreCDF->NumCompte;
-
-                //CREDIT LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
+    
+                //CREDITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
             Transactions::create([
                 "NumTransaction" => $NumTransaction,
                 "DateTransaction" => $request->DateTransaction,
@@ -77,7 +91,8 @@ public function getAccount($id){
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
                 "NumCompte" => $compteCDF,
-                "NumComptecp" => $numCompteContrePartie,
+                "NumComptecp" => $CompteCaissierCDF,
+                "Operant"=>$request->operant,
                 "Creditfc" => $request->montantDepot,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
@@ -88,17 +103,19 @@ public function getAccount($id){
               
               BilletageCdf::create([
                "refOperation"=>$lastInsertedId->RéfTransaction,
-              "vightMilleFranc"=>$lastInsertedId->vightMille,
-              "dixMilleFranc"=>$lastInsertedId->dixMille,
-              "cinqMilleFranc"=>$lastInsertedId->cinqMille,
-              "milleFranc"=>$lastInsertedId->milleFranc,
-              "cinqCentFranc"=>$lastInsertedId->cinqCentFr,
-              "deuxCentFranc"=>$lastInsertedId->deuxCentFranc,
-              "centFranc"=>$lastInsertedId->centFranc,
-              "cinquanteFanc"=>$lastInsertedId->cinquanteFanc,
+              "vightMilleFranc"=>$request->vightMille,
+              "dixMilleFranc"=>$request->dixMille,
+              "cinqMilleFranc"=>$request->cinqMille,
+              "milleFranc"=>$request->milleFranc,
+              "cinqCentFranc"=>$request->cinqCentFr,
+              "deuxCentFranc"=>$request->deuxCentFranc,
+              "centFranc"=>$request->centFranc,
+              "cinquanteFanc"=>$request->cinquanteFanc,
+              "NomUtilisateur"=> Auth::user()->name, 
+              "DateTransaction"=>$request->DateTransaction
               ]);
               //CREDITE LE COMPTE CONTRE PARTIE  
-              Transactions::create([
+              Dummy::create([
                 "NumTransaction" => $NumTransaction,
                 "DateTransaction" => $request->DateTransaction,
                 "DateSaisie" => $request->DateTransaction,
@@ -108,9 +125,10 @@ public function getAccount($id){
                 "CodeAgence" => "20",
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $numCompteContrePartie,
+                "NumCompte" => $CompteCaissierCDF,
                 "NumComptecp" =>$compteCDF,
-                "Creditfc" => $request->montantDepot,
+                "Operant"=>$request->operant,
+                "Debitfc" => $request->montantDepot,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
@@ -128,9 +146,10 @@ public function getAccount($id){
                 "CodeAgence" => "20",
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $request->numcompte,
-                "NumComptecp" => $numCompteContrePartieUSD,
+                "NumCompte" => $request->numCompte,
+                "NumComptecp" => $CompteCaissierUSD,
                 "Credit" => $request->montantDepot,
+                "Operant"=>$request->operant,
                 "Credit$" => $request->montantDepot,
                 "Creditcdf" => $request->montantDepot * $request->taux,
                 "NomUtilisateur" => Auth::user()->name,   
@@ -140,17 +159,19 @@ public function getAccount($id){
               $lastInsertedId = Transactions::latest()->first();
               //COMPLETE LE BILLETAGE
               
-              BilletageCdf::create([
+              BilletageUsd::create([
                "refOperation"=>$lastInsertedId->RéfTransaction,
-              "centDollars"=>$lastInsertedId->hundred,
-              "cinquanteDollars"=>$lastInsertedId->fitfty,
-              "vightDollars"=>$lastInsertedId->twenty,
-              "dixDollars"=>$lastInsertedId->ten,
-              "cinqDollars"=>$lastInsertedId->five,
-              "unDollars"=>$lastInsertedId->oneDollar,
+              "centDollars"=>$request->hundred,
+              "cinquanteDollars"=>$request->fitfty,
+              "vightDollars"=>$request->twenty,
+              "dixDollars"=>$request->ten,
+              "cinqDollars"=>$request->five,
+              "unDollars"=>$request->oneDollar,
+              "NomUtilisateur"=> Auth::user()->name,
+              "DateTransaction"=>$request->DateTransaction
               ]);
               //CREDITE LE COMPTE CONTRE PARTIE  
-              Transactions::create([
+              Dummy::create([
                 "NumTransaction" => $NumTransaction,
                 "DateTransaction" => $request->DateTransaction,
                 "DateSaisie" => $request->DateTransaction,
@@ -160,11 +181,12 @@ public function getAccount($id){
                 "CodeAgence" => "20",
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $numCompteContrePartieUSD,
-                "NumComptecp" =>  $request->numcompte,
-                "Credit" => $request->montantDepot,
-                "Credit$" => $request->montantDepot,
-                "Creditfc"  => $request->montantDepot * $request->taux,
+                "NumCompte" => $CompteCaissierUSD,
+                "NumComptecp" =>  $request->numCompte,
+                "Debit" => $request->montantDepot,
+                "Operant"=>$request->operant,
+                "Debit$" => $request->montantDepot,
+                "Debitfc"  => $request->montantDepot * $request->taux,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
@@ -177,7 +199,58 @@ public function getAccount($id){
 
     }
 
+    public function getBilletage(){
+   
+    // $billetageCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)
+    // ->join('billetage_cdfs', "transactions.RéfTransaction","=","billetage_cdfs.refOperation")
+    //  ->select('billetage_cdfs.*')
+    //  ->get();
 
+    //  $billetageCDF = BilletageCdf::where("NomUtilisateur","=",Auth::user()->name)->sum("milleFranc")->sum("cinqCentFranc");
+    // ->join('billetage_cdfs', "transactions.RéfTransaction","=","billetage_cdfs.refOperation")
+    //  ->select('billetage_cdfs.*')
+    //  ->get();
+    //  $sum = Model::where('status', 'paid')->sum('sum_field');
+//RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
+$date=date("Y-m-d");
+$billetageCDF = BilletageCdf::select(
+        DB::raw("SUM(vightMilleFranc) as vightMilleFran"),
+        DB::raw("SUM(dixMilleFranc) as dixMilleFran"),
+        DB::raw("SUM(cinqMilleFranc) as cinqMilleFran"),
+        DB::raw("SUM(milleFranc) as milleFran"),
+        DB::raw("SUM(cinqCentFranc) as cinqCentFran"),
+        DB::raw("SUM(deuxCentFranc) as deuxCentFran"),
+        DB::raw("SUM(centFranc) as centFran"),
+        DB::raw("SUM(cinquanteFanc) as cinquanteFan"),
+    )->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
+->groupBy("NomUtilisateur")
+->get();
+   
+//RECUPERE LE BILLETAGE EN USD
+
+$billetageUSD = BilletageUsd::select(
+    DB::raw("SUM(centDollars) as centDollar"),
+    DB::raw("SUM(cinquanteDollars) as cinquanteDollar"),
+    DB::raw("SUM(vightDollars) as vightDollar"),
+    DB::raw("SUM(dixDollars) as dixDollar"),
+    DB::raw("SUM(cinqDollars) as cinqDollar"),
+    DB::raw("SUM(unDollars) as unDollar"),
+)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
+->groupBy("NomUtilisateur")
+->get();
+
+//RECUPERE 5 OPERATIONS RECENTES CDF
+
+
+$operationCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","2")
+            ->paginate(8)->All();
+
+$operationUSD = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","1")
+           ->paginate(8)->All();
+
+
+    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationUSD,"data4"=>[]]);
+    }
     public function depot()
     {
 

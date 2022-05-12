@@ -16,11 +16,14 @@ export default class ActivateCompteM extends React.Component {
           componentDidMount(){
             let current_datetime = new Date();
             let formatted_date =
-                current_datetime.getDate() +
-                "/" +
-                (current_datetime.getMonth() + 1) +
-                "/" +
-                current_datetime.getFullYear();
+            //year
+           current_datetime.getFullYear()  +
+           "-" +
+           //month
+           (current_datetime.getMonth() + 1) +
+           "-" +
+           //day
+           current_datetime.getDate()  ;
             this.setState({ dateOuverture: formatted_date });
           }
            //ACTIVATE CREATED NUMBER

@@ -20,7 +20,7 @@ export default class DepotEspece extends React.Component {
             oneDollar: 0,
             montantDepot: 0,
             devise: "",
-            numcompte: "",
+            numCompte: "",
             commission: 0,
             intitule: "",
             vightMille: 0,
@@ -32,6 +32,7 @@ export default class DepotEspece extends React.Component {
             centFranc: 0,
             cinquanteFanc: 0,
             telDeposant:"",
+            operant:"",
             deposantName:"",
             codeAgence:"20",
             libelle:"",
@@ -39,12 +40,17 @@ export default class DepotEspece extends React.Component {
             taux:"2000",
             fetchData: null,
             compteToSearch:"",
-            refCompte:""
+            refCompte:"",
+            getAllBilletage:null,
+            getBilletageUSD:null,
+            getLastestOperationCDF:null,
+            getLastestOperationUSD:null
             
         };
         this.actualiser = this.actualiser.bind(this);
         this.handleChange=this.handleChange.bind(this);
         this.handleAccount=this.handleAccount.bind(this);
+        this.getBilletage=this.getBilletage.bind(this);
     }
       //to refresh
       actualiser() {
@@ -70,6 +76,10 @@ export default class DepotEspece extends React.Component {
                 document
                 .getElementById("validerbtn")
                 .setAttribute("disabled", "disabled");
+                document
+                .getElementById("printBtn")
+                .setAttribute("disabled", "disabled");
+                
         }, 1000);
         let current_datetime = new Date();
         let formatted_date =
@@ -82,6 +92,7 @@ export default class DepotEspece extends React.Component {
             //day
             current_datetime.getDate()  ;
         this.setState({ DateTransaction: formatted_date });
+        this.getBilletage();
     }
 
     saveOperation=async(e)=>{
@@ -97,6 +108,12 @@ export default class DepotEspece extends React.Component {
               button: "OK!",
           });
           this.setState({ disabled: !this.state.disabled,loading:false});
+          document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+                document
+                .getElementById("printBtn")
+                .removeAttribute("disabled", "disabled");
       } else {
           this.setState({
               error_list: res.data.validate_error,
@@ -113,7 +130,9 @@ export default class DepotEspece extends React.Component {
       );
       if (getData.data.success == 1) {
           this.setState({ fetchData: getData.data.data });
-          this.setState({ disabled: !this.state.disabled,refCompte:this.state.fetchData.refCompte });
+          this.setState({ disabled: !this.state.disabled,
+            refCompte:this.state.fetchData.refCompte,
+            numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte });
           //  console.log(this.state.fetchData);
           //disabled valider button
           document
@@ -127,9 +146,20 @@ export default class DepotEspece extends React.Component {
               button: "OK!",
           });
       }
-      console.log(this.state.fetchData);
+      // console.log(this.state.fetchData);
   };
+  //getBilletageInDB
  
+
+  getBilletage = async()=>{
+    const getBilletag = await axios.get("billetage/getbilletage")
+    this.setState({getAllBilletage:getBilletag.data.data,
+      getBilletageUSD:getBilletag.data.data2,
+      getLastestOperationCDF:getBilletag.data.data3,
+      getLastestOperationUSD:getBilletag.data.data4})
+    console.log(this.state.getLastestOperationCDF);
+  }
+
     render() {
         var myspinner = {
             margin: "5px auto",
@@ -160,8 +190,30 @@ export default class DepotEspece extends React.Component {
         var tableBorder = {
             border: "2px solid #fff",
             fontSize: "16px",
+            textAlign:"center"
         };
         let compteur=1;
+        let compteur2=1;
+        let compteur3=1;
+        let compteur4=1;
+        //PERMET DE FORMATER LES CHIFFRES
+        const numberFormat = (number = 0) => {
+          var locales = [
+            //undefined,  // Your own browser
+            "en-US", // United States
+            //'de-DE',    // Germany
+            //'ru-RU',    // Russia
+            //'hi-IN',    // India
+          ];
+          var opts = { minimumFractionDigits: 2 };
+          var index = 3;
+          var nombre = number.toLocaleString(locales[index], opts);
+          if (nombre === isNaN) {
+            nombre = 0.0;
+          } else {
+            return nombre;
+          }
+        };
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -386,10 +438,10 @@ export default class DepotEspece extends React.Component {
                                                                     value={
                                                                   this
                                                                       .state
-                                                                      .numcompte
+                                                                      .numCompte
                                                                       ? this
                                                                             .state
-                                                                            .numcompte
+                                                                            .numCompte
                                                                       : this
                                                                             .state
                                                                             .fetchData &&
@@ -614,9 +666,9 @@ export default class DepotEspece extends React.Component {
                       <table className="tableDepotEspece">
                         <thead>
                           <tr>
-                            <th class="col-md-4">Coupures</th>
-                            <th class="col-md-4">Nbr Billets</th>
-                            <th class="col-md-2">Total</th>
+                            <th className="col-md-4">Coupures</th>
+                            <th className="col-md-4">Nbr Billets</th>
+                            <th className="col-md-2">Total</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -745,9 +797,9 @@ export default class DepotEspece extends React.Component {
                       <table className="tableDepotEspece">
                         <thead>
                           <tr>
-                            <th class="col-md-4">Coupures</th>
-                            <th class="col-md-4">Nbr Billets</th>
-                            <th class="col-md-2">Total</th>
+                            <th className="col-md-4">Coupures</th>
+                            <th className="col-md-4">Nbr Billets</th>
+                            <th className="col-md-2">Total</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -966,7 +1018,7 @@ export default class DepotEspece extends React.Component {
                       </tr>
                       <tr>
                       <td style={{padding:"2px"}}>
-                          {this.state.disabled ? (
+                          
                             <button
                             style={{
                               borderRadius:
@@ -977,25 +1029,11 @@ export default class DepotEspece extends React.Component {
                                   "12px",
                                 }}
                               className="btn btn-primary"
-                              disabled
+                              id="printBtn"
                             >
                               <i className="fas fa-print"></i> Imprimer {""}
                             </button>
-                          ) : (
-                            <button
-                            style={{
-                              borderRadius:
-                                  "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize:
-                                  "12px",
-                                }}
-                              className="btn btn-primary"
-                            >
-                              <i className="fas fa-print"></i> Imprimer {""}
-                            </button>
-                          )}
+                         
                         </td>
                       </tr>
                         </div>
@@ -1005,8 +1043,15 @@ export default class DepotEspece extends React.Component {
                         </div>
                         <div className="container-fluid">
                           <div className="row" style={{border:"4px solid #dcdcdc"}}> 
-                          <h3 className="text-muted">Billetage</h3>
-                                    <div className="col-md-6">
+                                   {/* SI L'UTILISATEUR SELECTIONNE LE CDF COMME DEVISE ON LUI AFFICHE CES 5 BILLETAGE RECENTS */}
+
+                                    {this.state.devise=="CDF" ?
+                                   
+   
+                                    <>
+                                    
+                                      <h3 className="text-muted">Billetage en CDF</h3>
+                                    <div className="col-md-4">
                                         <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1014,7 +1059,7 @@ export default class DepotEspece extends React.Component {
                                           <thead>
                                             <th style={
                                                 tableBorder
-                                            }>Num</th>
+                                            }>#</th>
                                             <th style={
                                                 tableBorder
                                             }>Coupure</th>
@@ -1025,6 +1070,8 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }>Montant</th>
                                           </thead>
+                                          {this.state.getAllBilletage[0] &&
+                                          <>
                                            <tr>
                                              <td className="col-md-1">
                                                {compteur++}
@@ -1043,14 +1090,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          1
+                                          {this.state.getAllBilletage[0].vightMilleFran}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                        {numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran)*20000)}
                                         </td>
                                            </tr>
                                                   
@@ -1072,14 +1119,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                         2
+                                         {this.state.getAllBilletage[0].dixMilleFran}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                         {numberFormat(parseInt(this.state.getAllBilletage[0].dixMilleFran)*10000)}
                                         </td>
                                            </tr>
                                             
@@ -1100,14 +1147,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                        3
+                                           {this.state.getAllBilletage[0].cinqMilleFran}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                          {numberFormat(parseInt(this.state.getAllBilletage[0].cinqMilleFran)*5000)}
                                         </td>
                                            </tr>
                                             
@@ -1128,14 +1175,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          4
+                                          {this.state.getAllBilletage[0].milleFran}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                          {numberFormat(parseInt(this.state.getAllBilletage[0].milleFran)*1000)}
                                         </td>
                                            </tr>
                                             
@@ -1156,14 +1203,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          5
+                                           {parseInt(this.state.getAllBilletage[0].cinqCentFran)}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                          {numberFormat(parseInt(this.state.getAllBilletage[0].cinqCentFran)*500)}
                                         </td>
                                            </tr>
                                             
@@ -1184,14 +1231,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          6
+                                         {parseInt(this.state.getAllBilletage[0].deuxCentFran)}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                           {numberFormat(parseInt(this.state.getAllBilletage[0].deuxCentFran)*200)}
                                         </td>
                                            </tr>
                                             
@@ -1212,14 +1259,14 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          7
+                                          {parseInt(this.state.getAllBilletage[0].centFran)}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                           {numberFormat(parseInt(this.state.getAllBilletage[0].centFran)*100)}
                                         </td>
                                            </tr>
                                             
@@ -1239,21 +1286,250 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }
                                             >
-                                          8
+                                            {parseInt(this.state.getAllBilletage[0].cinquanteFan)}
                                         </td>
                                         <td
                                             style={
                                                 tableBorder
                                             }
                                             >
-                                          Montant
+                                          {numberFormat(parseInt(this.state.getAllBilletage[0].cinquanteFan)*50)}
                                         </td>
                                       
                                            </tr>
+                                           <tr>
+                                             <td  style={
+                                                tableBorder
+                                            }><strong>TOT</strong></td>
+                                             <td></td>
+                                             <td style={{border:"0px",textAlign:"center"}}> <strong> {parseInt(this.state.getAllBilletage[0].vightMilleFran)+parseInt(this.state.getAllBilletage[0].dixMilleFran) +parseInt(this.state.getAllBilletage[0].cinqMilleFran)+parseInt(this.state.getAllBilletage[0].milleFran)+parseInt(this.state.getAllBilletage[0].cinqCentFran)+parseInt(this.state.getAllBilletage[0].deuxCentFran)+parseInt(this.state.getAllBilletage[0].centFran)+parseInt(this.state.getAllBilletage[0].cinquanteFan)} </strong> </td>
+                                             <td style={{background:"green",color:"#fff",fontSize:"28px",textAlign:"center",fontWeight:"bold"}}>  {numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran)*20000 +parseInt(this.state.getAllBilletage[0].dixMilleFran) *10000 + parseInt(this.state.getAllBilletage[0].cinqMilleFran)* 5000 +parseInt(this.state.getAllBilletage[0].milleFran)*1000 +parseInt(this.state.getAllBilletage[0].cinqCentFran)*500 +parseInt(this.state.getAllBilletage[0].deuxCentFran)*200 +parseInt(this.state.getAllBilletage[0].centFran)*100 +parseInt(this.state.getAllBilletage[0].cinquanteFan)*50)} </td>
+                                           </tr>
+                                           </>
+                                           }
                                         </table>
                                     </div>
-                                    <div className="col-md-6">
-                                    <h3 className="text-muted">Opérations recentes</h3>
+
+                                       {/* SINON SI L'UTILISATEUR SELECTIONNE LE USD COMME DEVISE ON LUI AFFICHE CES 5 BILLETAGE RECENTS */}
+                                    </> 
+                                    
+                                    : this.state.devise=="USD" ?
+                                    <>
+                                      <h3 className="text-muted">Billetage en USD</h3>
+                                    <div className="col-md-4">
+                                        <table
+                                            className="table"
+                                            style={{background:"#dcdcdc"}}
+                                        >
+                                          <thead>
+                                            <th style={
+                                                tableBorder
+                                            }>#</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Coupure</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Nombre</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant</th>
+                                          </thead>
+                                          {this.state.getBilletageUSD[0] &&
+                                          <>
+                                           <tr>
+                                             <td className="col-md-1">
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                           
+                                            style={
+                                                tableBorder
+                                            }
+                                        >
+                                            100 x
+                                        </td>
+                                        <td
+                                       
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          {this.state.getBilletageUSD[0].centDollar}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                        {numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar)*100)}
+                                        </td>
+                                           </tr>
+                                                  
+                                             
+                                           <tr>
+                                           <td>
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                               >
+                                          
+                                            50 x
+                                        </td> 
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                         {this.state.getBilletageUSD[0].cinquanteDollar}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                         {numberFormat(parseInt(this.state.getBilletageUSD[0].cinquanteDollar)*50)}
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                            20 x
+                                        </td>
+                                       
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                           {this.state.getBilletageUSD[0].vightDollar}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          {numberFormat(parseInt(this.state.getBilletageUSD[0].vightDollar)*20)}
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                           10 x
+                                        </td>
+                                       
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          {this.state.getBilletageUSD[0].dixDollar}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          {numberFormat(parseInt(this.state.getBilletageUSD[0].dixDollar)*10)}
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                        >
+                                           5 x
+                                        </td>
+                                      
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                           {parseInt(this.state.getBilletageUSD[0].cinqDollar)}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                          {numberFormat(parseInt(this.state.getBilletageUSD[0].cinqDollar)*5)}
+                                        </td>
+                                           </tr>
+                                            
+                                           <tr>
+                                           <td>
+                                               {compteur2++}
+                                             </td>
+                                           <td
+                                            style={
+                                                tableBorder
+                                            }
+                                           >
+                                           1
+                                        </td>
+                                      
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                         {parseInt(this.state.getBilletageUSD[0].unDollar)}
+                                        </td>
+                                        <td
+                                            style={
+                                                tableBorder
+                                            }
+                                            >
+                                           {numberFormat(parseInt(this.state.getBilletageUSD[0].unDollar)*1)}
+                                        </td>
+                                           </tr>
+                                           
+                                           <tr>
+                                             <td  style={
+                                                tableBorder
+                                            }><strong>TOT</strong></td>
+                                             <td></td>
+                                             <td style={{border:"0px",textAlign:"center"}}> <strong> {parseInt(this.state.getBilletageUSD[0].centDollar)+parseInt(this.state.getBilletageUSD[0].cinquanteDollar) +parseInt(this.state.getBilletageUSD[0].vightDollar)+parseInt(this.state.getBilletageUSD[0].dixDollar)+parseInt(this.state.getBilletageUSD[0].cinqDollar)+parseInt(this.state.getBilletageUSD[0].unDollar)} </strong> </td>
+                                             <td style={{background:"green",color:"#fff",fontSize:"28px",textAlign:"center",fontWeight:"bold"}}>  {numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar)*100 +parseInt(this.state.getBilletageUSD[0].cinquanteDollar)*50 +parseInt(this.state.getBilletageUSD[0].vightDollar)*20 +parseInt(this.state.getBilletageUSD[0].dixDollar)*10 +parseInt(this.state.getBilletageUSD[0].cinqDollar)*5 +parseInt(this.state.getBilletageUSD[0].unDollar)*1)} </td>
+                                           </tr>
+                                           </>
+                                           }
+                                          
+                                        </table>
+                                    </div>
+                                    </>
+                                  : null}
+                                  {this.state.devise=="CDF" ?
+                                  
+                                  <>
+                                  
+                                   <div className="col-md-8">
+
+                                    <h3 className="text-muted">Opérations recentes en CDF</h3>
+                                    
                                     <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1267,6 +1543,9 @@ export default class DepotEspece extends React.Component {
                                             }>numCompte</th>
                                             <th style={
                                                 tableBorder
+                                            }>Intitulé</th>
+                                            <th style={
+                                                tableBorder
                                             }>Montant Débit</th>
                                             <th style={
                                                 tableBorder
@@ -1275,32 +1554,106 @@ export default class DepotEspece extends React.Component {
                                                 tableBorder
                                             }>Libellé</th>
                                           </thead>
-                                          <tr>
+                                          {this.state.getLastestOperationCDF[0] &&
+                                           
+                                           this.state.getLastestOperationCDF.map((result,index)=>{
+                                            return(
+                                        
+                                          <tr key={index}>
                                             <td style={
                                                 tableBorder
-                                            }>{compteur++}</td>
+                                            }>{compteur3++}</td>
                                              <td style={
                                                 tableBorder
-                                            }>3496</td>
+                                            }>{result.NumCompte}</td>
                                             <td style={
                                                 tableBorder
-                                            }>5000</td>
+                                            }>{result.Operant}</td>
                                             <td style={
                                                 tableBorder
-                                            }>4000</td>
+                                            }>{numberFormat(parseInt(result.Debitfc))}</td>
                                             <td style={
                                                 tableBorder
-                                            }>RETRAIT ESPECE</td>
+                                            }>{numberFormat(parseInt(result.Creditfc))}</td>
+                                            <td style={
+                                                tableBorder
+                                            }>{result.Libelle}</td>
+                                             
                                           </tr>
+                                             )
+                                             })   
 
-
-
-
-
+                                          }
                                          </table>
 
+                                    </div>
+                                  </>
+                                  : this.state.devise=="USD" ?
+                                  <>
+                                  
+                                  <div className="col-md-6">
+                                    <h3 className="text-muted">Opérations recentes en USD</h3>
+                                    <table
+                                            className="table"
+                                            style={{background:"#dcdcdc"}}
+                                        >
+                                          <thead>
+                                            <th style={
+                                                tableBorder
+                                            }>#</th>
+                                            <th style={
+                                                tableBorder
+                                            }>numCompte</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Intitulé</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant Débit</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Montant Crédit</th>
+                                            <th style={
+                                                tableBorder
+                                            }>Libellé</th>
+                                          </thead>
+                                          {this.state.getLastestOperationUSD[0] &&
+                                           
+                                           this.state.getLastestOperationUSD.map((result,index)=>{
+                                            return(
+                                        
+                                          <tr key={index}>
+                                            <td style={
+                                                tableBorder
+                                            }>{compteur4++}</td>
+                                             <td style={
+                                                tableBorder
+                                            }>{result.NumCompte}</td>
+                                            <td style={
+                                                tableBorder
+                                            }>{result.Operant}</td>
+                                            <td style={
+                                                tableBorder
+                                            }>{numberFormat(parseInt(result.Debit$))}</td>
+                                            <td style={
+                                                tableBorder
+                                            }>{numberFormat(parseInt(result.Credit$))}</td>
+                                            <td style={
+                                                tableBorder
+                                            }>{result.Libelle}</td>
+                                             
+                                          </tr>
+                                             )
+                                             })   
+
+                                          }
+                                         </table>
 
                                     </div>
+                                  </>
+                                  : null
+                                  }
+                                   
                                     </div>
                                 </div>
                     </div>

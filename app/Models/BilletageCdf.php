@@ -17,6 +17,10 @@ class BilletageCdf extends Model
     "cinqCentFranc",
     "deuxCentFranc",
     "centFranc",
-    "cinquanteFanc"
+    "cinquanteFanc",
+    "NomUtilisateur",
+    "DateTransaction"
+
+
    ];
 }

@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('transactions', function (Blueprint $table) {
+        Schema::create('dummies', function (Blueprint $table) {
             $table->bigInteger("RéfTransaction",20)->nullable();
             $table->string("NumTransaction",20)->nullable();
             $table->string("RefJournal",20)->nullable();
@@ -87,6 +87,7 @@ return new class extends Migration
             $table->string("DateValidation",30)->nullable();
             $table->string("refCompteMembre",20)->nullable();
             $table->timestamps();
+
         });
     }
 
@@ -97,6 +98,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('transactions');
+        Schema::dropIfExists('dummies');
     }
 };
