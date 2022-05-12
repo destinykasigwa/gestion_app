@@ -249,7 +249,7 @@ $operationUSD = Transactions::where("NomUtilisateur","=",Auth::user()->name)->wh
            ->paginate(8)->All();
 
 
-    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationUSD,"data4"=>[]]);
+    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationCDF,"data4"=>$operationUSD]);
     }
     public function depot()
     {

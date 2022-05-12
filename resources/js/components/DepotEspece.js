@@ -1591,7 +1591,7 @@ export default class DepotEspece extends React.Component {
                                   : this.state.devise=="USD" ?
                                   <>
                                   
-                                  <div className="col-md-6">
+                                  <div className="col-md-8">
                                     <h3 className="text-muted">Opérations recentes en USD</h3>
                                     <table
                                             className="table"
