@@ -4784,7 +4784,8 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
 
                 if (getData.data.success == 1) {
                   _this.setState({
-                    fetchData: getData.data.data
+                    fetchData: getData.data.data,
+                    getMembreSolde: getData.data.soldeMembre
                   });
 
                   _this.setState({
@@ -4792,9 +4793,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     refCompte: _this.state.fetchData.refCompte,
                     numCompte: _this.state.fetchData.numCompte,
                     operant: _this.state.fetchData.intituleCompte
-                  }); //  console.log(this.state.fetchData);
-                  //disabled valider button
+                  });
 
+                  console.log(_this.state.getMembreSolde); //disabled valider button
 
                   document.getElementById("validerbtn").removeAttribute("disabled", "disabled");
                 } else {
@@ -4836,7 +4837,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                 getAllBilletage: getBilletag.data.data,
                 getBilletageUSD: getBilletag.data.data2,
                 getLastestOperationCDF: getBilletag.data.data3,
-                getLastestOperationUSD: getBilletag.data.data4
+                getLastestOperationUSD: getBilletag.data.data4,
+                getSommeCDF: getBilletag.data.data5,
+                getSommeUSD: getBilletag.data.data6
               });
 
               console.log(_this.state.getLastestOperationCDF);
@@ -4886,7 +4889,10 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       getAllBilletage: null,
       getBilletageUSD: null,
       getLastestOperationCDF: null,
-      getLastestOperationUSD: null
+      getLastestOperationUSD: null,
+      getSommeCDF: null,
+      getSommeUSD: null,
+      getMembreSolde: null
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -4961,7 +4967,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
 
       var tableBorder = {
         border: "2px solid #fff",
-        fontSize: "16px",
+        fontSize: "14px",
         textAlign: "center"
       };
       var compteur = 1;
@@ -5104,6 +5110,11 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         background: "#dcdcdc"
                       },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "2px solid #fff",
+                          marginTop: "-15px"
+                        },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
@@ -5166,6 +5177,78 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         })
                       })
                     })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                    className: "col-md-4",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                      className: "card-body",
+                      style: {
+                        background: "#dcdcdc"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "2px solid #fff",
+                          marginTop: "-15px"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                                style: labelColor,
+                                children: "Solde Min."
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                                type: "text",
+                                style: {
+                                  borderRadius: "0px"
+                                },
+                                name: "intituleCompte",
+                                value: "0,00",
+                                disabled: true
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                                style: labelColor,
+                                children: "Solde USD"
+                              }), " "]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                                type: "text",
+                                style: {
+                                  borderRadius: "0px"
+                                },
+                                name: "intituleCompte",
+                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[0].soldeMembreUSD)),
+                                disabled: true
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("label", {
+                                style: labelColor,
+                                children: "Solde CDF"
+                              }), " "]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("input", {
+                                type: "text",
+                                style: {
+                                  borderRadius: "0px"
+                                },
+                                name: "intituleCompte",
+                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[1].soldeMembreCDF)),
+                                disabled: true
+                              })
+                            })]
+                          })]
+                        })
+                      })
+                    })
                   })]
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
                   className: "row",
@@ -5180,6 +5263,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                       padding: "5px"
                     },
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("form", {
+                      style: {
+                        marginTop: "12px"
+                      },
                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
@@ -5582,7 +5668,8 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             borderRadius: "0px",
                             width: "100%",
                             height: "30px",
-                            fontSize: "12px"
+                            fontSize: "12px",
+                            marginTop: "12px"
                           },
                           className: "btn btn-primary",
                           id: "validerbtn",
@@ -5595,7 +5682,8 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             borderRadius: "0px",
                             width: "100%",
                             height: "30px",
-                            fontSize: "12px"
+                            fontSize: "12px",
+                            marginTop: "12px"
                           },
                           className: "btn btn-primary",
                           disabled: true,
@@ -5950,10 +6038,10 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         children: "Intitul\xE9"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
-                        children: "Montant D\xE9bit"
+                        children: "D\xE9bit"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
-                        children: "Montant Cr\xE9dit"
+                        children: "Cr\xE9dit"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
                         children: "Libell\xE9"
@@ -6000,20 +6088,24 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             fontSize: "16px",
                             textAlign: "center"
                           }
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                          style: {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: _defineProperty({
                             border: "2px solid #fff",
                             fontSize: "16px",
-                            textAlign: "center"
-                          },
-                          children: "1"
+                            textAlign: "center",
+                            background: "green",
+                            color: "#fff"
+                          }, "fontSize", "28px"),
+                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeDebitCDF)), "  "]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                          style: {
+                          style: _defineProperty({
                             border: "0px solid #fff",
                             fontSize: "16px",
-                            textAlign: "center"
-                          },
-                          children: "1"
+                            textAlign: "center",
+                            background: "green",
+                            color: "#fff"
+                          }, "fontSize", "28px"),
+                          children: this.state.getSommeUSD[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeCreditCDF))
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                           style: {
                             border: "2px solid #fff",
@@ -6048,10 +6140,10 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         children: "Intitul\xE9"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
-                        children: "Montant D\xE9bit"
+                        children: "D\xE9bit"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
-                        children: "Montant Cr\xE9dit"
+                        children: "Cr\xE9dit"
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
                         style: tableBorder,
                         children: "Libell\xE9"
@@ -6078,6 +6170,52 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                           children: result.Libelle
                         })]
                       }, index);
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tfoot", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("td", {
+                          style: _defineProperty({
+                            border: "2px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center",
+                            background: "green",
+                            color: "#fff"
+                          }, "fontSize", "28px"),
+                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeDebitUSD)), "  "]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: _defineProperty({
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center",
+                            background: "green",
+                            color: "#fff"
+                          }, "fontSize", "28px"),
+                          children: this.state.getSommeUSD[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeCreditUSD))
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "2px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        })]
+                      })
                     })]
                   })]
                 })

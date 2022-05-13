@@ -44,7 +44,10 @@ export default class DepotEspece extends React.Component {
             getAllBilletage:null,
             getBilletageUSD:null,
             getLastestOperationCDF:null,
-            getLastestOperationUSD:null
+            getLastestOperationUSD:null,
+            getSommeCDF:null,
+            getSommeUSD:null,
+            getMembreSolde:null
             
         };
         this.actualiser = this.actualiser.bind(this);
@@ -129,11 +132,11 @@ export default class DepotEspece extends React.Component {
           "compte/search/" + this.state.compteToSearch
       );
       if (getData.data.success == 1) {
-          this.setState({ fetchData: getData.data.data });
+          this.setState({ fetchData: getData.data.data,getMembreSolde:getData.data.soldeMembre });
           this.setState({ disabled: !this.state.disabled,
             refCompte:this.state.fetchData.refCompte,
             numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte });
-          //  console.log(this.state.fetchData);
+           console.log(this.state.getMembreSolde);
           //disabled valider button
           document
               .getElementById("validerbtn")
@@ -156,7 +159,7 @@ export default class DepotEspece extends React.Component {
     this.setState({getAllBilletage:getBilletag.data.data,
       getBilletageUSD:getBilletag.data.data2,
       getLastestOperationCDF:getBilletag.data.data3,
-      getLastestOperationUSD:getBilletag.data.data4})
+      getLastestOperationUSD:getBilletag.data.data4,getSommeCDF:getBilletag.data.data5,getSommeUSD:getBilletag.data.data6})
     console.log(this.state.getLastestOperationCDF);
   }
 
@@ -189,7 +192,7 @@ export default class DepotEspece extends React.Component {
         // };
         var tableBorder = {
             border: "2px solid #fff",
-            fontSize: "16px",
+            fontSize: "14px",
             textAlign:"center"
         };
 
@@ -339,7 +342,11 @@ export default class DepotEspece extends React.Component {
 
                                         <div className="col-md-4">
                                         <div className="card-body" style={{ background: "#dcdcdc" }}>
-                                            <form>
+                                            <form  style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                    marginTop:"-15px"
+                                                }}>
                                                 <table >
                                                     <tr>
                                                         <td>
@@ -464,6 +471,106 @@ export default class DepotEspece extends React.Component {
                                         </div>
                                         </div>
                                        
+                                        <div className="col-md-4">
+                                        <div className="card-body" style={{ background: "#dcdcdc" }}>
+                                            <form  style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                    marginTop:"-15px"
+                                                }}>
+                                                <table >
+                                                    <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                               Solde Min.
+                                                            </label>
+                                                        </td>
+                                                        <div className="input-group input-group-sm ">
+                                                            <input
+                                                                type="text"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                }}
+                                                            
+                                                                name="intituleCompte"
+                                                                value={"0,00"}
+                                                                
+                                                                disabled
+                                                            />
+                                                        </div>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Solde USD
+                                                            </label>{" "}
+                                                        </td>
+                                                        <div className="input-group input-group-sm ">
+                                                        <input
+                                                                type="text"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                }}
+                                                            
+                                                                name="intituleCompte"
+                                                                value={
+                                                                  this.state
+                                                                      .getMembreSolde &&
+                                                                numberFormat(parseInt(this.state.getMembreSolde[0]
+                                                                      .soldeMembreUSD))
+                                                              }
+                                                                
+                                                                disabled
+                                                            />
+                                                        </div>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td>
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Solde CDF
+                                                            </label>{" "}
+                                                        </td>
+                                                        <div className="input-group input-group-sm ">
+                                                        <input
+                                                                type="text"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                }}
+                                                            
+                                                                name="intituleCompte"
+                                                                value={
+                                                                  this.state
+                                                                      .getMembreSolde &&
+                                                                numberFormat(parseInt(this.state.getMembreSolde[1]
+                                                                      .soldeMembreCDF))
+                                                              }
+                                                                
+                                                                disabled
+                                                            />
+                                                        </div>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                        </div>
                                     </div>
 
                                     <div
@@ -475,7 +582,7 @@ export default class DepotEspece extends React.Component {
                                         >
                                        
                                         <div className="col-md-4" style={{ background: "#fff",padding:"5px" }}>
-                                          <form>
+                                          <form style={{marginTop:"12px"}}>
                                             <table>
                                                       <tr>
                                                         <td>
@@ -962,7 +1069,7 @@ export default class DepotEspece extends React.Component {
                 </div>
               </div>
              
-                    <div className="col-md-2" style={{ background: "#fff",padding:"5px" }}>
+                    <div className="col-md-2" style={{ background: "#fff",padding:"5px"}}>
                         <tr>
                         <td style={{padding:"2px"}}>
                           {this.state.hundred * 100 +
@@ -988,7 +1095,7 @@ export default class DepotEspece extends React.Component {
                               width: "100%",
                               height: "30px",
                               fontSize:
-                                  "12px",
+                                  "12px",marginTop:"12px"
                                 }}
                               className="btn btn-primary"
                               id="validerbtn"
@@ -1006,6 +1113,7 @@ export default class DepotEspece extends React.Component {
                               height: "30px",
                               fontSize:
                                   "12px",
+                                  marginTop:"12px"
                                 }}
                               className="btn btn-primary"
                               disabled
@@ -1547,10 +1655,10 @@ export default class DepotEspece extends React.Component {
                                             }>Intitulé</th>
                                             <th style={
                                                 tableBorder
-                                            }>Montant Débit</th>
+                                            }>Débit</th>
                                             <th style={
                                                 tableBorder
-                                            }>Montant Crédit</th>
+                                            }>Crédit</th>
                                             <th style={
                                                 tableBorder
                                             }>Libellé</th>
@@ -1600,10 +1708,10 @@ export default class DepotEspece extends React.Component {
                                                           textAlign:"center"}}></td>
                                               <td style={{border: "2px solid #fff",
                                                           fontSize: "16px",
-                                                          textAlign:"center"}}>1</td>
+                                                          textAlign:"center",background:"green",color:"#fff",fontSize:"28px"}}> {this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeDebitCDF))}  </td>
                                               <td style={{border: "0px solid #fff",
                                                           fontSize: "16px",
-                                                          textAlign:"center"}}>1</td>
+                                                          textAlign:"center",background:"green",color:"#fff",fontSize:"28px"}}>{this.state.getSommeUSD[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeCreditCDF))}</td>
                                               <td style={{border: "2px solid #fff",
                                                           fontSize: "16px",
                                                           textAlign:"center"}}></td>
@@ -1634,10 +1742,10 @@ export default class DepotEspece extends React.Component {
                                             }>Intitulé</th>
                                             <th style={
                                                 tableBorder
-                                            }>Montant Débit</th>
+                                            }>Débit</th>
                                             <th style={
                                                 tableBorder
-                                            }>Montant Crédit</th>
+                                            }>Crédit</th>
                                             <th style={
                                                 tableBorder
                                             }>Libellé</th>
@@ -1672,6 +1780,28 @@ export default class DepotEspece extends React.Component {
                                              })   
 
                                           }
+                                           <tfoot>
+                                            <tr>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                                                            <td style={{border: "2px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center",background:"green",color:"#fff",fontSize:"28px"}}> {this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeDebitUSD))}  </td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center",background:"green",color:"#fff",fontSize:"28px"}}>{this.state.getSommeUSD[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeCreditUSD))}</td>
+                                              <td style={{border: "2px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                            </tr>
+                                          </tfoot>
                                          </table>
 
                                     </div>

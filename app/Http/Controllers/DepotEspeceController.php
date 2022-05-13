@@ -25,12 +25,23 @@ class DepotEspeceController extends Controller
 // fuction to get searched accout
  
 public function getAccount($id){
+  //RECUPERE LES INFO DU MEMBRE RECHERCHE
     $data = AdhesionMembre::where('numCompte', 'like', '%' . $id . '%')->first();
+
+    //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
+    $soldeMembre= Transactions::select(
+      DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+      DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
+    )->where("NumCompte",'like', '%' . $id . '%')
+    ->groupBy("NumCompte")
+    ->get();   
+
+
     if ($data) {
 
       return response()->json([
         "success" => 1, 'data' =>  $data
-      ]);
+      ,"soldeMembre"=>$soldeMembre]);
     } else {
 
       return response()->json([
@@ -239,17 +250,31 @@ $billetageUSD = BilletageUsd::select(
 ->groupBy("NomUtilisateur")
 ->get();
 
-//RECUPERE 5 OPERATIONS RECENTES CDF
+//RECUPERE 8 OPERATIONS RECENTES CDF
 
 
 $operationCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","2")
             ->paginate(8)->All();
 
+   //RECUPERE 6 OPERATIONS RECENTES USD    
 $operationUSD = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","1")
-           ->paginate(8)->All();
+           ->paginate(6)->All();
 
+$soldeOperationCDF= Transactions::select(
+  DB::raw("SUM(Debitfc) as sommeDeDebitCDF"),
+  DB::raw("SUM(Creditfc) as sommeDeCreditCDF"),
+)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
+->groupBy("NomUtilisateur")
+->get(); 
 
-    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationCDF,"data4"=>$operationUSD]);
+$soldeOperationUSD= Transactions::select(
+  DB::raw("SUM(Debit$) as sommeDeDebitUSD"),
+  DB::raw("SUM(Credit$) as sommeDeCreditUSD"),
+)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
+->groupBy("NomUtilisateur")
+->get();        
+
+    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationCDF,"data4"=>$operationUSD,"data5"=>$soldeOperationCDF,"data6"=>$soldeOperationUSD]);
     }
     public function depot()
     {
