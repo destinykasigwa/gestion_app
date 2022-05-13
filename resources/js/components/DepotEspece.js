@@ -192,6 +192,7 @@ export default class DepotEspece extends React.Component {
             fontSize: "16px",
             textAlign:"center"
         };
+
         let compteur=1;
         let compteur2=1;
         let compteur3=1;
@@ -1051,7 +1052,7 @@ export default class DepotEspece extends React.Component {
                                     <>
                                     
                                       <h3 className="text-muted">Billetage en CDF</h3>
-                                    <div className="col-md-4">
+                                    <div className="col-md-5">
                                         <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1316,7 +1317,7 @@ export default class DepotEspece extends React.Component {
                                     : this.state.devise=="USD" ?
                                     <>
                                       <h3 className="text-muted">Billetage en USD</h3>
-                                    <div className="col-md-4">
+                                    <div className="col-md-5">
                                         <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1526,7 +1527,7 @@ export default class DepotEspece extends React.Component {
                                   
                                   <>
                                   
-                                   <div className="col-md-8">
+                                   <div className="col-md-7">
 
                                     <h3 className="text-muted">Opérations recentes en CDF</h3>
                                     
@@ -1580,10 +1581,34 @@ export default class DepotEspece extends React.Component {
                                             }>{result.Libelle}</td>
                                              
                                           </tr>
+                                           
                                              )
+                                             
                                              })   
-
+                                            
                                           }
+                                            <tfoot>
+                                            <tr>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                              <td style={{border: "2px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}>1</td>
+                                              <td style={{border: "0px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}>1</td>
+                                              <td style={{border: "2px solid #fff",
+                                                          fontSize: "16px",
+                                                          textAlign:"center"}}></td>
+                                            </tr>
+                                          </tfoot>
                                          </table>
 
                                     </div>
@@ -1591,7 +1616,7 @@ export default class DepotEspece extends React.Component {
                                   : this.state.devise=="USD" ?
                                   <>
                                   
-                                  <div className="col-md-8">
+                                  <div className="col-md-7">
                                     <h3 className="text-muted">Opérations recentes en USD</h3>
                                     <table
                                             className="table"

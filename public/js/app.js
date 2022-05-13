@@ -5640,7 +5640,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                   className: "text-muted",
                   children: "Billetage en CDF"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  className: "col-md-4",
+                  className: "col-md-5",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
                     className: "table",
                     style: {
@@ -5799,7 +5799,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                   className: "text-muted",
                   children: "Billetage en USD"
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                  className: "col-md-4",
+                  className: "col-md-5",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
                     className: "table",
                     style: {
@@ -5929,7 +5929,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                 })]
               }) : null, this.state.devise == "CDF" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                  className: "col-md-8",
+                  className: "col-md-7",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en CDF"
@@ -5980,12 +5980,54 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                           children: result.Libelle
                         })]
                       }, index);
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tfoot", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "2px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          },
+                          children: "1"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "0px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          },
+                          children: "1"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                          style: {
+                            border: "2px solid #fff",
+                            fontSize: "16px",
+                            textAlign: "center"
+                          }
+                        })]
+                      })
                     })]
                   })]
                 })
               }) : this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                  className: "col-md-8",
+                  className: "col-md-7",
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("h3", {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en USD"
