@@ -24,6 +24,16 @@ return new class extends Migration
             $table->float("deuxCentFranc")->nullable()->default('0.00');
             $table->float("centFranc")->nullable()->default('0.00');
             $table->float("cinquanteFanc")->nullable()->default('0.00');
+           //pour le retrait
+           $table->float("vightMilleFrancSortie")->nullable()->default('0.00');
+           $table->float("dixMilleFrancSortie")->nullable()->default('0.00');
+           $table->float("cinqMilleFrancSortie")->nullable()->default('0.00');
+           $table->float("milleFrancSortie")->nullable()->default('0.00');
+           $table->float("cinqCentFrancSortie")->nullable()->default('0.00');
+           $table->float("deuxCentFrancSortie")->nullable()->default('0.00');
+           $table->float("centFrancSortie")->nullable()->default('0.00');
+           $table->float("cinquanteFancSortie")->nullable()->default('0.00');
+
             $table->string("NomUtilisateur",20)->nullable();
             $table->date("DateTransaction")->nullable();
             $table->timestamps();

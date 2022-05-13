@@ -14,11 +14,14 @@
 
  import ReactDOM from 'react-dom';
  import Adhesion from './components/Adhesion';
-import DepotEspece from './components/DepotEspece';
+ import DepotEspece from './components/DepotEspece';
+ import RetraitEspece from './components/RetraitEspece';
  
  if (document.getElementById('adhesionContainer')) {
      ReactDOM.render(<Adhesion />, document.getElementById('adhesionContainer'));
  }
  else if(document.getElementById('DepotEspeceContainer')){
     ReactDOM.render(<DepotEspece />, document.getElementById('DepotEspeceContainer'));
+ }else if(document.getElementById('RetraitEspeceContainer')){
+     ReactDOM.render(<RetraitEspece/>, document.getElementById('RetraitEspeceContainer'));
  }

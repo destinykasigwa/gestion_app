@@ -16,6 +16,12 @@ class BilletageUsd extends Model
         "dixDollars",
         "cinqDollars",
         "unDollars",
+        "centDollarsSortie",
+        "cinquanteDollarsSortie",
+        "vightDollarsSortie",
+        "dixDollarsSortie",
+        "cinqDollarsSortie",
+        "unDollarsSortie",
         "NomUtilisateur",
         "DateTransaction"
     ];

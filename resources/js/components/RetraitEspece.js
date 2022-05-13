@@ -1,9 +1,8 @@
 import React from "react";
-import '../../css/app.css';
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export default class DepotEspece extends React.Component {
+export default class RetraitEspece extends React.Component{
     constructor(props) {
         super(props);
 
@@ -41,6 +40,7 @@ export default class DepotEspece extends React.Component {
             fetchData: null,
             compteToSearch:"",
             refCompte:"",
+            typeDocument:"",
             getAllBilletage:null,
             getBilletageUSD:null,
             getLastestOperationCDF:null,
@@ -70,9 +70,6 @@ export default class DepotEspece extends React.Component {
       });
   }
 
-
-
-
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
@@ -97,32 +94,48 @@ export default class DepotEspece extends React.Component {
         this.setState({ DateTransaction: formatted_date });
         this.getBilletage();
     }
+    
+   
 
     saveOperation=async(e)=>{
-      this.setState({loading:true})
+        this.setState({loading:true})
       e.preventDefault();
-      const res = await axios.post("/depot/espece", this.state);
-      
-      if (res.data.success == 1) {
+      const res = await axios.post("/retrait/espece", this.state);
+      if (res.data.success == 0) {
           Swal.fire({
-              title: "Crédit sur compte",
+              title: "Erreur",
               text:
                   res.data.msg,
-              icon: "success",
+              icon: "error",
               button: "OK!",
           });
-          this.setState({ disabled: !this.state.disabled,loading:false});
+          this.setState({loading:false})
+
+       
+      }else if(res.data.success == 1){
+        Swal.fire({
+            title: "Débit sur compte",
+            text:
+                res.data.msg,
+            icon: "success",
+            button: "OK!",
+        });
+        this.setState({loading:false})
+
+           this.setState({ disabled: !this.state.disabled,loading:false});
           document
                 .getElementById("validerbtn")
                 .setAttribute("disabled", "disabled");
                 document
                 .getElementById("printBtn")
                 .removeAttribute("disabled", "disabled");
-      } else {
-          this.setState({
-              error_list: res.data.validate_error,
-          });
-      }
+              }
+      
+    //   else {
+    //       this.setState({
+    //           error_list: res.data.validate_error,
+    //       });
+    //   }
       console.log(res.data.success);
     }
 
@@ -585,6 +598,46 @@ export default class DepotEspece extends React.Component {
                                         <div className="col-md-4" style={{ background: "#fff",padding:"5px" }}>
                                           <form style={{marginTop:"12px"}}>
                                             <table>
+
+                                            <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                            Document
+                                                            </label>{" "}
+                                                        </td>
+                                                        <div className="input-group input-group-sm ">
+                                                            <select
+                                                            name="typeDocument"
+                                                             className={`form-control ${
+                                                              this.state
+                                                                  .error_list
+                                                                  .typeDocument &&
+                                                              "is-invalid"
+                                                          }`}
+                                                                 onChange={
+                                                                  this
+                                                                      .handleChange
+                                                              }
+                                                                style={inputColor}
+                                                                value={this.state.typeDocument}
+                                                                >
+                                                                 <option value="">
+                                                                   Sélectionnez
+                                                                </option>
+                                                                <option value="Visa retrait">
+                                                                    Visa retrait
+                                                                </option>
+                                                                <option value="Bon de dépense">
+                                                                   Bon de dépense
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </tr>
                                                       <tr>
                                                         <td>
                                                             {" "}
@@ -609,7 +662,7 @@ export default class DepotEspece extends React.Component {
                                                                   this
                                                                       .handleChange
                                                               }
-                                                                readOnly
+                                                              
                                                                 style={inputColor}
                                                                 value={this.state.devise}
                                                                 >
@@ -671,7 +724,7 @@ export default class DepotEspece extends React.Component {
                                                                     labelColor
                                                                 }
                                                             >
-                                                              Nom du déposant
+                                                              Bénéficiaire
                                                             </label>{" "}
                                                         </td>
                                                         <div className="input-group input-group-sm ">
@@ -1070,7 +1123,8 @@ export default class DepotEspece extends React.Component {
                 </div>
               </div>
              
-                    <div className="col-md-2" style={{ background: "#fff",padding:"5px"}}>
+                    <div className="col-md-2 " style={{ background: "#fff",padding:"5px"}}>
+                        
                         <tr>
                         <td style={{padding:"2px"}}>
                           {this.state.hundred * 100 +
@@ -1150,6 +1204,7 @@ export default class DepotEspece extends React.Component {
                          </div>
                          </div>
                             </div>
+                     
                         </div>
                         <div className="container-fluid">
                           <div className="row" style={{border:"4px solid #dcdcdc"}}> 

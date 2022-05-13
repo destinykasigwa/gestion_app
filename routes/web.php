@@ -8,6 +8,8 @@ use App\Http\Controllers\DepotEspeceController;
 use App\Http\Controllers\GetIndividualMendataire;
 // use App\Http\Controllers\MendataireController;
 use App\Http\Controllers\PersonneLieController;
+use App\Http\Controllers\RetraitEspece;
+use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\updateMembre;
 
 /*
@@ -26,10 +28,12 @@ Route::get('/', function () {
 });
 
 Auth::routes();
-
+//MAIN ROUTES
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('membre.adhesion');
 Route::get('/depot-espece', [DepotEspeceController::class,'depot'])->name('depot.espece');
+Route::get('/retrait-espece', [RetraitEspeceController::class,'retrait'])->name('retrait.espece');
+
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew","App\Http\Controllers\AdhesionMembreController")->except(["destroy","update","edit","index"]);
@@ -88,7 +92,9 @@ Route::get("membre/compteactive/{id}",
 
 Route::post("/membre/addphoto",
 [updateMembre::class,'uploadphoto']);
-
+// |--------------------------------------------------------------------------
+// | Web Routes DEPOSIT
+// |--------------------------------------------------------------------------
 //saving a currency deposit
 
 Route::post("depot/espece",
@@ -101,10 +107,18 @@ Route::get("/compte/search/{id}",
 
 //get billetage fom DB
 
-
-//get searched account
 Route::get("/billetage/getbilletage",
 [DepotEspeceController::class,'getBilletage']);
+
+
+// |--------------------------------------------------------------------------
+// | Web Routes WITHDRAW
+// |--------------------------------------------------------------------------
+Route::post("retrait/espece",
+[RetraitEspeceController::class,'RetraitEspece']);
+
+
+
 
 
 

@@ -225,14 +225,14 @@ public function getAccount($id){
 //RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
 $date=date("Y-m-d");
 $billetageCDF = BilletageCdf::select(
-        DB::raw("SUM(vightMilleFranc) as vightMilleFran"),
-        DB::raw("SUM(dixMilleFranc) as dixMilleFran"),
-        DB::raw("SUM(cinqMilleFranc) as cinqMilleFran"),
-        DB::raw("SUM(milleFranc) as milleFran"),
-        DB::raw("SUM(cinqCentFranc) as cinqCentFran"),
-        DB::raw("SUM(deuxCentFranc) as deuxCentFran"),
-        DB::raw("SUM(centFranc) as centFran"),
-        DB::raw("SUM(cinquanteFanc) as cinquanteFan"),
+  DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFran"),
+  DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFran"),
+  DB::raw("SUM(cinqMilleFranc)-SUM(cinqMilleFrancSortie) as cinqMilleFran"),
+  DB::raw("SUM(milleFranc)-SUM(milleFrancSortie) as milleFran"),
+  DB::raw("SUM(cinqCentFranc)-SUM(cinqCentFrancSortie) as cinqCentFran"),
+  DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFran"),
+  DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFran"),
+  DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFan"),
     )->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
 ->groupBy("NomUtilisateur")
 ->get();
@@ -240,12 +240,12 @@ $billetageCDF = BilletageCdf::select(
 //RECUPERE LE BILLETAGE EN USD
 
 $billetageUSD = BilletageUsd::select(
-    DB::raw("SUM(centDollars) as centDollar"),
-    DB::raw("SUM(cinquanteDollars) as cinquanteDollar"),
-    DB::raw("SUM(vightDollars) as vightDollar"),
-    DB::raw("SUM(dixDollars) as dixDollar"),
-    DB::raw("SUM(cinqDollars) as cinqDollar"),
-    DB::raw("SUM(unDollars) as unDollar"),
+  DB::raw("SUM(centDollars)-SUM(centDollarsSortie) as centDollar"),
+  DB::raw("SUM(cinquanteDollars)-SUM(cinquanteDollarsSortie) as cinquanteDollar"),
+  DB::raw("SUM(vightDollars)-SUM(vightDollarsSortie) as vightDollar"),
+  DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollar"),
+  DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollar"),
+  DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollar"),
 )->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
 ->groupBy("NomUtilisateur")
 ->get();
@@ -275,7 +275,8 @@ $soldeOperationUSD= Transactions::select(
 ->get();        
 
     return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationCDF,"data4"=>$operationUSD,"data5"=>$soldeOperationCDF,"data6"=>$soldeOperationUSD]);
-    }
+    
+  }
     public function depot()
     {
 

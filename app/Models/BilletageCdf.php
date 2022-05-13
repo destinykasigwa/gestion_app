@@ -18,6 +18,14 @@ class BilletageCdf extends Model
     "deuxCentFranc",
     "centFranc",
     "cinquanteFanc",
+    "vightMilleFrancSortie",
+    "dixMilleFrancSortie",
+    "cinqMilleFrancSortie",
+    "milleFrancSortie",
+    "cinqCentFrancSortie",
+    "deuxCentFrancSortie",
+    "centFrancSortie",
+    "cinquanteFancSortie",
     "NomUtilisateur",
     "DateTransaction"
 

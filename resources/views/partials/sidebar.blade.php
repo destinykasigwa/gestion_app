@@ -27,7 +27,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index2.html" class="nav-link">
+                            <a href="{{route('retrait.espece')}}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>Retrait</p>
                             </a>
