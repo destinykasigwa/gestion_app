@@ -26,3 +26,9 @@
     padding: 0px;
 
    }
+
+
+   .positionnement-table-div,.operation-recente-div,.billetage-div{
+    overflow-y: scroll;
+    height: 200px;
+   }

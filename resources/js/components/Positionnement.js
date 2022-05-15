@@ -1,0 +1,1710 @@
+import React from "react";
+import axios from "axios";
+import Swal from "sweetalert2";
+import '../../css/app.css';
+import MendataireTable from "./MendataireTable";
+
+
+export default class Positionnement extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            disabled: true,
+            isloading: true,
+            loading: false,
+            DateTransaction: "",
+            operant: "",
+            deposantName: "",
+            codeAgence: "20",
+            libelle: "",
+            adresse: "",
+            typepiece: "",
+            numpiece: "",
+            lieuNaiss: "",
+            sexe: "",
+            phone1: "",
+            profession: "",
+            CommuneActuelle: "",
+            QuartierActuelle: "",
+            telBeneficiaire:"",
+            otherMention: "",
+            error_list: [],
+            fetchData: null,
+            compteToSearch: "",
+            refCompte: "",
+            typeDocument: "",
+            getSommeCDF: null,
+            getSommeUSD: null,
+            getMembreSolde: null,
+        };
+        this.handleAccount=this.handleAccount.bind(this);
+        this.handleChange=this.handleChange.bind(this);
+        this.actualiser=this.actualiser.bind(this);
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ isloading: false });
+        }, 1000);
+    }
+       //GET DATA FROM INPUT
+       handleChange(event) {
+        this.setState({
+            // Computed property names
+            // keys of the objects are computed dynamically
+            [event.target.name]: event.target.value,
+        });
+    }
+      //GET A SEACHED NUMBER 
+      handleAccount = async (e) => {
+        e.preventDefault();
+        const getData = await axios.get(
+            "compte/search/" + this.state.compteToSearch
+        );
+        if (getData.data.success == 1) {
+            this.setState({ fetchData: getData.data.data,getMembreSolde:getData.data.soldeMembre });
+            this.setState({ disabled: !this.state.disabled,
+              refCompte:this.state.fetchData.refCompte,
+              numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte });
+             console.log(this.state.getMembreSolde);
+            //disabled valider button
+            document
+                .getElementById("validerbtn")
+                .removeAttribute("disabled", "disabled");
+        } else {
+            Swal.fire({
+                title: "Erreur",
+                text: getData.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
+        // console.log(this.state.fetchData);
+    };
+
+     //to refresh
+     actualiser() {
+        location.reload();
+    }
+    render() {
+        var myspinner = {
+            margin: "5px auto",
+            width: "3rem",
+            height: "3rem",
+            marginTop: "180px",
+            border: "0px",
+            height: "200px",
+        };
+        var labelColor = {
+            fontWeight: "bold",
+            color: "steelblue",
+            padding: "3px",
+            fontSize: "11px",
+        };
+        var inputColor = {
+            height: "25px",
+            border: "1px solid steelblue",
+            padding: "3px",
+            borderRadius: "0px",
+        };
+        // var inputColor2 = {
+        //     height: "25px",
+        //     border: "1px solid white",
+        //     padding: "3px",
+        //     width: "60px",
+        // };
+        var tableBorder = {
+            border: "2px solid #fff",
+            fontSize: "14px",
+            textAlign: "center",
+        };
+        //PERMET DE FORMATER LES CHIFFRES
+        const numberFormat = (number = 0) => {
+            var locales = [
+                //undefined,  // Your own browser
+                "en-US", // United States
+                //'de-DE',    // Germany
+                //'ru-RU',    // Russia
+                //'hi-IN',    // India
+            ];
+            var opts = { minimumFractionDigits: 2 };
+            var index = 3;
+            var nombre = number.toLocaleString(locales[index], opts);
+            if (nombre === isNaN) {
+                nombre = 0.0;
+            } else {
+                return nombre;
+            }
+        };
+        return (
+            <React.Fragment>
+                {this.state.isloading ? (
+                    <div className="row" id="rowspinner">
+                        <div className="myspinner" style={myspinner}>
+                            <span
+                                className="spinner-border"
+                                role="status"
+                            ></span>
+                            <span style={{ marginLeft: "-20px" }}>
+                                Chargement...
+                            </span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="row">
+                        <div className="col-lg-12 card">
+                            <div className="card card-default">
+                                <div
+                                    className="card-header"
+                                    style={{
+                                        background: "#DCDCDC",
+                                        textAlign: "center",
+                                        color: "#fff",
+                                        marginTop: "5px",
+                                    }}
+                                >
+                                    <button
+                                        style={{
+                                            height: "30px",
+                                            float: "right",
+                                            background: "green",
+                                            border: "0px",
+                                            padding: "3px",
+                                            marginLeft: "5px",
+                                        }}
+                                        onClick={this.actualiser}
+                                    >
+                                        <i className="fas fa-sync"></i>{" "}
+                                        Actualiser{" "}
+                                    </button>
+                                </div>
+
+                                <div
+                                    className="card-body"
+                                    style={{ background: "#dcdcdc" }}
+                                >
+                                    <div
+                                        className="row"
+                                        style={{
+                                            padding: "10px",
+                                            border: "2px solid #fff",
+                                        }}
+                                    >
+                                        <div className="col-md-2">
+                                            <form
+                                                style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                }}
+                                            >
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        type="text"
+                                                        style={{
+                                                            borderRadius: "0px",
+                                                        }}
+                                                        className="form-control font-weight-bold"
+                                                        placeholder="Numéro compte..."
+                                                        name="compteToSearch"
+                                                        value={
+                                                            this.state
+                                                                .compteToSearch
+                                                        }
+                                                        onChange={
+                                                            this.handleChange
+                                                        }
+                                                    />
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                                width: "100%",
+                                                                height: "30px",
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                            className="btn btn-primary"
+                                                            onClick={
+                                                                this
+                                                                    .handleAccount
+                                                            }
+                                                        >
+                                                            <i className="fas fa-search"></i>
+                                                        </button>
+                                                    </td>
+                                                </div>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        type="text"
+                                                        readOnly
+                                                        style={{
+                                                            height: "40px",
+                                                            background:
+                                                                "#dcdcdc",
+                                                            border: "4px solid #fff",
+                                                        }}
+                                                        className="form-control mt-1 font-weight-bold"
+                                                        value={
+                                                            this.state
+                                                                .fetchData &&
+                                                            this.state.fetchData
+                                                                .numCompte
+                                                        }
+                                                    />
+                                                </div>
+                                            </form>
+                                        </div>
+
+                                        {/* separate */}
+
+                                        <div className="col-md-4">
+                                            <div
+                                                className="card-body"
+                                                style={{
+                                                    background: "#dcdcdc",
+                                                }}
+                                            >
+                                                <form
+                                                    style={{
+                                                        padding: "10px",
+                                                        border: "2px solid #fff",
+                                                        marginTop: "-15px",
+                                                    }}
+                                                >
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Dévise
+                                                                </label>{" "}
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <select
+                                                                    name="devise"
+                                                                    className={`form-control ${
+                                                                        this
+                                                                            .state
+                                                                            .error_list
+                                                                            .devise &&
+                                                                        "is-invalid"
+                                                                    }`}
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .devise
+                                                                    }
+                                                                >
+                                                                    <option value="">
+                                                                        Sélectionnez
+                                                                    </option>
+                                                                    <option value="CDF">
+                                                                        CDF
+                                                                    </option>
+                                                                    <option value="USD">
+                                                                        USD
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Intitulé c.
+                                                                </label>
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="intituleCompte"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .intituleCompte
+                                                                            ? this
+                                                                                  .state
+                                                                                  .intituleCompte
+                                                                            : this
+                                                                                  .state
+                                                                                  .fetchData &&
+                                                                              this
+                                                                                  .state
+                                                                                  .fetchData
+                                                                                  .intituleCompte
+                                                                    }
+                                                                    disabled
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Compte
+                                                                </label>{" "}
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="numCompte"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .numCompte
+                                                                            ? this
+                                                                                  .state
+                                                                                  .numCompte
+                                                                            : this
+                                                                                  .state
+                                                                                  .fetchData &&
+                                                                              this
+                                                                                  .state
+                                                                                  .fetchData
+                                                                                  .numCompte
+                                                                    }
+                                                                    disabled
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+
+                                        <div className="col-md-4">
+                                            <div
+                                                className="card-body"
+                                                style={{
+                                                    background: "#dcdcdc",
+                                                }}
+                                            >
+                                                <form
+                                                    style={{
+                                                        padding: "10px",
+                                                        border: "2px solid #fff",
+                                                        marginTop: "-15px",
+                                                    }}
+                                                >
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Solde Min.
+                                                                </label>
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="intituleCompte"
+                                                                    value={
+                                                                        "0,00"
+                                                                    }
+                                                                    disabled
+                                                                />
+                                                            </div>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Solde USD
+                                                                </label>{" "}
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="intituleCompte"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .getMembreSolde &&
+                                                                        numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .getMembreSolde[0]
+                                                                                    .soldeMembreUSD
+                                                                            )
+                                                                        )
+                                                                    }
+                                                                    disabled
+                                                                />
+                                                            </div>
+                                                        </tr>
+
+                                                        <tr>
+                                                            <td>
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Solde CDF
+                                                                </label>{" "}
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="intituleCompte"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .getMembreSolde &&
+                                                                        numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .getMembreSolde[1]
+                                                                                    .soldeMembreCDF
+                                                                            )
+                                                                        )
+                                                                    }
+                                                                    disabled
+                                                                />
+                                                            </div>
+                                                        </tr>
+                                                    </table>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className="row">
+                                        <div
+                                            className="col-md-7"
+                                            style={{
+                                                background: "#dcdcdc",
+                                                padding: "5px",
+                                            }}
+                                        >
+                                            <form
+                                                style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                    marginTop: "0px",
+                                                    background:"#fff"
+                                                }}
+                                            >
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Document
+                                                            </label>
+                                                        </td>
+                                                        <div className="input-group input-group-sm ">
+                                                            <select
+                                                                name="typeDocument"
+                                                                className={`form-control ${
+                                                                    this.state
+                                                                        .error_list
+                                                                        .typeDocument &&
+                                                                    "is-invalid"
+                                                                }`}
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                value={
+                                                                    this.state
+                                                                        .typeDocument
+                                                                }
+                                                            >
+                                                                <option value="">
+                                                                    Sélectionnez
+                                                                </option>
+                                                                <option value="Visa retrait">
+                                                                    Visa retrait
+                                                                </option>
+                                                                <option value="Bon de dépense">
+                                                                    Bon de
+                                                                    dépense
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <td>
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                N° doc.
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                className="form-control"
+                                                                name="numDocument"
+                                                                type="text"
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                value={""}
+                                                                disabled={
+                                                                    this.state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Réf.
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                className="form-control"
+                                                                name="Reference"
+                                                                type="text"
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                value={""}
+                                                                disabled={
+                                                                    this.state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                            />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                            <div className="row" style={{border:"2px #fff solid"}}>
+                                                <div
+                                                    className="col-md-2"
+                                                    style={{
+                                                        background: "#dcdcdc",
+                                                        padding: "5px",
+                                                    }}
+                                                >
+                                                    <form
+                                                        style={{
+                                                            padding: "5px",
+                                                            border: "2px solid #dcdcdc",
+                                                        }}
+                                                    >
+                                                        <div class="form-check">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="radio"
+                                                                name="mendataire"
+                                                                id="ProprietaireRadio"
+                                                                value="option1"
+                                                                checked
+                                                            />
+                                                            <label
+                                                                className="form-check-label"
+                                                                htmlFor="ProprietaireRadio"
+                                                            >
+                                                                Propriétaire
+                                                            </label>
+                                                        </div>
+                                                        <div className="form-check">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="radio"
+                                                                name="mendataire"
+                                                                id="MendataireRadio"
+                                                                value="option2"
+                                                            />
+                                                            <label
+                                                                className="form-check-label"
+                                                                htmlFor="MendataireRadio"
+                                                            >
+                                                                Mandataire
+                                                            </label>
+                                                        </div>
+                                                        <div className="form-check">
+                                                            <input
+                                                                className="form-check-input"
+                                                                type="radio"
+                                                                name="mendataire"
+                                                                id="AutreRadio"
+                                                                value="option3"
+                                                            />
+                                                            <label
+                                                                className="form-check-label"
+                                                                htmlFor="AutreRadio"
+                                                            >
+                                                                Autre
+                                                            </label>
+                                                        </div>
+                                                    </form>
+                                                </div>
+
+                                                <div
+                                                    className="col-md-10"
+                                                    style={{
+                                                        background: "#dcdcdc",
+                                                        padding: "0px",
+                                                    }}
+                                                >
+                                                    <form
+                                                        style={{
+                                                            padding: "10px",
+                                                            border: "2px solid #dcdcdc",
+                                                        }}
+                                                    >
+                                                        <table>
+                                                            <tr>
+                                                                <td>
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Nom bén.
+                                                                    </label>{" "}
+                                                                </td>
+                                                                <div className="input-group input-group-sm ">
+                                                                    <input
+                                                                        name="libelle"
+                                                                        className={`form-control ${
+                                                                            this
+                                                                                .state
+                                                                                .error_list
+                                                                                .intituleCompte &&
+                                                                            "is-invalid"
+                                                                        }`}
+                                                                        type="text"
+                                                                        style={
+                                                                            inputColor
+                                                                        }
+                                                                        value={
+                                                                            this
+                                                                            .state
+                                                                            .intituleCompte
+                                                                            ? this
+                                                                                  .state
+                                                                                  .intituleCompte
+                                                                            : this
+                                                                                  .state
+                                                                                  .fetchData &&
+                                                                              this
+                                                                                  .state
+                                                                                  .fetchData.intituleCompte
+                                                                        }
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Adresse
+                                                                    </label>{" "}
+                                                                </td>
+                                                                <div className="input-group input-group-sm ">
+                                                                    <input
+                                                                        type="text"
+                                                                        style={
+                                                                            inputColor
+                                                                        }
+                                                                        name="adresse"
+                                                                        value={
+                                                                            this
+                                                            .state
+                                                            .CommuneActuelle
+                                                            ? this
+                                                                  .state
+                                                                  .CommuneActuelle
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.CommuneActuelle+" "+ this
+                                                                  .state
+                                                                  .fetchData.QuartierActuelle
+                                                                        }
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Pce
+                                                                        d'indent.
+                                                                    </label>{" "}
+                                                                </td>
+                                                                <td>
+                                                                    <div className="input-group input-group-sm ">
+                                                                        <select
+                                                                            name="typepiece"
+                                                                            className="form-control"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            style={
+                                                                                inputColor
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                .state
+                                                                                .typepiece
+                                                                                ? this
+                                                                                      .state
+                                                                                      .typepiece
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData.typepiece
+                                                                            }
+                                                                        >
+                                                                            <option value="">
+                                                                                Sélectionnez
+                                                                            </option>
+                                                                            <option value="Carte d'électeur">
+                                                                                Carte
+                                                                                d'électeur
+                                                                            </option>
+                                                                            <option value="Pass port">
+                                                                                Pass
+                                                                                port
+                                                                            </option>
+                                                                            <option value="Sans carte">
+                                                                                Sans
+                                                                                carte
+                                                                            </option>
+                                                                        </select>
+                                                                    </div>
+                                                                </td>
+
+                                                                <td>
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        N° Pièce
+                                                                    </label>{" "}
+                                                                </td>
+                                                                <td>
+                                                                    <div className="input-group input-group-sm ">
+                                                                        <input
+                                                                            type="text"
+                                                                            name="numpiece"
+                                                                            className="form-control"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            style={
+                                                                                inputColor
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                .state
+                                                                                .numpiece
+                                                                                ? this
+                                                                                      .state
+                                                                                      .numpiece
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData.numpiece
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr></tr>
+                                                        </table>
+                                                        <div className="input-group input-group-sm ">
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Tél déposant
+                                                            </label>
+                                                            <input
+                                                                className="form-control input-lg"
+                                                                type="text"
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                name="telBeneficiaire"
+                                                                value={
+                                                                    this
+                                                                    .state
+                                                                    .telBeneficiaire
+                                                                    ? this
+                                                                          .state
+                                                                          .telBeneficiaire
+                                                                    : this
+                                                                          .state
+                                                                          .fetchData &&
+                                                                      this
+                                                                          .state
+                                                                          .fetchData.phone1
+                                                                }
+                                                                disabled={
+                                                                    this.state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                            />
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div className="col-md-1">
+                                            <table>
+                                                <tr>
+                                                    <td>
+                                                        {" "}
+                                                        <button
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                                width: "100%",
+                                                                height: "30px",
+                                                                fontSize:
+                                                                    "10px",
+                                                                marginTop:
+                                                                    "12px",
+                                                            }}
+                                                            className="btn btn-primary"
+                                                            id="validerbtn"
+                                                            onClick={
+                                                                this
+                                                                    .saveOperation
+                                                            }
+                                                        >
+                                                            <i
+                                                                className={`${
+                                                                    this.state
+                                                                        .loading
+                                                                        ? "spinner-border spinner-border-sm"
+                                                                        : "fas fa-check"
+                                                                }`}
+                                                            ></i>{" "}
+                                                            Valider {""}
+                                                            {/* <span class="spinner-border spinner-border-sm invisible"></span>{" "} */}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {" "}
+                                                        <button
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                                width: "100%",
+                                                                height: "30px",
+                                                                fontSize:
+                                                                    "10px",
+                                                                marginTop:
+                                                                    "12px",
+                                                            }}
+                                                            className="btn btn-success"
+                                                            id="validerbtn"
+                                                            onClick={
+                                                                this
+                                                                    .saveOperation
+                                                            }
+                                                        >
+                                                            <i className="fas fa-pen"></i>{" "}
+                                                            Modifier {""}
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td>
+                                                        {" "}
+                                                        <button
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                                width: "100%",
+                                                                height: "30px",
+                                                                fontSize:
+                                                                    "10px",
+                                                                marginTop:
+                                                                    "12px",
+                                                            }}
+                                                            className="btn btn-danger"
+                                                            id="validerbtn"
+                                                            onClick={
+                                                                this
+                                                                    .saveOperation
+                                                            }
+                                                        >
+                                                            <i className="fas fa-trash"></i>{" "}
+                                                            Suppr.
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                        <div className="col-md-4">
+                                        <ul
+                                                    className="nav nav-tabs"
+                                                    id="myTab"
+                                                    role="tablist"
+                                                    style={{
+                                                        fontWeight: "bold",
+                                                        background: "#dcdcdc",
+                                                        color: "#fff",
+                                                        padding: "5px",
+                                                    }}
+                                                >
+                                                    <li className="nav-item">
+                                                        <a
+                                                            className="nav-link active"
+                                                            id="identite-tab"
+                                                            data-toggle="tab"
+                                                            href="#identite"
+                                                            role="tab"
+                                                            aria-controls="identite"
+                                                            aria-selected="true"
+                                                        >
+                                                            <i className="fas fa-plus"></i>{" "}
+                                                            Identité
+                                                        </a>
+                                                    </li>
+                                                    <li className="nav-item">
+                                                        <a
+                                                            className="nav-link"
+                                                            id="mendataire-tab"
+                                                            data-toggle="tab"
+                                                            href="#mendataire"
+                                                            role="tab"
+                                                            aria-controls="mendataire"
+                                                            aria-selected="true"
+                                                        >
+                                                            <i className="fas fa-plus"></i>{" "}
+                                                            Mandataire
+                                                        </a>
+                                                    </li>
+                                                    </ul>
+                                                    <div
+                                                    className="tab-content"
+                                                    id="myTabContent"
+                                                >
+                                                    <div
+                                                        className="tab-pane fade show active mt-2 col-md-12 "
+                                                        id="identite"
+                                                        role="tabpanel"
+                                                        aria-labelledby="identite-tab"
+                                                    >
+                                                        <div
+                                                            className="row"
+                                                            style={{
+                                                                padding: "10px",
+                                                                border: "2px solid #fff",
+                                                            }}
+                                                        >
+                                                            <div className="col-lg-12">
+                                                                <div className="card card-default">
+                                                                    <div
+                                                                        className="card-header"
+                                                                        style={{
+                                                                            background:
+                                                                                "#DCDCDC",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            color: "#fff",
+                                                                        }}
+                                                                        >
+                                                                       
+                                                                        </div>
+                                                                        </div>
+                                                                         <div className="row">
+                                                                         <div className="col-md-6">
+                                                                        <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                                         .state
+                                                                            .intituleCompte
+                                                                            ? this
+                                                                                  .state
+                                                                                  .intituleCompte
+                                                                            : this
+                                                                                  .state
+                                                                                  .fetchData &&
+                                                                              this
+                                                                                  .state
+                                                                                  .fetchData.intituleCompte
+                                                                           
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                            .state
+                                                            .lieuNaiss
+                                                            ? this
+                                                                  .state
+                                                                  .lieuNaiss
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.lieuNaiss
+                                                           
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                            .state
+                                                            .sexe
+                                                            ? this
+                                                                  .state
+                                                                  .sexe
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.sexe
+                                                           
+                                                        }
+                                                       
+                                                        disabled
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                            .state
+                                                            .typepiece
+                                                            ? this
+                                                                  .state
+                                                                  .typepiece
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.typepiece
+                                                           
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                            .state
+                                                            .phone1
+                                                            ? this
+                                                                  .state
+                                                                  .phone1
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.phone1
+                                                        }
+                                                        disabled
+                                                        
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this
+                                                            .state
+                                                            .otherMention
+                                                            ? this
+                                                                  .state
+                                                                  .otherMention
+                                                            : this
+                                                                  .state
+                                                                  .fetchData &&
+                                                              this
+                                                                  .state
+                                                                  .fetchData.otherMention
+                                                        }
+                                                        disabled
+                                                    />
+                                                </div>
+                                            </tr>
+                                           
+                                                                        </div>
+                                                                        <div className="col-md-6">
+                                                                        <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <img
+                                                            src={`uploads/membres/${
+                                                                this.state
+                                                                    .fetchData
+                                                                    ? this.state
+                                                                          .fetchData
+                                                                          .photoMembre
+                                                                    : "default.jpg"
+                                                            }`}
+                                                            alt="photo-du-membre"
+                                                            className="img-thumbnail"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                                                        </div>
+                                                                        
+                                                                        
+                                                                         </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        <div
+                                                        className="tab-pane fade  mt-2 col-md-12 "
+                                                        id="mendataire"
+                                                        role="tabpanel"
+                                                        aria-labelledby="mendataire-tab"
+                                                    >
+                                                        <div
+                                                            className="row"
+                                                            style={{
+                                                                padding: "10px",
+                                                                border: "2px solid #fff",
+                                                            }}
+                                                        >
+                                                            <div className="col-lg-12">
+                                                                <div className="card card-default">
+                                                                    <div
+                                                                        className="card-header"
+                                                                        style={{
+                                                                            background:
+                                                                                "#DCDCDC",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            color: "#fff",
+                                                                        }}
+                                                                        >
+                                                                       
+                                                                        </div>
+                                                                        </div>
+                                                                         <div className="row">
+                                                                  
+                                                                         <MendataireTable
+                                                            num={
+                                                                this.state
+                                                                    .compteToSearch &&
+                                                                this.state
+                                                                    .compteToSearch
+                                                            }
+                                                            refCompt={
+                                                                this.state
+                                                                    .fetchData &&
+                                                                this.state
+                                                                    .fetchData
+                                                                    .refCompte
+                                                            }
+                                                            membreImage={this.state
+                                                                .fetchData &&
+                                                            this.state
+                                                                .fetchData
+                                                                .photoMembre}
+                                                        />
+                                                                        
+                                                                        
+                                                                         </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                        </div>
+                                                                       </div>
+                                        {/* <div
+                                            className="col-md-2"
+                                            style={{
+                                                background: "#fff",
+                                                padding: "5px",
+                                            }}
+                                        >
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            <tr>
+                                                <div className="input-group input-group-sm ">
+                                                    <input
+                                                        className="form-control mt-1"
+                                                        type="text"
+                                                        style={inputColor}
+                                                        value={
+                                                            this.state
+                                                                .intituleCompte
+                                                        }
+                                                        disabled={
+                                                            this.state.disabled
+                                                                ? "disabled"
+                                                                : ""
+                                                        }
+                                                    />
+                                                </div>
+                                            </tr>
+                                            
+                                        </div> */}
+                                        {/* <div
+                                            className="col-md-2"
+                                            style={{
+                                                background: "#fff",
+                                                padding: "5px",
+                                            }}
+                                        >
+                                            <table
+                                                style={{
+                                                    border: "3px solid #fff",
+                                                    padding: "5px",
+                                                }}
+                                            >
+                                                <tr>
+                                                    <td></td>
+                                                    <td>
+                                                        <img
+                                                            src={`uploads/membres/${
+                                                                this.state
+                                                                    .fetchData
+                                                                    ? this.state
+                                                                          .fetchData
+                                                                          .photoMembre
+                                                                    : "default.jpg"
+                                                            }`}
+                                                            alt="photo-du-membre"
+                                                            className="img-thumbnail"
+                                                        />
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div> */}
+                                    </div>
+                                    <div
+                                        className="row"
+                                        style={{
+                                            background: "#dcdcdc",
+                                            padding: "5px",
+                                        }}
+                                    >
+                                        <div>
+                                            <div className="col-md-6  positionnement-table-div">
+                                                <table
+                                                    className="table table-dark"
+                                                    style={tableBorder}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                #
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                             Réference
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                               Num compte
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Montant
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >1</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >D0001</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >330000201</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >5000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >1</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >D0001</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >330000201</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >5000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >1</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >D0001</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >330000201</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >5000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >1</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >D0001</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >330000201</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >5000</td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >1</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >D0001</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >330000201</td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >5000</td>
+                                                        </tr>
+
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </React.Fragment>
+        );
+    }
+}

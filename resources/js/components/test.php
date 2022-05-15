@@ -1,0 +1,1 @@
+var_dump($dataSolde->soldeCDF,$dataSolde->soldeUSD);

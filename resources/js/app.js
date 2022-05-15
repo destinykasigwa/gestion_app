@@ -16,6 +16,7 @@
  import Adhesion from './components/Adhesion';
  import DepotEspece from './components/DepotEspece';
  import RetraitEspece from './components/RetraitEspece';
+ import Positionnement from './components/Positionnement';
  
  if (document.getElementById('adhesionContainer')) {
      ReactDOM.render(<Adhesion />, document.getElementById('adhesionContainer'));
@@ -24,4 +25,6 @@
     ReactDOM.render(<DepotEspece />, document.getElementById('DepotEspeceContainer'));
  }else if(document.getElementById('RetraitEspeceContainer')){
      ReactDOM.render(<RetraitEspece/>, document.getElementById('RetraitEspeceContainer'));
+ }else if(document.getElementById('positionnementContainer')){
+    ReactDOM.render(<Positionnement/>, document.getElementById('positionnementContainer'));
  }

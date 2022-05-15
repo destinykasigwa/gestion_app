@@ -19,10 +19,18 @@ class RetraitEspeceController extends Controller
     {
         $this->middleware('auth'); 
     }
+//FUNCTION FOR GETTING PAGE TO WITHDRAWING
+ public function getPositionnement(){
+  return view('positionnement');
+ }
+
+//FUNCTION FOR POSITION BEFORE WITHDRAWING
+
+    
 
 
 
-
+//FUNCTION TO WITHDRAW MONEY
     public function RetraitEspece(Request $request){
     
         $validator = validator::make($request->all(), [
@@ -254,6 +262,7 @@ class RetraitEspeceController extends Controller
     return response()->json(["success"=>1,"msg"=>"Opération bien enregistrée."]);
 
     }
+
 
     public function retrait(){
         return view("retrait-espece");

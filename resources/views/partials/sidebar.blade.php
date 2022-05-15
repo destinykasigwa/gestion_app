@@ -33,6 +33,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('retrait.positionnement')}}" class="nav-link">
+                                <i class="fas fa-money-check"></i>
+
+                                <p>Visa</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="./index3.html" class="nav-link">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <p>Appro</p>

@@ -33,6 +33,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('membre.adhesion');
 Route::get('/depot-espece', [DepotEspeceController::class,'depot'])->name('depot.espece');
 Route::get('/retrait-espece', [RetraitEspeceController::class,'retrait'])->name('retrait.espece');
+Route::get('/positionnement', [RetraitEspeceController::class,'getPositionnement'])->name('retrait.positionnement');
 
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
@@ -116,6 +117,8 @@ Route::get("/billetage/getbilletage",
 // |--------------------------------------------------------------------------
 Route::post("retrait/espece",
 [RetraitEspeceController::class,'RetraitEspece']);
+
+
 
 
 

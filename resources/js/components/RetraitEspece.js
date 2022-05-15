@@ -1216,7 +1216,7 @@ export default class RetraitEspece extends React.Component{
                                     <>
                                     
                                       <h3 className="text-muted">Billetage en CDF</h3>
-                                    <div className="col-md-5">
+                                    <div className="col-md-5 billetage-div">
                                         <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1481,7 +1481,7 @@ export default class RetraitEspece extends React.Component{
                                     : this.state.devise=="USD" ?
                                     <>
                                       <h3 className="text-muted">Billetage en USD</h3>
-                                    <div className="col-md-5">
+                                    <div className="col-md-5 billetage-div">
                                         <table
                                             className="table"
                                             style={{background:"#dcdcdc"}}
@@ -1691,7 +1691,7 @@ export default class RetraitEspece extends React.Component{
                                   
                                   <>
                                   
-                                   <div className="col-md-7">
+                                   <div className="col-md-7 operation-recente-div">
 
                                     <h3 className="text-muted">Opérations recentes en CDF</h3>
                                     
@@ -1780,7 +1780,7 @@ export default class RetraitEspece extends React.Component{
                                   : this.state.devise=="USD" ?
                                   <>
                                   
-                                  <div className="col-md-7">
+                                  <div className="col-md-7 operation-recente-div">
                                     <h3 className="text-muted">Opérations recentes en USD</h3>
                                     <table
                                             className="table"
