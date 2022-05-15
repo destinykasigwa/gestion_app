@@ -14,7 +14,7 @@ export default class Positionnement extends React.Component {
             loading: false,
             DateTransaction: "",
             operant: "",
-            deposantName: "",
+            beneficiaire: "",
             codeAgence: "20",
             libelle: "",
             adresse: "",
@@ -23,19 +23,25 @@ export default class Positionnement extends React.Component {
             lieuNaiss: "",
             sexe: "",
             phone1: "",
+            devise:"",
             profession: "",
             CommuneActuelle: "",
             QuartierActuelle: "",
             telBeneficiaire:"",
             otherMention: "",
+            montant:"",
+            Reference:"",
             error_list: [],
             fetchData: null,
             compteToSearch: "",
             refCompte: "",
             typeDocument: "",
+            numDocument:"",
             getSommeCDF: null,
             getSommeUSD: null,
             getMembreSolde: null,
+            soldeCDF:"",
+            soldeUSD:""
         };
         this.handleAccount=this.handleAccount.bind(this);
         this.handleChange=this.handleChange.bind(this);
@@ -45,7 +51,26 @@ export default class Positionnement extends React.Component {
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
+            this.setState({ isloading: false });
+                document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+                document
+                .getElementById("printbtn")
+                .setAttribute("disabled", "disabled");
         }, 1000);
+
+        let current_datetime = new Date();
+        let formatted_date =
+             //year
+            current_datetime.getFullYear()  +
+            "-" +
+            //month
+            (current_datetime.getMonth() + 1) +
+            "-" +
+            //day
+            current_datetime.getDate()  ;
+        this.setState({ DateTransaction: formatted_date });
     }
        //GET DATA FROM INPUT
        handleChange(event) {
@@ -65,7 +90,15 @@ export default class Positionnement extends React.Component {
             this.setState({ fetchData: getData.data.data,getMembreSolde:getData.data.soldeMembre });
             this.setState({ disabled: !this.state.disabled,
               refCompte:this.state.fetchData.refCompte,
-              numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte });
+              numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte,soldeCDF:this
+              .state
+              .getMembreSolde[1]
+              .soldeMembreCDF,soldeUSD:this
+              .state
+              .getMembreSolde[0]
+              .soldeMembreUSD,
+              adresse:this.state.fetchData.CommuneActuelle +" " +this.state.fetchData.QuartierActuelle,
+              telBeneficiaire:this.state.fetchData.phone1,typepiece:this.state.fetchData.typepiece,numpiece:this.state.fetchData.numpiece  });
              console.log(this.state.getMembreSolde);
             //disabled valider button
             document
@@ -81,6 +114,47 @@ export default class Positionnement extends React.Component {
         }
         // console.log(this.state.fetchData);
     };
+
+    saveOperation=async(e)=>{
+        this.setState({loading:true})
+      e.preventDefault();
+      const res = await axios.post("/positionnement/espece", this.state);
+      if (res.data.success == 0) {
+          Swal.fire({
+              title: "Erreur",
+              text:
+                  res.data.msg,
+              icon: "error",
+              button: "OK!",
+          });
+          this.setState({loading:false})
+   
+       
+      }else if(res.data.success == 1){
+        Swal.fire({
+            title: "Positionnement",
+            text:
+                res.data.msg,
+            icon: "success",
+            button: "OK!",
+        });
+        this.setState({loading:false})
+
+           this.setState({ disabled: !this.state.disabled,loading:false});
+          document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+                document
+                .getElementById("printbtn")
+                .removeAttribute("disabled", "disabled");
+              }else {
+          this.setState({
+              loading:false,
+              error_list: res.data.validate_error,
+          });
+      }
+      console.log(res.data.success);
+    }
 
      //to refresh
      actualiser() {
@@ -647,13 +721,22 @@ export default class Positionnement extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
-                                                                className="form-control"
+                                                                className={`form-control ${
+                                                                    this
+                                                                        .state
+                                                                        .error_list
+                                                                        .numDocument &&
+                                                                    "is-invalid"
+                                                                }`}
                                                                 name="numDocument"
                                                                 type="text"
                                                                 style={
                                                                     inputColor
                                                                 }
-                                                                value={""}
+                                                                value={
+                                                                    this.state
+                                                                        .numDocument
+                                                                }
                                                                 disabled={
                                                                     this.state
                                                                         .disabled
@@ -760,14 +843,8 @@ export default class Positionnement extends React.Component {
                                                                 </td>
                                                                 <div className="input-group input-group-sm ">
                                                                     <input
-                                                                        name="libelle"
-                                                                        className={`form-control ${
-                                                                            this
-                                                                                .state
-                                                                                .error_list
-                                                                                .intituleCompte &&
-                                                                            "is-invalid"
-                                                                        }`}
+                                                                        name="beneficiaire"
+                                                                        
                                                                         type="text"
                                                                         style={
                                                                             inputColor
@@ -775,10 +852,10 @@ export default class Positionnement extends React.Component {
                                                                         value={
                                                                             this
                                                                             .state
-                                                                            .intituleCompte
+                                                                            .beneficiaire
                                                                             ? this
                                                                                   .state
-                                                                                  .intituleCompte
+                                                                                  .beneficiaire
                                                                             : this
                                                                                   .state
                                                                                   .fetchData &&
@@ -977,7 +1054,7 @@ export default class Positionnement extends React.Component {
                                                                 style={
                                                                     inputColor
                                                                 }
-                                                                value={""}
+                                                             
                                                                 disabled={
                                                                     this.state
                                                                         .disabled
@@ -987,6 +1064,20 @@ export default class Positionnement extends React.Component {
                                                                 onChange={
                                                                     this
                                                                         .handleChange
+                                                                }
+                                                                value={
+                                                                    this
+                                                                    .state
+                                                                    .Reference
+                                                                    ? this
+                                                                          .state
+                                                                          .Reference
+                                                                    : this
+                                                                          .state
+                                                                          .fetchData &&
+                                                                      this
+                                                                          .state
+                                                                          .fetchData.Reference
                                                                 }
                                                             />
                                                         </td>
@@ -1094,18 +1185,15 @@ export default class Positionnement extends React.Component {
                                                                     "12px",
                                                             }}
                                                             className="btn btn-success"
-                                                            id="validerbtn"
-                                                            onClick={
-                                                                this
-                                                                    .saveOperation
-                                                            }
-                                                        >
-                                                            <i className="fas fa-pen"></i>{" "}
-                                                            Modifier {""}
+                                                            id="printbtn"
+                                                            onClick=""
+                                                             >
+                                                            <i className="fas fa-print"></i>{" "}
+                                                            Impr {""}
                                                         </button>
                                                     </td>
                                                 </tr>
-                                                <tr>
+                                                {/* <tr>
                                                     <td>
                                                         {" "}
                                                         <button
@@ -1121,16 +1209,13 @@ export default class Positionnement extends React.Component {
                                                             }}
                                                             className="btn btn-danger"
                                                             id="validerbtn"
-                                                            onClick={
-                                                                this
-                                                                    .saveOperation
-                                                            }
+                                                            onClick=""
                                                         >
                                                             <i className="fas fa-trash"></i>{" "}
                                                             Suppr.
                                                         </button>
                                                     </td>
-                                                </tr>
+                                                </tr> */}
                                             </table>
                                         </div>
                                         <div className="col-md-4">

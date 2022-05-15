@@ -21,13 +21,15 @@ return new class extends Migration
             $table->string("CodeMonnaie",20)->nullable();
             $table->string("CodeAgence",20)->nullable();
             $table->string("CodeGuichet",20)->nullable();
-            $table->string("DateTransaction",20)->nullable();
+            $table->date("DateTransaction")->nullable();
             $table->string("Document",20)->nullable();
             $table->string("NumDocument",20)->nullable();
+            $table->string("Retirant",20)->nullable();
             $table->string("Concerne",20)->nullable();
             $table->string("Adresse",20)->nullable();
             $table->string("NumTel",20)->nullable();
             $table->string("TypePieceIdentity",20)->nullable();
+            $table->string("NumPieceIdentity",20)->nullable();
             $table->string("Proprietaire",20)->nullable();
             $table->string("Mandataire",20)->nullable();
             $table->string("NomUtilisateur",20)->nullable();

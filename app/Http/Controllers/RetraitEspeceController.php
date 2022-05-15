@@ -9,6 +9,7 @@ use App\Models\Transactions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
+use App\Models\Positionnement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -25,7 +26,103 @@ class RetraitEspeceController extends Controller
  }
 
 //FUNCTION FOR POSITION BEFORE WITHDRAWING
+public function positionnementEspece(Request $request){
+    $validator = validator::make($request->all(), [
+        'devise' => 'required',
+        'montant' => 'required|integer',
+        'typeDocument' => 'required',
+        'numDocument' => 'required',
+        // 'numDocument' => 'required|unique:positionnements',
+ 
+    ]);
+    
+    if ($validator->fails()) {
+        return response()->json([
+            'validate_error' => $validator->errors()
+        ]);
+    }else{
+    
+ //VERIFIE SI LE NUMERO DU COMUMENT N PAS ENCORE SEVIE
+ $getNumDocument=Positionnement::where("NumDocument","=",$request->numDocument)->first();
+ $getNumDocument ?  $numDocument=$getNumDocument->NumDocument : null;
+ if($getNumDocument ? $numDocument:null){
+    return response()->json(['success'=>0, 'msg'=>"Ce document a été déjà servi"]);   
+ }
 
+    //SI L'UTILISATEUR PREND CDF COMME DEVISE
+    if($request->devise=="CDF"){
+     //ON VERIFIE QUE LE MONTANT A POSITIONNER N PAS SUPERIEUR AU SOLDE DU MEMBRE
+      
+     if($request->montant <=$request->soldeCDF ){
+     //ON RECUPERE LE NUMERO DE COMPTE DE FRAND DU MEMBRE
+    $getCompteMembreCDF=Transactions::where("refCompteMembre","=",$request->refCompte)->Where("CodeMonnaie","=","2")->first();
+    $compteCDF=$getCompteMembreCDF->NumCompte;
+    //APRES CETTE VERIFICATION ON FAIT LE POSITIONNEMENT
+
+    Positionnement::create([
+        "Reference" =>$request->Reference,
+        "NumCompte" =>$compteCDF,
+        "Montant" =>$request->montant,
+        "CodeMonnaie" =>2,
+        "CodeAgence" =>20,
+        "DateTransaction" =>$request->Reference,
+        "DateTransaction" =>$request->DateTransaction,
+        "Document" =>$request->typeDocument,
+        "NumDocument" =>$request->numDocument,
+        "Retirant"=>$request->beneficiaire,
+        "Concerne" =>"Retrait",
+        "Adresse"  =>$request->adresse,
+        "NumTel" =>$request->telBeneficiaire,
+        "TypePieceIdentity"=>$request->typepiece,
+        "NumPieceIdentity"=>$request->numpiece,
+        "Proprietaire" =>1,
+        "Mandataire" =>0,
+        "NomUtilisateur"  =>Auth::user()->name,
+        "Autorisateur" => $request->montant > 100000?0:null,
+    ]);
+
+    return response()->json(['success'=>1, 'msg'=>"Opération bien enregistrée."]); 
+  
+
+     }else{
+        return response()->json(['success'=>0, 'msg'=>"Oooops! le solde du membre est insuffisant solde disponible.".$request->soldeCDF]); 
+
+     }
+    }else if($request->devise=="USD") {
+        if($request->montant <=$request->soldeUSD ){
+            Positionnement::create([
+                "Reference" =>$request->Reference,
+                "NumCompte" =>$request->numCompte,
+                "Montant" =>$request->montant,
+                "CodeMonnaie" =>1,
+                "CodeAgence" =>20,
+                "DateTransaction" =>$request->Reference,
+                "DateTransaction" =>$request->DateTransaction,
+                "Document" =>$request->typeDocument,
+                "NumDocument" =>$request->numDocument,
+                "Retirant"=>$request->beneficiaire,
+                "Concerne" =>"Retrait",
+                "Adresse"  =>$request->adresse,
+                "NumTel" =>$request->telBeneficiaire,
+                "TypePieceIdentity"=>$request->typepiece,
+                "NumPieceIdentity"=>$request->numpiece,
+                "Proprietaire" =>1,
+                "Mandataire" =>0,
+                "NomUtilisateur"  =>Auth::user()->name,
+                "Autorisateur" => $request->montant > 100000?0:null,
+            ]);
+     
+        }else{
+            return response()->json(['success'=>0, 'msg'=>"Oooops! le solde du membre est insuffisant solde disponible.".$request->soldeUSD]); 
+       
+        }
+
+    return response()->json(['success'=>1, 'msg'=>"Opération bien enregistrée."]); 
+
+    }
+    }
+
+}
     
 
 

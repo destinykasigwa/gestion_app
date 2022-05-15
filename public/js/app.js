@@ -10526,7 +10526,13 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                     disabled: !_this.state.disabled,
                     refCompte: _this.state.fetchData.refCompte,
                     numCompte: _this.state.fetchData.numCompte,
-                    operant: _this.state.fetchData.intituleCompte
+                    operant: _this.state.fetchData.intituleCompte,
+                    soldeCDF: _this.state.getMembreSolde[1].soldeMembreCDF,
+                    soldeUSD: _this.state.getMembreSolde[0].soldeMembreUSD,
+                    adresse: _this.state.fetchData.CommuneActuelle + " " + _this.state.fetchData.QuartierActuelle,
+                    telBeneficiaire: _this.state.fetchData.phone1,
+                    typepiece: _this.state.fetchData.typepiece,
+                    numpiece: _this.state.fetchData.numpiece
                   });
 
                   console.log(_this.state.getMembreSolde); //disabled valider button
@@ -10555,13 +10561,83 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _defineProperty(_assertThisInitialized(_this), "saveOperation", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                _this.setState({
+                  loading: true
+                });
+
+                e.preventDefault();
+                _context2.next = 4;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/positionnement/espece", _this.state);
+
+              case 4:
+                res = _context2.sent;
+
+                if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Erreur",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    loading: false
+                  });
+                } else if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Positionnement",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    loading: false
+                  });
+
+                  _this.setState({
+                    disabled: !_this.state.disabled,
+                    loading: false
+                  });
+
+                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+                  document.getElementById("printbtn").removeAttribute("disabled", "disabled");
+                } else {
+                  _this.setState({
+                    loading: false,
+                    error_list: res.data.validate_error
+                  });
+                }
+
+                console.log(res.data.success);
+
+              case 7:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x2) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
     _this.state = {
       disabled: true,
       isloading: true,
       loading: false,
       DateTransaction: "",
       operant: "",
-      deposantName: "",
+      beneficiaire: "",
       codeAgence: "20",
       libelle: "",
       adresse: "",
@@ -10570,19 +10646,25 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       lieuNaiss: "",
       sexe: "",
       phone1: "",
+      devise: "",
       profession: "",
       CommuneActuelle: "",
       QuartierActuelle: "",
       telBeneficiaire: "",
       otherMention: "",
+      montant: "",
+      Reference: "",
       error_list: [],
       fetchData: null,
       compteToSearch: "",
       refCompte: "",
       typeDocument: "",
+      numDocument: "",
       getSommeCDF: null,
       getSommeUSD: null,
-      getMembreSolde: null
+      getMembreSolde: null,
+      soldeCDF: "",
+      soldeUSD: ""
     };
     _this.handleAccount = _this.handleAccount.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -10599,7 +10681,22 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
         _this2.setState({
           isloading: false
         });
+
+        _this2.setState({
+          isloading: false
+        });
+
+        document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+        document.getElementById("printbtn").setAttribute("disabled", "disabled");
       }, 1000);
+      var current_datetime = new Date();
+      var formatted_date = //year
+      current_datetime.getFullYear() + "-" + ( //month
+      current_datetime.getMonth() + 1) + "-" + //day
+      current_datetime.getDate();
+      this.setState({
+        DateTransaction: formatted_date
+      });
     } //GET DATA FROM INPUT
 
   }, {
@@ -11005,11 +11102,11 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                              className: "form-control",
+                              className: "form-control ".concat(this.state.error_list.numDocument && "is-invalid"),
                               name: "numDocument",
                               type: "text",
                               style: inputColor,
-                              value: "",
+                              value: this.state.numDocument,
                               disabled: this.state.disabled ? "disabled" : "",
                               onChange: this.handleChange
                             })
@@ -11095,11 +11192,10 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
                                 className: "input-group input-group-sm ",
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                                  name: "libelle",
-                                  className: "form-control ".concat(this.state.error_list.intituleCompte && "is-invalid"),
+                                  name: "beneficiaire",
                                   type: "text",
                                   style: inputColor,
-                                  value: this.state.intituleCompte ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
+                                  value: this.state.beneficiaire ? this.state.beneficiaire : this.state.fetchData && this.state.fetchData.intituleCompte,
                                   disabled: this.state.disabled ? "disabled" : "",
                                   onChange: this.handleChange
                                 })
@@ -11183,9 +11279,9 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                   name: "Reference",
                                   type: "text",
                                   style: inputColor,
-                                  value: "",
                                   disabled: this.state.disabled ? "disabled" : "",
-                                  onChange: this.handleChange
+                                  onChange: this.handleChange,
+                                  value: this.state.Reference ? this.state.Reference : this.state.fetchData && this.state.fetchData.Reference
                                 })
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                                 children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
@@ -11243,29 +11339,11 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                               marginTop: "12px"
                             },
                             className: "btn btn-success",
-                            id: "validerbtn",
-                            onClick: this.saveOperation,
+                            id: "printbtn",
+                            onClick: "",
                             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
-                              className: "fas fa-pen"
-                            }), " ", "Modifier ", ""]
-                          })]
-                        })
-                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
-                          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("button", {
-                            style: {
-                              borderRadius: "0px",
-                              width: "100%",
-                              height: "30px",
-                              fontSize: "10px",
-                              marginTop: "12px"
-                            },
-                            className: "btn btn-danger",
-                            id: "validerbtn",
-                            onClick: this.saveOperation,
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("i", {
-                              className: "fas fa-trash"
-                            }), " ", "Suppr."]
+                              className: "fas fa-print"
+                            }), " ", "Impr ", ""]
                           })]
                         })
                       })]

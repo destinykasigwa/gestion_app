@@ -118,6 +118,10 @@ Route::get("/billetage/getbilletage",
 Route::post("retrait/espece",
 [RetraitEspeceController::class,'RetraitEspece']);
 
+//positionnement
+Route::post("positionnement/espece",
+[RetraitEspeceController::class,'positionnementEspece']);
+
 
 
 
