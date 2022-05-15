@@ -546,6 +546,45 @@ export default class Positionnement extends React.Component {
                                             >
                                                 <table>
                                                     <tr>
+                                                    <td>
+                                                            <label
+                                                                style={{fontWeight:"bold",color:"steelblue",padding:"2px"}
+                                                                }
+                                                            >
+                                                              <strong>Montant  </strong> 
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                        <div className="input-group input-group-sm ">
+                                                            <input
+                                                                name="montant"
+                                                                className={`form-control ${
+                                                                    this.state
+                                                                        .error_list
+                                                                        .montant &&
+                                                                    "is-invalid"
+                                                                }`}
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                value={
+                                                                    this.state
+                                                                        .montant
+                                                                }
+                                                                disabled={
+                                                                    this
+                                                                        .state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
+                                                            />
+                                                        </div>
+                                                        </td>
                                                         <td>
                                                             <label
                                                                 style={
@@ -555,7 +594,8 @@ export default class Positionnement extends React.Component {
                                                                 Document
                                                             </label>
                                                         </td>
-                                                        <div className="input-group input-group-sm ">
+                                                       <td>
+                                                       <div className="input-group input-group-sm ">
                                                             <select
                                                                 name="typeDocument"
                                                                 className={`form-control ${
@@ -575,6 +615,13 @@ export default class Positionnement extends React.Component {
                                                                     this.state
                                                                         .typeDocument
                                                                 }
+                                                                disabled={
+                                                                    this
+                                                                        .state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
                                                             >
                                                                 <option value="">
                                                                     Sélectionnez
@@ -588,6 +635,7 @@ export default class Positionnement extends React.Component {
                                                                 </option>
                                                             </select>
                                                         </div>
+                                                       </td>
                                                         <td>
                                                             <label
                                                                 style={
@@ -618,36 +666,7 @@ export default class Positionnement extends React.Component {
                                                                 }
                                                             />
                                                         </td>
-                                                        <td>
-                                                            <label
-                                                                style={
-                                                                    labelColor
-                                                                }
-                                                            >
-                                                                Réf.
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                className="form-control"
-                                                                name="Reference"
-                                                                type="text"
-                                                                style={
-                                                                    inputColor
-                                                                }
-                                                                value={""}
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
-                                                                onChange={
-                                                                    this
-                                                                        .handleChange
-                                                                }
-                                                            />
-                                                        </td>
+                                                      
                                                     </tr>
                                                 </table>
                                             </form>
@@ -850,6 +869,12 @@ export default class Positionnement extends React.Component {
                                                                                 this
                                                                                     .handleChange
                                                                             }
+                                                                            disabled={
+                                                                                this.state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
                                                                             style={
                                                                                 inputColor
                                                                             }
@@ -910,6 +935,12 @@ export default class Positionnement extends React.Component {
                                                                             style={
                                                                                 inputColor
                                                                             }
+                                                                            disabled={
+                                                                                this.state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
                                                                             value={
                                                                                 this
                                                                                 .state
@@ -928,16 +959,49 @@ export default class Positionnement extends React.Component {
                                                                     </div>
                                                                 </td>
                                                             </tr>
-                                                            <tr></tr>
-                                                        </table>
-                                                        <div className="input-group input-group-sm ">
+                                                            <tr>
+                                                            <td>
                                                             <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Réf.
+                                                            </label>
+                                                        </td>
+                                                        <td>
+                                                            <input
+                                                                className="form-control"
+                                                                name="Reference"
+                                                                type="text"
+                                                                style={
+                                                                    inputColor
+                                                                }
+                                                                value={""}
+                                                                disabled={
+                                                                    this.state
+                                                                        .disabled
+                                                                        ? "disabled"
+                                                                        : ""
+                                                                }
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                            />
+                                                        </td>
+                                                        <td>
+                                                        <label
                                                                 style={
                                                                     labelColor
                                                                 }
                                                             >
                                                                 Tél déposant
                                                             </label>
+                                                        </td>
+                                                        <td>
+                                                        <div className="input-group input-group-sm ">
+                                                        
                                                             <input
                                                                 className="form-control input-lg"
                                                                 type="text"
@@ -971,6 +1035,10 @@ export default class Positionnement extends React.Component {
                                                                 }
                                                             />
                                                         </div>
+                                                        </td>
+                                                            </tr>
+                                                        </table>
+                                                       
                                                     </form>
                                                 </div>
                                             </div>
@@ -1161,11 +1229,7 @@ export default class Positionnement extends React.Component {
                                                                                   .fetchData.intituleCompte
                                                                            
                                                         }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
+                                                        disabled
                                                     />
                                                 </div>
                                             </tr>
@@ -1190,11 +1254,7 @@ export default class Positionnement extends React.Component {
                                                                   .fetchData.lieuNaiss
                                                            
                                                         }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
+                                                        disabled
                                                     />
                                                 </div>
                                             </tr>
@@ -1245,11 +1305,7 @@ export default class Positionnement extends React.Component {
                                                                   .fetchData.typepiece
                                                            
                                                         }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
+                                                        disabled
                                                     />
                                                 </div>
                                             </tr>
@@ -1387,155 +1443,7 @@ export default class Positionnement extends React.Component {
                                                                         </div>
                                                                         </div>
                                                                        </div>
-                                        {/* <div
-                                            className="col-md-2"
-                                            style={{
-                                                background: "#fff",
-                                                padding: "5px",
-                                            }}
-                                        >
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this.state
-                                                                .intituleCompte
-                                                        }
-                                                        disabled={
-                                                            this.state.disabled
-                                                                ? "disabled"
-                                                                : ""
-                                                        }
-                                                    />
-                                                </div>
-                                            </tr>
-                                            
-                                        </div> */}
-                                        {/* <div
-                                            className="col-md-2"
-                                            style={{
-                                                background: "#fff",
-                                                padding: "5px",
-                                            }}
-                                        >
-                                            <table
-                                                style={{
-                                                    border: "3px solid #fff",
-                                                    padding: "5px",
-                                                }}
-                                            >
-                                                <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <img
-                                                            src={`uploads/membres/${
-                                                                this.state
-                                                                    .fetchData
-                                                                    ? this.state
-                                                                          .fetchData
-                                                                          .photoMembre
-                                                                    : "default.jpg"
-                                                            }`}
-                                                            alt="photo-du-membre"
-                                                            className="img-thumbnail"
-                                                        />
-                                                    </td>
-                                                </tr>
-                                            </table>
-                                        </div> */}
+                                    
                                     </div>
                                     <div
                                         className="row"

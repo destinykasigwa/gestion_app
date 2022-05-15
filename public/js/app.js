@@ -10950,27 +10950,53 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                              style: {
+                                fontWeight: "bold",
+                                color: "steelblue",
+                                padding: "2px"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("strong", {
+                                children: "Montant  "
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                                name: "montant",
+                                className: "form-control ".concat(this.state.error_list.montant && "is-invalid"),
+                                onChange: this.handleChange,
+                                style: inputColor,
+                                value: this.state.montant,
+                                disabled: this.state.disabled ? "disabled" : ""
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
                               style: labelColor,
                               children: "Document"
                             })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
-                            className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
-                              name: "typeDocument",
-                              className: "form-control ".concat(this.state.error_list.typeDocument && "is-invalid"),
-                              onChange: this.handleChange,
-                              style: inputColor,
-                              value: this.state.typeDocument,
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                                value: "",
-                                children: "S\xE9lectionnez"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                                value: "Visa retrait",
-                                children: "Visa retrait"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
-                                value: "Bon de d\xE9pense",
-                                children: "Bon de d\xE9pense"
-                              })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("select", {
+                                name: "typeDocument",
+                                className: "form-control ".concat(this.state.error_list.typeDocument && "is-invalid"),
+                                onChange: this.handleChange,
+                                style: inputColor,
+                                value: this.state.typeDocument,
+                                disabled: this.state.disabled ? "disabled" : "",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                                  value: "",
+                                  children: "S\xE9lectionnez"
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                                  value: "Visa retrait",
+                                  children: "Visa retrait"
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
+                                  value: "Bon de d\xE9pense",
+                                  children: "Bon de d\xE9pense"
+                                })]
+                              })
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
@@ -10981,21 +11007,6 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
                               className: "form-control",
                               name: "numDocument",
-                              type: "text",
-                              style: inputColor,
-                              value: "",
-                              disabled: this.state.disabled ? "disabled" : "",
-                              onChange: this.handleChange
-                            })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                              style: labelColor,
-                              children: "R\xE9f."
-                            })
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                              className: "form-control",
-                              name: "Reference",
                               type: "text",
                               style: inputColor,
                               value: "",
@@ -11069,12 +11080,12 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                           background: "#dcdcdc",
                           padding: "0px"
                         },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("form", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("form", {
                           style: {
                             padding: "10px",
                             border: "2px solid #dcdcdc"
                           },
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("table", {
                             children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("td", {
                                 children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
@@ -11123,6 +11134,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                     name: "typepiece",
                                     className: "form-control",
                                     onChange: this.handleChange,
+                                    disabled: this.state.disabled ? "disabled" : "",
                                     style: inputColor,
                                     value: this.state.typepiece ? this.state.typepiece : this.state.fetchData && this.state.fetchData.typepiece,
                                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("option", {
@@ -11154,26 +11166,48 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                     className: "form-control",
                                     onChange: this.handleChange,
                                     style: inputColor,
+                                    disabled: this.state.disabled ? "disabled" : "",
                                     value: this.state.numpiece ? this.state.numpiece : this.state.fetchData && this.state.fetchData.numpiece
                                   })
                                 })
                               })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {})]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("div", {
-                            className: "input-group input-group-sm ",
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
-                              style: labelColor,
-                              children: "T\xE9l d\xE9posant"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
-                              className: "form-control input-lg",
-                              type: "text",
-                              style: inputColor,
-                              name: "telBeneficiaire",
-                              value: this.state.telBeneficiaire ? this.state.telBeneficiaire : this.state.fetchData && this.state.fetchData.phone1,
-                              disabled: this.state.disabled ? "disabled" : "",
-                              onChange: this.handleChange
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "R\xE9f."
+                                })
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                                  className: "form-control",
+                                  name: "Reference",
+                                  type: "text",
+                                  style: inputColor,
+                                  value: "",
+                                  disabled: this.state.disabled ? "disabled" : "",
+                                  onChange: this.handleChange
+                                })
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "T\xE9l d\xE9posant"
+                                })
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("input", {
+                                    className: "form-control input-lg",
+                                    type: "text",
+                                    style: inputColor,
+                                    name: "telBeneficiaire",
+                                    value: this.state.telBeneficiaire ? this.state.telBeneficiaire : this.state.fetchData && this.state.fetchData.phone1,
+                                    disabled: this.state.disabled ? "disabled" : "",
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
                             })]
-                          })]
+                          })
                         })
                       })]
                     })]
@@ -11315,7 +11349,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                       type: "text",
                                       style: inputColor,
                                       value: this.state.intituleCompte ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
-                                      disabled: this.state.disabled ? "disabled" : ""
+                                      disabled: true
                                     })
                                   })
                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
@@ -11326,7 +11360,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                       type: "text",
                                       style: inputColor,
                                       value: this.state.lieuNaiss ? this.state.lieuNaiss : this.state.fetchData && this.state.fetchData.lieuNaiss,
-                                      disabled: this.state.disabled ? "disabled" : ""
+                                      disabled: true
                                     })
                                   })
                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
@@ -11348,7 +11382,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                       type: "text",
                                       style: inputColor,
                                       value: this.state.typepiece ? this.state.typepiece : this.state.fetchData && this.state.fetchData.typepiece,
-                                      disabled: this.state.disabled ? "disabled" : ""
+                                      disabled: true
                                     })
                                   })
                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tr", {
