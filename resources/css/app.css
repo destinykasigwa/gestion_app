@@ -30,5 +30,9 @@
 
    .positionnement-table-div,.operation-recente-div,.billetage-div{
     overflow-y: scroll;
-    height: 200px;
+    height: 300px;
+   }
+   .appro-table-div{
+    overflow-y: scroll;
+    height: auto;
    }

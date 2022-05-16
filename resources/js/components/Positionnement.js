@@ -1,9 +1,8 @@
 import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
-import '../../css/app.css';
+import "../../css/app.css";
 import MendataireTable from "./MendataireTable";
-
 
 export default class Positionnement extends React.Component {
     constructor(props) {
@@ -23,86 +22,96 @@ export default class Positionnement extends React.Component {
             lieuNaiss: "",
             sexe: "",
             phone1: "",
-            devise:"",
+            devise: "",
             profession: "",
             CommuneActuelle: "",
             QuartierActuelle: "",
-            telBeneficiaire:"",
+            telBeneficiaire: "",
             otherMention: "",
-            montant:"",
-            Reference:"",
+            montant: "",
+            Reference: "",
             error_list: [],
             fetchData: null,
             compteToSearch: "",
             refCompte: "",
             typeDocument: "",
-            numDocument:"",
+            numDocument: "",
             getSommeCDF: null,
             getSommeUSD: null,
             getMembreSolde: null,
-            soldeCDF:"",
-            soldeUSD:"",
-            getAllOperat:null
+            soldeCDF: "",
+            soldeUSD: "",
+            getAllOperat: null,
+            getCompteurDocument:null
         };
-        this.handleAccount=this.handleAccount.bind(this);
-        this.handleChange=this.handleChange.bind(this);
-        this.actualiser=this.actualiser.bind(this);
-        this.getAllOperation=this.getAllOperation.bind(this);
+        this.handleAccount = this.handleAccount.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.actualiser = this.actualiser.bind(this);
+        this.getAllOperation = this.getAllOperation.bind(this);
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
-            this.setState({ isloading: false });
-                document
+            document
                 .getElementById("validerbtn")
                 .setAttribute("disabled", "disabled");
-                document
+            document
                 .getElementById("printbtn")
                 .setAttribute("disabled", "disabled");
         }, 1000);
 
         let current_datetime = new Date();
         let formatted_date =
-             //year
-            current_datetime.getFullYear()  +
+            //year
+            current_datetime.getFullYear() +
             "-" +
             //month
             (current_datetime.getMonth() + 1) +
             "-" +
             //day
-            current_datetime.getDate()  ;
+            current_datetime.getDate();
         this.setState({ DateTransaction: formatted_date });
         this.getAllOperation();
     }
-       //GET DATA FROM INPUT
-       handleChange(event) {
+    //GET DATA FROM INPUT
+    handleChange(event) {
         this.setState({
             // Computed property names
             // keys of the objects are computed dynamically
             [event.target.name]: event.target.value,
         });
     }
-      //GET A SEACHED NUMBER 
-      handleAccount = async (e) => {
+    //GET A SEACHED NUMBER
+    handleAccount = async (e) => {
         e.preventDefault();
         const getData = await axios.get(
             "compte/search/" + this.state.compteToSearch
         );
         if (getData.data.success == 1) {
-            this.setState({ fetchData: getData.data.data,getMembreSolde:getData.data.soldeMembre });
-            this.setState({ disabled: !this.state.disabled,
-              refCompte:this.state.fetchData.refCompte,
-              numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte,soldeCDF:this
-              .state
-              .getMembreSolde[1]
-              .soldeMembreCDF,soldeUSD:this
-              .state
-              .getMembreSolde[0]
-              .soldeMembreUSD,
-              adresse:this.state.fetchData.CommuneActuelle +" " +this.state.fetchData.QuartierActuelle,
-              telBeneficiaire:this.state.fetchData.phone1,typepiece:this.state.fetchData.typepiece,numpiece:this.state.fetchData.numpiece,beneficiaire:this.state.fetchData.intituleCompte  });
-             console.log(this.state.getMembreSolde);
+            this.setState({
+                fetchData: getData.data.data,
+                getMembreSolde: getData.data.soldeMembre,
+                getCompteurDocument:getData.data.numdoc
+            });
+            this.setState({
+                disabled: !this.state.disabled,
+                refCompte: this.state.fetchData.refCompte,
+                numCompte: this.state.fetchData.numCompte,
+                operant: this.state.fetchData.intituleCompte,
+                soldeCDF: this.state.getMembreSolde[1].soldeMembreCDF,
+                soldeUSD: this.state.getMembreSolde[0].soldeMembreUSD,
+                adresse:
+                    this.state.fetchData.CommuneActuelle +
+                    " " +
+                    this.state.fetchData.QuartierActuelle,
+                telBeneficiaire: this.state.fetchData.phone1,
+                typepiece: this.state.fetchData.typepiece,
+                numpiece: this.state.fetchData.numpiece,
+                beneficiaire: this.state.fetchData.intituleCompte,
+                numDocument:"DC000"+this.state.getCompteurDocument
+            });
+            console.log(this.state.getMembreSolde);
             //disabled valider button
             document
                 .getElementById("validerbtn")
@@ -118,57 +127,52 @@ export default class Positionnement extends React.Component {
         // console.log(this.state.fetchData);
     };
 
-    saveOperation=async(e)=>{
-        this.setState({loading:true})
-      e.preventDefault();
-      const res = await axios.post("/positionnement/espece", this.state);
-      if (res.data.success == 0) {
-          Swal.fire({
-              title: "Erreur",
-              text:
-                  res.data.msg,
-              icon: "error",
-              button: "OK!",
-          });
-          this.setState({loading:false})
-   
-       
-      }else if(res.data.success == 1){
-        Swal.fire({
-            title: "Positionnement",
-            text:
-                res.data.msg,
-            icon: "success",
-            button: "OK!",
-        });
-        this.setState({loading:false})
+    saveOperation = async (e) => {
+        this.setState({ loading: true });
+        e.preventDefault();
+        const res = await axios.post("/positionnement/espece", this.state);
+        if (res.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+            this.setState({ loading: false });
+        } else if (res.data.success == 1) {
+            Swal.fire({
+                title: "Positionnement",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            this.setState({ loading: false });
 
-           this.setState({ disabled: !this.state.disabled,loading:false});
-          document
+            this.setState({ disabled: !this.state.disabled, loading: false });
+            document
                 .getElementById("validerbtn")
                 .setAttribute("disabled", "disabled");
-                document
+            document
                 .getElementById("printbtn")
                 .removeAttribute("disabled", "disabled");
-              }else {
-          this.setState({
-              loading:false,
-              error_list: res.data.validate_error,
-          });
-      }
-      console.log(res.data.success);
-    }
+        } else {
+            this.setState({
+                loading: false,
+                error_list: res.data.validate_error,
+            });
+        }
+        console.log(res.data.success);
+    };
 
     //RECUPERE TOUTES LES OPERATIONS DE POSITIONNEMENT DEJA EFFECTUE
-    getAllOperation= async()=>{
-     const getOperation = await axios.get("/positionnement/getalloperation")
-     this.setState({getAllOperat:getOperation.data.data})
-     console.log(getOperation.data.data);
-    }
-    
+    getAllOperation = async () => {
+        const getOperation = await axios.get("/positionnement/getalloperation");
+        this.setState({ getAllOperat: getOperation.data.data });
+        console.log(getOperation.data.data);
+    };
 
-     //to refresh
-     actualiser() {
+    //to refresh
+    actualiser() {
         location.reload();
     }
     render() {
@@ -203,25 +207,25 @@ export default class Positionnement extends React.Component {
             fontSize: "14px",
             textAlign: "center",
         };
-        let compteur=1;
-         //PERMET DE FORMATER LES CHIFFRES
-         const numberFormat = (number = 0) => {
+        let compteur = 1;
+        //PERMET DE FORMATER LES CHIFFRES
+        const numberFormat = (number = 0) => {
             let locales = [
-              //undefined,  // Your own browser
-              "en-US", // United States
-              //'de-DE',    // Germany
-              //'ru-RU',    // Russia
-              //'hi-IN',    // India
+                //undefined,  // Your own browser
+                "en-US", // United States
+                //'de-DE',    // Germany
+                //'ru-RU',    // Russia
+                //'hi-IN',    // India
             ];
             let opts = { minimumFractionDigits: 2 };
             let index = 3;
             let nombre = number.toLocaleString(locales[index], opts);
             if (nombre === isNaN) {
-              nombre = 0.0;
+                nombre = 0.0;
             } else {
-              return nombre;
+                return nombre;
             }
-          };
+        };
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -627,49 +631,58 @@ export default class Positionnement extends React.Component {
                                                     padding: "10px",
                                                     border: "2px solid #fff",
                                                     marginTop: "0px",
-                                                    background:"#fff"
+                                                    background: "#fff",
                                                 }}
                                             >
                                                 <table>
                                                     <tr>
-                                                    <td>
+                                                        <td>
                                                             <label
-                                                                style={{fontWeight:"bold",color:"steelblue",padding:"2px"}
-                                                                }
+                                                                style={{
+                                                                    fontWeight:
+                                                                        "bold",
+                                                                    color: "steelblue",
+                                                                    padding:
+                                                                        "2px",
+                                                                }}
                                                             >
-                                                              <strong>Montant  </strong> 
+                                                                <strong>
+                                                                    Montant{" "}
+                                                                </strong>
                                                             </label>
                                                         </td>
                                                         <td>
-                                                        <div className="input-group input-group-sm ">
-                                                            <input
-                                                                name="montant"
-                                                                className={`form-control ${
-                                                                    this.state
-                                                                        .error_list
-                                                                        .montant &&
-                                                                    "is-invalid"
-                                                                }`}
-                                                                onChange={
-                                                                    this
-                                                                        .handleChange
-                                                                }
-                                                                style={
-                                                                    inputColor
-                                                                }
-                                                                value={
-                                                                    this.state
-                                                                        .montant
-                                                                }
-                                                                disabled={
-                                                                    this
-                                                                        .state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
-                                                            />
-                                                        </div>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    name="montant"
+                                                                    className={`form-control ${
+                                                                        this
+                                                                            .state
+                                                                            .error_list
+                                                                            .montant &&
+                                                                        "is-invalid"
+                                                                    }`}
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .montant
+                                                                    }
+                                                                    disabled={
+                                                                        this
+                                                                            .state
+                                                                            .disabled
+                                                                            ? "disabled"
+                                                                            : ""
+                                                                    }
+                                                                />
+                                                            </div>
                                                         </td>
                                                         <td>
                                                             <label
@@ -680,48 +693,51 @@ export default class Positionnement extends React.Component {
                                                                 Document
                                                             </label>
                                                         </td>
-                                                       <td>
-                                                       <div className="input-group input-group-sm ">
-                                                            <select
-                                                                name="typeDocument"
-                                                                className={`form-control ${
-                                                                    this.state
-                                                                        .error_list
-                                                                        .typeDocument &&
-                                                                    "is-invalid"
-                                                                }`}
-                                                                onChange={
-                                                                    this
-                                                                        .handleChange
-                                                                }
-                                                                style={
-                                                                    inputColor
-                                                                }
-                                                                value={
-                                                                    this.state
-                                                                        .typeDocument
-                                                                }
-                                                                disabled={
-                                                                    this
-                                                                        .state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
-                                                            >
-                                                                <option value="">
-                                                                    Sélectionnez
-                                                                </option>
-                                                                <option value="Visa retrait">
-                                                                    Visa retrait
-                                                                </option>
-                                                                <option value="Bon de dépense">
-                                                                    Bon de
-                                                                    dépense
-                                                                </option>
-                                                            </select>
-                                                        </div>
-                                                       </td>
+                                                        <td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <select
+                                                                    name="typeDocument"
+                                                                    className={`form-control ${
+                                                                        this
+                                                                            .state
+                                                                            .error_list
+                                                                            .typeDocument &&
+                                                                        "is-invalid"
+                                                                    }`}
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .typeDocument
+                                                                    }
+                                                                    disabled={
+                                                                        this
+                                                                            .state
+                                                                            .disabled
+                                                                            ? "disabled"
+                                                                            : ""
+                                                                    }
+                                                                >
+                                                                    <option value="">
+                                                                        Sélectionnez
+                                                                    </option>
+                                                                    <option value="Visa retrait">
+                                                                        Visa
+                                                                        retrait
+                                                                    </option>
+                                                                    <option value="Bon de dépense">
+                                                                        Bon de
+                                                                        dépense
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
                                                         <td>
                                                             <label
                                                                 style={
@@ -734,8 +750,7 @@ export default class Positionnement extends React.Component {
                                                         <td>
                                                             <input
                                                                 className={`form-control ${
-                                                                    this
-                                                                        .state
+                                                                    this.state
                                                                         .error_list
                                                                         .numDocument &&
                                                                     "is-invalid"
@@ -749,23 +764,22 @@ export default class Positionnement extends React.Component {
                                                                     this.state
                                                                         .numDocument
                                                                 }
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
                                                                 onChange={
                                                                     this
                                                                         .handleChange
                                                                 }
                                                             />
                                                         </td>
-                                                      
                                                     </tr>
                                                 </table>
                                             </form>
-                                            <div className="row" style={{border:"2px #fff solid"}}>
+                                            <div
+                                                className="row"
+                                                style={{
+                                                    border: "2px #fff solid",
+                                                }}
+                                            >
                                                 <div
                                                     className="col-md-2"
                                                     style={{
@@ -856,24 +870,24 @@ export default class Positionnement extends React.Component {
                                                                 <div className="input-group input-group-sm ">
                                                                     <input
                                                                         name="beneficiaire"
-                                                                        
                                                                         type="text"
                                                                         style={
                                                                             inputColor
                                                                         }
                                                                         value={
                                                                             this
-                                                                            .state
-                                                                            .beneficiaire
-                                                                            ? this
-                                                                                  .state
-                                                                                  .beneficiaire
-                                                                            : this
-                                                                                  .state
-                                                                                  .fetchData &&
-                                                                              this
-                                                                                  .state
-                                                                                  .fetchData.intituleCompte
+                                                                                .state
+                                                                                .beneficiaire
+                                                                                ? this
+                                                                                      .state
+                                                                                      .beneficiaire
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .intituleCompte
                                                                         }
                                                                         disabled={
                                                                             this
@@ -909,19 +923,23 @@ export default class Positionnement extends React.Component {
                                                                         name="adresse"
                                                                         value={
                                                                             this
-                                                            .state
-                                                            .CommuneActuelle
-                                                            ? this
-                                                                  .state
-                                                                  .CommuneActuelle
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.CommuneActuelle+" "+ this
-                                                                  .state
-                                                                  .fetchData.QuartierActuelle
+                                                                                .state
+                                                                                .CommuneActuelle
+                                                                                ? this
+                                                                                      .state
+                                                                                      .CommuneActuelle
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .CommuneActuelle +
+                                                                                      " " +
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .QuartierActuelle
                                                                         }
                                                                         disabled={
                                                                             this
@@ -959,7 +977,8 @@ export default class Positionnement extends React.Component {
                                                                                     .handleChange
                                                                             }
                                                                             disabled={
-                                                                                this.state
+                                                                                this
+                                                                                    .state
                                                                                     .disabled
                                                                                     ? "disabled"
                                                                                     : ""
@@ -969,17 +988,18 @@ export default class Positionnement extends React.Component {
                                                                             }
                                                                             value={
                                                                                 this
-                                                                                .state
-                                                                                .typepiece
-                                                                                ? this
-                                                                                      .state
-                                                                                      .typepiece
-                                                                                : this
-                                                                                      .state
-                                                                                      .fetchData &&
-                                                                                  this
-                                                                                      .state
-                                                                                      .fetchData.typepiece
+                                                                                    .state
+                                                                                    .typepiece
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .typepiece
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .typepiece
                                                                             }
                                                                         >
                                                                             <option value="">
@@ -1025,123 +1045,127 @@ export default class Positionnement extends React.Component {
                                                                                 inputColor
                                                                             }
                                                                             disabled={
-                                                                                this.state
+                                                                                this
+                                                                                    .state
                                                                                     .disabled
                                                                                     ? "disabled"
                                                                                     : ""
                                                                             }
                                                                             value={
                                                                                 this
-                                                                                .state
-                                                                                .numpiece
-                                                                                ? this
-                                                                                      .state
-                                                                                      .numpiece
-                                                                                : this
-                                                                                      .state
-                                                                                      .fetchData &&
-                                                                                  this
-                                                                                      .state
-                                                                                      .fetchData.numpiece
+                                                                                    .state
+                                                                                    .numpiece
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .numpiece
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .numpiece
                                                                             }
                                                                         />
                                                                     </div>
                                                                 </td>
                                                             </tr>
                                                             <tr>
-                                                            <td>
-                                                            <label
-                                                                style={
-                                                                    labelColor
-                                                                }
-                                                            >
-                                                                Réf.
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <input
-                                                                className="form-control"
-                                                                name="Reference"
-                                                                type="text"
-                                                                style={
-                                                                    inputColor
-                                                                }
-                                                             
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
-                                                                onChange={
-                                                                    this
-                                                                        .handleChange
-                                                                }
-                                                                value={
-                                                                    this
-                                                                    .state
-                                                                    .Reference
-                                                                    ? this
-                                                                          .state
-                                                                          .Reference
-                                                                    : this
-                                                                          .state
-                                                                          .fetchData &&
-                                                                      this
-                                                                          .state
-                                                                          .fetchData.Reference
-                                                                }
-                                                            />
-                                                        </td>
-                                                        <td>
-                                                        <label
-                                                                style={
-                                                                    labelColor
-                                                                }
-                                                            >
-                                                                Tél déposant
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                        <div className="input-group input-group-sm ">
-                                                        
-                                                            <input
-                                                                className="form-control input-lg"
-                                                                type="text"
-                                                                style={
-                                                                    inputColor
-                                                                }
-                                                                name="telBeneficiaire"
-                                                                value={
-                                                                    this
-                                                                    .state
-                                                                    .telBeneficiaire
-                                                                    ? this
-                                                                          .state
-                                                                          .telBeneficiaire
-                                                                    : this
-                                                                          .state
-                                                                          .fetchData &&
-                                                                      this
-                                                                          .state
-                                                                          .fetchData.phone1
-                                                                }
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
-                                                                onChange={
-                                                                    this
-                                                                        .handleChange
-                                                                }
-                                                            />
-                                                        </div>
-                                                        </td>
+                                                                <td>
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Réf.
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <input
+                                                                        className="form-control"
+                                                                        name="Reference"
+                                                                        type="text"
+                                                                        style={
+                                                                            inputColor
+                                                                        }
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                        value={
+                                                                            this
+                                                                                .state
+                                                                                .Reference
+                                                                                ? this
+                                                                                      .state
+                                                                                      .Reference
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .Reference
+                                                                        }
+                                                                    />
+                                                                </td>
+                                                                <td>
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Tél
+                                                                        déposant
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="input-group input-group-sm ">
+                                                                        <input
+                                                                            className="form-control input-lg"
+                                                                            type="text"
+                                                                            style={
+                                                                                inputColor
+                                                                            }
+                                                                            name="telBeneficiaire"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .telBeneficiaire
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .telBeneficiaire
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .phone1
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                </td>
                                                             </tr>
                                                         </table>
-                                                       
                                                     </form>
                                                 </div>
                                             </div>
@@ -1199,7 +1223,7 @@ export default class Positionnement extends React.Component {
                                                             className="btn btn-success"
                                                             id="printbtn"
                                                             onClick=""
-                                                             >
+                                                        >
                                                             <i className="fas fa-print"></i>{" "}
                                                             Impr {""}
                                                         </button>
@@ -1231,316 +1255,327 @@ export default class Positionnement extends React.Component {
                                             </table>
                                         </div>
                                         <div className="col-md-4">
-                                        <ul
-                                                    className="nav nav-tabs"
-                                                    id="myTab"
-                                                    role="tablist"
-                                                    style={{
-                                                        fontWeight: "bold",
-                                                        background: "#dcdcdc",
-                                                        color: "#fff",
-                                                        padding: "5px",
-                                                    }}
-                                                >
-                                                    <li className="nav-item">
-                                                        <a
-                                                            className="nav-link active"
-                                                            id="identite-tab"
-                                                            data-toggle="tab"
-                                                            href="#identite"
-                                                            role="tab"
-                                                            aria-controls="identite"
-                                                            aria-selected="true"
-                                                        >
-                                                            <i className="fas fa-plus"></i>{" "}
-                                                            Identité
-                                                        </a>
-                                                    </li>
-                                                    <li className="nav-item">
-                                                        <a
-                                                            className="nav-link"
-                                                            id="mendataire-tab"
-                                                            data-toggle="tab"
-                                                            href="#mendataire"
-                                                            role="tab"
-                                                            aria-controls="mendataire"
-                                                            aria-selected="true"
-                                                        >
-                                                            <i className="fas fa-plus"></i>{" "}
-                                                            Mandataire
-                                                        </a>
-                                                    </li>
-                                                    </ul>
-                                                    <div
-                                                    className="tab-content"
-                                                    id="myTabContent"
-                                                >
-                                                    <div
-                                                        className="tab-pane fade show active mt-2 col-md-12 "
-                                                        id="identite"
-                                                        role="tabpanel"
-                                                        aria-labelledby="identite-tab"
+                                            <ul
+                                                className="nav nav-tabs"
+                                                id="myTab"
+                                                role="tablist"
+                                                style={{
+                                                    fontWeight: "bold",
+                                                    background: "#dcdcdc",
+                                                    color: "#fff",
+                                                    padding: "5px",
+                                                }}
+                                            >
+                                                <li className="nav-item">
+                                                    <a
+                                                        className="nav-link active"
+                                                        id="identite-tab"
+                                                        data-toggle="tab"
+                                                        href="#identite"
+                                                        role="tab"
+                                                        aria-controls="identite"
+                                                        aria-selected="true"
                                                     >
-                                                        <div
-                                                            className="row"
-                                                            style={{
-                                                                padding: "10px",
-                                                                border: "2px solid #fff",
-                                                            }}
-                                                        >
-                                                            <div className="col-lg-12">
-                                                                <div className="card card-default">
-                                                                    <div
-                                                                        className="card-header"
-                                                                        style={{
-                                                                            background:
-                                                                                "#DCDCDC",
-                                                                            textAlign:
-                                                                                "center",
-                                                                            color: "#fff",
-                                                                        }}
-                                                                        >
-                                                                       
-                                                                        </div>
-                                                                        </div>
-                                                                         <div className="row">
-                                                                         <div className="col-md-6">
-                                                                        <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                                         .state
-                                                                            .intituleCompte
-                                                                            ? this
-                                                                                  .state
-                                                                                  .intituleCompte
-                                                                            : this
-                                                                                  .state
-                                                                                  .fetchData &&
-                                                                              this
-                                                                                  .state
-                                                                                  .fetchData.intituleCompte
-                                                                           
-                                                        }
-                                                        disabled
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                            .state
-                                                            .lieuNaiss
-                                                            ? this
-                                                                  .state
-                                                                  .lieuNaiss
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.lieuNaiss
-                                                           
-                                                        }
-                                                        disabled
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                            .state
-                                                            .sexe
-                                                            ? this
-                                                                  .state
-                                                                  .sexe
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.sexe
-                                                           
-                                                        }
-                                                       
-                                                        disabled
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                            .state
-                                                            .typepiece
-                                                            ? this
-                                                                  .state
-                                                                  .typepiece
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.typepiece
-                                                           
-                                                        }
-                                                        disabled
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                            .state
-                                                            .phone1
-                                                            ? this
-                                                                  .state
-                                                                  .phone1
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.phone1
-                                                        }
-                                                        disabled
-                                                        
-                                                    />
-                                                </div>
-                                            </tr>
-                                            <tr>
-                                                <div className="input-group input-group-sm ">
-                                                    <input
-                                                        className="form-control mt-1"
-                                                        type="text"
-                                                        style={inputColor}
-                                                        value={
-                                                            this
-                                                            .state
-                                                            .otherMention
-                                                            ? this
-                                                                  .state
-                                                                  .otherMention
-                                                            : this
-                                                                  .state
-                                                                  .fetchData &&
-                                                              this
-                                                                  .state
-                                                                  .fetchData.otherMention
-                                                        }
-                                                        disabled
-                                                    />
-                                                </div>
-                                            </tr>
-                                           
-                                                                        </div>
-                                                                        <div className="col-md-6">
-                                                                        <tr>
-                                                    <td></td>
-                                                    <td>
-                                                        <img
-                                                            src={`uploads/membres/${
-                                                                this.state
-                                                                    .fetchData
-                                                                    ? this.state
-                                                                          .fetchData
-                                                                          .photoMembre
-                                                                    : "default.jpg"
-                                                            }`}
-                                                            alt="photo-du-membre"
-                                                            className="img-thumbnail"
-                                                        />
-                                                    </td>
-                                                </tr>
-                                                                        </div>
-                                                                        
-                                                                        
-                                                                         </div>
-                                                                        </div>
-                                                                        </div>
-                                                                        </div>
-                                                                        <div
-                                                        className="tab-pane fade  mt-2 col-md-12 "
-                                                        id="mendataire"
-                                                        role="tabpanel"
-                                                        aria-labelledby="mendataire-tab"
+                                                        <i className="fas fa-plus"></i>{" "}
+                                                        Identité
+                                                    </a>
+                                                </li>
+                                                <li className="nav-item">
+                                                    <a
+                                                        className="nav-link"
+                                                        id="mendataire-tab"
+                                                        data-toggle="tab"
+                                                        href="#mendataire"
+                                                        role="tab"
+                                                        aria-controls="mendataire"
+                                                        aria-selected="true"
                                                     >
-                                                        <div
-                                                            className="row"
-                                                            style={{
-                                                                padding: "10px",
-                                                                border: "2px solid #fff",
-                                                            }}
-                                                        >
-                                                            <div className="col-lg-12">
-                                                                <div className="card card-default">
-                                                                    <div
-                                                                        className="card-header"
-                                                                        style={{
-                                                                            background:
-                                                                                "#DCDCDC",
-                                                                            textAlign:
-                                                                                "center",
-                                                                            color: "#fff",
-                                                                        }}
-                                                                        >
-                                                                       
+                                                        <i className="fas fa-plus"></i>{" "}
+                                                        Mandataire
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                            <div
+                                                className="tab-content"
+                                                id="myTabContent"
+                                            >
+                                                <div
+                                                    className="tab-pane fade show active mt-2 col-md-12 "
+                                                    id="identite"
+                                                    role="tabpanel"
+                                                    aria-labelledby="identite-tab"
+                                                >
+                                                    <div
+                                                        className="row"
+                                                        style={{
+                                                            padding: "10px",
+                                                            border: "2px solid #fff",
+                                                        }}
+                                                    >
+                                                        <div className="col-lg-12">
+                                                            <div className="card card-default">
+                                                                <div
+                                                                    className="card-header"
+                                                                    style={{
+                                                                        background:
+                                                                            "#DCDCDC",
+                                                                        textAlign:
+                                                                            "center",
+                                                                        color: "#fff",
+                                                                    }}
+                                                                ></div>
+                                                            </div>
+                                                            <div className="row">
+                                                                <div className="col-md-6">
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .intituleCompte
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .intituleCompte
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .intituleCompte
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .lieuNaiss
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .lieuNaiss
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .lieuNaiss
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
-                                                                         <div className="row">
-                                                                  
-                                                                         <MendataireTable
-                                                            num={
-                                                                this.state
-                                                                    .compteToSearch &&
-                                                                this.state
-                                                                    .compteToSearch
-                                                            }
-                                                            refCompt={
-                                                                this.state
-                                                                    .fetchData &&
-                                                                this.state
-                                                                    .fetchData
-                                                                    .refCompte
-                                                            }
-                                                            membreImage={this.state
-                                                                .fetchData &&
-                                                            this.state
-                                                                .fetchData
-                                                                .photoMembre}
-                                                        />
-                                                                        
-                                                                        
-                                                                         </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .sexe
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .sexe
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .sexe
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .typepiece
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .typepiece
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .typepiece
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .phone1
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .phone1
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .phone1
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
+                                                                    </tr>
+                                                                    <tr>
+                                                                        <div className="input-group input-group-sm ">
+                                                                            <input
+                                                                                className="form-control mt-1"
+                                                                                type="text"
+                                                                                style={
+                                                                                    inputColor
+                                                                                }
+                                                                                value={
+                                                                                    this
+                                                                                        .state
+                                                                                        .otherMention
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .otherMention
+                                                                                        : this
+                                                                                              .state
+                                                                                              .fetchData &&
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .otherMention
+                                                                                }
+                                                                                disabled
+                                                                            />
                                                                         </div>
-                                                                       </div>
-                                    
+                                                                    </tr>
+                                                                </div>
+                                                                <div className="col-md-6">
+                                                                    <tr>
+                                                                        <td></td>
+                                                                        <td>
+                                                                            <img
+                                                                                src={`uploads/membres/${
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchData
+                                                                                        ? this
+                                                                                              .state
+                                                                                              .fetchData
+                                                                                              .photoMembre
+                                                                                        : "default.jpg"
+                                                                                }`}
+                                                                                alt="photo-du-membre"
+                                                                                className="img-thumbnail"
+                                                                            />
+                                                                        </td>
+                                                                    </tr>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div
+                                                    className="tab-pane fade  mt-2 col-md-12 "
+                                                    id="mendataire"
+                                                    role="tabpanel"
+                                                    aria-labelledby="mendataire-tab"
+                                                >
+                                                    <div
+                                                        className="row"
+                                                        style={{
+                                                            padding: "10px",
+                                                            border: "2px solid #fff",
+                                                        }}
+                                                    >
+                                                        <div className="col-lg-12">
+                                                            <div className="card card-default">
+                                                                <div
+                                                                    className="card-header"
+                                                                    style={{
+                                                                        background:
+                                                                            "#DCDCDC",
+                                                                        textAlign:
+                                                                            "center",
+                                                                        color: "#fff",
+                                                                    }}
+                                                                ></div>
+                                                            </div>
+                                                            <div className="row">
+                                                                <MendataireTable
+                                                                    num={
+                                                                        this
+                                                                            .state
+                                                                            .compteToSearch &&
+                                                                        this
+                                                                            .state
+                                                                            .compteToSearch
+                                                                    }
+                                                                    refCompt={
+                                                                        this
+                                                                            .state
+                                                                            .fetchData &&
+                                                                        this
+                                                                            .state
+                                                                            .fetchData
+                                                                            .refCompte
+                                                                    }
+                                                                    membreImage={
+                                                                        this
+                                                                            .state
+                                                                            .fetchData &&
+                                                                        this
+                                                                            .state
+                                                                            .fetchData
+                                                                            .photoMembre
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div
                                         className="row"
@@ -1569,14 +1604,14 @@ export default class Positionnement extends React.Component {
                                                                     tableBorder
                                                                 }
                                                             >
-                                                             Réference
+                                                                Réference
                                                             </td>
                                                             <td
                                                                 style={
                                                                     tableBorder
                                                                 }
                                                             >
-                                                               Num compte
+                                                                Num compte
                                                             </td>
                                                             <td
                                                                 style={
@@ -1588,38 +1623,72 @@ export default class Positionnement extends React.Component {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        {this.state.getAllOperat &&
-                                                        this.state.getAllOperat.map((res,index)=>{
-                                                            return(
-                                                                <React.Fragment>
-
-                                                                <tr key={index}>
-                                                                    <td
-                                                                        style={
-                                                                            tableBorder
-                                                                        }
-                                                                    >{compteur++}</td>
-                                                                    <td
-                                                                        style={
-                                                                            tableBorder
-                                                                        }
-                                                                    >{res.NumDocument}</td>
-                                                                    <td
-                                                                        style={
-                                                                            tableBorder
-                                                                        }
-                                                                    >{res.NumCompte}</td>
-                                                                    <td
-                                                                        style={
-                                                                            tableBorder
-                                                                        }
-                                                                    >{res.CodeMonnaie=="USD" ? numberFormat(parseInt(res.Montant)) +" USD" : numberFormat(parseInt(res.Montant)) +" CDF"}</td>
-                                                                </tr> 
-                                                                </React.Fragment>      
-                                                            )
-                                                            
-                                                    })
-                                                       }
+                                                        {this.state
+                                                            .getAllOperat &&
+                                                            this.state.getAllOperat.map(
+                                                                (
+                                                                    res,
+                                                                    index
+                                                                ) => {
+                                                                    return (
+                                                                        <React.Fragment>
+                                                                            <tr
+                                                                                key={
+                                                                                    index
+                                                                                }
+                                                                            >
+                                                                                <td
+                                                                                    style={
+                                                                                        tableBorder
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        compteur++
+                                                                                    }
+                                                                                </td>
+                                                                                <td
+                                                                                    style={
+                                                                                        tableBorder
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        res.NumDocument
+                                                                                    }
+                                                                                </td>
+                                                                                <td
+                                                                                    style={
+                                                                                        tableBorder
+                                                                                    }
+                                                                                >
+                                                                                    {
+                                                                                        res.NumCompte
+                                                                                    }
+                                                                                </td>
+                                                                                <td
+                                                                                    style={
+                                                                                        tableBorder
+                                                                                    }
+                                                                                >
+                                                                                    {res.CodeMonnaie ==
+                                                                                    "USD"
+                                                                                        ? numberFormat(
+                                                                                              parseInt(
+                                                                                                  res.Montant
+                                                                                              )
+                                                                                          ) +
+                                                                                          " USD"
+                                                                                        : numberFormat(
+                                                                                              parseInt(
+                                                                                                  res.Montant
+                                                                                              )
+                                                                                          ) +
+                                                                                          " CDF"}
+                                                                                </td>
+                                                                            </tr>
+                                                                        </React.Fragment>
+                                                                    );
+                                                                }
+                                                            )}
                                                     </tbody>
                                                 </table>
                                             </div>

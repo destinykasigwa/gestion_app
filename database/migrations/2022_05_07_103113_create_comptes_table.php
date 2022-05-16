@@ -87,6 +87,7 @@ return new class extends Migration
             $table->string('Ferme',20)->nullable();
             $table->string('DateFermeture',20)->nullable();
             $table->string('MotifFermeture',20)->nullable();
+            $table->string('isCaissier',11)->nullable();
             $table->timestamps();
         });
     }

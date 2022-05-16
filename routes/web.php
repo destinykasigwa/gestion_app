@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\updateMembre;
 use App\Http\Controllers\AdhesionMembreController;
+use App\Http\Controllers\ApproController;
 use App\Http\Controllers\DepotEspeceController;
 use App\Http\Controllers\GetIndividualMendataire;
 // use App\Http\Controllers\MendataireController;
@@ -34,6 +35,7 @@ Route::get('/adhesion', [AdhesionMembreController::class,'adhesion'])->name('mem
 Route::get('/depot-espece', [DepotEspeceController::class,'depot'])->name('depot.espece');
 Route::get('/retrait-espece', [RetraitEspeceController::class,'retrait'])->name('retrait.espece');
 Route::get('/positionnement', [RetraitEspeceController::class,'getPositionnement'])->name('retrait.positionnement');
+Route::get('/appro', [ApproController::class,'getApproPage'])->name('appro.approvisionnement');
 
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
@@ -134,6 +136,12 @@ Route::post("positionnement/espece",
 
 Route::get("positionnement/getalloperation",
 [RetraitEspeceController::class,'getAllPositionnement']);
+
+//GET ALL CAISSIER FROM DB
+
+Route::get("appro/getcaissier",
+[ApproController::class,'getAllCaissier']);
+
 
 
 

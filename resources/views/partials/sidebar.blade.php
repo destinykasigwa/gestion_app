@@ -40,7 +40,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{route('appro.approvisionnement')}}" class="nav-link">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <p>Appro</p>
                             </a>

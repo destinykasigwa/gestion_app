@@ -8,6 +8,7 @@ use App\Models\Transactions;
 use Illuminate\Http\Request;
 use App\Models\AdhesionMembre;
 use App\Models\Comptes;
+use App\Models\CompteurDocument;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
 use App\Models\Dummy;
@@ -18,247 +19,247 @@ use Illuminate\Support\Facades\Validator;
 
 class DepotEspeceController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+  public function __construct()
+  {
+    $this->middleware('auth');
+  }
 
-// fuction to get searched accout
- 
-public function getAccount($id){
-  //RECUPERE LES INFO DU MEMBRE RECHERCHE
+  // fuction to get searched accout
+
+  public function getAccount($id)
+  {
+    //RECUPERE LES INFO DU MEMBRE RECHERCHE
     $data = AdhesionMembre::where('numCompte', 'like', '%' . $id . '%')->first();
 
     //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
-    $soldeMembre= Transactions::select(
+    $soldeMembre = Transactions::select(
       DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
       DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
-    )->where("NumCompte",'like', '%' . $id . '%')
-    ->groupBy("NumCompte")
-    ->get();   
+    )->where("NumCompte", 'like', '%' . $id . '%')
+      ->groupBy("NumCompte")
+      ->get();
 
+    //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
+           $lastId = [];
+            $lastId = CompteurDocument::orderBy('id', 'desc')->first();
+            $numDoc=$lastId->id;
 
     if ($data) {
 
       return response()->json([
-        "success" => 1, 'data' =>  $data
-      ,"soldeMembre"=>$soldeMembre]);
+        "success" => 1, 'data' =>  $data, "soldeMembre" => $soldeMembre,"numdoc"=>$numDoc
+      ]);
     } else {
 
       return response()->json([
         "success" => 0, 'msg' =>  "Ce compte ne semble pas existé"
       ]);
     }
-}
+  }
 
-//FUNCTION QUI RECUPERE UNE SPECIFIQUE OPERATION QUI A ETE POSTIONNEE
+  //FUNCTION QUI RECUPERE UNE SPECIFIQUE OPERATION QUI A ETE POSTIONNEE
 
-public function getNumDocument($numDocument) {
- 
-$dataRowExist=Positionnement::where("NumDocument","=",$numDocument)->first();
- if($dataRowExist){
-  
-  $dataPostione=Positionnement::where("NumDocument","=",$numDocument)->get();
-  $numCompteMembre=$dataPostione[0]->RefCompte;
-//RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE CDF
-$dataCDF = Transactions::where('transactions.refCompteMembre', '=',$numCompteMembre)
-->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie","=","2")
-->get();
-//RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE USD
-$dataUSD = Transactions::where('transactions.refCompteMembre', '=',$numCompteMembre)
-->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie","=","1")
-->get();
+  public function getNumDocument($numDocument)
+  {
 
-$NumeroCompteCDF=$dataCDF[0]->NumCompte;
-$NumeroCompteUSD=$dataUSD[0]->NumCompte;
-//RECUPERE LE SOLDE DU MEMBRE EN FC 
-$soldeMembreCDF= Transactions::select(
-  DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
-)->where("NumCompte",'=',$NumeroCompteCDF)
-->groupBy("NumCompte")
-->get();   
+    $dataRowExist = Positionnement::where("NumDocument", "=", $numDocument)->first();
+    if ($dataRowExist) {
 
-//RECUPERE LE SOLDE DU MEMBRE EN FC 
-$soldeMembreUSD= Transactions::select(
-  DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
-)->where("NumCompte",'=',$NumeroCompteUSD)
-->groupBy("NumCompte")
-->get(); 
+      $dataPostione = Positionnement::where("NumDocument", "=", $numDocument)->get();
+      $numCompteMembre = $dataPostione[0]->RefCompte;
+      //RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE CDF
+      $dataCDF = Transactions::where('transactions.refCompteMembre', '=', $numCompteMembre)
+        ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie", "=", "2")
+        ->get();
+      //RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE USD
+      $dataUSD = Transactions::where('transactions.refCompteMembre', '=', $numCompteMembre)
+        ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie", "=", "1")
+        ->get();
 
-  return response()->json([
-    "success" => 1, 'data' => $dataUSD,"soldeMembreCDF"=>$soldeMembreCDF,"soldeMembreUSD"=>$soldeMembreUSD,"datapositionnement"=>$dataPostione
-  ]);
+      $NumeroCompteCDF = $dataCDF[0]->NumCompte;
+      $NumeroCompteUSD = $dataUSD[0]->NumCompte;
+      //RECUPERE LE SOLDE DU MEMBRE EN FC 
+      $soldeMembreCDF = Transactions::select(
+        DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
+      )->where("NumCompte", '=', $NumeroCompteCDF)
+        ->groupBy("NumCompte")
+        ->get();
 
- }else{
-  return response()->json([
-    "success" => 0, 'msg' =>  "Numéro de dossier invalide"
-  ]);
- }
+      //RECUPERE LE SOLDE DU MEMBRE EN FC 
+      $soldeMembreUSD = Transactions::select(
+        DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+      )->where("NumCompte", '=', $NumeroCompteUSD)
+        ->groupBy("NumCompte")
+        ->get();
 
-}
-
+      return response()->json([
+        "success" => 1, 'data' => $dataUSD, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeMembreUSD, "datapositionnement" => $dataPostione
+      ]);
+    } else {
+      return response()->json([
+        "success" => 0, 'msg' =>  "Numéro de dossier invalide"
+      ]);
+    }
+  }
 
 
-    //function to store data in to data base when makeking deposit
- 
-    public function depotEspece(Request $request)
-    {
-    
-        $validator = validator::make($request->all(), [
-            'devise' => 'required',
-            'libelle' => 'required|max:50',
-            'montantDepot' => 'required',
+
+  //function to store data in to data base when makeking deposit
+
+  public function depotEspece(Request $request)
+  {
+
+    $validator = validator::make($request->all(), [
+      'devise' => 'required',
+      'libelle' => 'required|max:50',
+      'montantDepot' => 'required',
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json([
+        'validate_error' => $validator->errors()
+      ]);
+    } else {
+      CompteurTransaction::create([
+        'fakevalue' => "0000",
+      ]);
+      $numOperation = [];
+      $numOperation = CompteurTransaction::latest()->first();
+      $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "D00" . $numOperation->id;
+
+      //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
+      $numCompteCaissierUSD = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
+      $CompteCaissierUSD = $numCompteCaissierUSD->NumCompte;
+
+      //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
+      $numCompteCaissierCDF = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
+      $CompteCaissierCDF = $numCompteCaissierCDF->NumCompte;
+
+      //  $numCompteContrePartie="5700003032202";
+      //  $numCompteContrePartieUSD="5700003032201";
+      if ($request->devise == "CDF") {
+        //RECUPERE LE NUMERO DE COMPTE CDF DU MEMBRE CONCERNE
+        $getCompteMembreCDF = Transactions::where("refCompteMembre", "=", $request->refCompte)->Where("CodeMonnaie", "=", "2")->first();
+        $compteCDF = $getCompteMembreCDF->NumCompte;
+
+        //CREDITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
+        Transactions::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $request->DateTransaction,
+          "DateSaisie" => $request->DateTransaction,
+          "Taux" => 1,
+          "TypeTransaction" => "C",
+          "CodeMonnaie" => 2,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $compteCDF,
+          "NumComptecp" => $CompteCaissierCDF,
+          "Operant" => $request->operant,
+          "Creditfc" => $request->montantDepot,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
         ]);
+        //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
+        $lastInsertedId = Transactions::latest()->first();
+        //COMPLETE LE BILLETAGE
 
-        if ($validator->fails()) {
-            return response()->json([
-                'validate_error' => $validator->errors()
-            ]);
-        }else{
-            CompteurTransaction::create([
-                'fakevalue' => "0000",
-              ]);
-              $numOperation = [];
-              $numOperation = CompteurTransaction::latest()->first();
-              $NumTransaction= Auth::user()->name[0]. Auth::user()->name[1]."D00".$numOperation->id;
-              
-              //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
-              $numCompteCaissierUSD=Comptes::where("NumAdherant","=",Auth::user()->id)->where("CodeMonnaie","=","1")->first();
-              $CompteCaissierUSD=$numCompteCaissierUSD->NumCompte;
+        BilletageCdf::create([
+          "refOperation" => $lastInsertedId->RéfTransaction,
+          "vightMilleFranc" => $request->vightMille,
+          "dixMilleFranc" => $request->dixMille,
+          "cinqMilleFranc" => $request->cinqMille,
+          "milleFranc" => $request->milleFranc,
+          "cinqCentFranc" => $request->cinqCentFr,
+          "deuxCentFranc" => $request->deuxCentFranc,
+          "centFranc" => $request->centFranc,
+          "cinquanteFanc" => $request->cinquanteFanc,
+          "NomUtilisateur" => Auth::user()->name,
+          "DateTransaction" => $request->DateTransaction
+        ]);
+        //CREDITE LE COMPTE CONTRE PARTIE  
+        Dummy::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $request->DateTransaction,
+          "DateSaisie" => $request->DateTransaction,
+          "Taux" => 1,
+          "TypeTransaction" => "C",
+          "CodeMonnaie" => 2,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $CompteCaissierCDF,
+          "NumComptecp" => $compteCDF,
+          "Operant" => $request->operant,
+          "Debitfc" => $request->montantDepot,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
+        ]);
+      } else if ($request->devise == "USD") {
+        //CREDIT LE COMPTE DU MEMBRE SI C UNE OPERATION EN USD
+        Transactions::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $request->DateTransaction,
+          "DateSaisie" => $request->DateTransaction,
+          "Taux" => 1,
+          "TypeTransaction" => "C",
+          "CodeMonnaie" => 1,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $request->numCompte,
+          "NumComptecp" => $CompteCaissierUSD,
+          "Credit" => $request->montantDepot,
+          "Operant" => $request->operant,
+          "Credit$" => $request->montantDepot,
+          "Creditcdf" => $request->montantDepot * $request->taux,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
+        ]);
+        //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
+        $lastInsertedId = Transactions::latest()->first();
+        //COMPLETE LE BILLETAGE
 
-              //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
-              $numCompteCaissierCDF=Comptes::where("NumAdherant","=",Auth::user()->id)->where("CodeMonnaie","=","2")->first();
-              $CompteCaissierCDF=$numCompteCaissierCDF->NumCompte;
-
-            //  $numCompteContrePartie="5700003032202";
-            //  $numCompteContrePartieUSD="5700003032201";
-           if($request->devise=="CDF"){
-                //RECUPERE LE NUMERO DE COMPTE CDF DU MEMBRE CONCERNE
-                $getCompteMembreCDF=Transactions::where("refCompteMembre","=",$request->refCompte)->Where("CodeMonnaie","=","2")->first();
-                $compteCDF=$getCompteMembreCDF->NumCompte;
-    
-                //CREDITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $request->DateTransaction,
-                "DateSaisie" => $request->DateTransaction,
-                "Taux" => 1,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $compteCDF,
-                "NumComptecp" => $CompteCaissierCDF,
-                "Operant"=>$request->operant,
-                "Creditfc" => $request->montantDepot,
-                "NomUtilisateur" => Auth::user()->name,   
-                "Libelle"=>$request->libelle,
-              ]);
-              //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
-              $lastInsertedId = Transactions::latest()->first();
-              //COMPLETE LE BILLETAGE
-              
-              BilletageCdf::create([
-               "refOperation"=>$lastInsertedId->RéfTransaction,
-              "vightMilleFranc"=>$request->vightMille,
-              "dixMilleFranc"=>$request->dixMille,
-              "cinqMilleFranc"=>$request->cinqMille,
-              "milleFranc"=>$request->milleFranc,
-              "cinqCentFranc"=>$request->cinqCentFr,
-              "deuxCentFranc"=>$request->deuxCentFranc,
-              "centFranc"=>$request->centFranc,
-              "cinquanteFanc"=>$request->cinquanteFanc,
-              "NomUtilisateur"=> Auth::user()->name, 
-              "DateTransaction"=>$request->DateTransaction
-              ]);
-              //CREDITE LE COMPTE CONTRE PARTIE  
-              Dummy::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $request->DateTransaction,
-                "DateSaisie" => $request->DateTransaction,
-                "Taux" => 1,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $CompteCaissierCDF,
-                "NumComptecp" =>$compteCDF,
-                "Operant"=>$request->operant,
-                "Debitfc" => $request->montantDepot,
-                "NomUtilisateur" => Auth::user()->name,   
-                "Libelle"=>$request->libelle,
-              ]);
-
-
-           }else if($request->devise=="USD"){
-             //CREDIT LE COMPTE DU MEMBRE SI C UNE OPERATION EN USD
-             Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $request->DateTransaction,
-                "DateSaisie" => $request->DateTransaction,
-                "Taux" => 1,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 1,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $request->numCompte,
-                "NumComptecp" => $CompteCaissierUSD,
-                "Credit" => $request->montantDepot,
-                "Operant"=>$request->operant,
-                "Credit$" => $request->montantDepot,
-                "Creditcdf" => $request->montantDepot * $request->taux,
-                "NomUtilisateur" => Auth::user()->name,   
-                "Libelle"=>$request->libelle,
-              ]);
-              //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
-              $lastInsertedId = Transactions::latest()->first();
-              //COMPLETE LE BILLETAGE
-              
-              BilletageUsd::create([
-               "refOperation"=>$lastInsertedId->RéfTransaction,
-              "centDollars"=>$request->hundred,
-              "cinquanteDollars"=>$request->fitfty,
-              "vightDollars"=>$request->twenty,
-              "dixDollars"=>$request->ten,
-              "cinqDollars"=>$request->five,
-              "unDollars"=>$request->oneDollar,
-              "NomUtilisateur"=> Auth::user()->name,
-              "DateTransaction"=>$request->DateTransaction
-              ]);
-              //CREDITE LE COMPTE CONTRE PARTIE  
-              Dummy::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $request->DateTransaction,
-                "DateSaisie" => $request->DateTransaction,
-                "Taux" => 1,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $CompteCaissierUSD,
-                "NumComptecp" =>  $request->numCompte,
-                "Debit" => $request->montantDepot,
-                "Operant"=>$request->operant,
-                "Debit$" => $request->montantDepot,
-                "Debitfc"  => $request->montantDepot * $request->taux,
-                "NomUtilisateur" => Auth::user()->name,   
-                "Libelle"=>$request->libelle,
-              ]);
-
-
-           }
-        }
-
-        return response()->json(["success"=>1,"msg"=>"Opération bien effectuée."]);
-
+        BilletageUsd::create([
+          "refOperation" => $lastInsertedId->RéfTransaction,
+          "centDollars" => $request->hundred,
+          "cinquanteDollars" => $request->fitfty,
+          "vightDollars" => $request->twenty,
+          "dixDollars" => $request->ten,
+          "cinqDollars" => $request->five,
+          "unDollars" => $request->oneDollar,
+          "NomUtilisateur" => Auth::user()->name,
+          "DateTransaction" => $request->DateTransaction
+        ]);
+        //CREDITE LE COMPTE CONTRE PARTIE  
+        Dummy::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $request->DateTransaction,
+          "DateSaisie" => $request->DateTransaction,
+          "Taux" => 1,
+          "TypeTransaction" => "C",
+          "CodeMonnaie" => 2,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $CompteCaissierUSD,
+          "NumComptecp" =>  $request->numCompte,
+          "Debit" => $request->montantDepot,
+          "Operant" => $request->operant,
+          "Debit$" => $request->montantDepot,
+          "Debitfc"  => $request->montantDepot * $request->taux,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
+        ]);
+      }
     }
 
-    public function getBilletage(){
-   
+    return response()->json(["success" => 1, "msg" => "Opération bien effectuée."]);
+  }
+
+  public function getBilletage()
+  {
+
     // $billetageCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)
     // ->join('billetage_cdfs', "transactions.RéfTransaction","=","billetage_cdfs.refOperation")
     //  ->select('billetage_cdfs.*')
@@ -269,64 +270,63 @@ $soldeMembreUSD= Transactions::select(
     //  ->select('billetage_cdfs.*')
     //  ->get();
     //  $sum = Model::where('status', 'paid')->sum('sum_field');
-//RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
-$date=date("Y-m-d");
-$billetageCDF = BilletageCdf::select(
-  DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFran"),
-  DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFran"),
-  DB::raw("SUM(cinqMilleFranc)-SUM(cinqMilleFrancSortie) as cinqMilleFran"),
-  DB::raw("SUM(milleFranc)-SUM(milleFrancSortie) as milleFran"),
-  DB::raw("SUM(cinqCentFranc)-SUM(cinqCentFrancSortie) as cinqCentFran"),
-  DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFran"),
-  DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFran"),
-  DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFan"),
-    )->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
-->groupBy("NomUtilisateur")
-->get();
-   
-//RECUPERE LE BILLETAGE EN USD
+    //RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
+    $date = date("Y-m-d");
+    $billetageCDF = BilletageCdf::select(
+      DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFran"),
+      DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFran"),
+      DB::raw("SUM(cinqMilleFranc)-SUM(cinqMilleFrancSortie) as cinqMilleFran"),
+      DB::raw("SUM(milleFranc)-SUM(milleFrancSortie) as milleFran"),
+      DB::raw("SUM(cinqCentFranc)-SUM(cinqCentFrancSortie) as cinqCentFran"),
+      DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFran"),
+      DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFran"),
+      DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFan"),
+    )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+      ->groupBy("NomUtilisateur")
+      ->get();
 
-$billetageUSD = BilletageUsd::select(
-  DB::raw("SUM(centDollars)-SUM(centDollarsSortie) as centDollar"),
-  DB::raw("SUM(cinquanteDollars)-SUM(cinquanteDollarsSortie) as cinquanteDollar"),
-  DB::raw("SUM(vightDollars)-SUM(vightDollarsSortie) as vightDollar"),
-  DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollar"),
-  DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollar"),
-  DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollar"),
-)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
-->groupBy("NomUtilisateur")
-->get();
+    //RECUPERE LE BILLETAGE EN USD
 
-//RECUPERE 8 OPERATIONS RECENTES CDF
+    $billetageUSD = BilletageUsd::select(
+      DB::raw("SUM(centDollars)-SUM(centDollarsSortie) as centDollar"),
+      DB::raw("SUM(cinquanteDollars)-SUM(cinquanteDollarsSortie) as cinquanteDollar"),
+      DB::raw("SUM(vightDollars)-SUM(vightDollarsSortie) as vightDollar"),
+      DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollar"),
+      DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollar"),
+      DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollar"),
+    )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+      ->groupBy("NomUtilisateur")
+      ->get();
+
+    //RECUPERE 8 OPERATIONS RECENTES CDF
 
 
-$operationCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","2")
-            ->paginate(8)->All();
+    $operationCDF = Transactions::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "2")
+      ->paginate(8)->All();
 
-   //RECUPERE 6 OPERATIONS RECENTES USD    
-$operationUSD = Transactions::where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)->where("CodeMonnaie","=","1")
-           ->paginate(6)->All();
+    //RECUPERE 6 OPERATIONS RECENTES USD    
+    $operationUSD = Transactions::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "1")
+      ->paginate(6)->All();
 
-$soldeOperationCDF= Transactions::select(
-  DB::raw("SUM(Debitfc) as sommeDeDebitCDF"),
-  DB::raw("SUM(Creditfc) as sommeDeCreditCDF"),
-)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
-->groupBy("NomUtilisateur")
-->get(); 
+    $soldeOperationCDF = Transactions::select(
+      DB::raw("SUM(Debitfc) as sommeDeDebitCDF"),
+      DB::raw("SUM(Creditfc) as sommeDeCreditCDF"),
+    )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+      ->groupBy("NomUtilisateur")
+      ->get();
 
-$soldeOperationUSD= Transactions::select(
-  DB::raw("SUM(Debit$) as sommeDeDebitUSD"),
-  DB::raw("SUM(Credit$) as sommeDeCreditUSD"),
-)->where("NomUtilisateur","=",Auth::user()->name)->where("DateTransaction","=",$date)
-->groupBy("NomUtilisateur")
-->get();        
+    $soldeOperationUSD = Transactions::select(
+      DB::raw("SUM(Debit$) as sommeDeDebitUSD"),
+      DB::raw("SUM(Credit$) as sommeDeCreditUSD"),
+    )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+      ->groupBy("NomUtilisateur")
+      ->get();
 
-    return response()->json(["data"=>$billetageCDF,"data2"=>$billetageUSD,"data3"=>$operationCDF,"data4"=>$operationUSD,"data5"=>$soldeOperationCDF,"data6"=>$soldeOperationUSD]);
-    
+    return response()->json(["data" => $billetageCDF, "data2" => $billetageUSD, "data3" => $operationCDF, "data4" => $operationUSD, "data5" => $soldeOperationCDF, "data6" => $soldeOperationUSD]);
   }
-    public function depot()
-    {
+  public function depot()
+  {
 
-        return view("depot-espece");
-    }
+    return view("depot-espece");
+  }
 }

@@ -1072,6 +1072,7 @@ export default class DepotEspece extends React.Component {
              
                     <div className="col-md-2" style={{ background: "#fff",padding:"5px"}}>
                         <tr>
+                          <td></td>
                         <td style={{padding:"2px"}}>
                           {this.state.hundred * 100 +
                             this.state.fitfty * 50 +
@@ -1127,6 +1128,7 @@ export default class DepotEspece extends React.Component {
                         
                       </tr>
                       <tr>
+                      <td></td>
                       <td style={{padding:"2px"}}>
                           
                             <button
