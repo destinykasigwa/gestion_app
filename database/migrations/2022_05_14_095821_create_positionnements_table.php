@@ -34,6 +34,8 @@ return new class extends Migration
             $table->string("Mandataire",20)->nullable();
             $table->string("NomUtilisateur",20)->nullable();
             $table->string("Autorisateur",20)->nullable();
+            $table->string("RefCompte",20)->nullable();
+            $table->string("Servie",20)->nullable()->default("0");
             $table->timestamps();
         });
     }

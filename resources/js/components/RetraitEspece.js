@@ -17,7 +17,7 @@ export default class RetraitEspece extends React.Component{
             ten: 0,
             five: 0,
             oneDollar: 0,
-            montantDepot: 0,
+            montantRetrait: 0,
             devise: "",
             numCompte: "",
             commission: 0,
@@ -47,7 +47,11 @@ export default class RetraitEspece extends React.Component{
             getLastestOperationUSD:null,
             getSommeCDF:null,
             getSommeUSD:null,
-            getMembreSolde:null
+            getMembreSoldeCDF:null,
+            getMembreSoldeUSD:null,
+            getPositionnementData:"",
+            numDocument:""
+            
             
         };
         this.actualiser = this.actualiser.bind(this);
@@ -143,19 +147,24 @@ export default class RetraitEspece extends React.Component{
     handleAccount = async (e) => {
       e.preventDefault();
       const getData = await axios.get(
-          "compte/search/" + this.state.compteToSearch
+          "compte/search/numdossier/" + this.state.compteToSearch
       );
       if (getData.data.success == 1) {
-          this.setState({ fetchData: getData.data.data,getMembreSolde:getData.data.soldeMembre });
+          this.setState({ fetchData: getData.data.data,getMembreSoldeCDF:getData.data.soldeMembreCDF,getMembreSoldeUSD:getData.data.soldeMembreUSD,getPositionnementData:getData.data.datapositionnement });
           this.setState({ disabled: !this.state.disabled,
-            refCompte:this.state.fetchData.refCompte,
-            numCompte:this.state.fetchData.numCompte,operant:this.state.fetchData.intituleCompte });
-           console.log(this.state.getMembreSolde);
+            refCompte:this.state.fetchData[0].refCompte,
+            numCompte:this.state.fetchData[0].numCompte,operant:this.state.fetchData[0].intituleCompte,montantRetrait:this
+            .state
+            .getPositionnementData[0]
+            .Montant,devise:this
+            .state
+            .getPositionnementData[0].CodeMonnaie,numDocument:this.state.getPositionnementData[0].NumDocument });
+          //  console.log(this.state.getPositionnementData[0].Montant);
           //disabled valider button
           document
               .getElementById("validerbtn")
               .removeAttribute("disabled", "disabled");
-      } else {
+      } else if(getData.data.success == 0) {
           Swal.fire({
               title: "Erreur",
               text: getData.data.msg,
@@ -300,7 +309,7 @@ export default class RetraitEspece extends React.Component{
                                                             borderRadius: "0px",
                                                         }}
                                                         className="form-control font-weight-bold"
-                                                        placeholder="Numéro compte..."
+                                                        placeholder="Num document ..."
                                                         name="compteToSearch"
                                                         value={
                                                           this.state
@@ -341,10 +350,19 @@ export default class RetraitEspece extends React.Component{
                                                         className="form-control mt-1 font-weight-bold"
 
                                                         value={
-                                                          this.state
-                                                              .fetchData &&
-                                                          this.state.fetchData
+                                                          this
+                                                              .state
                                                               .numCompte
+                                                              ? this
+                                                                    .state
+                                                                    .numCompte
+                                                              : this
+                                                                    .state
+                                                                    .fetchData &&
+                                                                this
+                                                                    .state
+                                                                    .fetchData[0]
+                                                                    .numCompte
                                                       }
                                                     />
                                                 </div>
@@ -385,7 +403,7 @@ export default class RetraitEspece extends React.Component{
                                                                 value={
                                                                   this
                                                                       .state
-                                                                      .otherMention
+                                                                      .intituleCompte
                                                                       ? this
                                                                             .state
                                                                             .intituleCompte
@@ -394,7 +412,7 @@ export default class RetraitEspece extends React.Component{
                                                                             .fetchData &&
                                                                         this
                                                                             .state
-                                                                            .fetchData
+                                                                            .fetchData[0]
                                                                             .intituleCompte
                                                               }
                                                                 
@@ -469,7 +487,7 @@ export default class RetraitEspece extends React.Component{
                                                                             .fetchData &&
                                                                         this
                                                                             .state
-                                                                            .fetchData
+                                                                            .fetchData[0]
                                                                             .numCompte
                                                               }
                                                                 disabled
@@ -541,8 +559,8 @@ export default class RetraitEspece extends React.Component{
                                                                 name="intituleCompte"
                                                                 value={
                                                                   this.state
-                                                                      .getMembreSolde &&
-                                                                numberFormat(parseInt(this.state.getMembreSolde[0]
+                                                                      .getMembreSoldeUSD &&
+                                                                numberFormat(parseInt(this.state.getMembreSoldeUSD[0]
                                                                       .soldeMembreUSD))
                                                               }
                                                                 
@@ -572,8 +590,8 @@ export default class RetraitEspece extends React.Component{
                                                                 name="intituleCompte"
                                                                 value={
                                                                   this.state
-                                                                      .getMembreSolde &&
-                                                                numberFormat(parseInt(this.state.getMembreSolde[1]
+                                                                      .getMembreSoldeCDF &&
+                                                                numberFormat(parseInt(this.state.getMembreSoldeCDF[0]
                                                                       .soldeMembreCDF))
                                                               }
                                                                 
@@ -611,31 +629,19 @@ export default class RetraitEspece extends React.Component{
                                                             </label>{" "}
                                                         </td>
                                                         <div className="input-group input-group-sm ">
-                                                            <select
+                                                            <input
+                                                            type="text"
                                                             name="typeDocument"
-                                                             className={`form-control ${
-                                                              this.state
-                                                                  .error_list
-                                                                  .typeDocument &&
-                                                              "is-invalid"
-                                                          }`}
+                                                             
                                                                  onChange={
                                                                   this
                                                                       .handleChange
                                                               }
                                                                 style={inputColor}
-                                                                value={this.state.typeDocument}
-                                                                >
-                                                                 <option value="">
-                                                                   Sélectionnez
-                                                                </option>
-                                                                <option value="Visa retrait">
-                                                                    Visa retrait
-                                                                </option>
-                                                                <option value="Bon de dépense">
-                                                                   Bon de dépense
-                                                                </option>
-                                                            </select>
+                                                                value={this.state.getPositionnementData &&this.state.getPositionnementData[0].NumDocument}
+                                                                disabled
+                                                                />
+                                                                 
                                                         </div>
                                                     </tr>
                                                       <tr>
@@ -651,31 +657,35 @@ export default class RetraitEspece extends React.Component{
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <select
+                                                            type="text"
                                                             name="devise"
-                                                             className={`form-control ${
-                                                              this.state
-                                                                  .error_list
-                                                                  .devise &&
-                                                              "is-invalid"
-                                                          }`}
+                                                             
                                                                  onChange={
                                                                   this
                                                                       .handleChange
-                                                              }
+                                                                 }
                                                               
                                                                 style={inputColor}
-                                                                value={this.state.devise}
+                                                                value={ this
+                                                                  .state
+                                                                  .devise
+                                                                  ? this
+                                                                        .state
+                                                                        .devise
+                                                                  : this.state.getPositionnementData && this.state.getPositionnementData[0].CodeMonnaie}   
+
                                                                 >
-                                                                 <option value="">
-                                                                   Sélectionnez
+                                                                <option value="">
+                                                                Sélectionnez
                                                                 </option>
                                                                 <option value="CDF">
-                                                                    CDF
+                                                                CDF
                                                                 </option>
                                                                 <option value="USD">
-                                                                    USD
+                                                                USD
                                                                 </option>
-                                                            </select>
+                                                                </select>
+                                                                 
                                                         </div>
                                                     </tr>
                                                       <tr>
@@ -692,16 +702,28 @@ export default class RetraitEspece extends React.Component{
                                                         <div className="input-group input-group-sm ">
                                                             <input
                                                             name="libelle"
-                                                            className={`form-control ${
-                                                              this.state
-                                                                  .error_list
-                                                                  .libelle &&
-                                                              "is-invalid"
-                                                          }`}
+                                                          //   className={`form-control ${
+                                                          //     this.state
+                                                          //         .error_list
+                                                          //         .libelle &&
+                                                          //     "is-invalid"
+                                                          // }`}
                                                                 type="text"
                                                                 style={inputColor}
                                                                 
-                                                                value={this.state.libelle}
+                                                                value={
+                                                                  this
+                                                                      .state
+                                                                      .libelle
+                                                                      ? this
+                                                                            .state
+                                                                            .libelle
+                                                                      : this.state.getPositionnementData &&
+                                                                        this
+                                                                            .state
+                                                                            .getPositionnementData[0]
+                                                                            .Concerne
+                                                                            }
                                                                
                                                                 disabled={
                                                                     this.state
@@ -732,14 +754,9 @@ export default class RetraitEspece extends React.Component{
                                                                 type="text"
                                                                 style={inputColor}
                                                                 name="deposantName"
-                                                                value={this.state.deposantName}
+                                                                value={this.state.getPositionnementData &&this.state.getPositionnementData[0].Retirant}
                                                                
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
                                                                  onChange={
                                                                     this
                                                                         .handleChange
@@ -755,7 +772,7 @@ export default class RetraitEspece extends React.Component{
                                                                     labelColor
                                                                 }
                                                             >
-                                                              Tél déposant
+                                                              Tél Bén.
                                                             </label>{" "}
                                                         </td>
                                                         <div className="input-group input-group-sm ">
@@ -763,14 +780,9 @@ export default class RetraitEspece extends React.Component{
                                                                 type="text"
                                                                 style={inputColor}
                                                                 name="telDeposant"
-                                                                value={this.state.telDeposant}
+                                                                value={this.state.getPositionnementData &&this.state.getPositionnementData[0].NumTel}
                                                                
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
                                                                 onChange={
                                                                   this
                                                                       .handleChange
@@ -792,24 +804,28 @@ export default class RetraitEspece extends React.Component{
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <input
-                                                              name="montantDepot"
-                                                            className={`form-control ${
-                                                              this.state
-                                                                  .error_list
-                                                                  .montantDepot &&
-                                                              "is-invalid"
-                                                          }`}
+                                                              name="montantRetrait"
+                                                            className={`form-control`}
                                                                 type="text"
                                                                 style={inputColor}
+                                                                value={
+                                                                  this
+                                                                      .state
+                                                                      .montantRetrait
+                                                                      ? this
+                                                                            .state
+                                                                            .montantRetrait
+                                                                      : this.state.getPositionnementData &&
+                                                                        this
+                                                                            .state
+                                                                            .getPositionnementData[0]
+                                                                            .Montant
+                                                                            }
                                                               
-                                                                value={this.state.montantDepot}
+                                                              
                                                                
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
+                                                                
                                                                 onChange={
                                                                   this
                                                                       .handleChange
@@ -1133,7 +1149,7 @@ export default class RetraitEspece extends React.Component{
                             this.state.ten * 10 +
                             this.state.five * 5 +
                             this.state.oneDollar * 1 ===
-                            parseInt(this.state.montantDepot) ||
+                            parseInt(this.state.montantRetrait) ||
                           this.state.vightMille * 20000 +
                             this.state.dixMille * 10000 +
                             this.state.cinqMille * 5000 +
@@ -1142,7 +1158,7 @@ export default class RetraitEspece extends React.Component{
                             this.state.deuxCentFranc * 200 +
                             this.state.centFranc * 100 +
                             this.state.cinquanteFanc * 50 ===
-                            parseInt(this.state.montantDepot) ? (
+                            parseInt(this.state.montantRetrait) ? (
                             <button
                             style={{
                               borderRadius:

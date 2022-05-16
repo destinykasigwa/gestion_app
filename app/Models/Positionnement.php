@@ -28,6 +28,8 @@ class Positionnement extends Model
         "Proprietaire",
         "Mandataire",
         "NomUtilisateur",
-        "Autorisateur"
+        "Autorisateur",
+        "RefCompte",
+        "Servie"
     ];
 }

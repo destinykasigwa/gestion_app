@@ -165,7 +165,7 @@ export default class DepotEspece extends React.Component {
   }
 
     render() {
-        var myspinner = {
+        let myspinner = {
             margin: "5px auto",
             width: "3rem",
             height: "3rem",
@@ -173,13 +173,13 @@ export default class DepotEspece extends React.Component {
             border: "0px",
             height: "200px",
         };
-        var labelColor = {
+        let labelColor = {
             fontWeight: "bold",
             color: "steelblue",
             padding: "3px",
             fontSize: "14px",
         };
-        var inputColor = {
+        let inputColor = {
             height: "25px",
             border: "1px solid steelblue",
             padding: "3px",
@@ -191,7 +191,7 @@ export default class DepotEspece extends React.Component {
         //     padding: "3px",
         //     width: "60px",
         // };
-        var tableBorder = {
+        let tableBorder = {
             border: "2px solid #fff",
             fontSize: "14px",
             textAlign:"center"
@@ -203,16 +203,16 @@ export default class DepotEspece extends React.Component {
         let compteur4=1;
         //PERMET DE FORMATER LES CHIFFRES
         const numberFormat = (number = 0) => {
-          var locales = [
+          let locales = [
             //undefined,  // Your own browser
             "en-US", // United States
             //'de-DE',    // Germany
             //'ru-RU',    // Russia
             //'hi-IN',    // India
           ];
-          var opts = { minimumFractionDigits: 2 };
-          var index = 3;
-          var nombre = number.toLocaleString(locales[index], opts);
+          let opts = { minimumFractionDigits: 2 };
+          let index = 3;
+          let nombre = number.toLocaleString(locales[index], opts);
           if (nombre === isNaN) {
             nombre = 0.0;
           } else {

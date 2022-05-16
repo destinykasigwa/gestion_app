@@ -11,6 +11,7 @@ use App\Models\Comptes;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
 use App\Models\Dummy;
+use App\Models\Positionnement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -48,6 +49,52 @@ public function getAccount($id){
         "success" => 0, 'msg' =>  "Ce compte ne semble pas existé"
       ]);
     }
+}
+
+//FUNCTION QUI RECUPERE UNE SPECIFIQUE OPERATION QUI A ETE POSTIONNEE
+
+public function getNumDocument($numDocument) {
+ 
+$dataRowExist=Positionnement::where("NumDocument","=",$numDocument)->first();
+ if($dataRowExist){
+  
+  $dataPostione=Positionnement::where("NumDocument","=",$numDocument)->get();
+  $numCompteMembre=$dataPostione[0]->RefCompte;
+//RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE CDF
+$dataCDF = Transactions::where('transactions.refCompteMembre', '=',$numCompteMembre)
+->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie","=","2")
+->get();
+//RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE USD
+$dataUSD = Transactions::where('transactions.refCompteMembre', '=',$numCompteMembre)
+->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie","=","1")
+->get();
+
+$NumeroCompteCDF=$dataCDF[0]->NumCompte;
+$NumeroCompteUSD=$dataUSD[0]->NumCompte;
+//RECUPERE LE SOLDE DU MEMBRE EN FC 
+$soldeMembreCDF= Transactions::select(
+  DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
+)->where("NumCompte",'=',$NumeroCompteCDF)
+->groupBy("NumCompte")
+->get();   
+
+//RECUPERE LE SOLDE DU MEMBRE EN FC 
+$soldeMembreUSD= Transactions::select(
+  DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+)->where("NumCompte",'=',$NumeroCompteUSD)
+->groupBy("NumCompte")
+->get(); 
+
+  return response()->json([
+    "success" => 1, 'data' => $dataUSD,"soldeMembreCDF"=>$soldeMembreCDF,"soldeMembreUSD"=>$soldeMembreUSD,"datapositionnement"=>$dataPostione
+  ]);
+
+ }else{
+  return response()->json([
+    "success" => 0, 'msg' =>  "Numéro de dossier invalide"
+  ]);
+ }
+
 }
 
 

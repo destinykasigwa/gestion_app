@@ -10532,7 +10532,8 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                     adresse: _this.state.fetchData.CommuneActuelle + " " + _this.state.fetchData.QuartierActuelle,
                     telBeneficiaire: _this.state.fetchData.phone1,
                     typepiece: _this.state.fetchData.typepiece,
-                    numpiece: _this.state.fetchData.numpiece
+                    numpiece: _this.state.fetchData.numpiece,
+                    beneficiaire: _this.state.fetchData.intituleCompte
                   });
 
                   console.log(_this.state.getMembreSolde); //disabled valider button
@@ -10631,6 +10632,32 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _defineProperty(_assertThisInitialized(_this), "getAllOperation", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var getOperation;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/positionnement/getalloperation");
+
+            case 2:
+              getOperation = _context3.sent;
+
+              _this.setState({
+                getAllOperat: getOperation.data.data
+              });
+
+              console.log(getOperation.data.data);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })));
+
     _this.state = {
       disabled: true,
       isloading: true,
@@ -10664,11 +10691,13 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       getSommeUSD: null,
       getMembreSolde: null,
       soldeCDF: "",
-      soldeUSD: ""
+      soldeUSD: "",
+      getAllOperat: null
     };
     _this.handleAccount = _this.handleAccount.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
+    _this.getAllOperation = _this.getAllOperation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -10697,6 +10726,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       this.setState({
         DateTransaction: formatted_date
       });
+      this.getAllOperation();
     } //GET DATA FROM INPUT
 
   }, {
@@ -10744,7 +10774,8 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
         border: "2px solid #fff",
         fontSize: "14px",
         textAlign: "center"
-      }; //PERMET DE FORMATER LES CHIFFRES
+      };
+      var compteur = 1; //PERMET DE FORMATER LES CHIFFRES
 
       var numberFormat = function numberFormat() {
         var number = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
@@ -11565,78 +11596,26 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                               children: "Montant"
                             })]
                           })
-                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tbody", {
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "1"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "D0001"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "330000201"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "5000"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "1"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "D0001"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "330000201"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "5000"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "1"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "D0001"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "330000201"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "5000"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "1"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "D0001"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "330000201"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "5000"
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "1"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "D0001"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "330000201"
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
-                              style: tableBorder,
-                              children: "5000"
-                            })]
-                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("tbody", {
+                          children: this.state.getAllOperat && this.state.getAllOperat.map(function (res, index) {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: compteur++
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: res.NumDocument
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: res.NumCompte
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)("td", {
+                                  style: tableBorder,
+                                  children: res.CodeMonnaie == "USD" ? numberFormat(parseInt(res.Montant)) + " USD" : numberFormat(parseInt(res.Montant)) + " CDF"
+                                })]
+                              }, index)
+                            });
+                          })
                         })]
                       })
                     })
@@ -11804,7 +11783,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
               case 0:
                 e.preventDefault();
                 _context2.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().get("compte/search/" + _this.state.compteToSearch);
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().get("compte/search/numdossier/" + _this.state.compteToSearch);
 
               case 3:
                 getData = _context2.sent;
@@ -11812,20 +11791,25 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                 if (getData.data.success == 1) {
                   _this.setState({
                     fetchData: getData.data.data,
-                    getMembreSolde: getData.data.soldeMembre
+                    getMembreSoldeCDF: getData.data.soldeMembreCDF,
+                    getMembreSoldeUSD: getData.data.soldeMembreUSD,
+                    getPositionnementData: getData.data.datapositionnement
                   });
 
                   _this.setState({
                     disabled: !_this.state.disabled,
-                    refCompte: _this.state.fetchData.refCompte,
-                    numCompte: _this.state.fetchData.numCompte,
-                    operant: _this.state.fetchData.intituleCompte
-                  });
+                    refCompte: _this.state.fetchData[0].refCompte,
+                    numCompte: _this.state.fetchData[0].numCompte,
+                    operant: _this.state.fetchData[0].intituleCompte,
+                    montantRetrait: _this.state.getPositionnementData[0].Montant,
+                    devise: _this.state.getPositionnementData[0].CodeMonnaie,
+                    numDocument: _this.state.getPositionnementData[0].NumDocument
+                  }); //  console.log(this.state.getPositionnementData[0].Montant);
+                  //disabled valider button
 
-                  console.log(_this.state.getMembreSolde); //disabled valider button
 
                   document.getElementById("validerbtn").removeAttribute("disabled", "disabled");
-                } else {
+                } else if (getData.data.success == 0) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
                     title: "Erreur",
                     text: getData.data.msg,
@@ -11890,7 +11874,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
       ten: 0,
       five: 0,
       oneDollar: 0,
-      montantDepot: 0,
+      montantRetrait: 0,
       devise: "",
       numCompte: "",
       commission: 0,
@@ -11920,7 +11904,10 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
       getLastestOperationUSD: null,
       getSommeCDF: null,
       getSommeUSD: null,
-      getMembreSolde: null
+      getMembreSoldeCDF: null,
+      getMembreSoldeUSD: null,
+      getPositionnementData: "",
+      numDocument: ""
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -12095,7 +12082,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                             borderRadius: "0px"
                           },
                           className: "form-control font-weight-bold",
-                          placeholder: "Num\xE9ro compte...",
+                          placeholder: "Num document ...",
                           name: "compteToSearch",
                           value: this.state.compteToSearch,
                           onChange: this.handleChange
@@ -12126,7 +12113,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                             border: "4px solid #fff"
                           },
                           className: "form-control mt-1 font-weight-bold",
-                          value: this.state.fetchData && this.state.fetchData.numCompte
+                          value: this.state.numCompte ? this.state.numCompte : this.state.fetchData && this.state.fetchData[0].numCompte
                         })
                       })]
                     })
@@ -12158,7 +12145,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.otherMention ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
+                                value: this.state.intituleCompte ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData[0].intituleCompte,
                                 disabled: true,
                                 onChange: this.handleChange
                               })
@@ -12196,7 +12183,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "numCompte",
-                                value: this.state.numCompte ? this.state.numCompte : this.state.fetchData && this.state.fetchData.numCompte,
+                                value: this.state.numCompte ? this.state.numCompte : this.state.fetchData && this.state.fetchData[0].numCompte,
                                 disabled: true,
                                 onChange: this.handleChange
                               })
@@ -12251,7 +12238,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[0].soldeMembreUSD)),
+                                value: this.state.getMembreSoldeUSD && numberFormat(parseInt(this.state.getMembreSoldeUSD[0].soldeMembreUSD)),
                                 disabled: true
                               })
                             })]
@@ -12269,7 +12256,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[1].soldeMembreCDF)),
+                                value: this.state.getMembreSoldeCDF && numberFormat(parseInt(this.state.getMembreSoldeCDF[0].soldeMembreCDF)),
                                 disabled: true
                               })
                             })]
@@ -12303,22 +12290,13 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                             }), " "]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                             className: "input-group input-group-sm ",
-                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                              type: "text",
                               name: "typeDocument",
-                              className: "form-control ".concat(this.state.error_list.typeDocument && "is-invalid"),
                               onChange: this.handleChange,
                               style: inputColor,
-                              value: this.state.typeDocument,
-                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "",
-                                children: "S\xE9lectionnez"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "Visa retrait",
-                                children: "Visa retrait"
-                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                value: "Bon de d\xE9pense",
-                                children: "Bon de d\xE9pense"
-                              })]
+                              value: this.state.getPositionnementData && this.state.getPositionnementData[0].NumDocument,
+                              disabled: true
                             })
                           })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
@@ -12330,11 +12308,11 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                             className: "input-group input-group-sm ",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                              type: "text",
                               name: "devise",
-                              className: "form-control ".concat(this.state.error_list.devise && "is-invalid"),
                               onChange: this.handleChange,
                               style: inputColor,
-                              value: this.state.devise,
+                              value: this.state.devise ? this.state.devise : this.state.getPositionnementData && this.state.getPositionnementData[0].CodeMonnaie,
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                 value: "",
                                 children: "S\xE9lectionnez"
@@ -12356,11 +12334,16 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                             className: "input-group input-group-sm ",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                              name: "libelle",
-                              className: "form-control ".concat(this.state.error_list.libelle && "is-invalid"),
+                              name: "libelle" //   className={`form-control ${
+                              //     this.state
+                              //         .error_list
+                              //         .libelle &&
+                              //     "is-invalid"
+                              // }`}
+                              ,
                               type: "text",
                               style: inputColor,
-                              value: this.state.libelle,
+                              value: this.state.libelle ? this.state.libelle : this.state.getPositionnementData && this.state.getPositionnementData[0].Concerne,
                               disabled: this.state.disabled ? "disabled" : "",
                               onChange: this.handleChange
                             })
@@ -12377,8 +12360,8 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                               type: "text",
                               style: inputColor,
                               name: "deposantName",
-                              value: this.state.deposantName,
-                              disabled: this.state.disabled ? "disabled" : "",
+                              value: this.state.getPositionnementData && this.state.getPositionnementData[0].Retirant,
+                              disabled: true,
                               onChange: this.handleChange
                             })
                           })]
@@ -12386,7 +12369,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
                             children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                               style: labelColor,
-                              children: "T\xE9l d\xE9posant"
+                              children: "T\xE9l B\xE9n."
                             }), " "]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                             className: "input-group input-group-sm ",
@@ -12394,8 +12377,8 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                               type: "text",
                               style: inputColor,
                               name: "telDeposant",
-                              value: this.state.telDeposant,
-                              disabled: this.state.disabled ? "disabled" : "",
+                              value: this.state.getPositionnementData && this.state.getPositionnementData[0].NumTel,
+                              disabled: true,
                               onChange: this.handleChange
                             })
                           })]
@@ -12408,12 +12391,12 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                             className: "input-group input-group-sm ",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
-                              name: "montantDepot",
-                              className: "form-control ".concat(this.state.error_list.montantDepot && "is-invalid"),
+                              name: "montantRetrait",
+                              className: "form-control",
                               type: "text",
                               style: inputColor,
-                              value: this.state.montantDepot,
-                              disabled: this.state.disabled ? "disabled" : "",
+                              value: this.state.montantRetrait ? this.state.montantRetrait : this.state.getPositionnementData && this.state.getPositionnementData[0].Montant,
+                              disabled: true,
                               onChange: this.handleChange
                             })
                           })]
@@ -12716,7 +12699,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                         style: {
                           padding: "2px"
                         },
-                        children: this.state.hundred * 100 + this.state.fitfty * 50 + this.state.twenty * 20 + this.state.ten * 10 + this.state.five * 5 + this.state.oneDollar * 1 === parseInt(this.state.montantDepot) || this.state.vightMille * 20000 + this.state.dixMille * 10000 + this.state.cinqMille * 5000 + this.state.milleFranc * 1000 + this.state.cinqCentFr * 500 + this.state.deuxCentFranc * 200 + this.state.centFranc * 100 + this.state.cinquanteFanc * 50 === parseInt(this.state.montantDepot) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        children: this.state.hundred * 100 + this.state.fitfty * 50 + this.state.twenty * 20 + this.state.ten * 10 + this.state.five * 5 + this.state.oneDollar * 1 === parseInt(this.state.montantRetrait) || this.state.vightMille * 20000 + this.state.dixMille * 10000 + this.state.cinqMille * 5000 + this.state.milleFranc * 1000 + this.state.cinqCentFr * 500 + this.state.deuxCentFranc * 200 + this.state.centFranc * 100 + this.state.cinquanteFanc * 50 === parseInt(this.state.montantRetrait) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
                           style: {
                             borderRadius: "0px",
                             width: "100%",

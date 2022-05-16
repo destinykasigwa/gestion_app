@@ -41,11 +41,13 @@ export default class Positionnement extends React.Component {
             getSommeUSD: null,
             getMembreSolde: null,
             soldeCDF:"",
-            soldeUSD:""
+            soldeUSD:"",
+            getAllOperat:null
         };
         this.handleAccount=this.handleAccount.bind(this);
         this.handleChange=this.handleChange.bind(this);
         this.actualiser=this.actualiser.bind(this);
+        this.getAllOperation=this.getAllOperation.bind(this);
     }
 
     componentDidMount() {
@@ -71,6 +73,7 @@ export default class Positionnement extends React.Component {
             //day
             current_datetime.getDate()  ;
         this.setState({ DateTransaction: formatted_date });
+        this.getAllOperation();
     }
        //GET DATA FROM INPUT
        handleChange(event) {
@@ -98,7 +101,7 @@ export default class Positionnement extends React.Component {
               .getMembreSolde[0]
               .soldeMembreUSD,
               adresse:this.state.fetchData.CommuneActuelle +" " +this.state.fetchData.QuartierActuelle,
-              telBeneficiaire:this.state.fetchData.phone1,typepiece:this.state.fetchData.typepiece,numpiece:this.state.fetchData.numpiece  });
+              telBeneficiaire:this.state.fetchData.phone1,typepiece:this.state.fetchData.typepiece,numpiece:this.state.fetchData.numpiece,beneficiaire:this.state.fetchData.intituleCompte  });
              console.log(this.state.getMembreSolde);
             //disabled valider button
             document
@@ -156,12 +159,20 @@ export default class Positionnement extends React.Component {
       console.log(res.data.success);
     }
 
+    //RECUPERE TOUTES LES OPERATIONS DE POSITIONNEMENT DEJA EFFECTUE
+    getAllOperation= async()=>{
+     const getOperation = await axios.get("/positionnement/getalloperation")
+     this.setState({getAllOperat:getOperation.data.data})
+     console.log(getOperation.data.data);
+    }
+    
+
      //to refresh
      actualiser() {
         location.reload();
     }
     render() {
-        var myspinner = {
+        let myspinner = {
             margin: "5px auto",
             width: "3rem",
             height: "3rem",
@@ -169,13 +180,13 @@ export default class Positionnement extends React.Component {
             border: "0px",
             height: "200px",
         };
-        var labelColor = {
+        let labelColor = {
             fontWeight: "bold",
             color: "steelblue",
             padding: "3px",
             fontSize: "11px",
         };
-        var inputColor = {
+        let inputColor = {
             height: "25px",
             border: "1px solid steelblue",
             padding: "3px",
@@ -187,29 +198,30 @@ export default class Positionnement extends React.Component {
         //     padding: "3px",
         //     width: "60px",
         // };
-        var tableBorder = {
+        let tableBorder = {
             border: "2px solid #fff",
             fontSize: "14px",
             textAlign: "center",
         };
-        //PERMET DE FORMATER LES CHIFFRES
-        const numberFormat = (number = 0) => {
-            var locales = [
-                //undefined,  // Your own browser
-                "en-US", // United States
-                //'de-DE',    // Germany
-                //'ru-RU',    // Russia
-                //'hi-IN',    // India
+        let compteur=1;
+         //PERMET DE FORMATER LES CHIFFRES
+         const numberFormat = (number = 0) => {
+            let locales = [
+              //undefined,  // Your own browser
+              "en-US", // United States
+              //'de-DE',    // Germany
+              //'ru-RU',    // Russia
+              //'hi-IN',    // India
             ];
-            var opts = { minimumFractionDigits: 2 };
-            var index = 3;
-            var nombre = number.toLocaleString(locales[index], opts);
+            let opts = { minimumFractionDigits: 2 };
+            let index = 3;
+            let nombre = number.toLocaleString(locales[index], opts);
             if (nombre === isNaN) {
-                nombre = 0.0;
+              nombre = 0.0;
             } else {
-                return nombre;
+              return nombre;
             }
-        };
+          };
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -1576,117 +1588,38 @@ export default class Positionnement extends React.Component {
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >1</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >D0001</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >330000201</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >5000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >1</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >D0001</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >330000201</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >5000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >1</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >D0001</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >330000201</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >5000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >1</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >D0001</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >330000201</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >5000</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >1</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >D0001</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >330000201</td>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >5000</td>
-                                                        </tr>
+                                                        {this.state.getAllOperat &&
+                                                        this.state.getAllOperat.map((res,index)=>{
+                                                            return(
+                                                                <React.Fragment>
 
+                                                                <tr key={index}>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >{compteur++}</td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >{res.NumDocument}</td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >{res.NumCompte}</td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >{res.CodeMonnaie=="USD" ? numberFormat(parseInt(res.Montant)) +" USD" : numberFormat(parseInt(res.Montant)) +" CDF"}</td>
+                                                                </tr> 
+                                                                </React.Fragment>      
+                                                            )
+                                                            
+                                                    })
+                                                       }
                                                     </tbody>
                                                 </table>
                                             </div>

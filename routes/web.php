@@ -106,6 +106,14 @@ Route::get("/compte/search/{id}",
 [DepotEspeceController::class,'getAccount']);
 
 
+//RECUPERE LES INFORMATIONS D'UN DOSSIER QUI A ETE POSITIONNER AFIN DE FAIRE LE RETRAIT
+
+
+
+Route::get("compte/search/numdossier/{numDocument}",
+[DepotEspeceController::class,'getNumDocument']);
+
+
 //get billetage fom DB
 
 Route::get("/billetage/getbilletage",
@@ -121,6 +129,12 @@ Route::post("retrait/espece",
 //positionnement
 Route::post("positionnement/espece",
 [RetraitEspeceController::class,'positionnementEspece']);
+
+//RECUPERE TOUTES LES OPERATIONS POSITIONNEES
+
+Route::get("positionnement/getalloperation",
+[RetraitEspeceController::class,'getAllPositionnement']);
+
 
 
 

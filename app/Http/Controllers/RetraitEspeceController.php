@@ -24,6 +24,15 @@ class RetraitEspeceController extends Controller
  public function getPositionnement(){
   return view('positionnement');
  }
+//RECUPERE TOUTES LES OPERATIONS JOURNALIERE POSITIONNEES
+
+public function getAllPositionnement(){
+$todayDate=date("Y-m-d");
+$dataPositionnement=Positionnement::where("DateTransaction","=",$todayDate)->where("NomUtilisateur","=",Auth::user()->name)->orderBy('id', 'desc')->paginate(20)->All();
+
+return response()->json(["data"=>$dataPositionnement]);
+
+}
 
 //FUNCTION FOR POSITION BEFORE WITHDRAWING
 public function positionnementEspece(Request $request){
@@ -42,12 +51,14 @@ public function positionnementEspece(Request $request){
         ]);
     }else{
     
- //VERIFIE SI LE NUMERO DU COMUMENT N PAS ENCORE SEVIE
+ //VERIFIE SI LE NUMERO DU DOCUMENT N PAS ENCORE SERVIE
  $getNumDocument=Positionnement::where("NumDocument","=",$request->numDocument)->first();
  $getNumDocument ?  $numDocument=$getNumDocument->NumDocument : null;
  if($getNumDocument ? $numDocument:null){
     return response()->json(['success'=>0, 'msg'=>"Ce document a été déjà servi"]);   
  }
+
+ 
 
     //SI L'UTILISATEUR PREND CDF COMME DEVISE
     if($request->devise=="CDF"){
@@ -63,7 +74,7 @@ public function positionnementEspece(Request $request){
         "Reference" =>$request->Reference,
         "NumCompte" =>$compteCDF,
         "Montant" =>$request->montant,
-        "CodeMonnaie" =>2,
+        "CodeMonnaie" =>"CDF",
         "CodeAgence" =>20,
         "DateTransaction" =>$request->Reference,
         "DateTransaction" =>$request->DateTransaction,
@@ -79,6 +90,7 @@ public function positionnementEspece(Request $request){
         "Mandataire" =>0,
         "NomUtilisateur"  =>Auth::user()->name,
         "Autorisateur" => $request->montant > 100000?0:null,
+        "RefCompte"=>$request->refCompte
     ]);
 
     return response()->json(['success'=>1, 'msg'=>"Opération bien enregistrée."]); 
@@ -94,7 +106,7 @@ public function positionnementEspece(Request $request){
                 "Reference" =>$request->Reference,
                 "NumCompte" =>$request->numCompte,
                 "Montant" =>$request->montant,
-                "CodeMonnaie" =>1,
+                "CodeMonnaie" =>"USD",
                 "CodeAgence" =>20,
                 "DateTransaction" =>$request->Reference,
                 "DateTransaction" =>$request->DateTransaction,
@@ -131,10 +143,10 @@ public function positionnementEspece(Request $request){
     public function RetraitEspece(Request $request){
     
         $validator = validator::make($request->all(), [
-            'devise' => 'required',
-            'libelle' => 'required|max:50',
-            'montantDepot' => 'required',
-            'typeDocument' => 'required',
+            // 'devise' => 'required',
+            // 'libelle' => 'required|max:50',
+            // 'montantRetrait' => 'required',
+            // 'typeDocument' => 'required',
             
         ]);
 
@@ -143,6 +155,17 @@ public function positionnementEspece(Request $request){
                 'validate_error' => $validator->errors()
             ]);
         }else{
+           
+             //VERIFIE SI LE NUMERO DU DOCUMENT N PAS ENCORE SERVIE
+ $checkNumDocument=Positionnement::where("NumDocument","=",$request->numDocument)->where("Servie","=",1)->first();
+ $checkNumDocument ?  $numDocument=$checkNumDocument->NumDocument : null;  
+ if($checkNumDocument ? $numDocument:null){
+    return response()->json(['success'=>0, 'msg'=>"Ce document a été déjà servi"]);   
+ }
+
+
+
+
           //VERTIFIE SI LE BILLETATGE ENTREE PAR LE CAISSIER CORRESPOND AU BILLETAGE QU'IL POSSEDE DANS SA CAISSE
             if($request->devise=="CDF"){
              
@@ -255,7 +278,7 @@ public function positionnementEspece(Request $request){
                 "NumCompte" => $compteCDF,
                 "NumComptecp" => $CompteCaissierCDF,
                 "Operant"=>$request->operant,
-                "Debitfc" => $request->montantDepot,
+                "Debitfc" => $request->montantRetrait,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
@@ -290,7 +313,7 @@ public function positionnementEspece(Request $request){
                 "NumCompte" => $CompteCaissierCDF,
                 "NumComptecp" =>$compteCDF,
                 "Operant"=>$request->operant,
-                "Creditfc" => $request->montantDepot,
+                "Creditfc" => $request->montantRetrait,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
@@ -310,10 +333,10 @@ public function positionnementEspece(Request $request){
                 "NumDemande" => "V00" . $numOperation->id,
                 "NumCompte" => $request->numCompte,
                 "NumComptecp" => $CompteCaissierUSD,
-                "Debit" => $request->montantDepot,
+                "Debit" => $request->montantRetrait,
                 "Operant"=>$request->operant,
-                "Debit$" => $request->montantDepot,
-                "Debitfc" => $request->montantDepot * $request->taux,
+                "Debit$" => $request->montantRetrait,
+                "Debitfc" => $request->montantRetrait * $request->taux,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
@@ -345,17 +368,25 @@ public function positionnementEspece(Request $request){
                 "NumDemande" => "V00" . $numOperation->id,
                 "NumCompte" => $CompteCaissierUSD,
                 "NumComptecp" =>  $request->numCompte,
-                "Credit" => $request->montantDepot,
+                "Credit" => $request->montantRetrait,
                 "Operant"=>$request->operant,
-                "Credit$" => $request->montantDepot,
-                "Creditfc"  => $request->montantDepot * $request->taux,
+                "Credit$" => $request->montantRetrait,
+                "Creditfc"  => $request->montantRetrait * $request->taux,
                 "NomUtilisateur" => Auth::user()->name,   
                 "Libelle"=>$request->libelle,
               ]);
 
            }
         }
+
+
+        //ON MET A JOUR LE NUMERO DU DOCUMENT POUR SIGNIFIER QU'IL EST DEJA SERVIE
+
+        Positionnement::where("NumDocument","=",$request->numDocument)->update([
+         "Servie"=>1
+        ]);
          
+        
     return response()->json(["success"=>1,"msg"=>"Opération bien enregistrée."]);
 
     }
