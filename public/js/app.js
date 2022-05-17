@@ -2202,16 +2202,16 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-if (document.getElementById('adhesionContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById('adhesionContainer'));
-} else if (document.getElementById('DepotEspeceContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById('DepotEspeceContainer'));
-} else if (document.getElementById('RetraitEspeceContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById('RetraitEspeceContainer'));
-} else if (document.getElementById('positionnementContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById('positionnementContainer'));
-} else if (document.getElementById('ApprovisionnementContainer')) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById('ApprovisionnementContainer'));
+if (document.getElementById("adhesionContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById("adhesionContainer"));
+} else if (document.getElementById("DepotEspeceContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById("DepotEspeceContainer"));
+} else if (document.getElementById("RetraitEspeceContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById("RetraitEspeceContainer"));
+} else if (document.getElementById("positionnementContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById("positionnementContainer"));
+} else if (document.getElementById("ApprovisionnementContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_6__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById("ApprovisionnementContainer"));
 }
 
 /***/ }),
@@ -4795,6 +4795,33 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _defineProperty(_assertThisInitialized(_this), "getDaylyAppro", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3() {
+      var dataAppro;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+        while (1) {
+          switch (_context3.prev = _context3.next) {
+            case 0:
+              _context3.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/appro/journalier");
+
+            case 2:
+              dataAppro = _context3.sent;
+
+              _this.setState({
+                fetchDaylyAproCDF: dataAppro.data.data,
+                fetchDaylyAproUSD: dataAppro.data.data2
+              });
+
+              console.log(_this.state.fetchDaylyAproCDF);
+
+            case 5:
+            case "end":
+              return _context3.stop();
+          }
+        }
+      }, _callee3);
+    })));
+
     _this.state = (_this$state = {
       isloading: true,
       loading: false,
@@ -4808,11 +4835,14 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
       ten: 0,
       five: 0,
       oneDollar: 0
-    }, _defineProperty(_this$state, "montant", 0), _defineProperty(_this$state, "devise", ""), _defineProperty(_this$state, "numCompte", ""), _defineProperty(_this$state, "commission", 0), _defineProperty(_this$state, "intitule", ""), _defineProperty(_this$state, "vightMille", 0), _defineProperty(_this$state, "dixMille", 0), _defineProperty(_this$state, "cinqMille", 0), _defineProperty(_this$state, "milleFranc", 0), _defineProperty(_this$state, "cinqCentFr", 0), _defineProperty(_this$state, "deuxCentFranc", 0), _defineProperty(_this$state, "centFranc", 0), _defineProperty(_this$state, "cinquanteFanc", 0), _defineProperty(_this$state, "fetchCaissierInDb", ""), _this$state);
+    }, _defineProperty(_this$state, "montant", 0), _defineProperty(_this$state, "devise", ""), _defineProperty(_this$state, "numCompte", ""), _defineProperty(_this$state, "commission", 0), _defineProperty(_this$state, "intitule", ""), _defineProperty(_this$state, "vightMille", 0), _defineProperty(_this$state, "dixMille", 0), _defineProperty(_this$state, "cinqMille", 0), _defineProperty(_this$state, "milleFranc", 0), _defineProperty(_this$state, "cinqCentFr", 0), _defineProperty(_this$state, "deuxCentFranc", 0), _defineProperty(_this$state, "centFranc", 0), _defineProperty(_this$state, "cinquanteFanc", 0), _defineProperty(_this$state, "fetchCaissierInDb", ""), _defineProperty(_this$state, "fetchDaylyAproCDF", null), _defineProperty(_this$state, "fetchDaylyAproUSD", null), _this$state);
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.getCaissier = _this.getCaissier.bind(_assertThisInitialized(_this));
     _this.saveOperation = _this.saveOperation.bind(_assertThisInitialized(_this));
+    _this.getDaylyAppro = _this.getDaylyAppro.bind(_assertThisInitialized(_this));
+    _this.removeItemCDF = _this.removeItemCDF.bind(_assertThisInitialized(_this));
+    _this.removeItemUSD = _this.removeItemUSD.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -4841,6 +4871,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
         DateTransaction: formatted_date
       });
       this.getCaissier();
+      this.getDaylyAppro();
     } //GET VALUES FROM INPUT
 
   }, {
@@ -4850,14 +4881,57 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
     } //GET CAISSIER
 
   }, {
+    key: "removeItemCDF",
+    value: //REMOVE A SPECIIQUE ITEM CDF
+    function removeItemCDF(id) {
+      var question = confirm("vous le vous vraiment supprimé l'élement sélectionner?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("delete/appro/cdf/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+              title: "Suppression",
+              text: response.data.msg,
+              icon: "error",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        console.log("Nothing done...");
+      }
+    }
+  }, {
+    key: "removeItemUSD",
+    value: function removeItemUSD(id) {
+      var question = confirm("vous le vous vraiment supprimé l'élement sélectionner?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("delete/appro/usd/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+              title: "Suppression",
+              text: response.data.msg,
+              icon: "error",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        console.log("Nothing done...");
+      }
+    } //to refresh
+
+  }, {
     key: "actualiser",
-    value: //to refresh
-    function actualiser() {
+    value: function actualiser() {
       location.reload();
     }
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var myspinner = _defineProperty({
         margin: "5px auto",
         width: "3rem",
@@ -5400,7 +5474,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
                       background: "#fff",
                       padding: "5px"
                     },
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                    children: this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
                       className: "table table-dark",
                       style: tableBorder,
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
@@ -5413,21 +5487,83 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
                             children: "Num caissier"
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: tableBorder,
-                            children: "Montant"
+                            children: "Montant USD"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Action"
                           })]
                         })
                       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchDaylyAproUSD && this.state.fetchDaylyAproUSD.map(function (res, index) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: compteur++
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.NumCompteCaissier
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.montant
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                                className: "btn btn-danger",
+                                onClick: function onClick() {
+                                  _this3.removeItemUSD(res.id);
+                                },
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                  className: "fas fa-trash"
+                                })
+                              })
+                            })]
+                          });
+                        })
+                      })]
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: tableBorder,
-                            children: compteur++
+                            children: "R\xE9ference"
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: tableBorder,
-                            children: "57000000609"
+                            children: "Num caissier"
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: tableBorder,
-                            children: "50000"
+                            children: "Montant CDF"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Action"
                           })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchDaylyAproCDF && this.state.fetchDaylyAproCDF.map(function (res, index) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: compteur++
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.NumCompteCaissier
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.montant
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                                className: "btn btn-danger",
+                                onClick: function onClick() {
+                                  _this3.removeItemCDF(res.id);
+                                },
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                  className: "fas fa-trash"
+                                })
+                              })
+                            })]
+                          });
                         })
                       })]
                     })
@@ -5668,6 +5804,33 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       }, _callee3);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "getDaylyAppro", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4() {
+      var dataAppro;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+        while (1) {
+          switch (_context4.prev = _context4.next) {
+            case 0:
+              _context4.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/appro/received");
+
+            case 2:
+              dataAppro = _context4.sent;
+
+              _this.setState({
+                fetchDaylyAproCDF: dataAppro.data.data,
+                fetchDaylyAproUSD: dataAppro.data.data2
+              });
+
+              console.log(_this.state.fetchDaylyAproCDF);
+
+            case 5:
+            case "end":
+              return _context4.stop();
+          }
+        }
+      }, _callee4);
+    })));
+
     _this.state = {
       disabled: true,
       isloading: true,
@@ -5708,12 +5871,17 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       getLastestOperationUSD: null,
       getSommeCDF: null,
       getSommeUSD: null,
-      getMembreSolde: null
+      getMembreSolde: null,
+      fetchDaylyAproCDF: null,
+      fetchDaylyAproUSD: null
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleAccount = _this.handleAccount.bind(_assertThisInitialized(_this));
     _this.getBilletage = _this.getBilletage.bind(_assertThisInitialized(_this));
+    _this.getDaylyAppro = _this.getDaylyAppro.bind(_assertThisInitialized(_this));
+    _this.acceptItemCDF = _this.acceptItemCDF.bind(_assertThisInitialized(_this));
+    _this.acceptItemUSD = _this.acceptItemUSD.bind(_assertThisInitialized(_this));
     return _this;
   } //to refresh
 
@@ -5751,10 +5919,55 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
         DateTransaction: formatted_date
       });
       this.getBilletage();
+      this.getDaylyAppro();
+    }
+  }, {
+    key: "acceptItemCDF",
+    value: //ACCEPT A SPECIIQUE APPRO ITEM CDF
+    function acceptItemCDF(id) {
+      var question = confirm("vous le vous vraiment accepter cette appro?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_3___default()["delete"]("accept/appro/cdf/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: "Validation",
+              text: response.data.msg,
+              icon: "success",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        console.log("Nothing done...");
+      }
+    } //ACCEPT A SPECIFIC APPRO ITEM USD
+
+  }, {
+    key: "acceptItemUSD",
+    value: function acceptItemUSD(id) {
+      var question = confirm("vous le vous vraiment accepter cette appro?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_3___default()["delete"]("accept/appro/usd/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+              title: "Validation",
+              text: response.data.msg,
+              icon: "success",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        console.log("Nothing done...");
+      }
     }
   }, {
     key: "render",
     value: function render() {
+      var _this3 = this;
+
       var myspinner = _defineProperty({
         margin: "5px auto",
         width: "3rem",
@@ -6180,11 +6393,64 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                               onChange: this.handleChange
                             })
                           })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: {
+                              padding: "2px"
+                            },
+                            children: this.state.hundred * 100 + this.state.fitfty * 50 + this.state.twenty * 20 + this.state.ten * 10 + this.state.five * 5 + this.state.oneDollar * 1 === parseInt(this.state.montantDepot) || this.state.vightMille * 20000 + this.state.dixMille * 10000 + this.state.cinqMille * 5000 + this.state.milleFranc * 1000 + this.state.cinqCentFr * 500 + this.state.deuxCentFranc * 200 + this.state.centFranc * 100 + this.state.cinquanteFanc * 50 === parseInt(this.state.montantDepot) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                              style: {
+                                borderRadius: "0px",
+                                width: "100%",
+                                height: "30px",
+                                fontSize: "12px",
+                                marginTop: "12px"
+                              },
+                              className: "btn btn-primary",
+                              id: "validerbtn",
+                              onClick: this.saveOperation,
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                                className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-check")
+                              }), " ", "Valider ", ""]
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                              style: {
+                                borderRadius: "0px",
+                                width: "100%",
+                                height: "30px",
+                                fontSize: "12px",
+                                marginTop: "12px"
+                              },
+                              className: "btn btn-primary",
+                              disabled: true,
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                                className: "fas fa-check"
+                              }), " ", "Valider ", ""]
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: {
+                              padding: "2px"
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
+                              style: {
+                                borderRadius: "0px",
+                                width: "100%",
+                                height: "30px",
+                                fontSize: "12px"
+                              },
+                              className: "btn btn-primary",
+                              id: "printBtn",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                                className: "fas fa-print"
+                              }), " ", "Imprimer ", ""]
+                            })
+                          })]
                         })]
                       })
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
-                    className: "col-md-6",
+                    className: "col-md-5",
                     children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                       className: "card-body",
                       style: {
@@ -6468,66 +6734,267 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                         })
                       })
                     })
-                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("div", {
-                    className: "col-md-2",
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
+                    className: "col-md-3 appro-table-div",
                     style: {
                       background: "#fff",
                       padding: "5px"
                     },
-                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                        style: {
-                          padding: "2px"
-                        },
-                        children: this.state.hundred * 100 + this.state.fitfty * 50 + this.state.twenty * 20 + this.state.ten * 10 + this.state.five * 5 + this.state.oneDollar * 1 === parseInt(this.state.montantDepot) || this.state.vightMille * 20000 + this.state.dixMille * 10000 + this.state.cinqMille * 5000 + this.state.milleFranc * 1000 + this.state.cinqCentFr * 500 + this.state.deuxCentFranc * 200 + this.state.centFranc * 100 + this.state.cinquanteFanc * 50 === parseInt(this.state.montantDepot) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-                          style: {
-                            borderRadius: "0px",
-                            width: "100%",
-                            height: "30px",
-                            fontSize: "12px",
-                            marginTop: "12px"
-                          },
-                          className: "btn btn-primary",
-                          id: "validerbtn",
-                          onClick: this.saveOperation,
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                            className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-check")
-                          }), " Valider ", ""]
-                        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-                          style: {
-                            borderRadius: "0px",
-                            width: "100%",
-                            height: "30px",
-                            fontSize: "12px",
-                            marginTop: "12px"
-                          },
-                          className: "btn btn-primary",
-                          disabled: true,
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                            className: "fas fa-check"
-                          }), " Valider ", ""]
+                    children: this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Coupure"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nombre"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                        children: this.state.fetchDaylyAproUSD && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "100 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.centDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.centDollars) * 100
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "50 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.cinquanteDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.cinquanteDollars) * 50
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "20 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.vightDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.vightDollars) * 20
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "10 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.dixDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.dixDollars) * 10
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "5 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.cinqDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.cinqDollars) * 5
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "1 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.unDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproUSD.unDollars) * 5
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            style: {
+                              tableBorder: tableBorder
+                            },
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              children: "TOT"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                                className: "btn btn-success",
+                                onClick: function onClick() {
+                                  _this3.acceptItemUSD(_this3.state.fetchDaylyAproUSD.id);
+                                },
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                                  className: "fas fa-check"
+                                })
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: {
+                                background: "green",
+                                color: "#fff",
+                                fontSize: "28px",
+                                textAlign: "center",
+                                fontWeight: "bold"
+                              },
+                              children: numberFormat(parseInt(this.state.fetchDaylyAproUSD.centDollars) * 100 + parseInt(this.state.fetchDaylyAproUSD.cinquanteDollars) * 50 + parseInt(this.state.fetchDaylyAproUSD.vightDollars) * 20 + parseInt(this.state.fetchDaylyAproUSD.dixDollars) * 10 + parseInt(this.state.fetchDaylyAproUSD.cinqDollars) * 5 + parseInt(this.state.fetchDaylyAproUSD.unDollars) * 1)
+                            })]
+                          })]
                         })
                       })]
-                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
-                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
-                        style: {
-                          padding: "2px"
-                        },
-                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("button", {
-                          style: {
-                            borderRadius: "0px",
-                            width: "100%",
-                            height: "30px",
-                            fontSize: "12px"
-                          },
-                          className: "btn btn-primary",
-                          id: "printBtn",
-                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
-                            className: "fas fa-print"
-                          }), " Imprimer ", ""]
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Coupure"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nombre"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("tbody", {
+                        children: this.state.fetchDaylyAproCDF && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.Fragment, {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "20 000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.vightMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.vightMilleFranc) * 20000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "10 000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.dixMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.dixMilleFranc) * 10000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "5000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.cinqMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.cinqMilleFranc) * 5000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "1000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.milleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.milleFranc) * 1000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "500 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.cinqCentFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.cinqCentFranc) * 500
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "200 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.deuxCentFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.deuxCentFranc) * 200
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "100 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.centFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.centFranc) * 100
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: "50 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchDaylyAproCDF.cinquanteFanc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchDaylyAproCDF.cinquanteFanc) * 50
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("tr", {
+                            style: {
+                              tableBorder: tableBorder
+                            },
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: "TOT"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("button", {
+                                className: "btn btn-success",
+                                onClick: function onClick() {
+                                  _this3.acceptItemCDF(_this3.state.fetchDaylyAproCDF.id);
+                                },
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("i", {
+                                  className: "fas fa-check"
+                                })
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
+                              style: {
+                                background: "green",
+                                color: "#fff",
+                                fontSize: "28px",
+                                textAlign: "center",
+                                fontWeight: "bold"
+                              },
+                              children: numberFormat(parseInt(this.state.fetchDaylyAproCDF.vightMilleFranc) * 20000 + parseInt(this.state.fetchDaylyAproCDF.dixMilleFranc) * 10000 + parseInt(this.state.fetchDaylyAproCDF.cinqMilleFranc) * 5000 + parseInt(this.state.fetchDaylyAproCDF.milleFranc) * 1000 + parseInt(this.state.fetchDaylyAproCDF.cinqCentFranc) * 500 + parseInt(this.state.fetchDaylyAproCDF.deuxCentFranc) * 200 + parseInt(this.state.fetchDaylyAproCDF.centFranc) * 100 + parseInt(this.state.fetchDaylyAproCDF.cinquanteFanc) * 50)
+                            })]
+                          })]
                         })
                       })]
-                    })]
+                    })
                   })]
                 })]
               })]
@@ -6692,7 +7159,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             textAlign: "center",
                             fontWeight: "bold"
                           },
-                          children: ["  ", numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran) * 20000 + parseInt(this.state.getAllBilletage[0].dixMilleFran) * 10000 + parseInt(this.state.getAllBilletage[0].cinqMilleFran) * 5000 + parseInt(this.state.getAllBilletage[0].milleFran) * 1000 + parseInt(this.state.getAllBilletage[0].cinqCentFran) * 500 + parseInt(this.state.getAllBilletage[0].deuxCentFran) * 200 + parseInt(this.state.getAllBilletage[0].centFran) * 100 + parseInt(this.state.getAllBilletage[0].cinquanteFan) * 50), " "]
+                          children: [" ", numberFormat(parseInt(this.state.getAllBilletage[0].vightMilleFran) * 20000 + parseInt(this.state.getAllBilletage[0].dixMilleFran) * 10000 + parseInt(this.state.getAllBilletage[0].cinqMilleFran) * 5000 + parseInt(this.state.getAllBilletage[0].milleFran) * 1000 + parseInt(this.state.getAllBilletage[0].cinqCentFran) * 500 + parseInt(this.state.getAllBilletage[0].deuxCentFran) * 200 + parseInt(this.state.getAllBilletage[0].centFran) * 100 + parseInt(this.state.getAllBilletage[0].cinquanteFan) * 50), " "]
                         })]
                       })]
                     })]
@@ -6825,7 +7292,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             textAlign: "center",
                             fontWeight: "bold"
                           },
-                          children: ["  ", numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar) * 100 + parseInt(this.state.getBilletageUSD[0].cinquanteDollar) * 50 + parseInt(this.state.getBilletageUSD[0].vightDollar) * 20 + parseInt(this.state.getBilletageUSD[0].dixDollar) * 10 + parseInt(this.state.getBilletageUSD[0].cinqDollar) * 5 + parseInt(this.state.getBilletageUSD[0].unDollar) * 1), " "]
+                          children: [" ", numberFormat(parseInt(this.state.getBilletageUSD[0].centDollar) * 100 + parseInt(this.state.getBilletageUSD[0].cinquanteDollar) * 50 + parseInt(this.state.getBilletageUSD[0].vightDollar) * 20 + parseInt(this.state.getBilletageUSD[0].dixDollar) * 10 + parseInt(this.state.getBilletageUSD[0].cinqDollar) * 5 + parseInt(this.state.getBilletageUSD[0].unDollar) * 1), " "]
                         })]
                       })]
                     })]
@@ -6912,7 +7379,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             background: "green",
                             color: "#fff"
                           }, "fontSize", "28px"),
-                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeDebitCDF)), "  "]
+                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeCDF[0].sommeDeDebitCDF)), " "]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                           style: _defineProperty({
                             border: "0px solid #fff",
@@ -7014,7 +7481,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                             background: "green",
                             color: "#fff"
                           }, "fontSize", "28px"),
-                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeDebitUSD)), "  "]
+                          children: [" ", this.state.getSommeCDF[0] && numberFormat(parseInt(this.state.getSommeUSD[0].sommeDeDebitUSD)), " "]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("td", {
                           style: _defineProperty({
                             border: "0px solid #fff",
@@ -14157,14 +14624,14 @@ function WebCame(props) {
     var photo = photoRef.current;
     photo.width = width;
     photo.height = height;
-    var ctx = photo.getContext('2d');
+    var ctx = photo.getContext("2d");
     ctx.drawImage(video, 0, 0, width, height);
   };
 
   var clearImage = function clearImage(e) {
     e.preventDefault();
     var photo = photoRef.current;
-    var ctx = photo.getContext('2d');
+    var ctx = photo.getContext("2d");
     ctx.clearRect(0, 0, photo.width, photo.height);
   };
 
@@ -14178,13 +14645,13 @@ function WebCame(props) {
               _context.prev = 0;
               event.preventDefault();
               formData = new FormData();
-              formData.append('idMembre', props.idCompteMembre);
-              formData.append('uploaded_image', uploadImage);
+              formData.append("idMembre", props.idCompteMembre);
+              formData.append("uploaded_image", uploadImage);
               config = {
                 Headers: {
-                  'accept': 'application/json',
-                  'Accept-Language': 'en-US,en;q=0.8',
-                  'content-type': 'multipart/form-data'
+                  accept: "application/json",
+                  "Accept-Language": "en-US,en;q=0.8",
+                  "content-type": "multipart/form-data"
                 }
               };
               url = "membre/addphoto";
@@ -14230,7 +14697,7 @@ function WebCame(props) {
       className: "col-md-4",
       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h1", {
         className: "text-center",
-        children: ["Webcam ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
+        children: ["Webcam", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
             className: "btn btn-success",
             onClick: getVideo,
@@ -14240,7 +14707,7 @@ function WebCame(props) {
             onClick: stopVideo,
             children: "Stopper"
           })]
-        }), "  "]
+        }), " "]
       }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("form", {
         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("video", {
           ref: videoRef,

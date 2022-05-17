@@ -22,6 +22,7 @@ class BilletageAppro_cdf extends Model
         "received",
         "NomUtilisateur",
         "NomDemandeur",
-        "DateTransaction"
+        "DateTransaction",
+        "montant"
     ];
 }

@@ -12,22 +12,33 @@
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
- import ReactDOM from 'react-dom';
- import Adhesion from './components/Adhesion';
- import DepotEspece from './components/DepotEspece';
- import RetraitEspece from './components/RetraitEspece';
- import Positionnement from './components/Positionnement';
- import Approvisionnement from './components/Approvisionnement';
- 
- if (document.getElementById('adhesionContainer')) {
-     ReactDOM.render(<Adhesion />, document.getElementById('adhesionContainer'));
- }
- else if(document.getElementById('DepotEspeceContainer')){
-    ReactDOM.render(<DepotEspece />, document.getElementById('DepotEspeceContainer'));
- }else if(document.getElementById('RetraitEspeceContainer')){
-     ReactDOM.render(<RetraitEspece/>, document.getElementById('RetraitEspeceContainer'));
- }else if(document.getElementById('positionnementContainer')){
-    ReactDOM.render(<Positionnement/>, document.getElementById('positionnementContainer'));
- }else if(document.getElementById('ApprovisionnementContainer')){
-    ReactDOM.render(<Approvisionnement/>, document.getElementById('ApprovisionnementContainer'));
- }
+import ReactDOM from "react-dom";
+import Adhesion from "./components/Adhesion";
+import DepotEspece from "./components/DepotEspece";
+import RetraitEspece from "./components/RetraitEspece";
+import Positionnement from "./components/Positionnement";
+import Approvisionnement from "./components/Approvisionnement";
+
+if (document.getElementById("adhesionContainer")) {
+    ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
+} else if (document.getElementById("DepotEspeceContainer")) {
+    ReactDOM.render(
+        <DepotEspece />,
+        document.getElementById("DepotEspeceContainer")
+    );
+} else if (document.getElementById("RetraitEspeceContainer")) {
+    ReactDOM.render(
+        <RetraitEspece />,
+        document.getElementById("RetraitEspeceContainer")
+    );
+} else if (document.getElementById("positionnementContainer")) {
+    ReactDOM.render(
+        <Positionnement />,
+        document.getElementById("positionnementContainer")
+    );
+} else if (document.getElementById("ApprovisionnementContainer")) {
+    ReactDOM.render(
+        <Approvisionnement />,
+        document.getElementById("ApprovisionnementContainer")
+    );
+}

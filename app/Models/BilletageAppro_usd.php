@@ -19,6 +19,7 @@ class BilletageAppro_usd extends Model
         "received",
         "NomUtilisateur",
         "DateTransaction",
-        "NomDemandeur"
+        "NomDemandeur",
+        "montant"
     ];
 }

@@ -42,7 +42,7 @@ export default class Positionnement extends React.Component {
             soldeCDF: "",
             soldeUSD: "",
             getAllOperat: null,
-            getCompteurDocument:null
+            getCompteurDocument: null,
         };
         this.handleAccount = this.handleAccount.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -92,7 +92,7 @@ export default class Positionnement extends React.Component {
             this.setState({
                 fetchData: getData.data.data,
                 getMembreSolde: getData.data.soldeMembre,
-                getCompteurDocument:getData.data.numdoc
+                getCompteurDocument: getData.data.numdoc,
             });
             this.setState({
                 disabled: !this.state.disabled,
@@ -109,7 +109,7 @@ export default class Positionnement extends React.Component {
                 typepiece: this.state.fetchData.typepiece,
                 numpiece: this.state.fetchData.numpiece,
                 beneficiaire: this.state.fetchData.intituleCompte,
-                numDocument:"DC000"+this.state.getCompteurDocument
+                numDocument: "DC000" + this.state.getCompteurDocument,
             });
             console.log(this.state.getMembreSolde);
             //disabled valider button
