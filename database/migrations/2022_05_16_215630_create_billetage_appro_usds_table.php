@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('billetage_appro_usds', function (Blueprint $table) {
             $table->id();
+            $table->string("Reference", 20)->nullable();
             $table->string("NumCompteCaissier", 30)->nullable();
             $table->float("centDollars")->nullable()->default('0.00');
             $table->float("cinquanteDollars")->nullable()->default('0.00');

@@ -10,6 +10,7 @@ class BilletageAppro_cdf extends Model
     use HasFactory;
 
     protected $fillable = [
+        "Reference",
         "NumCompteCaissier",
         "vightMilleFranc",
         "dixMilleFranc",

@@ -9,6 +9,7 @@ class BilletageAppro_usd extends Model
 {
     use HasFactory;
     protected $fillable = [
+        "Reference",
         "NumCompteCaissier",
         "centDollars",
         "cinquanteDollars",

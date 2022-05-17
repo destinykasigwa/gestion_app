@@ -6,12 +6,13 @@ use App\Models\Dummy;
 use App\Models\Comptes;
 use App\Models\BilletageCdf;
 use App\Models\BilletageUsd;
-use App\Models\CompteurDocument;
 use App\Models\Transactions;
 use Illuminate\Http\Request;
+use App\Models\Positionnement;
+use App\Models\TauxJournalier;
+use App\Models\CompteurDocument;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
-use App\Models\Positionnement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -96,10 +97,10 @@ class RetraitEspeceController extends Controller
                         "Autorisateur" => $request->montant > 100000 ? 0 : null,
                         "RefCompte" => $request->refCompte
                     ]);
-                       //PERMET D'INCREMENTER LA TABLE POUR LE COMPTEUR DE DOSSIER
-                     CompteurDocument::create([
-                    "fakenumber"=>000,
-                ]);
+                    //PERMET D'INCREMENTER LA TABLE POUR LE COMPTEUR DE DOSSIER
+                    CompteurDocument::create([
+                        "fakenumber" => 000,
+                    ]);
                     return response()->json(['success' => 1, 'msg' => "Opération bien enregistrée."]);
                 } else {
                     return response()->json(['success' => 0, 'msg' => "Oooops! le solde du membre est insuffisant solde disponible." . $request->soldeCDF]);
@@ -133,7 +134,7 @@ class RetraitEspeceController extends Controller
 
                 //PERMET D'INCREMENTER LA TABLE POUR LE COMPTEUR DE DOSSIER
                 CompteurDocument::create([
-                    "fakenumber"=>000,
+                    "fakenumber" => 000,
                 ]);
 
 
@@ -148,6 +149,10 @@ class RetraitEspeceController extends Controller
     //FUNCTION TO WITHDRAW MONEY
     public function RetraitEspece(Request $request)
     {
+
+        //RECUPERE LE TAUX JOURNALIER
+        $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
 
         $validator = validator::make($request->all(), [
             // 'devise' => 'required',
@@ -282,7 +287,9 @@ class RetraitEspeceController extends Controller
                     "NumDemande" => "V00" . $numOperation->id,
                     "NumCompte" => $compteCDF,
                     "NumComptecp" => $CompteCaissierCDF,
+                    "Debit" => $request->montantRetrait,
                     "Operant" => $request->operant,
+                    "Debit$" => $request->montantRetrait / $tauxDuJour,
                     "Debitfc" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
                     "Libelle" => $request->libelle,
@@ -339,7 +346,7 @@ class RetraitEspeceController extends Controller
                     "Debit" => $request->montantRetrait,
                     "Operant" => $request->operant,
                     "Debit$" => $request->montantRetrait,
-                    "Debitfc" => $request->montantRetrait * $request->taux,
+                    "Debitfc" => $request->montantRetrait * $tauxDuJour,
                     "NomUtilisateur" => Auth::user()->name,
                     "Libelle" => $request->libelle,
                 ]);
@@ -374,7 +381,7 @@ class RetraitEspeceController extends Controller
                     "Credit" => $request->montantRetrait,
                     "Operant" => $request->operant,
                     "Credit$" => $request->montantRetrait,
-                    "Creditfc"  => $request->montantRetrait * $request->taux,
+                    "Creditfc"  => $request->montantRetrait * $tauxDuJour,
                     "NomUtilisateur" => Auth::user()->name,
                     "Libelle" => $request->libelle,
                 ]);

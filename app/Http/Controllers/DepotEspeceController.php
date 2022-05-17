@@ -2,17 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Dummy;
+use App\Models\Comptes;
 use App\Models\BilletageCdf;
 use App\Models\BilletageUsd;
 use App\Models\Transactions;
 use Illuminate\Http\Request;
 use App\Models\AdhesionMembre;
-use App\Models\Comptes;
+use App\Models\Positionnement;
+use App\Models\TauxJournalier;
 use App\Models\CompteurDocument;
 use Illuminate\Support\Facades\DB;
 use App\Models\CompteurTransaction;
-use App\Models\Dummy;
-use App\Models\Positionnement;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
@@ -40,14 +41,14 @@ class DepotEspeceController extends Controller
       ->get();
 
     //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
-           $lastId = [];
-            $lastId = CompteurDocument::orderBy('id', 'desc')->first();
-            $numDoc=$lastId->id;
+    $lastId = [];
+    $lastId = CompteurDocument::orderBy('id', 'desc')->first();
+    $numDoc = $lastId->id;
 
     if ($data) {
 
       return response()->json([
-        "success" => 1, 'data' =>  $data, "soldeMembre" => $soldeMembre,"numdoc"=>$numDoc
+        "success" => 1, 'data' =>  $data, "soldeMembre" => $soldeMembre, "numdoc" => $numDoc
       ]);
     } else {
 
@@ -109,6 +110,11 @@ class DepotEspeceController extends Controller
   public function depotEspece(Request $request)
   {
 
+
+    //RECUPERE LE TAUX JOURNALIER
+    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+
     $validator = validator::make($request->all(), [
       'devise' => 'required',
       'libelle' => 'required|max:50',
@@ -156,6 +162,7 @@ class DepotEspeceController extends Controller
           "NumCompte" => $compteCDF,
           "NumComptecp" => $CompteCaissierCDF,
           "Operant" => $request->operant,
+          "Credit"  => $request->montantDepot / $tauxDuJour,
           "Creditfc" => $request->montantDepot,
           "NomUtilisateur" => Auth::user()->name,
           "Libelle" => $request->libelle,
@@ -212,7 +219,7 @@ class DepotEspeceController extends Controller
           "Credit" => $request->montantDepot,
           "Operant" => $request->operant,
           "Credit$" => $request->montantDepot,
-          "Creditcdf" => $request->montantDepot * $request->taux,
+          "Creditcdf" => $request->montantDepot *  $tauxDuJour,
           "NomUtilisateur" => Auth::user()->name,
           "Libelle" => $request->libelle,
         ]);
@@ -247,7 +254,7 @@ class DepotEspeceController extends Controller
           "Debit" => $request->montantDepot,
           "Operant" => $request->operant,
           "Debit$" => $request->montantDepot,
-          "Debitfc"  => $request->montantDepot * $request->taux,
+          "Debitfc"  => $request->montantDepot * $tauxDuJour,
           "NomUtilisateur" => Auth::user()->name,
           "Libelle" => $request->libelle,
         ]);

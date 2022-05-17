@@ -128,7 +128,7 @@ export default class Approvisionnement extends React.Component {
                     Swal.fire({
                         title: "Suppression",
                         text: response.data.msg,
-                        icon: "error",
+                        icon: "info",
                         button: "OK!",
                     });
                 }
@@ -148,7 +148,7 @@ export default class Approvisionnement extends React.Component {
                     Swal.fire({
                         title: "Suppression",
                         text: response.data.msg,
-                        icon: "error",
+                        icon: "info",
                         button: "OK!",
                     });
                 }

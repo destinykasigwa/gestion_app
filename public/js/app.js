@@ -4892,7 +4892,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: "Suppression",
               text: response.data.msg,
-              icon: "error",
+              icon: "info",
               button: "OK!"
             });
           }
@@ -4912,7 +4912,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
             sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
               title: "Suppression",
               text: response.data.msg,
-              icon: "error",
+              icon: "info",
               button: "OK!"
             });
           }
