@@ -8,4 +8,20 @@ use Illuminate\Database\Eloquent\Model;
 class BilletageAppro_cdf extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        "NumCompteCaissier",
+        "vightMilleFranc",
+        "dixMilleFranc",
+        "cinqMilleFranc",
+        "milleFranc",
+        "cinqCentFranc",
+        "deuxCentFranc",
+        "centFranc",
+        "cinquanteFanc",
+        "received",
+        "NomUtilisateur",
+        "NomDemandeur",
+        "DateTransaction"
+    ];
 }

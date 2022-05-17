@@ -8,4 +8,17 @@ use Illuminate\Database\Eloquent\Model;
 class BilletageAppro_usd extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "NumCompteCaissier",
+        "centDollars",
+        "cinquanteDollars",
+        "vightDollars",
+        "dixDollars",
+        "cinqDollars",
+        "unDollars",
+        "received",
+        "NomUtilisateur",
+        "DateTransaction",
+        "NomDemandeur"
+    ];
 }

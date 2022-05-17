@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('billetage_appro_cdfs', function (Blueprint $table) {
             $table->id();
+            $table->string("NumCompteCaissier",30)->nullable();
             $table->float("vightMilleFranc")->nullable()->default('0.00');
             $table->float("dixMilleFranc")->nullable()->default('0.00');
             $table->float("cinqMilleFranc")->nullable()->default('0.00');
@@ -23,8 +24,9 @@ return new class extends Migration
             $table->float("deuxCentFranc")->nullable()->default('0.00');
             $table->float("centFranc")->nullable()->default('0.00');
             $table->float("cinquanteFanc")->nullable()->default('0.00');  
-            $table->float("received")->nullable()->default('0');
+            $table->string("received",10)->nullable()->default('0');
             $table->string("NomUtilisateur",20)->nullable();
+            $table->string("NomDemandeur",20)->nullable();
             $table->date("DateTransaction")->nullable();
             $table->timestamps();
         });

@@ -4751,6 +4751,50 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
       }, _callee);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "saveOperation", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+        var saveData;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                e.preventDefault();
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/appro/savenewappro", _this.state);
+
+              case 3:
+                saveData = _context2.sent;
+
+                if (saveData.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Approvisionnement",
+                    text: saveData.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    disabled: !_this.state.disabled,
+                    loading: false
+                  });
+
+                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+                  document.getElementById("printBtn").removeAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
     _this.state = (_this$state = {
       isloading: true,
       loading: false,
@@ -4768,6 +4812,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.getCaissier = _this.getCaissier.bind(_assertThisInitialized(_this));
+    _this.saveOperation = _this.saveOperation.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -5506,6 +5551,18 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
 
                   document.getElementById("validerbtn").setAttribute("disabled", "disabled");
                   document.getElementById("printBtn").removeAttribute("disabled", "disabled");
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+                    title: "Crédit sur compte",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    disabled: !_this.state.disabled,
+                    loading: false
+                  });
                 } else {
                   _this.setState({
                     error_list: res.data.validate_error

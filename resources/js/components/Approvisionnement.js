@@ -34,12 +34,14 @@
                 deuxCentFranc: 0,
                 centFranc: 0,
                 cinquanteFanc: 0,
-                fetchCaissierInDb:""
+                fetchCaissierInDb:"",
+               
                 }
 
                 this.actualiser=this.actualiser.bind(this);
                 this.handleChange = this.handleChange.bind(this);
                 this.getCaissier=this.getCaissier.bind(this);
+                this.saveOperation=this.saveOperation.bind(this);
                 }
 
                 componentDidMount() {
@@ -82,6 +84,27 @@
                     this.setState({fetchCaissierInDb:dataCaissier.data.data});
                     console.log(this.state.fetchCaissierInDb);
 
+               }
+    
+               saveOperation=async(e)=>{
+                   e.preventDefault();
+                const saveData=await axios.post("/appro/savenewappro",this.state)
+                if (saveData.data.success == 1) {
+                    Swal.fire({
+                        title: "Approvisionnement",
+                        text:
+                            saveData.data.msg,
+                        icon: "success",
+                        button: "OK!",
+                    });
+                    this.setState({ disabled: !this.state.disabled,loading:false});
+                    document
+                          .getElementById("validerbtn")
+                          .setAttribute("disabled", "disabled");
+                          document
+                          .getElementById("printBtn")
+                          .removeAttribute("disabled", "disabled");
+                }
                }
 
 

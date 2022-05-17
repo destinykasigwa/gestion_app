@@ -304,7 +304,7 @@ class RetraitEspeceController extends Controller
                     "NomUtilisateur" => Auth::user()->name,
                     "DateTransaction" => $request->DateTransaction
                 ]);
-                //DEBITE LE COMPTE CONTRE PARTIE  
+                //CREDITE LE COMPTE CONTRE PARTIE  
                 Dummy::create([
                     "NumTransaction" => $NumTransaction,
                     "DateTransaction" => $request->DateTransaction,

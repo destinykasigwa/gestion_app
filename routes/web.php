@@ -142,6 +142,12 @@ Route::get("positionnement/getalloperation",
 Route::get("appro/getcaissier",
 [ApproController::class,'getAllCaissier']);
 
+//SAVE OPERATION FOR APPRO CAISSIER
+
+Route::post("appro/savenewappro",
+[ApproController::class,'saveNewApproCaissier']);
+
+
 
 
 

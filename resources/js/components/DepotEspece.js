@@ -118,7 +118,16 @@ export default class DepotEspece extends React.Component {
                 document
                 .getElementById("printBtn")
                 .removeAttribute("disabled", "disabled");
-      } else {
+      }else if(res.data.success == 0){
+        Swal.fire({
+          title: "Crédit sur compte",
+          text:
+              res.data.msg,
+          icon: "error",
+          button: "OK!",
+      });
+      this.setState({ disabled: !this.state.disabled,loading:false});
+      }else {
           this.setState({
               error_list: res.data.validate_error,
           });
