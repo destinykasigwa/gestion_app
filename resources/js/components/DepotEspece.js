@@ -21,7 +21,6 @@ export default class DepotEspece extends React.Component {
             montantDepot: 0,
             devise: "",
             numCompte: "",
-            commission: 0,
             intitule: "",
             vightMille: 0,
             dixMille: 0,

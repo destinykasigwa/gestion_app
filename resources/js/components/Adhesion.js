@@ -61,7 +61,7 @@ class Adhesion extends React.Component {
             fetchData: null,
             fetchLastId: [],
             error_list: [],
-            compteAbrege:""
+            compteAbrege: "",
         };
         this.textInput = React.createRef();
         this.handleChange = this.handleChange.bind(this);
@@ -85,17 +85,17 @@ class Adhesion extends React.Component {
         }, 1000);
         let current_datetime = new Date();
         let formatted_date =
-             //year
-            current_datetime.getFullYear()  +
+            //year
+            current_datetime.getFullYear() +
             "-" +
             //month
             (current_datetime.getMonth() + 1) +
             "-" +
             //day
-            current_datetime.getDate()  ;
+            current_datetime.getDate();
         this.setState({ dateOuverture: formatted_date });
     }
-  
+
     //put focus on given input
     focusTextInput() {
         this.textInput.current.focus();
@@ -104,8 +104,11 @@ class Adhesion extends React.Component {
     handleNew = async (e) => {
         e.preventDefault();
         const getData = await axios.post("/createnew");
-        this.setState({ numCompte: "330000" + getData.data.lastId + "201",compteAbrege: getData.data.lastId + "20"});
-        
+        this.setState({
+            numCompte: "330000" + getData.data.lastId + "201",
+            compteAbrege: getData.data.lastId + "20",
+        });
+
         // console.log(this.state.fetchLastId);
         //clean data in all in put
 
@@ -149,7 +152,6 @@ class Adhesion extends React.Component {
             dateNaissLie: "",
             degreParante: "",
             activationCompte: "false",
-            
         });
         this.setState({ disabled: !this.state.disabled });
         setTimeout(() => {
@@ -460,7 +462,7 @@ class Adhesion extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                className="form-control"
+                                                                className="form-control text-uppercase"
                                                                 name="produitEpargne"
                                                                 value={
                                                                     this.state
@@ -504,7 +506,7 @@ class Adhesion extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                className="form-control"
+                                                                className="form-control text-uppercase"
                                                                 name="typeClient"
                                                                 value={
                                                                     this.state
@@ -566,7 +568,7 @@ class Adhesion extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                className={`form-control ${
+                                                                className={`form-control text-uppercase ${
                                                                     this.state
                                                                         .error_list
                                                                         .intituleCompte &&
@@ -662,7 +664,7 @@ class Adhesion extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                className={`form-control ${
+                                                                className={`form-control text-uppercase ${
                                                                     this.state
                                                                         .error_list
                                                                         .numCompte &&
@@ -714,7 +716,7 @@ class Adhesion extends React.Component {
                                                                     borderRadius:
                                                                         "0px",
                                                                 }}
-                                                                className="form-control"
+                                                                className="form-control text-uppercase"
                                                                 name="dateOuverture"
                                                                 value={
                                                                     this.state
@@ -837,7 +839,14 @@ class Adhesion extends React.Component {
                                                     <td></td>
                                                     <td>
                                                         <img
-                                                            src={`uploads/membres/${this.state.fetchData?this.state.fetchData.photoMembre:"default.jpg"}`}
+                                                            src={`uploads/membres/${
+                                                                this.state
+                                                                    .fetchData
+                                                                    ? this.state
+                                                                          .fetchData
+                                                                          .photoMembre
+                                                                    : "default.jpg"
+                                                            }`}
                                                             alt="photo-du-membre"
                                                             className="img-thumbnail"
                                                         />
@@ -958,7 +967,7 @@ class Adhesion extends React.Component {
                                                             aria-controls="webcame"
                                                             aria-selected="false"
                                                         >
-                                                           Web came{" "}
+                                                            Web came{" "}
                                                             <i className="fa fa-plus"></i>
                                                         </a>
                                                     </li>
@@ -3263,13 +3272,13 @@ class Adhesion extends React.Component {
                                                                                         <td>
                                                                                             {" "}
                                                                                             <select
-                                                                                             className={`form-control ${
-                                                                                                this
-                                                                                                    .state
-                                                                                                    .error_list
-                                                                                                    .critere1 &&
-                                                                                                "is-invalid"
-                                                                                            }`}
+                                                                                                className={`form-control ${
+                                                                                                    this
+                                                                                                        .state
+                                                                                                        .error_list
+                                                                                                        .critere1 &&
+                                                                                                    "is-invalid"
+                                                                                                }`}
                                                                                                 id="critere"
                                                                                                 style={
                                                                                                     inputColor
@@ -3378,11 +3387,13 @@ class Adhesion extends React.Component {
                                                                     .fetchData
                                                                     .refCompte
                                                             }
-                                                            membreImage={this.state
-                                                                .fetchData &&
-                                                            this.state
-                                                                .fetchData
-                                                                .photoMembre}
+                                                            membreImage={
+                                                                this.state
+                                                                    .fetchData &&
+                                                                this.state
+                                                                    .fetchData
+                                                                    .photoMembre
+                                                            }
                                                         />
                                                     </div>
 
@@ -3442,10 +3453,26 @@ class Adhesion extends React.Component {
                                                         id="comptepargne"
                                                         role="tabpanel"
                                                         aria-labelledby="comptepargne-tab"
-                                                         >
-                                                         {/* //ACTIVATE COMPTE */}
+                                                    >
+                                                        {/* //ACTIVATE COMPTE */}
 
-                                                         <ActivationCompte refCompte={this.state.compteToSearch ?  this.state.compteToSearch:null}  idCompteMembre={this.state.fetchData ? this.state.fetchData.refCompte:null} />
+                                                        <ActivationCompte
+                                                            refCompte={
+                                                                this.state
+                                                                    .compteToSearch
+                                                                    ? this.state
+                                                                          .compteToSearch
+                                                                    : null
+                                                            }
+                                                            idCompteMembre={
+                                                                this.state
+                                                                    .fetchData
+                                                                    ? this.state
+                                                                          .fetchData
+                                                                          .refCompte
+                                                                    : null
+                                                            }
+                                                        />
                                                     </div>
 
                                                     <div
@@ -3453,10 +3480,19 @@ class Adhesion extends React.Component {
                                                         id="webcame"
                                                         role="tabpanel"
                                                         aria-labelledby="webcame-tab"
-                                                         >
-                                                         {/* //ACTIVATE COMPTE */}
+                                                    >
+                                                        {/* //ACTIVATE COMPTE */}
 
-                                                         <WebCame  idCompteMembre={this.state.fetchData ? this.state.fetchData.refCompte:null} />
+                                                        <WebCame
+                                                            idCompteMembre={
+                                                                this.state
+                                                                    .fetchData
+                                                                    ? this.state
+                                                                          .fetchData
+                                                                          .refCompte
+                                                                    : null
+                                                            }
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>

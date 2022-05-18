@@ -374,6 +374,9 @@ export default class Approvisionnement extends React.Component {
                                                                             ) => {
                                                                                 return (
                                                                                     <option
+                                                                                        key={
+                                                                                            index
+                                                                                        }
                                                                                         value={
                                                                                             res.NumCompte
                                                                                         }
@@ -1196,7 +1199,11 @@ export default class Approvisionnement extends React.Component {
                                                                     index
                                                                 ) => {
                                                                     return (
-                                                                        <tr>
+                                                                        <tr
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
                                                                             <td
                                                                                 style={
                                                                                     tableBorder
@@ -1292,7 +1299,11 @@ export default class Approvisionnement extends React.Component {
                                                                     index
                                                                 ) => {
                                                                     return (
-                                                                        <tr>
+                                                                        <tr
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
                                                                             <td
                                                                                 style={
                                                                                     tableBorder

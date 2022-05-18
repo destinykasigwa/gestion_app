@@ -1,0 +1,2055 @@
+import React from "react";
+import Swal from "sweetalert2";
+import axios from "axios";
+
+export default class Delestage extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            disabled: false,
+            isloading: true,
+            loading: false,
+            DateTransaction: "",
+            hundred: 0,
+            fitfty: 0,
+            twenty: 0,
+            ten: 0,
+            five: 0,
+            oneDollar: 0,
+            montantCDF: 0,
+            montantUSD: 0,
+            montant: "",
+            devise: "",
+            numCompte: "",
+            intitule: "",
+            vightMille: 0,
+            dixMille: 0,
+            cinqMille: 0,
+            milleFranc: 0,
+            cinqCentFr: 0,
+            deuxCentFranc: 0,
+            centFranc: 0,
+            cinquanteFanc: 0,
+            fetchBilletageCDF: null,
+            fetchBilletageUSD: null,
+        };
+        this.getAllBilletage = this.getAllBilletage.bind(this);
+        this.actualiser = this.actualiser.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+    }
+
+    componentDidMount() {
+        setTimeout(() => {
+            this.setState({ isloading: false });
+            // document
+            //     .getElementById("validerbtn")
+            //     .setAttribute("disabled", "disabled");
+            // document
+            //     .getElementById("printbtn")
+            // .setAttribute("disabled", "disabled");
+        }, 1000);
+
+        let current_datetime = new Date();
+        let formatted_date =
+            //year
+            current_datetime.getFullYear() +
+            "-" +
+            //month
+            (current_datetime.getMonth() + 1) +
+            "-" +
+            //day
+            current_datetime.getDate();
+        this.setState({ DateTransaction: formatted_date });
+        this.getAllBilletage();
+    }
+
+    //GET VALUES FROM INPUT
+    handleChange(event) {
+        this.setState({
+            // Computed property names
+            // keys of the objects are computed dynamically
+            [event.target.name]: event.target.value,
+        });
+    }
+
+    //GET SUM OF BILLETAGE IN DB
+
+    getAllBilletage = async () => {
+        const getBilletage = await axios.get("/billetage/sommebilletage");
+        this.setState({
+            fetchBilletageCDF: getBilletage.data.dataCDF,
+            fetchBilletageUSD: getBilletage.data.dataUSD,
+            montantCDF:
+                parseInt(getBilletage.data.dataCDF.vightMilleFranc) * 20000 +
+                parseInt(getBilletage.data.dataCDF.dixMilleFranc) * 10000 +
+                parseInt(getBilletage.data.dataCDF.cinqMilleFranc) * 5000 +
+                parseInt(getBilletage.data.dataCDF.milleFranc) * 1000 +
+                parseInt(getBilletage.data.dataCDF.cinqCentFranc) * 500 +
+                parseInt(getBilletage.data.dataCDF.deuxCentFranc) * 200 +
+                parseInt(getBilletage.data.dataCDF.centFranc) * 100 +
+                parseInt(getBilletage.data.dataCDF.cinquanteFanc) * 50,
+            montantUSD:
+                parseInt(getBilletage.data.dataUSD.centDollars) * 100 +
+                parseInt(getBilletage.data.dataUSD.cinquanteDollars) * 50 +
+                parseInt(getBilletage.data.dataUSD.vightDollars) * 20 +
+                parseInt(getBilletage.data.dataUSD.dixDollars) * 10 +
+                parseInt(getBilletage.data.dataUSD.cinqDollars) * 5 +
+                parseInt(getBilletage.data.dataUSD.unDollars) * 1,
+        });
+    };
+
+    //to refresh
+    actualiser() {
+        location.reload();
+    }
+
+    render() {
+        let myspinner = {
+            margin: "5px auto",
+            width: "3rem",
+            height: "3rem",
+            marginTop: "180px",
+            border: "0px",
+            height: "200px",
+        };
+        let labelColor = {
+            fontWeight: "bold",
+            color: "steelblue",
+            padding: "3px",
+            fontSize: "11px",
+        };
+        let inputColor = {
+            height: "25px",
+            border: "1px solid steelblue",
+            padding: "3px",
+            borderRadius: "0px",
+        };
+        // var inputColor2 = {
+        //     height: "25px",
+        //     border: "1px solid white",
+        //     padding: "3px",
+        //     width: "60px",
+        // };
+        let tableBorder = {
+            border: "2px solid #fff",
+            fontSize: "14px",
+            textAlign: "center",
+        };
+        let compteur = 1;
+        //PERMET DE FORMATER LES CHIFFRES
+        const numberFormat = (number = 0) => {
+            let locales = [
+                //undefined,  // Your own browser
+                "en-US", // United States
+                //'de-DE',    // Germany
+                //'ru-RU',    // Russia
+                //'hi-IN',    // India
+            ];
+            let opts = { minimumFractionDigits: 2 };
+            let index = 3;
+            let nombre = number.toLocaleString(locales[index], opts);
+            if (nombre === isNaN) {
+                nombre = 0.0;
+            } else {
+                return nombre;
+            }
+        };
+        return (
+            <React.Fragment>
+                {this.state.isloading ? (
+                    <div className="row" id="rowspinner">
+                        <div className="myspinner" style={myspinner}>
+                            <span
+                                className="spinner-border"
+                                role="status"
+                            ></span>
+                            <span style={{ marginLeft: "-20px" }}>
+                                Chargement...
+                            </span>
+                        </div>
+                    </div>
+                ) : (
+                    <div className="row">
+                        <div className="col-lg-12 card">
+                            <div className="card card-default">
+                                <div
+                                    className="card-header"
+                                    style={{
+                                        background: "#DCDCDC",
+                                        textAlign: "center",
+                                        color: "#fff",
+                                        marginTop: "5px",
+                                    }}
+                                >
+                                    <button
+                                        style={{
+                                            height: "30px",
+                                            float: "right",
+                                            background: "green",
+                                            border: "0px",
+                                            padding: "3px",
+                                            marginLeft: "5px",
+                                        }}
+                                        onClick={this.actualiser}
+                                    >
+                                        <i className="fas fa-sync"></i>{" "}
+                                        Actualiser{" "}
+                                    </button>
+                                </div>
+
+                                <div
+                                    className="card-body"
+                                    style={{ background: "#dcdcdc" }}
+                                >
+                                    <div
+                                        className="row"
+                                        style={{
+                                            padding: "10px",
+                                            border: "2px solid #fff",
+                                        }}
+                                    >
+                                        <div
+                                            className="col-md-3"
+                                            style={{
+                                                background: "#fff",
+                                                padding: "10px",
+                                            }}
+                                        >
+                                            <form>
+                                                <table>
+                                                    <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Dévise
+                                                            </label>{" "}
+                                                        </td>
+                                                        <td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <select
+                                                                    name="devise"
+                                                                    className="form-control"
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    disabled={
+                                                                        this
+                                                                            .state
+                                                                            .disabled
+                                                                            ? "disabled"
+                                                                            : ""
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .devise
+                                                                    }
+                                                                >
+                                                                    <option value="">
+                                                                        Sélectionnez
+                                                                    </option>
+                                                                    <option value="USD">
+                                                                        USD
+                                                                    </option>
+                                                                    <option value="CDF">
+                                                                        CDF
+                                                                    </option>
+                                                                </select>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    {this.state.devise ==
+                                                    "USD" ? (
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Montant
+                                                                </label>{" "}
+                                                            </td>
+                                                            <td>
+                                                                <div className="input-group input-group-sm ">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="montantUSD"
+                                                                        className="form-control font-weight-bold"
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                        style={
+                                                                            inputColor
+                                                                        }
+                                                                        value={
+                                                                            this
+                                                                                .state
+                                                                                .montantUSD
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    ) : (
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Montant
+                                                                </label>{" "}
+                                                            </td>
+                                                            <td>
+                                                                <div className="input-group input-group-sm ">
+                                                                    <input
+                                                                        type="text"
+                                                                        name="montantCDF"
+                                                                        className="form-control font-weight-bold"
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                        style={
+                                                                            inputColor
+                                                                        }
+                                                                        value={
+                                                                            this
+                                                                                .state
+                                                                                .montantCDF
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )}
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td
+                                                            style={{
+                                                                padding: "2px",
+                                                            }}
+                                                        >
+                                                            {this.state
+                                                                .hundred *
+                                                                100 +
+                                                                this.state
+                                                                    .fitfty *
+                                                                    50 +
+                                                                this.state
+                                                                    .twenty *
+                                                                    20 +
+                                                                this.state.ten *
+                                                                    10 +
+                                                                this.state
+                                                                    .five *
+                                                                    5 +
+                                                                this.state
+                                                                    .oneDollar *
+                                                                    1 ===
+                                                                parseInt(
+                                                                    this.state
+                                                                        .montantUSD
+                                                                ) ||
+                                                            this.state
+                                                                .vightMille *
+                                                                20000 +
+                                                                this.state
+                                                                    .dixMille *
+                                                                    10000 +
+                                                                this.state
+                                                                    .cinqMille *
+                                                                    5000 +
+                                                                this.state
+                                                                    .milleFranc *
+                                                                    1000 +
+                                                                this.state
+                                                                    .cinqCentFr *
+                                                                    500 +
+                                                                this.state
+                                                                    .deuxCentFranc *
+                                                                    200 +
+                                                                this.state
+                                                                    .centFranc *
+                                                                    100 +
+                                                                this.state
+                                                                    .cinquanteFanc *
+                                                                    50 ===
+                                                                parseInt(
+                                                                    this.state
+                                                                        .montantCDF
+                                                                ) ? (
+                                                                <button
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                        width: "100%",
+                                                                        height: "30px",
+                                                                        fontSize:
+                                                                            "12px",
+                                                                        marginTop:
+                                                                            "12px",
+                                                                    }}
+                                                                    className="btn btn-primary"
+                                                                    id="validerbtn"
+                                                                    onClick={
+                                                                        this
+                                                                            .saveOperation
+                                                                    }
+                                                                >
+                                                                    <i
+                                                                        className={`${
+                                                                            this
+                                                                                .state
+                                                                                .loading
+                                                                                ? "spinner-border spinner-border-sm"
+                                                                                : "fas fa-check"
+                                                                        }`}
+                                                                    ></i>{" "}
+                                                                    Valider
+                                                                </button>
+                                                            ) : (
+                                                                <button
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                        width: "100%",
+                                                                        height: "30px",
+                                                                        fontSize:
+                                                                            "12px",
+                                                                        marginTop:
+                                                                            "12px",
+                                                                    }}
+                                                                    className="btn btn-primary"
+                                                                    disabled
+                                                                >
+                                                                    <i className="fas fa-check"></i>
+                                                                    Valider
+                                                                    {/* <span class="spinner-border spinner-border-sm invisible"></span>{" "} */}
+                                                                </button>
+                                                            )}
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td
+                                                            style={{
+                                                                padding: "2px",
+                                                            }}
+                                                        >
+                                                            <button
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                    width: "100%",
+                                                                    height: "30px",
+                                                                    fontSize:
+                                                                        "12px",
+                                                                }}
+                                                                className="btn btn-primary"
+                                                                id="printBtn"
+                                                            >
+                                                                <i className="fas fa-print"></i>{" "}
+                                                                Imprimer {""}
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </form>
+                                        </div>
+                                        <div className="col-md-5">
+                                            <div
+                                                className="card-body"
+                                                style={{ background: "#fff" }}
+                                            >
+                                                {this.state.devise === "USD" ? (
+                                                    // BILLETAGE EN DOLLARS
+                                                    <form
+                                                        method="POST"
+                                                        style={{
+                                                            height: "auto",
+                                                        }}
+                                                    >
+                                                        <table className="tableDepotEspece">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th className="col-md-4">
+                                                                        Coupures
+                                                                    </th>
+                                                                    <th className="col-md-4">
+                                                                        Nbr
+                                                                        Billets
+                                                                    </th>
+                                                                    <th className="col-md-2">
+                                                                        Total
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>100</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="hundred"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .hundred
+                                                                            }
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .hundred *
+                                                                            100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>50</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="fitfty"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .fitfty
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .fitfty *
+                                                                            50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>20</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="twenty"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .twenty
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .twenty *
+                                                                            20}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>10</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="ten"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .ten
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .ten *
+                                                                            10}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>5</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="five"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .five
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .five *
+                                                                            5}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>1</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="oneDollar"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .oneDollar
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .oneDollar *
+                                                                            1}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        padding:
+                                                                            "10px",
+                                                                    }}
+                                                                >
+                                                                    <th>
+                                                                        Total
+                                                                    </th>
+                                                                    <th>
+                                                                        {" "}
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .hundred
+                                                                        ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fitfty
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .twenty
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .ten
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .five
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .oneDollar
+                                                                            )}{" "}
+                                                                    </th>
+                                                                    <th
+                                                                        style={{
+                                                                            fontSize:
+                                                                                "25px",
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                        }}
+                                                                    >
+                                                                        {" "}
+                                                                        {this
+                                                                            .state
+                                                                            .hundred *
+                                                                            100 +
+                                                                            this
+                                                                                .state
+                                                                                .fitfty *
+                                                                                50 +
+                                                                            this
+                                                                                .state
+                                                                                .twenty *
+                                                                                20 +
+                                                                            this
+                                                                                .state
+                                                                                .ten *
+                                                                                10 +
+                                                                            this
+                                                                                .state
+                                                                                .five *
+                                                                                5 +
+                                                                            this
+                                                                                .state
+                                                                                .oneDollar *
+                                                                                1}{" "}
+                                                                    </th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td
+                                                                style={{
+                                                                    padding:
+                                                                        "2px",
+                                                                }}
+                                                            >
+                                                                {this.state
+                                                                    .hundred *
+                                                                    100 +
+                                                                    this.state
+                                                                        .fitfty *
+                                                                        50 +
+                                                                    this.state
+                                                                        .twenty *
+                                                                        20 +
+                                                                    this.state
+                                                                        .ten *
+                                                                        10 +
+                                                                    this.state
+                                                                        .five *
+                                                                        5 +
+                                                                    this.state
+                                                                        .oneDollar *
+                                                                        1 ===
+                                                                    parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .montantUSD
+                                                                    ) ||
+                                                                this.state
+                                                                    .vightMille *
+                                                                    20000 +
+                                                                    this.state
+                                                                        .dixMille *
+                                                                        10000 +
+                                                                    this.state
+                                                                        .cinqMille *
+                                                                        5000 +
+                                                                    this.state
+                                                                        .milleFranc *
+                                                                        1000 +
+                                                                    this.state
+                                                                        .cinqCentFr *
+                                                                        500 +
+                                                                    this.state
+                                                                        .deuxCentFranc *
+                                                                        200 +
+                                                                    this.state
+                                                                        .centFranc *
+                                                                        100 +
+                                                                    this.state
+                                                                        .cinquanteFanc *
+                                                                        50 ===
+                                                                    parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .montantCDF
+                                                                    ) ? (
+                                                                    <button
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                            width: "100%",
+                                                                            height: "30px",
+                                                                            fontSize:
+                                                                                "12px",
+                                                                            marginTop:
+                                                                                "12px",
+                                                                        }}
+                                                                        className="btn btn-primary"
+                                                                        id="validerbtn"
+                                                                        onClick={
+                                                                            this
+                                                                                .UpdateBilletageCDF
+                                                                        }
+                                                                    >
+                                                                        {/* <i
+                                                                            className={`${
+                                                                                this
+                                                                                    .state
+                                                                                    .loading
+                                                                                    ? "spinner-border spinner-border-sm"
+                                                                                    : "fas fa-check"
+                                                                            }`}
+                                                                        ></i> */}
+                                                                        Modifier
+                                                                        {""}
+                                                                    </button>
+                                                                ) : (
+                                                                    <button
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                            width: "100%",
+                                                                            height: "30px",
+                                                                            fontSize:
+                                                                                "12px",
+                                                                            marginTop:
+                                                                                "12px",
+                                                                        }}
+                                                                        className="btn btn-primary"
+                                                                        disabled
+                                                                    >
+                                                                        {/* <i className="fas fa-check"></i> */}
+                                                                        Modifier
+                                                                    </button>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    </form>
+                                                ) : (
+                                                    //BILLETAFE CDF
+                                                    <form
+                                                        method="POST"
+                                                        style={{
+                                                            height: "340px",
+                                                        }}
+                                                    >
+                                                        <table className="tableDepotEspece">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th className="col-md-4">
+                                                                        Coupures
+                                                                    </th>
+                                                                    <th className="col-md-4">
+                                                                        Nbr
+                                                                        Billets
+                                                                    </th>
+                                                                    <th className="col-md-2">
+                                                                        Total
+                                                                    </th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>
+                                                                        20000
+                                                                    </td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="vightMille"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .vightMille
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .vightMille *
+                                                                            20000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>
+                                                                        10000
+                                                                    </td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="dixMille"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .dixMille
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .dixMille *
+                                                                            10000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>
+                                                                        5000
+                                                                    </td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="cinqMille"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .cinqMille
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .cinqMille *
+                                                                            5000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>
+                                                                        1000
+                                                                    </td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="milleFranc"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .milleFranc
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .milleFranc *
+                                                                            1000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>500</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="cinqCentFr"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .cinqCentFr
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .cinqCentFr *
+                                                                            500}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>200</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="deuxCentFranc"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .deuxCentFranc
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .deuxCentFranc *
+                                                                            200}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>100</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="centFranc"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .centFranc
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .centFranc *
+                                                                            100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr ng-repeat="name in getdrugnameNewArray">
+                                                                    <td>50</td>
+                                                                    <td>
+                                                                        <input
+                                                                            type="text"
+                                                                            name="cinquanteFanc"
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .cinquanteFanc
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                    <td>
+                                                                        {this
+                                                                            .state
+                                                                            .cinquanteFanc *
+                                                                            50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        padding:
+                                                                            "10px",
+                                                                    }}
+                                                                >
+                                                                    <th>
+                                                                        Total
+                                                                    </th>
+                                                                    <th>
+                                                                        {" "}
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .vightMille
+                                                                        ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .dixMille
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .cinqMille
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .milleFranc
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .cinqCentFr
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .deuxCentFranc
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .centFranc
+                                                                            ) +
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .cinquanteFanc
+                                                                            )}{" "}
+                                                                    </th>
+                                                                    <th
+                                                                        style={{
+                                                                            fontSize:
+                                                                                "25px",
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                        }}
+                                                                    >
+                                                                        {" "}
+                                                                        {this
+                                                                            .state
+                                                                            .vightMille *
+                                                                            20000 +
+                                                                            this
+                                                                                .state
+                                                                                .dixMille *
+                                                                                10000 +
+                                                                            this
+                                                                                .state
+                                                                                .cinqMille *
+                                                                                5000 +
+                                                                            this
+                                                                                .state
+                                                                                .milleFranc *
+                                                                                1000 +
+                                                                            this
+                                                                                .state
+                                                                                .cinqCentFr *
+                                                                                500 +
+                                                                            this
+                                                                                .state
+                                                                                .deuxCentFranc *
+                                                                                200 +
+                                                                            this
+                                                                                .state
+                                                                                .centFranc *
+                                                                                100 +
+                                                                            this
+                                                                                .state
+                                                                                .cinquanteFanc *
+                                                                                50}{" "}
+                                                                    </th>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+
+                                                        <tr>
+                                                            <td></td>
+                                                            <td
+                                                                style={{
+                                                                    padding:
+                                                                        "2px",
+                                                                }}
+                                                            >
+                                                                {this.state
+                                                                    .hundred *
+                                                                    100 +
+                                                                    this.state
+                                                                        .fitfty *
+                                                                        50 +
+                                                                    this.state
+                                                                        .twenty *
+                                                                        20 +
+                                                                    this.state
+                                                                        .ten *
+                                                                        10 +
+                                                                    this.state
+                                                                        .five *
+                                                                        5 +
+                                                                    this.state
+                                                                        .oneDollar *
+                                                                        1 ===
+                                                                    parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .montantUSD
+                                                                    ) ||
+                                                                this.state
+                                                                    .vightMille *
+                                                                    20000 +
+                                                                    this.state
+                                                                        .dixMille *
+                                                                        10000 +
+                                                                    this.state
+                                                                        .cinqMille *
+                                                                        5000 +
+                                                                    this.state
+                                                                        .milleFranc *
+                                                                        1000 +
+                                                                    this.state
+                                                                        .cinqCentFr *
+                                                                        500 +
+                                                                    this.state
+                                                                        .deuxCentFranc *
+                                                                        200 +
+                                                                    this.state
+                                                                        .centFranc *
+                                                                        100 +
+                                                                    this.state
+                                                                        .cinquanteFanc *
+                                                                        50 ===
+                                                                    parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .montantCDF
+                                                                    ) ? (
+                                                                    <button
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                            width: "100%",
+                                                                            height: "30px",
+                                                                            fontSize:
+                                                                                "12px",
+                                                                            marginTop:
+                                                                                "12px",
+                                                                        }}
+                                                                        className="btn btn-primary"
+                                                                        id="validerbtn"
+                                                                        onClick={
+                                                                            this
+                                                                                .UpdateBilletageCDF
+                                                                        }
+                                                                    >
+                                                                        {/* <i
+                                                                            className={`${
+                                                                                this
+                                                                                    .state
+                                                                                    .loading
+                                                                                    ? "spinner-border spinner-border-sm"
+                                                                                    : "fas fa-check"
+                                                                            }`}
+                                                                        ></i> */}
+                                                                        Modifier
+                                                                    </button>
+                                                                ) : (
+                                                                    <button
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                            width: "100%",
+                                                                            height: "30px",
+                                                                            fontSize:
+                                                                                "12px",
+                                                                            marginTop:
+                                                                                "12px",
+                                                                        }}
+                                                                        className="btn btn-primary"
+                                                                        disabled
+                                                                    >
+                                                                        {/* <i className="fas fa-check"></i> */}
+                                                                        Modifier
+                                                                    </button>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    </form>
+                                                )}
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            className="col-md-4 appro-table-div"
+                                            style={{
+                                                background: "#fff",
+                                                padding: "5px",
+                                            }}
+                                        >
+                                            {this.state.devise == "USD" ? (
+                                                <table
+                                                    className="table table-dark"
+                                                    style={tableBorder}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Coupure
+                                                            </td>
+
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Nombre
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Montant
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.state
+                                                            .fetchBilletageUSD && (
+                                                            <>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        100 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .centDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .centDollars
+                                                                        ) * 100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        50 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .cinquanteDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .cinquanteDollars
+                                                                        ) * 50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        20 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .vightDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .vightDollars
+                                                                        ) * 20}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        10 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .dixDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .dixDollars
+                                                                        ) * 10}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        5 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .cinqDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .cinqDollars
+                                                                        ) * 5}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        1 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .unDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageUSD
+                                                                                .unDollars
+                                                                        ) * 5}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        tableBorder,
+                                                                    }}
+                                                                >
+                                                                    <td>TOT</td>
+                                                                    <td>
+                                                                        <button
+                                                                            className="btn btn-success"
+                                                                            onClick={() => {
+                                                                                this.acceptItemUSD(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .id
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            Délester
+                                                                            {/* <i className="fas fa-check"></i> */}
+                                                                        </button>
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                            fontSize:
+                                                                                "28px",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            fontWeight:
+                                                                                "bold",
+                                                                        }}
+                                                                    >
+                                                                        {numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchBilletageUSD
+                                                                                    .centDollars
+                                                                            ) *
+                                                                                100 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .cinquanteDollars
+                                                                                ) *
+                                                                                    50 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .vightDollars
+                                                                                ) *
+                                                                                    20 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .dixDollars
+                                                                                ) *
+                                                                                    10 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .cinqDollars
+                                                                                ) *
+                                                                                    5 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageUSD
+                                                                                        .unDollars
+                                                                                ) *
+                                                                                    1
+                                                                        )}
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            ) : (
+                                                <table
+                                                    className="table table-dark"
+                                                    style={tableBorder}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Coupure
+                                                            </td>
+
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Nombre
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Montant
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.state
+                                                            .fetchBilletageCDF && (
+                                                            <>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        20 000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .vightMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .vightMilleFranc
+                                                                        ) *
+                                                                            20000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        10 000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .dixMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .dixMilleFranc
+                                                                        ) *
+                                                                            10000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        5000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinqMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinqMilleFranc
+                                                                        ) *
+                                                                            5000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        1000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .milleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .milleFranc
+                                                                        ) *
+                                                                            1000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        500 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinqCentFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinqCentFranc
+                                                                        ) * 500}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        200 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .deuxCentFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .deuxCentFranc
+                                                                        ) * 200}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        100 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .centFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .centFranc
+                                                                        ) * 100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        50 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinquanteFanc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchBilletageCDF
+                                                                                .cinquanteFanc
+                                                                        ) * 50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        tableBorder,
+                                                                    }}
+                                                                >
+                                                                    <td
+                                                                        style={{
+                                                                            tableBorder,
+                                                                        }}
+                                                                    >
+                                                                        TOT
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={{
+                                                                            tableBorder,
+                                                                        }}
+                                                                    >
+                                                                        <button
+                                                                            className="btn btn-success"
+                                                                            onClick={() => {
+                                                                                this.acceptItemCDF(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .id
+                                                                                );
+                                                                            }}
+                                                                        >
+                                                                            Délester
+                                                                            {/* <i className="fas fa-check"></i> */}
+                                                                        </button>
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                            fontSize:
+                                                                                "28px",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            fontWeight:
+                                                                                "bold",
+                                                                        }}
+                                                                    >
+                                                                        {numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchBilletageCDF
+                                                                                    .vightMilleFranc
+                                                                            ) *
+                                                                                20000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .dixMilleFranc
+                                                                                ) *
+                                                                                    10000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .cinqMilleFranc
+                                                                                ) *
+                                                                                    5000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .milleFranc
+                                                                                ) *
+                                                                                    1000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .cinqCentFranc
+                                                                                ) *
+                                                                                    500 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .deuxCentFranc
+                                                                                ) *
+                                                                                    200 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .centFranc
+                                                                                ) *
+                                                                                    100 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchBilletageCDF
+                                                                                        .cinquanteFanc
+                                                                                ) *
+                                                                                    50
+                                                                        )}
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            )}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </React.Fragment>
+        );
+    }
+}

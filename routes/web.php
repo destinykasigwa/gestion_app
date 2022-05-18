@@ -3,15 +3,17 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\updateMembre;
-use App\Http\Controllers\AdhesionMembreController;
-use App\Http\Controllers\ApproController;
-use App\Http\Controllers\DepotEspeceController;
-use App\Http\Controllers\GetIndividualMendataire;
-// use App\Http\Controllers\MendataireController;
-use App\Http\Controllers\PersonneLieController;
-use App\Http\Controllers\RetraitEspece;
-use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\updateMembre;
+use App\Http\Controllers\RetraitEspece;
+use App\Http\Controllers\ApproController;
+use App\Http\Controllers\DelestageController;
+// use App\Http\Controllers\MendataireController;
+use App\Http\Controllers\DepotEspeceController;
+use App\Http\Controllers\PersonneLieController;
+use App\Http\Controllers\GetIndividualMendataire;
+use App\Http\Controllers\RetraitEspeceController;
+use App\Http\Controllers\AdhesionMembreController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -36,6 +38,8 @@ Route::get('/depot-espece', [DepotEspeceController::class, 'depot'])->name('depo
 Route::get('/retrait-espece', [RetraitEspeceController::class, 'retrait'])->name('retrait.espece');
 Route::get('/positionnement', [RetraitEspeceController::class, 'getPositionnement'])->name('retrait.positionnement');
 Route::get('/appro', [ApproController::class, 'getApproPage'])->name('appro.approvisionnement');
+Route::get('/delestage', [DelestageController::class, 'getDelestagePage'])->name('retour.delestage');
+
 
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
@@ -226,4 +230,10 @@ Route::delete(
 Route::delete(
     "accept/appro/usd/{id}",
     [ApproController::class, 'acceptApproUSD']
+);
+
+//GET SUM  OF BILLETAGE
+Route::get(
+    "billetage/sommebilletage",
+    [DelestageController::class, 'getAllBilletage']
 );

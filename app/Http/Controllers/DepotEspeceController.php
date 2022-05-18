@@ -266,7 +266,7 @@ class DepotEspeceController extends Controller
 
   public function getBilletage()
   {
-
+    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
     // $billetageCDF = Transactions::where("NomUtilisateur","=",Auth::user()->name)
     // ->join('billetage_cdfs', "transactions.RéfTransaction","=","billetage_cdfs.refOperation")
     //  ->select('billetage_cdfs.*')
@@ -278,7 +278,6 @@ class DepotEspeceController extends Controller
     //  ->get();
     //  $sum = Model::where('status', 'paid')->sum('sum_field');
     //RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
-    $date = date("Y-m-d");
     $billetageCDF = BilletageCdf::select(
       DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFran"),
       DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFran"),

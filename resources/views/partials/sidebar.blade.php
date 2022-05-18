@@ -1,8 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
     <a href="index3.html" class="brand-link">
-        <img src="{{asset('dist/img/AdminLTELogo.png')}}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3"
-            style="opacity: .8">
+        <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
+            class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">AdminLTE 3</span>
     </a>
 
@@ -21,32 +21,32 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="{{route('depot.espece')}}" class="nav-link">
+                            <a href="{{ route('depot.espece') }}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>Dépot</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('retrait.espece')}}" class="nav-link">
+                            <a href="{{ route('retrait.espece') }}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>Retrait</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('retrait.positionnement')}}" class="nav-link">
+                            <a href="{{ route('retrait.positionnement') }}" class="nav-link">
                                 <i class="fas fa-money-check"></i>
 
                                 <p>Visa</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('appro.approvisionnement')}}" class="nav-link">
+                            <a href="{{ route('appro.approvisionnement') }}" class="nav-link">
                                 <i class="fas fa-hand-holding-usd"></i>
                                 <p>Appro</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('retour.delestage') }}" class="nav-link">
                                 <i class="fas fa-sack-dollar"></i>
                                 <p>Delestage</p>
                             </a>
@@ -97,7 +97,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="{{route('membre.adhesion')}}" class="nav-link">
+                            <a href="{{ route('membre.adhesion') }}" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>Adhésion</p>
                             </a>
