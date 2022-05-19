@@ -120,7 +120,7 @@ export default class Approvisionnement extends React.Component {
 
     removeItemCDF(id) {
         const question = confirm(
-            "vous le vous vraiment supprimé l'élement sélectionner?"
+            "voulez vous vraiment supprimé l'élement sélectionné?"
         );
         if (question == true) {
             axios.delete("delete/appro/cdf/" + id).then((response) => {
@@ -134,13 +134,18 @@ export default class Approvisionnement extends React.Component {
                 }
             });
         } else {
-            console.log("Nothing done...");
+            Swal.fire({
+                title: "Suppression",
+                text: "Suppression annulée",
+                icon: "info",
+                button: "OK!",
+            });
         }
     }
 
     removeItemUSD(id) {
         const question = confirm(
-            "vous le vous vraiment supprimé l'élement sélectionner?"
+            "voulez vous vraiment supprimé l'élement sélectionné?"
         );
         if (question == true) {
             axios.delete("delete/appro/usd/" + id).then((response) => {
@@ -154,7 +159,12 @@ export default class Approvisionnement extends React.Component {
                 }
             });
         } else {
-            console.log("Nothing done...");
+            Swal.fire({
+                title: "Suppression",
+                text: "Suppression annulée",
+                icon: "info",
+                button: "OK!",
+            });
         }
     }
 

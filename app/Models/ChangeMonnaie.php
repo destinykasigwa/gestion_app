@@ -32,6 +32,7 @@ class ChangeMonnaie extends Model
         "NomUtilisateur",
         "NomDemandeur",
         "DateTransaction",
+        "CodeMonnaie"
 
     ];
 }

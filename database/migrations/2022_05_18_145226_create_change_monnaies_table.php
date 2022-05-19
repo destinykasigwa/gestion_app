@@ -37,6 +37,7 @@ return new class extends Migration
             $table->string("NomUtilisateur", 20)->nullable();
             $table->string("NomDemandeur", 20)->nullable();
             $table->date("DateTransaction")->nullable();
+            $table->string("CodeMonnaie", 10)->nullable();
             $table->timestamps();
         });
     }

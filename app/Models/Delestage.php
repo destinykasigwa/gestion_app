@@ -32,6 +32,7 @@ class Delestage extends Model
         "NomUtilisateur",
         "NomDemandeur",
         "DateTransaction",
+        "CodeMonnaie",
 
     ];
 }

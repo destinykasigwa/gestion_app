@@ -19,6 +19,7 @@ import RetraitEspece from "./components/RetraitEspece";
 import Positionnement from "./components/Positionnement";
 import Approvisionnement from "./components/Approvisionnement";
 import Delestage from "./components/Delestage";
+import EntreeTresor from "./components/EntreeTresor";
 
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
@@ -46,5 +47,10 @@ if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(
         <Delestage />,
         document.getElementById("DelestageContainer")
+    );
+} else if (document.getElementById("EntreeTresorContainer")) {
+    ReactDOM.render(
+        <EntreeTresor />,
+        document.getElementById("EntreeTresorContainer")
     );
 }

@@ -21,7 +21,6 @@ export default class Delestage extends React.Component {
             montant: "",
             devise: "",
             numCompte: "",
-            intitule: "",
             vightMille: 0,
             dixMille: 0,
             cinqMille: 0,
@@ -32,21 +31,29 @@ export default class Delestage extends React.Component {
             cinquanteFanc: 0,
             fetchBilletageCDF: null,
             fetchBilletageUSD: null,
+            fetchNouvelBilletageCDF: null,
+            fetchNouvelBilletageUSD: null,
         };
         this.getAllBilletage = this.getAllBilletage.bind(this);
         this.actualiser = this.actualiser.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.UpdateBilletageCDF = this.UpdateBilletageCDF.bind(this);
+        this.UpdateBilletageUSD = this.UpdateBilletageUSD.bind(this);
+        this.saveNewBilletageUSD = this.saveNewBilletageUSD.bind(this);
+        this.saveNewBilletageCDF = this.saveNewBilletageCDF.bind(this);
+        this.delestageUSD = this.delestageUSD.bind(this);
+        this.delestageCDF = this.delestageCDF.bind(this);
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
-            // document
-            //     .getElementById("validerbtn")
-            //     .setAttribute("disabled", "disabled");
-            // document
-            //     .getElementById("printbtn")
-            // .setAttribute("disabled", "disabled");
+            document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+            document
+                .getElementById("printbtn")
+                .setAttribute("disabled", "disabled");
         }, 1000);
 
         let current_datetime = new Date();
@@ -61,6 +68,7 @@ export default class Delestage extends React.Component {
             current_datetime.getDate();
         this.setState({ DateTransaction: formatted_date });
         this.getAllBilletage();
+        this.getNewBilletage();
     }
 
     //GET VALUES FROM INPUT
@@ -96,6 +104,124 @@ export default class Delestage extends React.Component {
                 parseInt(getBilletage.data.dataUSD.cinqDollars) * 5 +
                 parseInt(getBilletage.data.dataUSD.unDollars) * 1,
         });
+    };
+
+    getNewBilletage = async () => {
+        const getNewB = await axios.get("/billetage/nouvel");
+        this.setState({
+            fetchNouvelBilletageCDF: getNewB.data.dataCDF,
+            fetchNouvelBilletageUSD: getNewB.data.dataUSD,
+        });
+    };
+    UpdateBilletageCDF = async (e) => {
+        e.preventDefault();
+        const updateCDF = await axios.post("/delestage/update/cdf", this.state);
+        if (updateCDF.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: updateCDF.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+            document
+                .getElementById("printbtn")
+                .setAttribute("disabled", "disabled");
+        }
+        e.preventDefault();
+        alert("OK CDF");
+    };
+
+    UpdateBilletageUSD = async (e) => {
+        e.preventDefault();
+        const updateUSD = await axios.post("/delestage/update/usd", this.state);
+        if (updateUSD.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: updateUSD.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            document
+                .getElementById("validerbtn")
+                .setAttribute("disabled", "disabled");
+            document
+                .getElementById("printbtn")
+                .setAttribute("disabled", "disabled");
+        }
+    };
+    //PERMETDE FAIRE LE DELESTAGE AU CAS OU L'UTILISATEUR A FAIT L'ECHANGE DE MONAIE USD
+
+    saveNewBilletageUSD = async (e) => {
+        e.preventDefault();
+        const delest = await axios.get("/delestage/echange/usd");
+        if (delest.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: delest.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+
+            document
+                .getElementById("delestage-btn-usd")
+                .setAttribute("disabled", "disabled");
+        }
+    };
+
+    saveNewBilletageCDF = async (e) => {
+        e.preventDefault();
+        const delest = await axios.get("/delestage/echange/cdf");
+        if (delest.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: delest.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+
+            document
+                .getElementById("delestage-btn-cdf")
+                .setAttribute("disabled", "disabled");
+        }
+    };
+
+    //PERMET DE FAIRE LE DELESTAGE SI L'UTILISATEUR N'A PAS MODIFIER DE BILLETAGE CDF
+    delestageCDF = async (e) => {
+        e.preventDefault();
+        const delest = await axios.post("/delestage/delestage/cdf", this.state);
+        if (delest.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: delest.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+
+            document
+                .getElementById("delestage-cdf")
+                .setAttribute("disabled", "disabled");
+        }
+    };
+
+    //PERMET DE FAIRE LE DELESTAGE SI L'UTILISATEUR N'A PAS MODIFIER DE BILLETAGE USD
+    delestageUSD = async (e) => {
+        e.preventDefault();
+        const delest = await axios.post("/delestage/delestage/usd", this.state);
+        if (delest.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: delest.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+
+            document
+                .getElementById("delestage-usd")
+                .setAttribute("disabled", "disabled");
+        }
     };
 
     //to refresh
@@ -409,6 +535,7 @@ export default class Delestage extends React.Component {
                                                                         .montantCDF
                                                                 ) ? (
                                                                 <button
+                                                                    disabled
                                                                     style={{
                                                                         borderRadius:
                                                                             "0px",
@@ -491,6 +618,7 @@ export default class Delestage extends React.Component {
                                                 className="card-body"
                                                 style={{ background: "#fff" }}
                                             >
+                                                {/* DEBUT CHAMPS POUR SAISIR LE BILLETAGE EN CDF ET USD */}
                                                 {this.state.devise === "USD" ? (
                                                     // BILLETAGE EN DOLLARS
                                                     <form
@@ -814,7 +942,7 @@ export default class Delestage extends React.Component {
                                                                         id="validerbtn"
                                                                         onClick={
                                                                             this
-                                                                                .UpdateBilletageCDF
+                                                                                .UpdateBilletageUSD
                                                                         }
                                                                     >
                                                                         {/* <i
@@ -1286,6 +1414,8 @@ export default class Delestage extends React.Component {
                                                         </tr>
                                                     </form>
                                                 )}
+
+                                                {/* FIN CHAMPS POUR SAISIR LE BILLETAGE EN CDF ET USD */}
                                             </div>
                                         </div>
 
@@ -1296,6 +1426,8 @@ export default class Delestage extends React.Component {
                                                 padding: "5px",
                                             }}
                                         >
+                                            {/* DEBUT   ANCIENNE BILLETATE CDF ET USD */}
+
                                             {this.state.devise == "USD" ? (
                                                 <table
                                                     className="table table-dark"
@@ -1544,14 +1676,11 @@ export default class Delestage extends React.Component {
                                                                     <td>
                                                                         <button
                                                                             className="btn btn-success"
-                                                                            onClick={() => {
-                                                                                this.acceptItemUSD(
-                                                                                    this
-                                                                                        .state
-                                                                                        .fetchBilletageUSD
-                                                                                        .id
-                                                                                );
-                                                                            }}
+                                                                            id="delestage-usd"
+                                                                            onClick={
+                                                                                this
+                                                                                    .delestageUSD
+                                                                            }
                                                                         >
                                                                             Délester
                                                                             {/* <i className="fas fa-check"></i> */}
@@ -1950,15 +2079,12 @@ export default class Delestage extends React.Component {
                                                                         }}
                                                                     >
                                                                         <button
+                                                                            id="delestage-cdf"
                                                                             className="btn btn-success"
-                                                                            onClick={() => {
-                                                                                this.acceptItemCDF(
-                                                                                    this
-                                                                                        .state
-                                                                                        .fetchBilletageCDF
-                                                                                        .id
-                                                                                );
-                                                                            }}
+                                                                            onClick={
+                                                                                this
+                                                                                    .delestageCDF
+                                                                            }
                                                                         >
                                                                             Délester
                                                                             {/* <i className="fas fa-check"></i> */}
@@ -2042,6 +2168,776 @@ export default class Delestage extends React.Component {
                                                     </tbody>
                                                 </table>
                                             )}
+                                            {/* FIN ANCIENNE BILLETAGE CDF ET USD */}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div
+                                    className="card-body"
+                                    style={{ background: "#dcdcdc" }}
+                                >
+                                    <div
+                                        className="row"
+                                        style={{
+                                            padding: "10px",
+                                            border: "2px solid #fff",
+                                        }}
+                                    >
+                                        <h3 className="text-muted">
+                                            Nouvel billetage
+                                        </h3>
+
+                                        <div
+                                            className="col-md-6"
+                                            style={{
+                                                background: "#fff",
+                                                padding: "10px",
+                                            }}
+                                        >
+                                            {/* DEBUT    NOUVEL BILLETAGE CDF ET USD */}
+
+                                            {this.state.devise == "USD" ? (
+                                                <table
+                                                    className="table table-dark"
+                                                    style={tableBorder}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Coupure
+                                                            </td>
+
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Nombre
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Montant
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.state
+                                                            .fetchNouvelBilletageUSD && (
+                                                            <>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        100 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .centDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .centDollars
+                                                                        ) * 100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        50 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .cinquanteDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .cinquanteDollars
+                                                                        ) * 50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        20 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .vightDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .vightDollars
+                                                                        ) * 20}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        10 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .dixDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .dixDollars
+                                                                        ) * 10}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        5 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .cinqDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .cinqDollars
+                                                                        ) * 5}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        1 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .unDollars
+                                                                        )}
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageUSD
+                                                                                .unDollars
+                                                                        ) * 5}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        tableBorder,
+                                                                    }}
+                                                                >
+                                                                    <td>TOT</td>
+                                                                    <td>
+                                                                        <button
+                                                                            id="delestage-btn-usd"
+                                                                            className="btn btn-success"
+                                                                            onClick={
+                                                                                this
+                                                                                    .saveNewBilletageUSD
+                                                                            }
+                                                                        >
+                                                                            Délester
+                                                                            {/* <i className="fas fa-check"></i> */}
+                                                                        </button>
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                            fontSize:
+                                                                                "28px",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            fontWeight:
+                                                                                "bold",
+                                                                        }}
+                                                                    >
+                                                                        {numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchNouvelBilletageUSD
+                                                                                    .centDollars
+                                                                            ) *
+                                                                                100 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageUSD
+                                                                                        .cinquanteDollars
+                                                                                ) *
+                                                                                    50 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageUSD
+                                                                                        .vightDollars
+                                                                                ) *
+                                                                                    20 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageUSD
+                                                                                        .dixDollars
+                                                                                ) *
+                                                                                    10 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageUSD
+                                                                                        .cinqDollars
+                                                                                ) *
+                                                                                    5 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageUSD
+                                                                                        .unDollars
+                                                                                ) *
+                                                                                    1
+                                                                        )}
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            ) : (
+                                                <table
+                                                    className="table table-dark"
+                                                    style={tableBorder}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Coupure
+                                                            </td>
+
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Nombre
+                                                            </td>
+                                                            <td
+                                                                style={
+                                                                    tableBorder
+                                                                }
+                                                            >
+                                                                Montant
+                                                            </td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.state
+                                                            .fetchNouvelBilletageCDF && (
+                                                            <>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        20 000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .vightMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .vightMilleFranc
+                                                                        ) *
+                                                                            20000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        10 000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .dixMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .dixMilleFranc
+                                                                        ) *
+                                                                            10000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        5000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinqMilleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinqMilleFranc
+                                                                        ) *
+                                                                            5000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        1000 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .milleFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .milleFranc
+                                                                        ) *
+                                                                            1000}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        500 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinqCentFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinqCentFranc
+                                                                        ) * 500}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        200 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .deuxCentFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .deuxCentFranc
+                                                                        ) * 200}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        100 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .centFranc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .centFranc
+                                                                        ) * 100}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        50 X
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinquanteFanc
+                                                                        }
+                                                                    </td>
+                                                                    <td
+                                                                        style={
+                                                                            tableBorder
+                                                                        }
+                                                                    >
+                                                                        {parseInt(
+                                                                            this
+                                                                                .state
+                                                                                .fetchNouvelBilletageCDF
+                                                                                .cinquanteFanc
+                                                                        ) * 50}
+                                                                    </td>
+                                                                </tr>
+                                                                <tr
+                                                                    style={{
+                                                                        tableBorder,
+                                                                    }}
+                                                                >
+                                                                    <td
+                                                                        style={{
+                                                                            tableBorder,
+                                                                        }}
+                                                                    >
+                                                                        TOT
+                                                                    </td>
+
+                                                                    <td
+                                                                        style={{
+                                                                            tableBorder,
+                                                                        }}
+                                                                    >
+                                                                        <button
+                                                                            id="delestage-btn-cdf"
+                                                                            className="btn btn-success"
+                                                                            onClick={
+                                                                                this
+                                                                                    .saveNewBilletageCDF
+                                                                            }
+                                                                        >
+                                                                            Délester
+                                                                            {/* <i className="fas fa-check"></i> */}
+                                                                        </button>
+                                                                    </td>
+                                                                    <td
+                                                                        style={{
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                            fontSize:
+                                                                                "28px",
+                                                                            textAlign:
+                                                                                "center",
+                                                                            fontWeight:
+                                                                                "bold",
+                                                                        }}
+                                                                    >
+                                                                        {numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchNouvelBilletageCDF
+                                                                                    .vightMilleFranc
+                                                                            ) *
+                                                                                20000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .dixMilleFranc
+                                                                                ) *
+                                                                                    10000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .cinqMilleFranc
+                                                                                ) *
+                                                                                    5000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .milleFranc
+                                                                                ) *
+                                                                                    1000 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .cinqCentFranc
+                                                                                ) *
+                                                                                    500 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .deuxCentFranc
+                                                                                ) *
+                                                                                    200 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .centFranc
+                                                                                ) *
+                                                                                    100 +
+                                                                                parseInt(
+                                                                                    this
+                                                                                        .state
+                                                                                        .fetchNouvelBilletageCDF
+                                                                                        .cinquanteFanc
+                                                                                ) *
+                                                                                    50
+                                                                        )}
+                                                                    </td>
+                                                                </tr>
+                                                            </>
+                                                        )}
+                                                    </tbody>
+                                                </table>
+                                            )}
+
+                                            {/* FIN NOUVEL BILLETAGE CDF ET USD */}
                                         </div>
                                     </div>
                                 </div>

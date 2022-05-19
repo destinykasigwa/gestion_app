@@ -2182,7 +2182,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_Positionnement__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./components/Positionnement */ "./resources/js/components/Positionnement.js");
 /* harmony import */ var _components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./components/Approvisionnement */ "./resources/js/components/Approvisionnement.js");
 /* harmony import */ var _components_Delestage__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/Delestage */ "./resources/js/components/Delestage.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_EntreeTresor__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/EntreeTresor */ "./resources/js/components/EntreeTresor.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -2204,18 +2205,21 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 if (document.getElementById("adhesionContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById("adhesionContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById("DepotEspeceContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById("DepotEspeceContainer"));
 } else if (document.getElementById("RetraitEspeceContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById("RetraitEspeceContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById("RetraitEspeceContainer"));
 } else if (document.getElementById("positionnementContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById("positionnementContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById("positionnementContainer"));
 } else if (document.getElementById("ApprovisionnementContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById("ApprovisionnementContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById("ApprovisionnementContainer"));
 } else if (document.getElementById("DelestageContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)(_components_Delestage__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById("DelestageContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_Delestage__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById("DelestageContainer"));
+} else if (document.getElementById("EntreeTresorContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_8__.jsx)(_components_EntreeTresor__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById("EntreeTresorContainer"));
 }
 
 /***/ }),
@@ -4888,7 +4892,7 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
     key: "removeItemCDF",
     value: //REMOVE A SPECIIQUE ITEM CDF
     function removeItemCDF(id) {
-      var question = confirm("vous le vous vraiment supprimé l'élement sélectionner?");
+      var question = confirm("voulez vous vraiment supprimé l'élement sélectionné?");
 
       if (question == true) {
         axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("delete/appro/cdf/" + id).then(function (response) {
@@ -4902,13 +4906,18 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
           }
         });
       } else {
-        console.log("Nothing done...");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+          title: "Suppression",
+          text: "Suppression annulée",
+          icon: "info",
+          button: "OK!"
+        });
       }
     }
   }, {
     key: "removeItemUSD",
     value: function removeItemUSD(id) {
-      var question = confirm("vous le vous vraiment supprimé l'élement sélectionner?");
+      var question = confirm("voulez vous vraiment supprimé l'élement sélectionné?");
 
       if (question == true) {
         axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("delete/appro/usd/" + id).then(function (response) {
@@ -4922,7 +4931,12 @@ var Approvisionnement = /*#__PURE__*/function (_React$Component) {
           }
         });
       } else {
-        console.log("Nothing done...");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+          title: "Suppression",
+          text: "Suppression annulée",
+          icon: "info",
+          button: "OK!"
+        });
       }
     } //to refresh
 
@@ -5683,6 +5697,258 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
       }, _callee);
     })));
 
+    _defineProperty(_assertThisInitialized(_this), "getNewBilletage", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2() {
+      var getNewB;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+        while (1) {
+          switch (_context2.prev = _context2.next) {
+            case 0:
+              _context2.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/billetage/nouvel");
+
+            case 2:
+              getNewB = _context2.sent;
+
+              _this.setState({
+                fetchNouvelBilletageCDF: getNewB.data.dataCDF,
+                fetchNouvelBilletageUSD: getNewB.data.dataUSD
+              });
+
+            case 4:
+            case "end":
+              return _context2.stop();
+          }
+        }
+      }, _callee2);
+    })));
+
+    _defineProperty(_assertThisInitialized(_this), "UpdateBilletageCDF", /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(e) {
+        var updateCDF;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                e.preventDefault();
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/delestage/update/cdf", _this.state);
+
+              case 3:
+                updateCDF = _context3.sent;
+
+                if (updateCDF.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: updateCDF.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+                  document.getElementById("printbtn").setAttribute("disabled", "disabled");
+                }
+
+                e.preventDefault();
+                alert("OK CDF");
+
+              case 7:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "UpdateBilletageUSD", /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(e) {
+        var updateUSD;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                e.preventDefault();
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/delestage/update/usd", _this.state);
+
+              case 3:
+                updateUSD = _context4.sent;
+
+                if (updateUSD.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: updateUSD.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+                  document.getElementById("printbtn").setAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function (_x2) {
+        return _ref4.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "saveNewBilletageUSD", /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e) {
+        var delest;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                e.preventDefault();
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/delestage/echange/usd");
+
+              case 3:
+                delest = _context5.sent;
+
+                if (delest.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: delest.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("delestage-btn-usd").setAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      return function (_x3) {
+        return _ref5.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "saveNewBilletageCDF", /*#__PURE__*/function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e) {
+        var delest;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                e.preventDefault();
+                _context6.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().get("/delestage/echange/cdf");
+
+              case 3:
+                delest = _context6.sent;
+
+                if (delest.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: delest.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("delestage-btn-cdf").setAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      return function (_x4) {
+        return _ref6.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "delestageCDF", /*#__PURE__*/function () {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e) {
+        var delest;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                e.preventDefault();
+                _context7.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/delestage/delestage/cdf", _this.state);
+
+              case 3:
+                delest = _context7.sent;
+
+                if (delest.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: delest.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("delestage-cdf").setAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+
+      return function (_x5) {
+        return _ref7.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "delestageUSD", /*#__PURE__*/function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(e) {
+        var delest;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                e.preventDefault();
+                _context8.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_3___default().post("/delestage/delestage/usd", _this.state);
+
+              case 3:
+                delest = _context8.sent;
+
+                if (delest.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_2___default().fire({
+                    title: "Succès",
+                    text: delest.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("delestage-usd").setAttribute("disabled", "disabled");
+                }
+
+              case 5:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+
+      return function (_x6) {
+        return _ref8.apply(this, arguments);
+      };
+    }());
+
     _this.state = {
       disabled: false,
       isloading: true,
@@ -5699,7 +5965,6 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
       montant: "",
       devise: "",
       numCompte: "",
-      intitule: "",
       vightMille: 0,
       dixMille: 0,
       cinqMille: 0,
@@ -5709,11 +5974,19 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
       centFranc: 0,
       cinquanteFanc: 0,
       fetchBilletageCDF: null,
-      fetchBilletageUSD: null
+      fetchBilletageUSD: null,
+      fetchNouvelBilletageCDF: null,
+      fetchNouvelBilletageUSD: null
     };
     _this.getAllBilletage = _this.getAllBilletage.bind(_assertThisInitialized(_this));
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.UpdateBilletageCDF = _this.UpdateBilletageCDF.bind(_assertThisInitialized(_this));
+    _this.UpdateBilletageUSD = _this.UpdateBilletageUSD.bind(_assertThisInitialized(_this));
+    _this.saveNewBilletageUSD = _this.saveNewBilletageUSD.bind(_assertThisInitialized(_this));
+    _this.saveNewBilletageCDF = _this.saveNewBilletageCDF.bind(_assertThisInitialized(_this));
+    _this.delestageUSD = _this.delestageUSD.bind(_assertThisInitialized(_this));
+    _this.delestageCDF = _this.delestageCDF.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -5725,13 +5998,10 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
       setTimeout(function () {
         _this2.setState({
           isloading: false
-        }); // document
-        //     .getElementById("validerbtn")
-        //     .setAttribute("disabled", "disabled");
-        // document
-        //     .getElementById("printbtn")
-        // .setAttribute("disabled", "disabled");
+        });
 
+        document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+        document.getElementById("printbtn").setAttribute("disabled", "disabled");
       }, 1000);
       var current_datetime = new Date();
       var formatted_date = //year
@@ -5742,6 +6012,7 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
         DateTransaction: formatted_date
       });
       this.getAllBilletage();
+      this.getNewBilletage();
     } //GET VALUES FROM INPUT
 
   }, {
@@ -5759,8 +6030,6 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this3 = this;
-
       var myspinner = _defineProperty({
         margin: "5px auto",
         width: "3rem",
@@ -5954,6 +6223,7 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                               padding: "2px"
                             },
                             children: this.state.hundred * 100 + this.state.fitfty * 50 + this.state.twenty * 20 + this.state.ten * 10 + this.state.five * 5 + this.state.oneDollar * 1 === parseInt(this.state.montantUSD) || this.state.vightMille * 20000 + this.state.dixMille * 10000 + this.state.cinqMille * 5000 + this.state.milleFranc * 1000 + this.state.cinqCentFr * 500 + this.state.deuxCentFranc * 200 + this.state.centFranc * 100 + this.state.cinquanteFanc * 50 === parseInt(this.state.montantCDF) ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                              disabled: true,
                               style: {
                                 borderRadius: "0px",
                                 width: "100%",
@@ -6152,7 +6422,7 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                               },
                               className: "btn btn-primary",
                               id: "validerbtn",
-                              onClick: this.UpdateBilletageCDF,
+                              onClick: this.UpdateBilletageUSD,
                               children: ["Modifier", ""]
                             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                               style: {
@@ -6454,9 +6724,8 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
                                 className: "btn btn-success",
-                                onClick: function onClick() {
-                                  _this3.acceptItemUSD(_this3.state.fetchBilletageUSD.id);
-                                },
+                                id: "delestage-usd",
+                                onClick: this.delestageUSD,
                                 children: "D\xE9lester"
                               })
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -6592,10 +6861,9 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                                 tableBorder: tableBorder
                               },
                               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                                id: "delestage-cdf",
                                 className: "btn btn-success",
-                                onClick: function onClick() {
-                                  _this3.acceptItemCDF(_this3.state.fetchBilletageCDF.id);
-                                },
+                                onClick: this.delestageCDF,
                                 children: "D\xE9lester"
                               })
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -6607,6 +6875,277 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                                 fontWeight: "bold"
                               },
                               children: numberFormat(parseInt(this.state.fetchBilletageCDF.vightMilleFranc) * 20000 + parseInt(this.state.fetchBilletageCDF.dixMilleFranc) * 10000 + parseInt(this.state.fetchBilletageCDF.cinqMilleFranc) * 5000 + parseInt(this.state.fetchBilletageCDF.milleFranc) * 1000 + parseInt(this.state.fetchBilletageCDF.cinqCentFranc) * 500 + parseInt(this.state.fetchBilletageCDF.deuxCentFranc) * 200 + parseInt(this.state.fetchBilletageCDF.centFranc) * 100 + parseInt(this.state.fetchBilletageCDF.cinquanteFanc) * 50)
+                            })]
+                          })]
+                        })
+                      })]
+                    })
+                  })]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-body",
+                style: {
+                  background: "#dcdcdc"
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "row",
+                  style: {
+                    padding: "10px",
+                    border: "2px solid #fff"
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+                    className: "text-muted",
+                    children: "Nouvel billetage"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6",
+                    style: {
+                      background: "#fff",
+                      padding: "10px"
+                    },
+                    children: this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Coupure"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nombre"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchNouvelBilletageUSD && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "100 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.centDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.centDollars) * 100
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "50 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.cinquanteDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.cinquanteDollars) * 50
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "20 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.vightDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.vightDollars) * 20
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "10 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.dixDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.dixDollars) * 10
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "5 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.cinqDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.cinqDollars) * 5
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "1 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.unDollars)
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageUSD.unDollars) * 5
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            style: {
+                              tableBorder: tableBorder
+                            },
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: "TOT"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                                id: "delestage-btn-usd",
+                                className: "btn btn-success",
+                                onClick: this.saveNewBilletageUSD,
+                                children: "D\xE9lester"
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "green",
+                                color: "#fff",
+                                fontSize: "28px",
+                                textAlign: "center",
+                                fontWeight: "bold"
+                              },
+                              children: numberFormat(parseInt(this.state.fetchNouvelBilletageUSD.centDollars) * 100 + parseInt(this.state.fetchNouvelBilletageUSD.cinquanteDollars) * 50 + parseInt(this.state.fetchNouvelBilletageUSD.vightDollars) * 20 + parseInt(this.state.fetchNouvelBilletageUSD.dixDollars) * 10 + parseInt(this.state.fetchNouvelBilletageUSD.cinqDollars) * 5 + parseInt(this.state.fetchNouvelBilletageUSD.unDollars) * 1)
+                            })]
+                          })]
+                        })
+                      })]
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Coupure"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nombre"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchNouvelBilletageCDF && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "20 000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.vightMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.vightMilleFranc) * 20000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "10 000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.dixMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.dixMilleFranc) * 10000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "5000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.cinqMilleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.cinqMilleFranc) * 5000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "1000 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.milleFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.milleFranc) * 1000
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "500 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.cinqCentFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.cinqCentFranc) * 500
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "200 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.deuxCentFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.deuxCentFranc) * 200
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "100 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.centFranc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.centFranc) * 100
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "50 X"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: this.state.fetchNouvelBilletageCDF.cinquanteFanc
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: parseInt(this.state.fetchNouvelBilletageCDF.cinquanteFanc) * 50
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            style: {
+                              tableBorder: tableBorder
+                            },
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: "TOT"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("button", {
+                                id: "delestage-btn-cdf",
+                                className: "btn btn-success",
+                                onClick: this.saveNewBilletageCDF,
+                                children: "D\xE9lester"
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "green",
+                                color: "#fff",
+                                fontSize: "28px",
+                                textAlign: "center",
+                                fontWeight: "bold"
+                              },
+                              children: numberFormat(parseInt(this.state.fetchNouvelBilletageCDF.vightMilleFranc) * 20000 + parseInt(this.state.fetchNouvelBilletageCDF.dixMilleFranc) * 10000 + parseInt(this.state.fetchNouvelBilletageCDF.cinqMilleFranc) * 5000 + parseInt(this.state.fetchNouvelBilletageCDF.milleFranc) * 1000 + parseInt(this.state.fetchNouvelBilletageCDF.cinqCentFranc) * 500 + parseInt(this.state.fetchNouvelBilletageCDF.deuxCentFranc) * 200 + parseInt(this.state.fetchNouvelBilletageCDF.centFranc) * 100 + parseInt(this.state.fetchNouvelBilletageCDF.cinquanteFanc) * 50)
                             })]
                           })]
                         })
@@ -6983,7 +7522,12 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
           }
         });
       } else {
-        console.log("Nothing done...");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          title: "Validation",
+          text: "Validation annulée",
+          icon: "info",
+          button: "OK!"
+        });
       }
     } //ACCEPT A SPECIFIC APPRO ITEM USD
 
@@ -7004,7 +7548,12 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
           }
         });
       } else {
-        console.log("Nothing done...");
+        sweetalert2__WEBPACK_IMPORTED_MODULE_4___default().fire({
+          title: "Validation",
+          text: "Validation annulée",
+          icon: "info",
+          button: "OK!"
+        });
       }
     }
   }, {
@@ -8555,6 +9104,818 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return DepotEspece;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/EntreeTresor.js":
+/*!*************************************************!*\
+  !*** ./resources/js/components/EntreeTresor.js ***!
+  \*************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ EntreeTresor)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+
+var EntreeTresor = /*#__PURE__*/function (_React$Component) {
+  _inherits(EntreeTresor, _React$Component);
+
+  var _super = _createSuper(EntreeTresor);
+
+  function EntreeTresor(props) {
+    var _this;
+
+    _classCallCheck(this, EntreeTresor);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "getBilletage", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var result;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/delestage/billetage/all");
+
+            case 2:
+              result = _context.sent;
+
+              _this.setState({
+                fetchBilletageCDF: result.data.dataCDF,
+                fetchBilletageUSD: result.data.dataUSD,
+                fetchDelesatgeCDF: result.data.getAllCDF,
+                fetchDelesatgeUSD: result.data.getAllUSD
+              });
+
+            case 4:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
+
+    _defineProperty(_assertThisInitialized(_this), "acceptRequestUSD", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(id) {
+        var question;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                question = confirm("voulez vous valider cette opération ?");
+
+                if (question == true) {
+                  axios__WEBPACK_IMPORTED_MODULE_2___default().get("/delestage/accept/usd/" + id).then(function (response) {
+                    if (response.data.success == 1) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                        title: "Validation",
+                        text: response.data.msg,
+                        icon: "success",
+                        button: "OK!"
+                      });
+                      document.getElementById("acceptbtnusd").setAttribute("disabled", "disabled");
+                    }
+                  });
+                } else {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Validation",
+                    text: "Validation annulée",
+                    icon: "info",
+                    button: "OK!"
+                  });
+                }
+
+              case 2:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "acceptRequestCDF", /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(id) {
+        var question;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                question = confirm("voulez vous valider cette opération ?");
+
+                if (question == true) {
+                  axios__WEBPACK_IMPORTED_MODULE_2___default().get("delestage/accept/cdf/" + id).then(function (response) {
+                    if (response.data.success == 1) {
+                      sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                        title: "Validation",
+                        text: response.data.msg,
+                        icon: "success",
+                        button: "OK!"
+                      });
+                    }
+
+                    document.getElementById("acceptbtncdf").setAttribute("disabled", "disabled");
+                  });
+                } else {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Validation",
+                    text: "Validation annulée",
+                    icon: "info",
+                    button: "OK!"
+                  });
+                }
+
+              case 2:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+
+    _this.state = {
+      disabled: false,
+      isloading: true,
+      loading: false,
+      devise: "",
+      fetchBilletageCDF: false,
+      fetchBilletageUSD: false,
+      fetchDelesatgeCDF: null,
+      fetchDelesatgeUSD: null
+    };
+    _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
+    _this.getBilletage = _this.getBilletage.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.removeItemCDF = _this.removeItemCDF.bind(_assertThisInitialized(_this));
+    _this.acceptRequestCDF = _this.acceptRequestCDF.bind(_assertThisInitialized(_this));
+    _this.acceptRequestUSD = _this.acceptRequestUSD.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(EntreeTresor, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.setState({
+          isloading: false
+        });
+
+        document.getElementById("validerbtn").setAttribute("disabled", "disabled");
+        document.getElementById("printbtn").setAttribute("disabled", "disabled");
+      }, 1000);
+      this.getBilletage();
+    } //GET VALUES FROM INPUT
+
+  }, {
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "removeItemCDF",
+    value: function removeItemCDF(id) {
+      var question = confirm("vous le vous vraiment supprimé l'élement sélectionné?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("delete/delestage/cdf/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+              title: "Suppression",
+              text: response.data.msg,
+              icon: "info",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+          title: "Suppression",
+          text: "Suppression annulée",
+          icon: "info",
+          button: "OK!"
+        });
+      }
+    }
+  }, {
+    key: "removeItemUSD",
+    value: function removeItemUSD(id) {
+      var question = confirm("vous le vous vraiment supprimé l'élement sélectionné?");
+
+      if (question == true) {
+        axios__WEBPACK_IMPORTED_MODULE_2___default()["delete"]("/delete/delestage/usd/" + id).then(function (response) {
+          if (response.data.success == 1) {
+            sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+              title: "Suppression",
+              text: response.data.msg,
+              icon: "info",
+              button: "OK!"
+            });
+          }
+        });
+      } else {
+        sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+          title: "Suppression",
+          text: "Suppression annulée",
+          icon: "info",
+          button: "OK!"
+        });
+      }
+    }
+  }, {
+    key: "actualiser",
+    value: //to refresh
+    function actualiser() {
+      location.reload();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var _this3 = this;
+
+      var myspinner = _defineProperty({
+        margin: "5px auto",
+        width: "3rem",
+        height: "3rem",
+        marginTop: "180px",
+        border: "0px"
+      }, "height", "200px");
+
+      var labelColor = {
+        fontWeight: "bold",
+        color: "steelblue",
+        padding: "3px",
+        fontSize: "11px"
+      };
+      var inputColor = {
+        height: "30px",
+        border: "1px solid steelblue",
+        borderRadius: "0px",
+        fontWeight: "bold"
+      };
+      var tableBorder = {
+        border: "2px solid #fff",
+        fontSize: "14px",
+        textAlign: "center"
+      };
+      var compteur = 1; //PERMET DE FORMATER LES CHIFFRES
+
+      var numberFormat = function numberFormat() {
+        var number = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var locales = [//undefined,  // Your own browser
+        "en-US" // United States
+        //'de-DE',    // Germany
+        //'ru-RU',    // Russia
+        //'hi-IN',    // India
+        ];
+        var opts = {
+          minimumFractionDigits: 2
+        };
+        var index = 3;
+        var nombre = number.toLocaleString(locales[index], opts);
+
+        if (nombre === isNaN) {
+          nombre = 0.0;
+        } else {
+          return nombre;
+        }
+      };
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+        children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          id: "rowspinner",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "myspinner",
+            style: myspinner,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "spinner-border",
+              role: "status"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              style: {
+                marginLeft: "-20px"
+              },
+              children: "Chargement..."
+            })]
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-lg-12 card",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "card card-default",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-header",
+                style: {
+                  background: "#DCDCDC",
+                  textAlign: "center",
+                  color: "#fff",
+                  marginTop: "5px"
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                  style: {
+                    height: "30px",
+                    "float": "right",
+                    background: "green",
+                    border: "0px",
+                    padding: "3px",
+                    marginLeft: "5px"
+                  },
+                  onClick: this.actualiser,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                    className: "fas fa-sync"
+                  }), " ", "Actualiser", " "]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-body",
+                style: {
+                  background: "#dcdcdc"
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "row",
+                  style: {
+                    padding: "10px",
+                    border: "2px solid #fff"
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "card-body",
+                      style: {
+                        background: "#fff"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                              style: labelColor,
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("strong", {
+                                children: "D\xE9vise"
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              className: "input-group input-group-sm ",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("select", {
+                                name: "devise",
+                                className: "form-control",
+                                onChange: this.handleChange,
+                                disabled: this.state.disabled ? "disabled" : "",
+                                style: inputColor,
+                                value: this.state.devise,
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                  value: "",
+                                  children: "S\xE9lectionnez"
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                  value: "USD",
+                                  children: "USD"
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                  value: "CDF",
+                                  children: "CDF"
+                                })]
+                              })
+                            })
+                          })]
+                        })
+                      }), this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                        className: "table table-dark",
+                        style: tableBorder,
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Coupure"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Nombre"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Montant"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                          children: this.state.fetchBilletageUSD && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "100 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.centDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.centDollars) * 100
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "50 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.cinquanteDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.cinquanteDollars) * 50
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "20 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.vightDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.vightDollars) * 20
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "10 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.dixDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.dixDollars) * 10
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "5 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.cinqDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.cinqDollars) * 5
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "1 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.unDollars)
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageUSD.unDollars) * 5
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "TOT"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  background: "green",
+                                  color: "#fff",
+                                  fontSize: "28px",
+                                  textAlign: "center",
+                                  fontWeight: "bold"
+                                },
+                                children: numberFormat(parseInt(this.state.fetchBilletageUSD.centDollars) * 100 + parseInt(this.state.fetchBilletageUSD.cinquanteDollars) * 50 + parseInt(this.state.fetchBilletageUSD.vightDollars) * 20 + parseInt(this.state.fetchBilletageUSD.dixDollars) * 10 + parseInt(this.state.fetchBilletageUSD.cinqDollars) * 5 + parseInt(this.state.fetchBilletageUSD.unDollars) * 1)
+                              })]
+                            })]
+                          })
+                        })]
+                      }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                        className: "table table-dark",
+                        style: tableBorder,
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Coupure"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Nombre"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: "Montant"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                          children: this.state.fetchBilletageCDF && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.Fragment, {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "20 000 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.vightMilleFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.vightMilleFranc) * 20000
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "10 000 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.dixMilleFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.dixMilleFranc) * 10000
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "5000 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.cinqMilleFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.cinqMilleFranc) * 5000
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "1000 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.milleFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.milleFranc) * 1000
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "500 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.cinqCentFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.cinqCentFranc) * 500
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "200 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.deuxCentFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.deuxCentFranc) * 200
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "100 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.centFranc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.centFranc) * 100
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: "50 X"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: this.state.fetchBilletageCDF.cinquanteFanc
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: tableBorder,
+                                children: parseInt(this.state.fetchBilletageCDF.cinquanteFanc) * 50
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              style: {
+                                tableBorder: tableBorder
+                              },
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  tableBorder: tableBorder
+                                },
+                                children: "TOT"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  tableBorder: tableBorder
+                                }
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  background: "green",
+                                  color: "#fff",
+                                  fontSize: "28px",
+                                  textAlign: "center",
+                                  fontWeight: "bold"
+                                },
+                                children: numberFormat(parseInt(this.state.fetchBilletageCDF.vightMilleFranc) * 20000 + parseInt(this.state.fetchBilletageCDF.dixMilleFranc) * 10000 + parseInt(this.state.fetchBilletageCDF.cinqMilleFranc) * 5000 + parseInt(this.state.fetchBilletageCDF.milleFranc) * 1000 + parseInt(this.state.fetchBilletageCDF.cinqCentFranc) * 500 + parseInt(this.state.fetchBilletageCDF.deuxCentFranc) * 200 + parseInt(this.state.fetchBilletageCDF.centFranc) * 100 + parseInt(this.state.fetchBilletageCDF.cinquanteFanc) * 50)
+                              })]
+                            })]
+                          })
+                        })]
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6",
+                    style: {
+                      background: "#fff",
+                      padding: "10px"
+                    },
+                    children: this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "R\xE9ference"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nom caissier(\xE8re)"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant USD"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Action"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchDelesatgeUSD && this.state.fetchDelesatgeUSD.map(function (res, index) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: compteur++
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.NomUtilisateur
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.montantUSD
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                "class": "btn-group",
+                                role: "group",
+                                "aria-label": "Basic example",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                                  id: "acceptbtnusd",
+                                  type: "button",
+                                  className: "btn btn-primary",
+                                  onClick: function onClick() {
+                                    _this3.acceptRequestUSD(res.id);
+                                  },
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                    className: "fas fa-check"
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                                  type: "button",
+                                  className: "btn btn-danger",
+                                  onClick: function onClick() {
+                                    _this3.removeItemUSD(res.id);
+                                  },
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                    className: "fas fa-trash"
+                                  })]
+                                })]
+                              })
+                            })]
+                          }, index);
+                        })
+                      })]
+                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                      className: "table table-dark",
+                      style: tableBorder,
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "R\xE9ference"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Nom caissier(\xE8re)"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Montant CDF"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: tableBorder,
+                            children: "Action"
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                        children: this.state.fetchDelesatgeCDF && this.state.fetchDelesatgeCDF.map(function (res, index) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: compteur++
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.NomUtilisateur
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: res.montantCDF
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: tableBorder,
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                "class": "btn-group",
+                                role: "group",
+                                "aria-label": "Basic example",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                                  type: "button",
+                                  className: "btn btn-primary",
+                                  onClick: function onClick() {
+                                    _this3.acceptRequestCDF(res.id);
+                                  },
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                    className: "fas fa-check"
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                                  id: "acceptbtncdf",
+                                  type: "button",
+                                  className: "btn btn-danger",
+                                  onClick: function onClick() {
+                                    _this3.removeItemCDF(res.id);
+                                  },
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                                    className: "fas fa-trash"
+                                  })]
+                                })]
+                              })
+                            })]
+                          }, index);
+                        })
+                      })]
+                    })
+                  })]
+                })
+              })]
+            })
+          })
+        })
+      });
+    }
+  }]);
+
+  return EntreeTresor;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 

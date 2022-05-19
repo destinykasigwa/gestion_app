@@ -205,7 +205,12 @@ export default class DepotEspece extends React.Component {
                 }
             });
         } else {
-            console.log("Nothing done...");
+            Swal.fire({
+                title: "Validation",
+                text: "Validation annulée",
+                icon: "info",
+                button: "OK!",
+            });
         }
     }
     //ACCEPT A SPECIFIC APPRO ITEM USD
@@ -223,7 +228,12 @@ export default class DepotEspece extends React.Component {
                 }
             });
         } else {
-            console.log("Nothing done...");
+            Swal.fire({
+                title: "Validation",
+                text: "Validation annulée",
+                icon: "info",
+                button: "OK!",
+            });
         }
     }
     render() {

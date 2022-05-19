@@ -59,7 +59,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('retour.delestage') }}" class="nav-link">
 
                                 <i class="fas fa-exchange"></i>
                                 <p>Echange</p>
@@ -85,7 +85,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('entree.tresor') }}" class="nav-link">
                                 <i class="fas fa-ad"></i>
                                 <p>Entrée T</p>
                             </a>

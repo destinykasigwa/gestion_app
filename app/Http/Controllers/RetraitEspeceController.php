@@ -32,8 +32,8 @@ class RetraitEspeceController extends Controller
 
     public function getAllPositionnement()
     {
-        $todayDate = date("Y-m-d");
-        $dataPositionnement = Positionnement::where("DateTransaction", "=", $todayDate)->where("NomUtilisateur", "=", Auth::user()->name)->orderBy('id', 'desc')->paginate(20)->All();
+        $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+        $dataPositionnement = Positionnement::where("DateTransaction", "=", $date)->where("NomUtilisateur", "=", Auth::user()->name)->orderBy('id', 'desc')->paginate(20)->All();
 
         return response()->json(["data" => $dataPositionnement]);
     }
@@ -182,7 +182,7 @@ class RetraitEspeceController extends Controller
             if ($request->devise == "CDF") {
 
                 //RECUPERE LA SOMME DE  BILLETAGE EN FRANC CONGOLAIS
-                $date = date("Y-m-d");
+                $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
                 $billetageCDF = BilletageCdf::select(
                     DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFran"),
                     DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFran"),
@@ -221,7 +221,7 @@ class RetraitEspeceController extends Controller
             if ($request->devise == "USD") {
 
                 //RECUPERE LA SOMME DE BILLETAGE USD
-                $date = date("Y-m-d");
+                $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
                 $billetageUSD = BilletageUsd::select(
                     DB::raw("SUM(centDollars)-SUM(centDollarsSortie) as centDollar"),
                     DB::raw("SUM(cinquanteDollars)-SUM(cinquanteDollarsSortie) as cinquanteDollar"),

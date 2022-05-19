@@ -13,7 +13,7 @@ use App\Http\Controllers\PersonneLieController;
 use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
-
+use App\Http\Controllers\EntreeTresorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +39,7 @@ Route::get('/retrait-espece', [RetraitEspeceController::class, 'retrait'])->name
 Route::get('/positionnement', [RetraitEspeceController::class, 'getPositionnement'])->name('retrait.positionnement');
 Route::get('/appro', [ApproController::class, 'getApproPage'])->name('appro.approvisionnement');
 Route::get('/delestage', [DelestageController::class, 'getDelestagePage'])->name('retour.delestage');
-
+Route::get('/entre-tresor', [EntreeTresorController::class, 'getEntreeTresorPage'])->name('entree.tresor');
 
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
@@ -236,4 +236,80 @@ Route::delete(
 Route::get(
     "billetage/sommebilletage",
     [DelestageController::class, 'getAllBilletage']
+);
+
+
+//GET NEW BILLETAGE ATFER DOING A CHANGE MONNEY OPERATION
+Route::get(
+    "billetage/nouvel",
+    [DelestageController::class, 'getNewBilletage']
+);
+
+//UPDATE BILLETAGE CDF
+Route::post(
+    "delestage/update/cdf",
+    [DelestageController::class, 'upDateBilletageCDF']
+);
+
+//UPDATE BILLETAGE USD
+Route::post(
+    "delestage/update/usd",
+    [DelestageController::class, 'upDateBilletageUSD']
+);
+
+//DELESTAGE CDF
+Route::post(
+    "delestage/delestage/cdf",
+    [DelestageController::class, 'delestageCDF']
+);
+
+//DELESTAGE CDF
+Route::post(
+    "delestage/delestage/usd",
+    [DelestageController::class, 'delestageUSD']
+);
+
+//DELESTAGE AU CAS OU L'UTILISATEUR A MET A JOUR LE BILLETAGE CDF
+Route::get(
+    "delestage/echange/cdf",
+    [DelestageController::class, 'delestageChangeMCDF']
+);
+
+//DELESTAGE AU CAS OU L'UTILISATEUR A MET A JOUR LE BILLETAGE USD
+Route::get(
+    "delestage/echange/usd",
+    [DelestageController::class, 'delestageChangeMUSD']
+);
+
+//GET ALL DELESTAGE REQUEST
+
+Route::get(
+    "delestage/billetage/all",
+    [EntreeTresorController::class, 'getDelestageRequest']
+);
+
+
+//REMOVE A SPECIFIC DELESTAGE ITEM CDF
+Route::delete(
+    "/delete/delestage/cdf/{id}",
+    [EntreeTresorController::class, 'removeItemDeletstageCDF']
+);
+
+//REMOVE A SPECIFIC DELESTAGE ITEM CDF
+Route::delete(
+    "/delete/delestage/usd/{id}",
+    [EntreeTresorController::class, 'removeItemDeletstageUSD']
+);
+
+//CONFIRM A SPECIF DELESTAGE ITEM CDF
+Route::get(
+    "delestage/accept/cdf/{id}",
+    [EntreeTresorController::class, 'confirmDeletstageRequestCDF']
+);
+
+
+//CONFIRM A SPECIF DELESTAGE ITEM USD
+Route::get(
+    "delestage/accept/usd/{id}",
+    [EntreeTresorController::class, 'confirmDeletstageRequestUSD']
 );
