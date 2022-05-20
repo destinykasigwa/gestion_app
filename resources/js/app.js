@@ -20,6 +20,7 @@ import Positionnement from "./components/Positionnement";
 import Approvisionnement from "./components/Approvisionnement";
 import Delestage from "./components/Delestage";
 import EntreeTresor from "./components/EntreeTresor";
+import SoldePage from "./components/SoldePage";
 
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
@@ -53,4 +54,6 @@ if (document.getElementById("adhesionContainer")) {
         <EntreeTresor />,
         document.getElementById("EntreeTresorContainer")
     );
+} else if (document.getElementById("soldeContainer")) {
+    ReactDOM.render(<SoldePage />, document.getElementById("soldeContainer"));
 }

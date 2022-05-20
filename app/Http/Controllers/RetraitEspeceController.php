@@ -144,8 +144,6 @@ class RetraitEspeceController extends Controller
     }
 
 
-
-
     //FUNCTION TO WITHDRAW MONEY
     public function RetraitEspece(Request $request)
     {

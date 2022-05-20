@@ -15,6 +15,7 @@ use App\Http\Controllers\EntreeTresorController;
 use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
+use App\Http\Controllers\SoldeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,7 +43,7 @@ Route::get('/positionnement', [RetraitEspeceController::class, 'getPositionnemen
 Route::get('/appro', [ApproController::class, 'getApproPage'])->name('appro.approvisionnement');
 Route::get('/delestage', [DelestageController::class, 'getDelestagePage'])->name('retour.delestage');
 Route::get('/entre-tresor', [EntreeTresorController::class, 'getEntreeTresorPage'])->name('entree.tresor');
-
+Route::get('/solde', [SoldeController::class, 'getSoldePage'])->name('membre.solde');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);
@@ -312,6 +313,12 @@ Route::get(
 
 //CONFIRM A SPECIF DELESTAGE ITEM USD
 Route::get(
-    "delestage/accept/usd/{id}",
+    "delestage/accept/usd",
     [EntreeTresorController::class, 'confirmDeletstageRequestUSD']
+);
+
+//GET RELEVE
+Route::post(
+    "membre/releve/data",
+    [SoldeController::class, 'getReleveMembre']
 );

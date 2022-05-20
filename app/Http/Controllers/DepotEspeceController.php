@@ -86,7 +86,7 @@ class DepotEspeceController extends Controller
         ->groupBy("NumCompte")
         ->get();
 
-      //RECUPERE LE SOLDE DU MEMBRE EN FC 
+      //RECUPERE LE SOLDE DU MEMBRE EN USD
       $soldeMembreUSD = Transactions::select(
         DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
       )->where("NumCompte", '=', $NumeroCompteUSD)

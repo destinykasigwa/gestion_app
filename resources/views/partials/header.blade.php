@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" moznomarginboxes mozdisallowselectionprint>
 
 <head>
     <meta charset="utf-8">
@@ -35,14 +35,46 @@
     <link rel="stylesheet" href="{{ asset('plugins/datatables-bs4/css/dataTables.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-responsive/css/responsive.bootstrap4.min.css') }}">
     <link rel="stylesheet" href="{{ asset('plugins/datatables-buttons/css/buttons.bootstrap4.min.css') }}">
+
+    <style>
+        @media print {
+            .table th {
+                background-color: #DCDCDC !important;
+            }
+
+        }
+
+        @page {
+            size: auto;
+            margin: 0mm;
+        }
+
+        .tableStyle {
+            background: #444;
+            color: #fff;
+            padding: 8px;
+            margin: 3px;
+            border: 2px solid #fff;
+            text-align: center;
+            width: 100%;
+        }
+
+        .tableStyle tr,
+        td {
+            border: 2px solid #fff;
+            padding: 0px;
+            font-size: 14px;
+        }
+
+    </style>
 </head>
 
 <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
 
         <div class="preloader flex-column justify-content-center align-items-center">
-            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo" height="60"
-                width="60">
+            <img class="animation__shake" src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTELogo"
+                height="60" width="60">
         </div>
 
         <nav class="main-header navbar navbar-expand navbar-white navbar-light"
