@@ -5,15 +5,16 @@ use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\updateMembre;
 use App\Http\Controllers\updateMembre;
 use App\Http\Controllers\RetraitEspece;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ApproController;
-use App\Http\Controllers\DelestageController;
 // use App\Http\Controllers\MendataireController;
+use App\Http\Controllers\DelestageController;
 use App\Http\Controllers\DepotEspeceController;
 use App\Http\Controllers\PersonneLieController;
+use App\Http\Controllers\EntreeTresorController;
 use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
-use App\Http\Controllers\EntreeTresorController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,13 +27,14 @@ use App\Http\Controllers\EntreeTresorController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+// Route::get('/', function () {
+//     return view('home');
+// });
 
 Auth::routes();
 //MAIN ROUTES
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/',  [HomeController::class, 'index']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 Route::get('/adhesion', [AdhesionMembreController::class, 'adhesion'])->name('membre.adhesion');
 Route::get('/depot-espece', [DepotEspeceController::class, 'depot'])->name('depot.espece');
 Route::get('/retrait-espece', [RetraitEspeceController::class, 'retrait'])->name('retrait.espece');

@@ -11211,7 +11211,7 @@ var ActivateCompteM = /*#__PURE__*/function (_React$Component) {
     _this = _super.call(this, props);
 
     _defineProperty(_assertThisInitialized(_this), "activationCompte", function (e) {
-      axios__WEBPACK_IMPORTED_MODULE_0___default().post('activationcompte/membre/data', {
+      axios__WEBPACK_IMPORTED_MODULE_0___default().post("activationcompte/membre/data", {
         refCompte: _this.props.refCompt,
         compteEnFranc: "330100" + _this.props.refCompt + "202",
         numCompteDollars: "330000" + _this.props.refCompt + "201",
@@ -11295,9 +11295,9 @@ var ActivateCompteM = /*#__PURE__*/function (_React$Component) {
                             style: {
                               color: "#000"
                             },
-                            children: [" Etes vous s\xFBr de pouvoir activ\xE9 ce compte ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
+                            children: [" ", "Etes vous s\xFBr de pouvoir activ\xE9 ce compte", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("strong", {
                               children: this.props.refCompt
-                            }), " ?  "]
+                            }), " ", "?", " "]
                           })
                         })
                       })

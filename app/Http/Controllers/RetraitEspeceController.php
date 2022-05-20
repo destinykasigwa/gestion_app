@@ -55,7 +55,7 @@ class RetraitEspeceController extends Controller
                 'validate_error' => $validator->errors()
             ]);
         } else {
-
+            $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
             //VERIFIE SI LE NUMERO DU DOCUMENT N PAS ENCORE SERVIE
             $getNumDocument = Positionnement::where("NumDocument", "=", $request->numDocument)->first();
             $getNumDocument ?  $numDocument = $getNumDocument->NumDocument : null;
@@ -81,7 +81,7 @@ class RetraitEspeceController extends Controller
                         "Montant" => $request->montant,
                         "CodeMonnaie" => "CDF",
                         "CodeAgence" => 20,
-                        "DateTransaction" => $request->Reference,
+                        "DateTransaction" =>  $date,
                         "DateTransaction" => $request->DateTransaction,
                         "Document" => $request->typeDocument,
                         "NumDocument" => $request->numDocument,
@@ -113,7 +113,7 @@ class RetraitEspeceController extends Controller
                         "Montant" => $request->montant,
                         "CodeMonnaie" => "USD",
                         "CodeAgence" => 20,
-                        "DateTransaction" => $request->Reference,
+                        "DateTransaction" =>  $date,
                         "DateTransaction" => $request->DateTransaction,
                         "Document" => $request->typeDocument,
                         "NumDocument" => $request->numDocument,

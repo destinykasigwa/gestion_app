@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AdhesionMembre;
+use App\Models\Comptes;
 use App\Models\CompteurTransaction;
 use App\Models\Transactions;
 use Exception;
@@ -98,8 +99,8 @@ class updateMembre extends Controller
     $devise = $request->get("devise");
     $numCompteDollars = $request->get("numCompteDollars");
     $idComptMembre = $request->get("idComptMembre");
-    $compteAdhesionFC=7480000000202;
-    $compteAdhesionUSD=7480000000201;
+    $compteAdhesionFC = 7480000000202;
+    $compteAdhesionUSD = 7480000000201;
     // $compteCaissePrincipaleUSD=5700003032201;
     // $compteCaissePrincipaleCDF=5700003032202;
     $data = AdhesionMembre::where('numCompte', 'like', '%' . $refCompte . '%')->first();
@@ -110,7 +111,22 @@ class updateMembre extends Controller
       $numOperation = [];
       $numOperation = CompteurTransaction::latest()->first();
 
-    //POUR LE CDF
+      //POUR LE CDF
+      //CREE LE COMPTE EN CDF
+      Comptes::create([
+        'CodeAgence' => 20,
+        'NumCompte' => $compteEnFranc,
+        'NomCompte' => $data->intituleCompte,
+        'CodeMonnaie' => 2,
+        'NumeTelephone' => $data->phone1,
+        'DateNaissance' => $data->dateNaiss,
+        'NumAdherant' => $refCompte,
+
+
+      ]);
+
+
+
       Transactions::create([
         "NumTransaction" => $numOperation->id,
         "DateTransaction" => $dateOuverture,
@@ -129,18 +145,26 @@ class updateMembre extends Controller
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
         "refCompteMembre" => $idComptMembre,
-        "Libelle"=>"Frais d'ouverture de compte.",
-        "Auto"=>1
+        "Libelle" => "Frais d'ouverture de compte.",
+        "Auto" => 1
 
       ]);
-
     } else if ($devise == "USD") {
       CompteurTransaction::create([
         'fakevalue' => "0000",
       ]);
       $numOperation = [];
       $numOperation = CompteurTransaction::latest()->first();
-
+      //CREE LE COMPTE EN USD
+      Comptes::create([
+        'CodeAgence' => 20,
+        'NumCompte' => $compteEnFranc,
+        'NomCompte' => $data->intituleCompte,
+        'CodeMonnaie' => 1,
+        'NumeTelephone' => $data->phone1,
+        'DateNaissance' => $data->dateNaiss,
+        'NumAdherant' => $refCompte,
+      ]);
 
       Transactions::create([
         "NumTransaction" => $numOperation->id,
@@ -160,8 +184,8 @@ class updateMembre extends Controller
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
         "refCompteMembre" => $idComptMembre,
-        "Libelle"=>"Frais d'ouverture de compte.",
-        "Auto"=>1
+        "Libelle" => "Frais d'ouverture de compte.",
+        "Auto" => 1
       ]);
     }
 
@@ -174,35 +198,33 @@ class updateMembre extends Controller
       ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')
       ->paginate(30, array(
         'adhesion_membres.intituleCompte as name',
-        'transactions.NumCompte as numcompte','transactions.CodeMonnaie as codeMonn'
+        'transactions.NumCompte as numcompte', 'transactions.CodeMonnaie as codeMonn'
       ));
     return response()->json(["success" => 1, "data" => $data]);
   }
 
 
 
-public function uploadphoto(Request $request)
-{
-  try {
-   $idMembre=$request->get('idMembre');
-  //  $uploaded_image=$request->get('uploaded_image');
+  public function uploadphoto(Request $request)
+  {
+    try {
+      $idMembre = $request->get('idMembre');
+      //  $uploaded_image=$request->get('uploaded_image');
 
-   if($request->hasFile('uploaded_image'))
-{
-  $file=$request->file('uploaded_image');
-  $extension=$file->getClientOriginalExtension();
-  $filename=time().'.'.$extension;
-  $file->move('uploads/membres/',$filename);
-  $uploaded_image=$filename;
-}
-AdhesionMembre::where('refCompte', $idMembre)->update([
-"photoMembre"=>$uploaded_image,
-]);
+      if ($request->hasFile('uploaded_image')) {
+        $file = $request->file('uploaded_image');
+        $extension = $file->getClientOriginalExtension();
+        $filename = time() . '.' . $extension;
+        $file->move('uploads/membres/', $filename);
+        $uploaded_image = $filename;
+      }
+      AdhesionMembre::where('refCompte', $idMembre)->update([
+        "photoMembre" => $uploaded_image,
+      ]);
+    } catch (Exception $e) {
+      Log::error($e);
+    }
 
-  } catch (Exception $e) {
-    Log::error($e);
+    return response()->json(["success" => 1, "msg" => "Compte mise à jour avec succès."]);
   }
-
-  return response()->json(["success"=>1,"msg"=>"Compte mise à jour avec succès."]);
-}
 }

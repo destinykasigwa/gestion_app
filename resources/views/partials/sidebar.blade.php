@@ -91,7 +91,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('appro.approvisionnement') }}" class="nav-link">
                                 <i class="fas fa-eraser"></i>
                                 <p>Sortie T</p>
                             </a>
