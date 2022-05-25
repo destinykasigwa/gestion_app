@@ -231,7 +231,7 @@ class DelestageController extends Controller
             "dixDollars" => $billetageUSD->dixDollars,
             "cinqDollars" => $billetageUSD->cinqDollars,
             "unDollars" => $billetageUSD->unDollars,
-            "montantCDF" => $request->montantUSD,
+            "montantUSD" => $request->montantUSD,
             "NomUtilisateur" => Auth::user()->name,
             "NomDemandeur" => Auth::user()->name,
             "DateTransaction" => $date,

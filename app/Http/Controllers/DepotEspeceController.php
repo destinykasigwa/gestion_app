@@ -38,7 +38,7 @@ class DepotEspeceController extends Controller
       DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
     )->where("NumCompte", 'like', '%' . $id . '%')
       ->groupBy("NumCompte")
-      ->get();
+      ->first();
 
     //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
     $lastId = [];
@@ -110,6 +110,7 @@ class DepotEspeceController extends Controller
   public function depotEspece(Request $request)
   {
 
+    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
     //RECUPERE LE TAUX JOURNALIER
     $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
@@ -151,8 +152,8 @@ class DepotEspeceController extends Controller
         //CREDITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
         Transactions::create([
           "NumTransaction" => $NumTransaction,
-          "DateTransaction" => $request->DateTransaction,
-          "DateSaisie" => $request->DateTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
           "Taux" => 1,
           "TypeTransaction" => "C",
           "CodeMonnaie" => 2,
@@ -182,13 +183,13 @@ class DepotEspeceController extends Controller
           "centFranc" => $request->centFranc,
           "cinquanteFanc" => $request->cinquanteFanc,
           "NomUtilisateur" => Auth::user()->name,
-          "DateTransaction" => $request->DateTransaction
+          "DateTransaction" => $date
         ]);
         //CREDITE LE COMPTE CONTRE PARTIE  
         Dummy::create([
           "NumTransaction" => $NumTransaction,
-          "DateTransaction" => $request->DateTransaction,
-          "DateSaisie" => $request->DateTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
           "Taux" => 1,
           "TypeTransaction" => "D",
           "CodeMonnaie" => 2,
@@ -206,8 +207,8 @@ class DepotEspeceController extends Controller
         //CREDIT LE COMPTE DU MEMBRE SI C UNE OPERATION EN USD
         Transactions::create([
           "NumTransaction" => $NumTransaction,
-          "DateTransaction" => $request->DateTransaction,
-          "DateSaisie" => $request->DateTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
           "Taux" => 1,
           "TypeTransaction" => "C",
           "CodeMonnaie" => 1,
@@ -236,13 +237,13 @@ class DepotEspeceController extends Controller
           "cinqDollars" => $request->five,
           "unDollars" => $request->oneDollar,
           "NomUtilisateur" => Auth::user()->name,
-          "DateTransaction" => $request->DateTransaction
+          "DateTransaction" => $date
         ]);
         //CREDITE LE COMPTE CONTRE PARTIE  
         Dummy::create([
           "NumTransaction" => $NumTransaction,
-          "DateTransaction" => $request->DateTransaction,
-          "DateSaisie" => $request->DateTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
           "Taux" => 1,
           "TypeTransaction" => "D",
           "CodeMonnaie" => 2,

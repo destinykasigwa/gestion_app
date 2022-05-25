@@ -52,7 +52,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-money-check"></i>
 
                                 <p>Virement</p>
@@ -73,13 +73,13 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('caisse.journal') }}" class="nav-link">
                                 <i class="fas fa-book"></i>
                                 <p>Journal</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link">
+                            <a href="{{ route('caisse.repertoire') }}" class="nav-link">
                                 <i class="fas fa-shopping-cart"></i>
                                 <p>Repertoire C</p>
                             </a>

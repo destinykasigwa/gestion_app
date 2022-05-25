@@ -10,7 +10,7 @@ export default class Approvisionnement extends React.Component {
             loading: false,
             disabled: false,
             montant: "",
-            caissier: "",
+            caissierNumber: "",
             DateTransaction: "",
             hundred: 0,
             fitfty: 0,
@@ -113,7 +113,7 @@ export default class Approvisionnement extends React.Component {
             fetchDaylyAproCDF: dataAppro.data.data,
             fetchDaylyAproUSD: dataAppro.data.data2,
         });
-        console.log(this.state.fetchDaylyAproCDF);
+        console.log(this.state);
     };
 
     //REMOVE A SPECIIQUE ITEM CDF
@@ -350,7 +350,7 @@ export default class Approvisionnement extends React.Component {
                                                         <td>
                                                             <div className="input-group input-group-sm ">
                                                                 <select
-                                                                    name="caissier"
+                                                                    name="caissierNumber"
                                                                     className="form-control"
                                                                     onChange={
                                                                         this
@@ -369,7 +369,7 @@ export default class Approvisionnement extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .caissier
+                                                                            .caissierNumber
                                                                     }
                                                                 >
                                                                     <option value="">

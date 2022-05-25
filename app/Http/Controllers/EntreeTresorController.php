@@ -89,12 +89,13 @@ class EntreeTresorController extends Controller
 
 
 
-        $numCompteCaissePr = "5700000000201";
-        $compteVirementInterGuichet = "5900000000201";
+
+        $numCompteCaissePrCDF = "5700000000202";
+        $compteVirementInterGuichetCDF = "5900000000202";
 
         $data = Delestage::where("id", "=", $id)->first();
 
-        //CREDITE LE COMPTE CAISSE TRANSFERT INTER GUICHET
+        //CREDITE LE COMPTE CAISSE TRANSFERT INTER GUICHET CDF
 
 
         Transactions::create([
@@ -107,7 +108,7 @@ class EntreeTresorController extends Controller
             "CodeAgence" => "20",
             "NumDossier" => "DOS00" . $numOperation->id,
             "NumDemande" => "V00" . $numOperation->id,
-            "NumCompte" => $compteVirementInterGuichet,
+            "NumCompte" => $compteVirementInterGuichetCDF,
             "NumComptecp" => $data->NumCompteCaissier,
             "Credit" =>  $data->montantCDF,
             "Operant" => $data->NomDemandeur,
@@ -132,7 +133,7 @@ class EntreeTresorController extends Controller
             "CodeAgence" => "20",
             "NumDossier" => "DOS00" . $numOperation->id,
             "NumDemande" => "V00" . $numOperation->id,
-            "NumCompte" => $compteVirementInterGuichet,
+            "NumCompte" => $compteVirementInterGuichetCDF,
             "NumComptecp" => $data->NumCompteCaissier,
             "Debit" =>  $data->montantCDF,
             "Operant" => $data->NomDemandeur,
@@ -153,7 +154,7 @@ class EntreeTresorController extends Controller
             "CodeAgence" => "20",
             "NumDossier" => "DOS00" . $numOperation->id,
             "NumDemande" => "V00" . $numOperation->id,
-            "NumCompte" => $compteVirementInterGuichet,
+            "NumCompte" => $compteVirementInterGuichetCDF,
             "NumComptecp" => $data->NumCompteCaissier,
             "Credit" =>  $data->montantCDF,
             "Operant" => $data->NomDemandeur,
@@ -177,8 +178,8 @@ class EntreeTresorController extends Controller
             "CodeAgence" => "20",
             "NumDossier" => "DOS00" . $numOperation->id,
             "NumDemande" => "V00" . $numOperation->id,
-            "NumCompte" => $numCompteCaissePr,
-            "NumComptecp" => $compteVirementInterGuichet,
+            "NumCompte" => $numCompteCaissePrCDF,
+            "NumComptecp" => $compteVirementInterGuichetCDF,
             "Debit" =>  $data->montantCDF,
             "Operant" => $data->NomDemandeur,
             "Reduction" =>  $data->montantCDF,
@@ -238,9 +239,8 @@ class EntreeTresorController extends Controller
 
 
 
-
-        $numCompteCaissePr = "5700000000201";
         $compteVirementInterGuichet = "5900000000201";
+        $numCompteCaissePr = "5700000000201";
         $data = Delestage::where("id", "=", $id)->first();
 
         //CREDITE LE COMPTE CAISSE TRANSFERT INTER GUICHET

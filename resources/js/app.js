@@ -21,7 +21,8 @@ import Approvisionnement from "./components/Approvisionnement";
 import Delestage from "./components/Delestage";
 import EntreeTresor from "./components/EntreeTresor";
 import SoldePage from "./components/SoldePage";
-
+import RepertoireCaisse from "./components/RepertoireCaisse";
+import JournalCaisse from "./components/JournalCaisse";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -56,4 +57,14 @@ if (document.getElementById("adhesionContainer")) {
     );
 } else if (document.getElementById("soldeContainer")) {
     ReactDOM.render(<SoldePage />, document.getElementById("soldeContainer"));
+} else if (document.getElementById("repertoireContainer")) {
+    ReactDOM.render(
+        <RepertoireCaisse />,
+        document.getElementById("repertoireContainer")
+    );
+} else if (document.getElementById("journalContainer")) {
+    ReactDOM.render(
+        <JournalCaisse />,
+        document.getElementById("journalContainer")
+    );
 }

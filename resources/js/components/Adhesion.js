@@ -689,12 +689,7 @@ class Adhesion extends React.Component {
                                                                     this
                                                                         .handleChange
                                                                 }
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
                                                             />
                                                         </div>
                                                     </tr>
@@ -736,12 +731,7 @@ class Adhesion extends React.Component {
                                                                     this
                                                                         .handleChange
                                                                 }
-                                                                disabled={
-                                                                    this.state
-                                                                        .disabled
-                                                                        ? "disabled"
-                                                                        : ""
-                                                                }
+                                                                disabled
                                                             />
                                                         </div>
                                                     </tr>

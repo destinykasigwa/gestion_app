@@ -84,14 +84,14 @@ export default class ActivateCompteM extends React.Component {
                                                     >
                                                         {" "}
                                                         Etes vous sûr de pouvoir
-                                                        activé ce compte{" "}
-                                                        <strong>
+                                                        activé ce compte ?{" "}
+                                                        {/* <strong>
                                                             {
                                                                 this.props
                                                                     .refCompt
                                                             }
                                                         </strong>{" "}
-                                                        ?{" "}
+                                                        ?{" "} */}
                                                     </h4>
                                                 </div>
                                             </div>

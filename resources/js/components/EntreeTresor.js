@@ -256,6 +256,45 @@ export default class EntreeTresor extends React.Component {
                                     className="card-body"
                                     style={{ background: "#dcdcdc" }}
                                 >
+                                    <div style={{ padding: "10px" }}>
+                                        <table>
+                                            <tr>
+                                                <td>
+                                                    <div className="input-group input-group-sm ">
+                                                        <select
+                                                            name="devise"
+                                                            className="form-control"
+                                                            onChange={
+                                                                this
+                                                                    .handleChange
+                                                            }
+                                                            disabled={
+                                                                this.state
+                                                                    .disabled
+                                                                    ? "disabled"
+                                                                    : ""
+                                                            }
+                                                            style={inputColor}
+                                                            value={
+                                                                this.state
+                                                                    .devise
+                                                            }
+                                                        >
+                                                            <option value="">
+                                                                Dévise
+                                                            </option>
+                                                            <option value="USD">
+                                                                USD
+                                                            </option>
+                                                            <option value="CDF">
+                                                                CDF
+                                                            </option>
+                                                        </select>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
                                     <div
                                         className="row"
                                         style={{
@@ -270,58 +309,7 @@ export default class EntreeTresor extends React.Component {
                                             >
                                                 {/* TABEAU DE BILLETAGE */}
                                                 {/* DEBUT   ANCIENNE BILLETATE CDF ET USD */}
-                                                <table>
-                                                    <tr>
-                                                        <td>
-                                                            <label
-                                                                style={
-                                                                    labelColor
-                                                                }
-                                                            >
-                                                                <strong>
-                                                                    Dévise
-                                                                </strong>
-                                                            </label>
-                                                        </td>
-                                                        <td>
-                                                            <div className="input-group input-group-sm ">
-                                                                <select
-                                                                    name="devise"
-                                                                    className="form-control"
-                                                                    onChange={
-                                                                        this
-                                                                            .handleChange
-                                                                    }
-                                                                    disabled={
-                                                                        this
-                                                                            .state
-                                                                            .disabled
-                                                                            ? "disabled"
-                                                                            : ""
-                                                                    }
-                                                                    style={
-                                                                        inputColor
-                                                                    }
-                                                                    value={
-                                                                        this
-                                                                            .state
-                                                                            .devise
-                                                                    }
-                                                                >
-                                                                    <option value="">
-                                                                        Sélectionnez
-                                                                    </option>
-                                                                    <option value="USD">
-                                                                        USD
-                                                                    </option>
-                                                                    <option value="CDF">
-                                                                        CDF
-                                                                    </option>
-                                                                </select>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
+
                                                 {this.state.devise == "USD" ? (
                                                     <table
                                                         className="table table-dark"

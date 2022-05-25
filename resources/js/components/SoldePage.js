@@ -58,7 +58,7 @@ export default class SoldePage extends React.Component {
         } else if (result.data.success == 0) {
             Swal.fire({
                 title: "Erreur",
-                text: res.data.msg,
+                text: result.data.msg,
                 icon: "error",
                 button: "OK!",
             });
@@ -482,6 +482,7 @@ export default class SoldePage extends React.Component {
                                                     <div
                                                         style={{
                                                             margin: "0 auto",
+                                                            width: "77%",
                                                         }}
                                                     >
                                                         {" "}
@@ -507,7 +508,7 @@ export default class SoldePage extends React.Component {
                                                         </div>
                                                         <table
                                                             id="table"
-                                                            class="table-responsive"
+                                                            class="table"
                                                             align="center"
                                                         >
                                                             <tr>
@@ -904,6 +905,7 @@ export default class SoldePage extends React.Component {
                                                     <div
                                                         style={{
                                                             margin: "0 auto",
+                                                            width: "77%",
                                                         }}
                                                     >
                                                         {" "}
@@ -929,7 +931,7 @@ export default class SoldePage extends React.Component {
                                                         </div>
                                                         <table
                                                             id="table"
-                                                            class="table-responsive"
+                                                            class="table"
                                                             align="center"
                                                         >
                                                             <tr>

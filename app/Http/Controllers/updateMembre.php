@@ -121,14 +121,9 @@ class updateMembre extends Controller
         'NumeTelephone' => $data->phone1,
         'DateNaissance' => $data->dateNaiss,
         'NumAdherant' => $refCompte,
-
-
       ]);
-
-
-
       Transactions::create([
-        "NumTransaction" => $numOperation->id,
+        "NumTransaction" => "FOC000" . $numOperation->id,
         "DateTransaction" => $dateOuverture,
         "DateSaisie" => $dateOuverture,
         "Taux" => 1,
@@ -167,7 +162,7 @@ class updateMembre extends Controller
       ]);
 
       Transactions::create([
-        "NumTransaction" => $numOperation->id,
+        "NumTransaction" => "FOC000" . $numOperation->id,
         "DateTransaction" => $dateOuverture,
         "DateSaisie" => $dateOuverture,
         "Taux" => 1,

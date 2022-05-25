@@ -43,14 +43,23 @@ class ApproController extends Controller
   {
     //POUR RECUPERE LE NOM UTILISATEUR DU CAISSIER CONCERNE
 
-    $IdCaissier = Comptes::where("NumCompte", "=", $request->caissier)->first()->NumAdherant;
-    //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID
+    $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 2)->first();
+    //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID CDF
+    $IdCaissier = $dataCaissier->caissierId;
+    $numCompteCaissierCDF = $dataCaissier->NumCompte;
+    $numCompteCaissierUSD = $dataCaissier->NumCompte;
 
 
+    $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 1)->first();
+    //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID USD
     $nomCaissier = User::where("id", "=", $IdCaissier)->first()->name;
+
+
     if ($request->devise == "CDF") {
-      $numCompteCaissePr = "5700000000201";
-      $compteVirementInterGuichet = "5900000000201";
+      $numCompteCaissePrCDF = "5700000000202";
+      $compteVirementInterGuichetCDF = "5900000000202";
+
+
       CompteurTransaction::create([
         'fakevalue' => "0000",
       ]);
@@ -58,10 +67,12 @@ class ApproController extends Controller
       $numOperation = CompteurTransaction::latest()->first();
       $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "D00" . $numOperation->id;
 
+      //RECUPERE LA DATE DU SYSTEME
+      $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
       BilletageAppro_cdf::create([
         "Reference" => $NumTransaction,
-        "NumCompteCaissier" => $request->caissier,
+        "NumCompteCaissier" => $request->caissierNumber,
         "vightMilleFranc" => $request->vightMille,
         "dixMilleFranc" => $request->dixMille,
         "cinqMilleFranc" => $request->cinqMille,
@@ -72,7 +83,7 @@ class ApproController extends Controller
         "cinquanteFanc" => $request->cinquanteFanc,
         "NomUtilisateur" => Auth::user()->name,
         "NomDemandeur" => $nomCaissier,
-        "DateTransaction" => $request->DateTransaction,
+        "DateTransaction" =>  $date,
         "montant" => $request->montant
       ]);
       //ECRITURE DE TRANSERT INTER GUICHET 
@@ -83,16 +94,39 @@ class ApproController extends Controller
 
       Dummy::create([
         "NumTransaction" => $NumTransaction,
-        "DateTransaction" => $request->DateTransaction,
-        "DateSaisie" => $request->DateTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
+        "Taux" => 1,
+        "TypeTransaction" => "D",
+        "CodeMonnaie" => 2,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" => $compteVirementInterGuichetCDF,
+        "NumComptecp" => $numCompteCaissePrCDF,
+        "Debit" => $request->montant,
+        "Operant" => $nomCaissier,
+        // "Reduction" => $request->montant,
+        "Debit$" => $request->montant / $tauxDuJour,
+        "Debitfc" => $request->montant * $tauxDuJour,
+        "NomUtilisateur" => Auth::user()->name,
+        "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
+      ]);
+
+      //DEBITE LE COMPTE DE VIREMENT INTER GUICHET
+
+      Dummy::create([
+        "NumTransaction" => $NumTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
         "Taux" => 1,
         "TypeTransaction" => "C",
         "CodeMonnaie" => 2,
         "CodeAgence" => "20",
         "NumDossier" => "DOS00" . $numOperation->id,
         "NumDemande" => "V00" . $numOperation->id,
-        "NumCompte" => $numCompteCaissePr,
-        "NumComptecp" => $compteVirementInterGuichet,
+        "NumCompte" =>  $numCompteCaissePrCDF,
+        "NumComptecp" => $compteVirementInterGuichetCDF,
         "Credit" => $request->montant,
         "Operant" => $nomCaissier,
         "Reduction" => $request->montant,
@@ -102,27 +136,46 @@ class ApproController extends Controller
         "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
       ]);
 
-      //DEBITE LE COMPTE DE VIREMENT INTER GUICHET
-
       Dummy::create([
         "NumTransaction" => $NumTransaction,
-        "DateTransaction" => $request->DateTransaction,
-        "DateSaisie" => $request->DateTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
         "Taux" => 1,
         "TypeTransaction" => "D",
         "CodeMonnaie" => 2,
         "CodeAgence" => "20",
         "NumDossier" => "DOS00" . $numOperation->id,
         "NumDemande" => "V00" . $numOperation->id,
-        "NumCompte" => $compteVirementInterGuichet,
-        "NumComptecp" => $numCompteCaissePr,
+        "NumCompte" =>  $numCompteCaissierCDF,
+        "NumComptecp" => $numCompteCaissePrCDF,
         "Debit" => $request->montant,
         "Operant" => $nomCaissier,
-        "Reduction" => $request->montant,
+        // "Reduction" => $request->montant,
         "Debit$" => $request->montant / $tauxDuJour,
         "Debitfc" => $request->montant * $tauxDuJour,
         "NomUtilisateur" => Auth::user()->name,
-        "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
+        "Libelle" => "Approvisionnement caisse de " . $nomCaissier,
+      ]);
+
+      Dummy::create([
+        "NumTransaction" => $NumTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
+        "Taux" => 1,
+        "TypeTransaction" => "C",
+        "CodeMonnaie" => 2,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" =>  $compteVirementInterGuichetCDF,
+        "NumComptecp" => $numCompteCaissePrCDF,
+        "Credit" => $request->montant,
+        "Operant" => $nomCaissier,
+        // "Reduction" => $request->montant,
+        "Credit$" => $request->montant / $tauxDuJour,
+        "Creditfc" => $request->montant * $tauxDuJour,
+        "NomUtilisateur" => Auth::user()->name,
+        "Libelle" => "Approvisionnement caisse de " . $nomCaissier,
       ]);
     } else if ($request->devise == "USD") {
       $numCompteCaissePr = "5700000000201";
@@ -134,11 +187,14 @@ class ApproController extends Controller
       $numOperation = CompteurTransaction::latest()->first();
       $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "D00" . $numOperation->id;
 
+      //RECUPERE LA DATE DU SYSTEME
+      $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+
 
 
       BilletageAppro_usd::create([
         "Reference" => $NumTransaction,
-        "NumCompteCaissier" => $request->caissier,
+        "NumCompteCaissier" => $request->caissierNumber,
         "centDollars" => $request->hundred,
         "cinquanteDollars" => $request->fitfty,
         "vightDollars" => $request->twenty,
@@ -147,7 +203,7 @@ class ApproController extends Controller
         "unDollars" => $request->oneDollar,
         "NomUtilisateur" => Auth::user()->name,
         "NomDemandeur" => $nomCaissier,
-        "DateTransaction" => $request->DateTransaction,
+        "DateTransaction" =>  $date,
         "montant" => $request->montant
       ]);
 
@@ -160,31 +216,8 @@ class ApproController extends Controller
 
       Dummy::create([
         "NumTransaction" => $NumTransaction,
-        "DateTransaction" => $request->DateTransaction,
-        "DateSaisie" => $request->DateTransaction,
-        "Taux" => 1,
-        "TypeTransaction" => "C",
-        "CodeMonnaie" => 1,
-        "CodeAgence" => "20",
-        "NumDossier" => "DOS00" . $numOperation->id,
-        "NumDemande" => "V00" . $numOperation->id,
-        "NumCompte" => $numCompteCaissePr,
-        "NumComptecp" => $compteVirementInterGuichet,
-        "Credit" =>  $request->montant,
-        "Operant" => $nomCaissier,
-        "Reduction" => $request->montant,
-        "Credit$" => $request->montant,
-        "Creditfc" => $request->montant * $tauxDuJour,
-        "NomUtilisateur" => Auth::user()->name,
-        "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
-      ]);
-
-      //DEBITE LE COMPTE DE VIREMENT INTER GUICHET
-
-      Dummy::create([
-        "NumTransaction" => $NumTransaction,
-        "DateTransaction" => $request->DateTransaction,
-        "DateSaisie" => $request->DateTransaction,
+        "DateTransaction" => $date,
+        "DateSaisie" =>  $date,
         "Taux" => 1,
         "TypeTransaction" => "D",
         "CodeMonnaie" => 1,
@@ -193,13 +226,78 @@ class ApproController extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteVirementInterGuichet,
         "NumComptecp" => $numCompteCaissePr,
-        "Debit" =>  $request->montant,
+        "Debit" => $request->montant,
         "Operant" => $nomCaissier,
-        "Reduction" => $request->montant,
-        "Debit$" => $request->montant,
+        // "Reduction" => $request->montant,
+        "Debit$" => $request->montant / $tauxDuJour,
         "Debitfc" => $request->montant * $tauxDuJour,
         "NomUtilisateur" => Auth::user()->name,
         "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
+      ]);
+
+      //DEBITE LE COMPTE DE VIREMENT INTER GUICHET
+
+      Dummy::create([
+        "NumTransaction" => $NumTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
+        "Taux" => 1,
+        "TypeTransaction" => "C",
+        "CodeMonnaie" => 1,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" =>  $numCompteCaissePr,
+        "NumComptecp" => $compteVirementInterGuichet,
+        "Credit" => $request->montant,
+        "Operant" => $nomCaissier,
+        "Reduction" => $request->montant,
+        "Credit$" => $request->montant / $tauxDuJour,
+        "Creditfc" => $request->montant * $tauxDuJour,
+        "NomUtilisateur" => Auth::user()->name,
+        "Libelle" => "Approvisionnement caisse secondaire de " . $nomCaissier,
+      ]);
+
+      Dummy::create([
+        "NumTransaction" => $NumTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
+        "Taux" => 1,
+        "TypeTransaction" => "D",
+        "CodeMonnaie" => 1,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" =>  $numCompteCaissierUSD,
+        "NumComptecp" => $numCompteCaissePr,
+        "Debit" => $request->montant,
+        "Operant" => $nomCaissier,
+        // "Reduction" => $request->montant,
+        "Debit$" => $request->montant / $tauxDuJour,
+        "Debitfc" => $request->montant * $tauxDuJour,
+        "NomUtilisateur" => Auth::user()->name,
+        "Libelle" => "Approvisionnement caisse de " . $nomCaissier,
+      ]);
+
+      Dummy::create([
+        "NumTransaction" => $NumTransaction,
+        "DateTransaction" =>  $date,
+        "DateSaisie" =>  $date,
+        "Taux" => 1,
+        "TypeTransaction" => "C",
+        "CodeMonnaie" => 1,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" =>  $compteVirementInterGuichet,
+        "NumComptecp" => $numCompteCaissePr,
+        "Credit" => $request->montant,
+        "Operant" => $nomCaissier,
+        // "Reduction" => $request->montant,
+        "Credit$" => $request->montant / $tauxDuJour,
+        "Creditfc" => $request->montant * $tauxDuJour,
+        "NomUtilisateur" => Auth::user()->name,
+        "Libelle" => "Approvisionnement caisse de " . $nomCaissier,
       ]);
     }
 

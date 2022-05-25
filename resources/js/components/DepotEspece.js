@@ -619,7 +619,7 @@ export default class DepotEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[0]
+                                                                                    .getMembreSolde
                                                                                     .soldeMembreUSD
                                                                             )
                                                                         )
@@ -655,7 +655,7 @@ export default class DepotEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[1]
+                                                                                    .getMembreSolde
                                                                                     .soldeMembreCDF
                                                                             )
                                                                         )

@@ -52,10 +52,10 @@
         .tableStyle {
             background: #444;
             color: #fff;
-            padding: 8px;
+            padding: 5px;
             margin: 3px;
             border: 2px solid #fff;
-            text-align: center;
+            text-align: left;
             width: 100%;
         }
 

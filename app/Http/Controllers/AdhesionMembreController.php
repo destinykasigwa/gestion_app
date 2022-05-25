@@ -121,15 +121,15 @@ class AdhesionMembreController extends Controller
 
             ]);
 
-            Comptes::create([
-                'CodeAgence' => $request->codeAgence,
-                'NumCompte' => $request->numCompte,
-                'NomCompte' => $request->intituleCompte,
-                'Civilite' => $request->cilivilty,
-                'NumeTelephone' => $request->phone1,
-                'DateNaissance' => $request->dateNaiss,
-                'NumAdherant' => $request->compteAbrege
-            ]);
+            // Comptes::create([
+            //     'CodeAgence' => $request->codeAgence,
+            //     'NumCompte' => $request->numCompte,
+            //     'NomCompte' => $request->intituleCompte,
+            //     'Civilite' => $request->cilivilty,
+            //     'NumeTelephone' => $request->phone1,
+            //     'DateNaissance' => $request->dateNaiss,
+            //     'NumAdherant' => $request->compteAbrege
+            // ]);
 
             $lastId = [];
             $lastId = AdhesionMembre::latest()->first();
