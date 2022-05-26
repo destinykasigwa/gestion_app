@@ -68,6 +68,7 @@ class RetraitEspeceController extends Controller
             //SI L'UTILISATEUR PREND CDF COMME DEVISE
             if ($request->devise == "CDF") {
                 //ON VERIFIE QUE LE MONTANT A POSITIONNER N PAS SUPERIEUR AU SOLDE DU MEMBRE
+                $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
                 if ($request->montant <= $request->soldeCDF) {
                     //ON RECUPERE LE NUMERO DE COMPTE DE FRAND DU MEMBRE
@@ -82,7 +83,7 @@ class RetraitEspeceController extends Controller
                         "CodeMonnaie" => "CDF",
                         "CodeAgence" => 20,
                         "DateTransaction" =>  $date,
-                        "DateTransaction" => $request->DateTransaction,
+                        "DateTransaction" => $date,
                         "Document" => $request->typeDocument,
                         "NumDocument" => $request->numDocument,
                         "Retirant" => $request->beneficiaire,
@@ -114,7 +115,7 @@ class RetraitEspeceController extends Controller
                         "CodeMonnaie" => "USD",
                         "CodeAgence" => 20,
                         "DateTransaction" =>  $date,
-                        "DateTransaction" => $request->DateTransaction,
+                        "DateTransaction" => $date,
                         "Document" => $request->typeDocument,
                         "NumDocument" => $request->numDocument,
                         "Retirant" => $request->beneficiaire,
@@ -127,6 +128,7 @@ class RetraitEspeceController extends Controller
                         "Mandataire" => 0,
                         "NomUtilisateur"  => Auth::user()->name,
                         "Autorisateur" => $request->montant > 100000 ? 0 : null,
+                        "RefCompte" => $request->refCompte
                     ]);
                 } else {
                     return response()->json(['success' => 0, 'msg' => "Oooops! le solde du membre est insuffisant solde disponible." . $request->soldeUSD]);
@@ -306,6 +308,7 @@ class RetraitEspeceController extends Controller
                     "deuxCentFrancSortie" => $request->deuxCentFranc,
                     "centFrancSortie" => $request->centFranc,
                     "cinquanteFancSortie" => $request->cinquanteFanc,
+                    "montantSortie" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
                     "DateTransaction" => $request->DateTransaction
                 ]);
@@ -360,6 +363,7 @@ class RetraitEspeceController extends Controller
                     "dixDollarsSortie" => $request->ten,
                     "cinqDollarsSortie" => $request->five,
                     "unDollarsSortie" => $request->oneDollar,
+                    "montantSortie" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
                     "DateTransaction" => $request->DateTransaction
                 ]);

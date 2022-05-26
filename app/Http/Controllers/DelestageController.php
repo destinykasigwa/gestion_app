@@ -34,9 +34,11 @@ class DelestageController extends Controller
             DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollars"),
             DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollars"),
             DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollars"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantUSD"),
         )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
             ->groupBy("NomUtilisateur")
-            ->first();
+            ->get();
+
 
 
         //RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
@@ -49,9 +51,10 @@ class DelestageController extends Controller
             DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFranc"),
             DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFranc"),
             DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFanc"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantCDF"),
         )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
             ->groupBy("NomUtilisateur")
-            ->first();
+            ->get();
 
         return response()->json(["dataCDF" => $billetageCDF, "dataUSD" => $billetageUSD]);
     }
@@ -77,11 +80,28 @@ class DelestageController extends Controller
     public function upDateBilletageCDF(Request $request)
     {
 
+
+
         //RECUPERE LA DATE DU SYSTEME
         $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
+        //RECUPERE LE BILLETAGE EN FRANC CONGOLAIS
+        $billetageCDF = BilletageCdf::select(
+            DB::raw("SUM(vightMilleFranc)-SUM(vightMilleFrancSortie) as vightMilleFranc"),
+            DB::raw("SUM(dixMilleFranc)-SUM(dixMilleFrancSortie) as dixMilleFranc"),
+            DB::raw("SUM(cinqMilleFranc)-SUM(cinqMilleFrancSortie) as cinqMilleFranc"),
+            DB::raw("SUM(milleFranc)-SUM(milleFrancSortie) as milleFranc"),
+            DB::raw("SUM(cinqCentFranc)-SUM(cinqCentFrancSortie) as cinqCentFranc"),
+            DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFranc"),
+            DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFranc"),
+            DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFanc"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantCDF"),
+        )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+            ->groupBy("NomUtilisateur")
+            ->first();
+
         //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
-        $numCompteCaissierCDF = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
+        $numCompteCaissierCDF = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
         $CompteCaissierCDF = $numCompteCaissierCDF->NumCompte;
 
         ChangeMonnaie::create([
@@ -94,7 +114,7 @@ class DelestageController extends Controller
             "deuxCentFranc" => $request->deuxCentFranc,
             "centFranc" => $request->centFranc,
             "cinquanteFanc" => $request->cinquanteFanc,
-            "montantCDF" => $request->montantCDF,
+            "montantCDF" => $billetageCDF->sommeMontantCDF,
             "NomUtilisateur" => Auth::user()->name,
             "DateTransaction" => $date,
             "CodeMonnaie" => 2,
@@ -112,8 +132,21 @@ class DelestageController extends Controller
         //RECUPERE LA DATE DU SYSTEME
         $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
+        //RECUPERE LE BILLETAGE EN DOLLARS
+        $billetageUSD = BilletageUsd::select(
+            DB::raw("SUM(centDollars)-SUM(centDollarsSortie) as centDollars"),
+            DB::raw("SUM(cinquanteDollars)-SUM(cinquanteDollarsSortie) as cinquanteDollars"),
+            DB::raw("SUM(vightDollars)-SUM(vightDollarsSortie) as vightDollars"),
+            DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollars"),
+            DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollars"),
+            DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollars"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantUSD"),
+        )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
+            ->groupBy("NomUtilisateur")
+            ->first();
+
         //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
-        $numCompteCaissierUSD = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
+        $numCompteCaissierUSD = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
         $CompteCaissierUSD = $numCompteCaissierUSD->NumCompte;
 
         ChangeMonnaie::create([
@@ -124,7 +157,7 @@ class DelestageController extends Controller
             "dixDollars" => $request->ten,
             "cinqDollars" => $request->five,
             "unDollars" => $request->oneDollar,
-            "montantUSD" => $request->montantUSD,
+            "montantUSD" => $billetageUSD->sommeMontantUSD,
             "NomUtilisateur" => Auth::user()->name,
             "DateTransaction" => $date,
             "CodeMonnaie" => 1,
@@ -163,6 +196,7 @@ class DelestageController extends Controller
             DB::raw("SUM(deuxCentFranc)-SUM(deuxCentFrancSortie) as deuxCentFranc"),
             DB::raw("SUM(centFranc)-SUM(centFrancSortie) as centFranc"),
             DB::raw("SUM(cinquanteFanc)-SUM(cinquanteFancSortie) as cinquanteFanc"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantCDF"),
         )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
             ->groupBy("NomUtilisateur")
             ->first();
@@ -178,7 +212,7 @@ class DelestageController extends Controller
             "deuxCentFranc" => $billetageCDF->deuxCentFranc,
             "centFranc" => $billetageCDF->centFranc,
             "cinquanteFanc" => $billetageCDF->cinquanteFanc,
-            "montantCDF" => $request->montantCDF,
+            "montantCDF" => $billetageCDF->sommeMontantCDF,
             "NomUtilisateur" => Auth::user()->name,
             "NomDemandeur" => Auth::user()->name,
             "DateTransaction" => $date,
@@ -218,6 +252,7 @@ class DelestageController extends Controller
             DB::raw("SUM(dixDollars)-SUM(dixDollarsSortie) as dixDollars"),
             DB::raw("SUM(cinqDollars)-SUM(cinqDollarsSortie) as cinqDollars"),
             DB::raw("SUM(unDollars)-SUM(unDollarsSortie) as unDollars"),
+            DB::raw("SUM(montantEntre)-SUM(montantSortie) as sommeMontantUSD"),
         )->where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)
             ->groupBy("NomUtilisateur")
             ->first();
@@ -231,7 +266,7 @@ class DelestageController extends Controller
             "dixDollars" => $billetageUSD->dixDollars,
             "cinqDollars" => $billetageUSD->cinqDollars,
             "unDollars" => $billetageUSD->unDollars,
-            "montantUSD" => $request->montantUSD,
+            "montantUSD" => $billetageUSD->sommeMontantUSD,
             "NomUtilisateur" => Auth::user()->name,
             "NomDemandeur" => Auth::user()->name,
             "DateTransaction" => $date,
@@ -260,7 +295,7 @@ class DelestageController extends Controller
         //RECUPERE LA DATE DU SYSTEME
         $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
 
-        $dataCDF = ChangeMonnaie::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", 2)->where("received", "=", 1)->first();
+        $dataCDF = ChangeMonnaie::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", 2)->where("received", "=", 0)->first();
 
         Delestage::create([
             "Reference" => $NumTransaction,

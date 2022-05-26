@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class BilletageUsd extends Model
 {
     use HasFactory;
-    protected $fillable=[
+    protected $fillable = [
         "refOperation",
         "centDollars",
         "cinquanteDollars",
@@ -16,12 +16,14 @@ class BilletageUsd extends Model
         "dixDollars",
         "cinqDollars",
         "unDollars",
+        "montantEntre",
         "centDollarsSortie",
         "cinquanteDollarsSortie",
         "vightDollarsSortie",
         "dixDollarsSortie",
         "cinqDollarsSortie",
         "unDollarsSortie",
+        "montantSortie",
         "NomUtilisateur",
         "DateTransaction"
     ];

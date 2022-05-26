@@ -43,19 +43,16 @@ class ApproController extends Controller
   {
     //POUR RECUPERE LE NOM UTILISATEUR DU CAISSIER CONCERNE
 
-    $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 2)->first();
-    //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID CDF
-    $IdCaissier = $dataCaissier->caissierId;
-    $numCompteCaissierCDF = $dataCaissier->NumCompte;
-    $numCompteCaissierUSD = $dataCaissier->NumCompte;
-
-
-    $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 1)->first();
-    //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID USD
-    $nomCaissier = User::where("id", "=", $IdCaissier)->first()->name;
 
 
     if ($request->devise == "CDF") {
+
+      $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 2)->first();
+      //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID CDF
+      $IdCaissier = $dataCaissier->caissierId;
+      $numCompteCaissierCDF = $dataCaissier->NumCompte;
+      $nomCaissier = User::where("id", "=", $IdCaissier)->first()->name;
+
       $numCompteCaissePrCDF = "5700000000202";
       $compteVirementInterGuichetCDF = "5900000000202";
 
@@ -178,6 +175,13 @@ class ApproController extends Controller
         "Libelle" => "Approvisionnement caisse de " . $nomCaissier,
       ]);
     } else if ($request->devise == "USD") {
+
+      $dataCaissier = Comptes::where("NumCompte", "=", $request->caissierNumber)->where("CodeMonnaie", "=", 1)->first();
+      //RECUPERE SUR LA TABLE USERS LE NOM QUI CORRESPOND A CE ID USD
+      $IdCaissier = $dataCaissier->caissierId;
+      $nomCaissier = User::where("id", "=", $IdCaissier)->first()->name;
+      $numCompteCaissierUSD = $dataCaissier->NumCompte;
+
       $numCompteCaissePr = "5700000000201";
       $compteVirementInterGuichet = "5900000000201";
       CompteurTransaction::create([
@@ -384,8 +388,10 @@ class ApproController extends Controller
       "deuxCentFranc" => $billetageCDF->deuxCentFranc,
       "centFranc" => $billetageCDF->centFranc,
       "cinquanteFanc" => $billetageCDF->cinquanteFanc,
+      "montantEntre" => $billetageCDF->montant,
       "NomUtilisateur" => $billetageCDF->NomDemandeur,
       "DateTransaction" => $billetageCDF->DateTransaction,
+
     ]);
 
     //ECRITURE DE TRANSERT INTER GUICHET 
@@ -449,6 +455,7 @@ class ApproController extends Controller
       "dixDollars" => $billetageUSD->dixDollars,
       "cinqDollars" => $billetageUSD->cinqDollars,
       "unDollars" => $billetageUSD->unDollars,
+      "montantEntre" => $billetageUSD->montant,
       "NomUtilisateur" => $billetageUSD->NomDemandeur,
       "DateTransaction" => $billetageUSD->DateTransaction
     ]);

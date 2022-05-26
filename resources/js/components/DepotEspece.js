@@ -46,9 +46,12 @@ export default class DepotEspece extends React.Component {
             getLastestOperationUSD: null,
             getSommeCDF: null,
             getSommeUSD: null,
+            getMembreSoldeCDF: null,
             getMembreSolde: null,
             fetchDaylyAproCDF: null,
             fetchDaylyAproUSD: null,
+            soldeCDF: "",
+            soldeUSD: "",
         };
         this.actualiser = this.actualiser.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -148,6 +151,8 @@ export default class DepotEspece extends React.Component {
                 refCompte: this.state.fetchData.refCompte,
                 numCompte: this.state.fetchData.numCompte,
                 operant: this.state.fetchData.intituleCompte,
+                soldeCDF: this.state.getMembreSolde[1].soldeMembreCDF,
+                soldeUSD: this.state.getMembreSolde[0].soldeMembreUSD,
             });
             console.log(this.state.getMembreSolde);
             //disabled valider button
@@ -619,7 +624,7 @@ export default class DepotEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde
+                                                                                    .getMembreSolde[0]
                                                                                     .soldeMembreUSD
                                                                             )
                                                                         )
@@ -655,7 +660,7 @@ export default class DepotEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde
+                                                                                    .getMembreSolde[1]
                                                                                     .soldeMembreCDF
                                                                             )
                                                                         )

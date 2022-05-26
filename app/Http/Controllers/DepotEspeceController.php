@@ -38,7 +38,7 @@ class DepotEspeceController extends Controller
       DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
     )->where("NumCompte", 'like', '%' . $id . '%')
       ->groupBy("NumCompte")
-      ->first();
+      ->get();
 
     //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
     $lastId = [];
@@ -65,7 +65,6 @@ class DepotEspeceController extends Controller
 
     $dataRowExist = Positionnement::where("NumDocument", "=", $numDocument)->first();
     if ($dataRowExist) {
-
       $dataPostione = Positionnement::where("NumDocument", "=", $numDocument)->get();
       $numCompteMembre = $dataPostione[0]->RefCompte;
       //RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE CDF
@@ -92,6 +91,8 @@ class DepotEspeceController extends Controller
       )->where("NumCompte", '=', $NumeroCompteUSD)
         ->groupBy("NumCompte")
         ->get();
+
+
 
       return response()->json([
         "success" => 1, 'data' => $dataUSD, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeMembreUSD, "datapositionnement" => $dataPostione
@@ -181,6 +182,7 @@ class DepotEspeceController extends Controller
           "cinqCentFranc" => $request->cinqCentFr,
           "deuxCentFranc" => $request->deuxCentFranc,
           "centFranc" => $request->centFranc,
+          "montantEntre" => $request->montantDepot,
           "cinquanteFanc" => $request->cinquanteFanc,
           "NomUtilisateur" => Auth::user()->name,
           "DateTransaction" => $date
@@ -236,6 +238,7 @@ class DepotEspeceController extends Controller
           "dixDollars" => $request->ten,
           "cinqDollars" => $request->five,
           "unDollars" => $request->oneDollar,
+          "montantEntre" => $request->montantDepot,
           "NomUtilisateur" => Auth::user()->name,
           "DateTransaction" => $date
         ]);

@@ -85,25 +85,13 @@ export default class Delestage extends React.Component {
     getAllBilletage = async () => {
         const getBilletage = await axios.get("/billetage/sommebilletage");
         this.setState({
-            fetchBilletageCDF: getBilletage.data.dataCDF,
-            fetchBilletageUSD: getBilletage.data.dataUSD,
-            montantCDF:
-                parseInt(getBilletage.data.dataCDF.vightMilleFranc) * 20000 +
-                parseInt(getBilletage.data.dataCDF.dixMilleFranc) * 10000 +
-                parseInt(getBilletage.data.dataCDF.cinqMilleFranc) * 5000 +
-                parseInt(getBilletage.data.dataCDF.milleFranc) * 1000 +
-                parseInt(getBilletage.data.dataCDF.cinqCentFranc) * 500 +
-                parseInt(getBilletage.data.dataCDF.deuxCentFranc) * 200 +
-                parseInt(getBilletage.data.dataCDF.centFranc) * 100 +
-                parseInt(getBilletage.data.dataCDF.cinquanteFanc) * 50,
-            montantUSD:
-                parseInt(getBilletage.data.dataUSD.centDollars) * 100 +
-                parseInt(getBilletage.data.dataUSD.cinquanteDollars) * 50 +
-                parseInt(getBilletage.data.dataUSD.vightDollars) * 20 +
-                parseInt(getBilletage.data.dataUSD.dixDollars) * 10 +
-                parseInt(getBilletage.data.dataUSD.cinqDollars) * 5 +
-                parseInt(getBilletage.data.dataUSD.unDollars) * 1,
+            fetchBilletageCDF: getBilletage.data.dataCDF[0],
+            fetchBilletageUSD: getBilletage.data.dataUSD[0],
         });
+        // this.settate({
+        //     montantCDF: getBilletage.data.dataCDF[0].sommeMontantCDF,
+        //     montantUSD: getBilletage.data.dataUSD[0].sommeMontantUSD,
+        // });
     };
 
     getNewBilletage = async () => {
@@ -382,102 +370,107 @@ export default class Delestage extends React.Component {
                                                                     <option value="">
                                                                         Sélectionnez
                                                                     </option>
-                                                                    <option value="USD">
-                                                                        USD
-                                                                    </option>
                                                                     <option value="CDF">
                                                                         CDF
+                                                                    </option>
+                                                                    <option value="USD">
+                                                                        USD
                                                                     </option>
                                                                 </select>
                                                             </div>
                                                         </td>
                                                     </tr>
-
-                                                    {this.state.devise ==
-                                                    "USD" ? (
-                                                        <tr>
-                                                            <td>
-                                                                {" "}
-                                                                <label
-                                                                    style={
-                                                                        labelColor
+                                                    <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Montant USD
+                                                            </label>{" "}
+                                                        </td>
+                                                        <td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    name="montantUSD"
+                                                                    className="form-control font-weight-bold"
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
                                                                     }
-                                                                >
-                                                                    Montant
-                                                                </label>{" "}
-                                                            </td>
-                                                            <td>
-                                                                <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="montantUSD"
-                                                                        className="form-control font-weight-bold"
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                        disabled={
-                                                                            this
-                                                                                .state
-                                                                                .disabled
-                                                                                ? "disabled"
-                                                                                : ""
-                                                                        }
-                                                                        style={
-                                                                            inputColor
-                                                                        }
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .montantUSD
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    ) : (
-                                                        <tr>
-                                                            <td>
-                                                                {" "}
-                                                                <label
-                                                                    style={
-                                                                        labelColor
+                                                                    disabled={
+                                                                        this
+                                                                            .state
+                                                                            .disabled
+                                                                            ? "disabled"
+                                                                            : ""
                                                                     }
-                                                                >
-                                                                    Montant
-                                                                </label>{" "}
-                                                            </td>
-                                                            <td>
-                                                                <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
-                                                                        name="montantCDF"
-                                                                        className="form-control font-weight-bold"
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                        disabled={
-                                                                            this
-                                                                                .state
-                                                                                .disabled
-                                                                                ? "disabled"
-                                                                                : ""
-                                                                        }
-                                                                        style={
-                                                                            inputColor
-                                                                        }
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .montantCDF
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </td>
-                                                        </tr>
-                                                    )}
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .fetchBilletageUSD
+                                                                            ? this
+                                                                                  .state
+                                                                                  .fetchBilletageUSD
+                                                                                  .sommeMontantUSD
+                                                                            : "0.00"
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
 
+                                                    <tr>
+                                                        <td>
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Montant CDF
+                                                            </label>{" "}
+                                                        </td>
+                                                        <td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    name="montantCDF"
+                                                                    className="form-control font-weight-bold"
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    disabled={
+                                                                        this
+                                                                            .state
+                                                                            .disabled
+                                                                            ? "disabled"
+                                                                            : ""
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .fetchBilletageCDF
+                                                                            ? this
+                                                                                  .state
+                                                                                  .fetchBilletageCDF
+                                                                                  .sommeMontantCDF
+                                                                            : "0.00"
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </td>
+                                                    </tr>
                                                     <tr>
                                                         <td></td>
                                                         <td

@@ -5695,11 +5695,13 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
               getBilletage = _context.sent;
 
               _this.setState({
-                fetchBilletageCDF: getBilletage.data.dataCDF,
-                fetchBilletageUSD: getBilletage.data.dataUSD,
-                montantCDF: parseInt(getBilletage.data.dataCDF.vightMilleFranc) * 20000 + parseInt(getBilletage.data.dataCDF.dixMilleFranc) * 10000 + parseInt(getBilletage.data.dataCDF.cinqMilleFranc) * 5000 + parseInt(getBilletage.data.dataCDF.milleFranc) * 1000 + parseInt(getBilletage.data.dataCDF.cinqCentFranc) * 500 + parseInt(getBilletage.data.dataCDF.deuxCentFranc) * 200 + parseInt(getBilletage.data.dataCDF.centFranc) * 100 + parseInt(getBilletage.data.dataCDF.cinquanteFanc) * 50,
-                montantUSD: parseInt(getBilletage.data.dataUSD.centDollars) * 100 + parseInt(getBilletage.data.dataUSD.cinquanteDollars) * 50 + parseInt(getBilletage.data.dataUSD.vightDollars) * 20 + parseInt(getBilletage.data.dataUSD.dixDollars) * 10 + parseInt(getBilletage.data.dataUSD.cinqDollars) * 5 + parseInt(getBilletage.data.dataUSD.unDollars) * 1
-              });
+                fetchBilletageCDF: getBilletage.data.dataCDF[0],
+                fetchBilletageUSD: getBilletage.data.dataUSD[0]
+              }); // this.settate({
+              //     montantCDF: getBilletage.data.dataCDF[0].sommeMontantCDF,
+              //     montantUSD: getBilletage.data.dataUSD[0].sommeMontantUSD,
+              // });
+
 
             case 4:
             case "end":
@@ -6180,20 +6182,20 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                                   value: "",
                                   children: "S\xE9lectionnez"
                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
-                                  value: "USD",
-                                  children: "USD"
-                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                   value: "CDF",
                                   children: "CDF"
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                  value: "USD",
+                                  children: "USD"
                                 })]
                               })
                             })
                           })]
-                        }), this.state.devise == "USD" ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
                             children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                               style: labelColor,
-                              children: "Montant"
+                              children: "Montant USD"
                             }), " "]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -6205,15 +6207,15 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                                 onChange: this.handleChange,
                                 disabled: this.state.disabled ? "disabled" : "",
                                 style: inputColor,
-                                value: this.state.montantUSD
+                                value: this.state.fetchBilletageUSD ? this.state.fetchBilletageUSD.sommeMontantUSD : "0.00"
                               })
                             })
                           })]
-                        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
                             children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
                               style: labelColor,
-                              children: "Montant"
+                              children: "Montant CDF"
                             }), " "]
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
@@ -6225,7 +6227,7 @@ var Delestage = /*#__PURE__*/function (_React$Component) {
                                 onChange: this.handleChange,
                                 disabled: this.state.disabled ? "disabled" : "",
                                 style: inputColor,
-                                value: this.state.montantCDF
+                                value: this.state.fetchBilletageCDF ? this.state.fetchBilletageCDF.sommeMontantCDF : "0.00"
                               })
                             })
                           })]
@@ -7340,7 +7342,9 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     disabled: !_this.state.disabled,
                     refCompte: _this.state.fetchData.refCompte,
                     numCompte: _this.state.fetchData.numCompte,
-                    operant: _this.state.fetchData.intituleCompte
+                    operant: _this.state.fetchData.intituleCompte,
+                    soldeCDF: _this.state.getMembreSolde[1].soldeMembreCDF,
+                    soldeUSD: _this.state.getMembreSolde[0].soldeMembreUSD
                   });
 
                   console.log(_this.state.getMembreSolde); //disabled valider button
@@ -7466,9 +7470,12 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       getLastestOperationUSD: null,
       getSommeCDF: null,
       getSommeUSD: null,
+      getMembreSoldeCDF: null,
       getMembreSolde: null,
       fetchDaylyAproCDF: null,
-      fetchDaylyAproUSD: null
+      fetchDaylyAproUSD: null,
+      soldeCDF: "",
+      soldeUSD: ""
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -7857,7 +7864,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde.soldeMembreUSD)),
+                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[0].soldeMembreUSD)),
                                 disabled: true
                               })
                             })]
@@ -7875,7 +7882,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde.soldeMembreCDF)),
+                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[1].soldeMembreCDF)),
                                 disabled: true
                               })
                             })]
@@ -10068,12 +10075,12 @@ var JournalCaisse = /*#__PURE__*/function (_React$Component) {
       loading: false,
       dateToSearch1: "",
       dateToSearch2: "",
-      fetchData: "",
-      fetchDataUSD: "",
-      fetTotUSD: "",
-      fetchTot: "",
-      userName: "",
-      AgenceName: ""
+      fetchData: null,
+      fetchDataUSD: null,
+      fetTotUSD: null,
+      fetchTot: null,
+      userName: null,
+      AgenceName: null
     };
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
@@ -16290,10 +16297,10 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
       loading: false,
       dateToSearch1: "",
       dateToSearch2: "",
-      fetchData: "",
-      fetchDataUSD: "",
-      fetTotUSD: "",
-      fetchTot: "",
+      fetchData: null,
+      fetchDataUSD: null,
+      fetTotUSD: null,
+      fetchTot: null,
       userName: "",
       AgenceName: ""
     };
@@ -17178,7 +17185,7 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                     montantRetrait: _this.state.getPositionnementData[0].Montant,
                     devise: _this.state.getPositionnementData[0].CodeMonnaie,
                     numDocument: _this.state.getPositionnementData[0].NumDocument
-                  }); //  console.log(this.state.getPositionnementData[0].Montant);
+                  }); // console.log(this.state.fetchData);
                   //disabled valider button
 
 
@@ -17190,6 +17197,8 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                     icon: "error",
                     button: "OK!"
                   });
+                } else {
+                  console.log(_this.state.getMembreSoldeUSD);
                 } // console.log(this.state.fetchData);
 
 
@@ -19231,6 +19240,12 @@ var SoldePage = /*#__PURE__*/function (_React$Component) {
                                 children: "Solde :"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                                 children: numberFormat(parseInt(this.state.getSolde.soldeMembreCDF))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: ["Date D\xE9but:", " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.dateToSearch1
                               })]
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {

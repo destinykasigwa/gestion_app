@@ -11,12 +11,12 @@ export default class JournalCaisse extends React.Component {
             loading: false,
             dateToSearch1: "",
             dateToSearch2: "",
-            fetchData: "",
-            fetchDataUSD: "",
-            fetTotUSD: "",
-            fetchTot: "",
-            userName: "",
-            AgenceName: "",
+            fetchData: null,
+            fetchDataUSD: null,
+            fetTotUSD: null,
+            fetchTot: null,
+            userName: null,
+            AgenceName: null,
         };
         this.actualiser = this.actualiser.bind(this);
         this.handleChange = this.handleChange.bind(this);

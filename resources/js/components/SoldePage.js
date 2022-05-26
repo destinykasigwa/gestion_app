@@ -665,7 +665,19 @@ export default class SoldePage extends React.Component {
                                                                             )}
                                                                         </td>
                                                                     </tr>
-
+                                                                    <tr>
+                                                                        <td>
+                                                                            Date
+                                                                            Début:{" "}
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                this
+                                                                                    .state
+                                                                                    .dateToSearch1
+                                                                            }
+                                                                        </td>
+                                                                    </tr>
                                                                     <tr>
                                                                         <td>
                                                                             Date

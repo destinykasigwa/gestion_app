@@ -139,6 +139,7 @@ export default class RetraitEspece extends React.Component {
         const getData = await axios.get(
             "compte/search/numdossier/" + this.state.compteToSearch
         );
+
         if (getData.data.success == 1) {
             this.setState({
                 fetchData: getData.data.data,
@@ -155,7 +156,7 @@ export default class RetraitEspece extends React.Component {
                 devise: this.state.getPositionnementData[0].CodeMonnaie,
                 numDocument: this.state.getPositionnementData[0].NumDocument,
             });
-            //  console.log(this.state.getPositionnementData[0].Montant);
+            // console.log(this.state.fetchData);
             //disabled valider button
             document
                 .getElementById("validerbtn")
@@ -167,6 +168,8 @@ export default class RetraitEspece extends React.Component {
                 icon: "error",
                 button: "OK!",
             });
+        } else {
+            console.log(this.state.getMembreSoldeUSD);
         }
         // console.log(this.state.fetchData);
     };

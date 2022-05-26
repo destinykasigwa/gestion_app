@@ -144,6 +144,30 @@ class updateMembre extends Controller
         "Auto" => 1
 
       ]);
+      //CREDITE LE COMPTE ADHESION EN FC
+
+      Transactions::create([
+        "NumTransaction" => "FOC000" . $numOperation->id,
+        "DateTransaction" => $dateOuverture,
+        "DateSaisie" => $dateOuverture,
+        "Taux" => 1,
+        "TypeTransaction" => "C",
+        "CodeMonnaie" => 2,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" => $compteAdhesionFC,
+        "NumComptecp" =>  $compteEnFranc,
+        "Debit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        "Debitfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        // "Valide" => 1,
+        "ValidePar" => Auth::user()->name,
+        "DateValidation" => $dateOuverture,
+        // "refCompteMembre" => $idComptMembre,
+        "Libelle" => "Frais d'ouverture de compte.",
+        "Auto" => 1
+
+      ]);
     } else if ($devise == "USD") {
       CompteurTransaction::create([
         'fakevalue' => "0000",
@@ -153,7 +177,7 @@ class updateMembre extends Controller
       //CREE LE COMPTE EN USD
       Comptes::create([
         'CodeAgence' => 20,
-        'NumCompte' => $compteEnFranc,
+        'NumCompte' => $numCompteDollars,
         'NomCompte' => $data->intituleCompte,
         'CodeMonnaie' => 1,
         'NumeTelephone' => $data->phone1,
@@ -175,10 +199,34 @@ class updateMembre extends Controller
         "NumComptecp" => $compteAdhesionUSD,
         "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
         "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
-        "Valide" => 1,
+        // "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
-        "refCompteMembre" => $idComptMembre,
+        // "refCompteMembre" => $idComptMembre,
+        "Libelle" => "Frais d'ouverture de compte.",
+        "Auto" => 1
+      ]);
+
+      //CREDITE LE COMPTE ADHESION EN USD
+
+      Transactions::create([
+        "NumTransaction" => "FOC000" . $numOperation->id,
+        "DateTransaction" => $dateOuverture,
+        "DateSaisie" => $dateOuverture,
+        "Taux" => 1,
+        "TypeTransaction" => "C",
+        "CodeMonnaie" => 1,
+        "CodeAgence" => "20",
+        "NumDossier" => "DOS00" . $numOperation->id,
+        "NumDemande" => "V00" . $numOperation->id,
+        "NumCompte" => $compteAdhesionUSD,
+        "NumComptecp" => $numCompteDollars,
+        "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        // "Valide" => 1,
+        "ValidePar" => Auth::user()->name,
+        "DateValidation" => $dateOuverture,
+        // "refCompteMembre" => $idComptMembre,
         "Libelle" => "Frais d'ouverture de compte.",
         "Auto" => 1
       ]);

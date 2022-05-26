@@ -8,27 +8,29 @@ use Illuminate\Database\Eloquent\Model;
 class BilletageCdf extends Model
 {
     use HasFactory;
-   protected $fillable=[
-    "refOperation",
-    "vightMilleFranc",
-    "dixMilleFranc",
-    "cinqMilleFranc",
-    "milleFranc",
-    "cinqCentFranc",
-    "deuxCentFranc",
-    "centFranc",
-    "cinquanteFanc",
-    "vightMilleFrancSortie",
-    "dixMilleFrancSortie",
-    "cinqMilleFrancSortie",
-    "milleFrancSortie",
-    "cinqCentFrancSortie",
-    "deuxCentFrancSortie",
-    "centFrancSortie",
-    "cinquanteFancSortie",
-    "NomUtilisateur",
-    "DateTransaction"
+    protected $fillable = [
+        "refOperation",
+        "vightMilleFranc",
+        "dixMilleFranc",
+        "cinqMilleFranc",
+        "milleFranc",
+        "cinqCentFranc",
+        "deuxCentFranc",
+        "centFranc",
+        "cinquanteFanc",
+        "montantEntre",
+        "vightMilleFrancSortie",
+        "dixMilleFrancSortie",
+        "cinqMilleFrancSortie",
+        "milleFrancSortie",
+        "cinqCentFrancSortie",
+        "deuxCentFrancSortie",
+        "centFrancSortie",
+        "cinquanteFancSortie",
+        "montantSortie",
+        "NomUtilisateur",
+        "DateTransaction"
 
 
-   ];
+    ];
 }
