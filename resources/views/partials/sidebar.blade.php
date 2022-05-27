@@ -169,7 +169,7 @@
                             </a>
                         </li> --}}
                         <li class="nav-item">
-                            <a href="pages/charts/flot.html" class="nav-link">
+                            <a href="{{ route('credit.suivi') }}" class="nav-link">
                                 <i class="fas fa-cogs"></i>
                                 <p>Suivi crédit</p>
                             </a>

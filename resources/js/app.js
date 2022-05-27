@@ -23,6 +23,7 @@ import EntreeTresor from "./components/EntreeTresor";
 import SoldePage from "./components/SoldePage";
 import RepertoireCaisse from "./components/RepertoireCaisse";
 import JournalCaisse from "./components/JournalCaisse";
+import SuiviCredit from "./components/SuiviCredit";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -66,5 +67,10 @@ if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(
         <JournalCaisse />,
         document.getElementById("journalContainer")
+    );
+} else if (document.getElementById("suiviCreditContainer")) {
+    ReactDOM.render(
+        <SuiviCredit />,
+        document.getElementById("suiviCreditContainer")
     );
 }

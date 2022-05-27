@@ -18,6 +18,7 @@ use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\JournalCaisseController;
 use App\Http\Controllers\RepertoireCaisseController;
 use App\Http\Controllers\SoldeController;
+use App\Http\Controllers\SuiviCreditController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +49,7 @@ Route::get('/entre-tresor', [EntreeTresorController::class, 'getEntreeTresorPage
 Route::get('/solde', [SoldeController::class, 'getSoldePage'])->name('membre.solde');
 Route::get('/repertoirecaisse', [RepertoireCaisseController::class, 'getRepertoirePage'])->name('caisse.repertoire');
 Route::get('/journal', [JournalCaisseController::class, 'getJournaCaissePage'])->name('caisse.journal');
+Route::get('/suivicredit', [SuiviCreditController::class, 'getSuiviCreditPage'])->name('credit.suivi');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);

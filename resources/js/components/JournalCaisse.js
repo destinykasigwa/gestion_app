@@ -660,6 +660,8 @@ export default class JournalCaisse extends React.Component {
                                                 style={{
                                                     margin: "0 auto",
                                                     width: "85%",
+                                                    background: "#fff",
+                                                    padding: "10px",
                                                 }}
                                             >
                                                 {" "}

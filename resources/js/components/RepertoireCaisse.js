@@ -664,6 +664,8 @@ export default class RepertoireCaisse extends React.Component {
                                                 style={{
                                                     margin: "0 auto",
                                                     width: "77%",
+                                                    background: "#fff",
+                                                    padding: "10px",
                                                 }}
                                             >
                                                 {" "}

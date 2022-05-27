@@ -2,7 +2,7 @@ import React from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
-export default class ExemplePageStructure extends React.Component {
+export default class SuiviCredit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -26,6 +26,24 @@ export default class ExemplePageStructure extends React.Component {
             marginTop: "180px",
             border: "0px",
             height: "200px",
+        };
+        let labelColor = {
+            fontWeight: "bold",
+            color: "#fff",
+            padding: "1px",
+            fontSize: "14px",
+        };
+        let inputColor = {
+            height: "25px",
+            border: "1px solid steelblue",
+            padding: "3px",
+            borderRadius: "0px",
+        };
+
+        let tableBorder = {
+            border: "0px solid #fff",
+            fontSize: "14px",
+            textAlign: "left",
         };
         return (
             <React.Fragment>

@@ -332,6 +332,10 @@ export default class SoldePage extends React.Component {
                                                                             "3px",
                                                                         width: "auto",
                                                                         height: "85px",
+                                                                        background:
+                                                                            "#fff",
+                                                                        padding:
+                                                                            "10px",
                                                                     }}
                                                                 >
                                                                     {this.state
