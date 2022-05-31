@@ -248,10 +248,11 @@ class Adhesion extends React.Component {
             padding: "3px",
             width: "60px",
         };
-        // var tableBorder = {
-        //     border: "2px solid #fff",
-        //     fontSize: "10px",
-        // };
+        let tableBorder = {
+            border: "0px solid #fff",
+            fontSize: "14px",
+            textAlign: "left",
+        };
 
         return (
             <React.Fragment>
@@ -377,10 +378,15 @@ class Adhesion extends React.Component {
                                         </div>
 
                                         <div className="col-md-3">
-                                            <form>
+                                            <form
+                                                style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                }}
+                                            >
                                                 <table>
                                                     <tr>
-                                                        <td>
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
@@ -389,7 +395,7 @@ class Adhesion extends React.Component {
                                                                 Code Agence
                                                             </label>
                                                         </td>
-                                                        <td>
+                                                        <td style={tableBorder}>
                                                             <div className="input-group input-group-sm ">
                                                                 <input
                                                                     type="text"
@@ -412,7 +418,7 @@ class Adhesion extends React.Component {
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td style={tableBorder}>
                                                             {" "}
                                                             <label
                                                                 style={
@@ -446,8 +452,7 @@ class Adhesion extends React.Component {
                                                     </tr>
 
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
@@ -490,8 +495,7 @@ class Adhesion extends React.Component {
                                                         </div>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
@@ -548,11 +552,15 @@ class Adhesion extends React.Component {
                                         {/* separate */}
 
                                         <div className="col-md-3">
-                                            <form>
+                                            <form
+                                                style={{
+                                                    padding: "10px",
+                                                    border: "2px solid #fff",
+                                                }}
+                                            >
                                                 <table>
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
@@ -607,15 +615,14 @@ class Adhesion extends React.Component {
                                                         </div>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
                                                                 }
                                                             >
                                                                 Guichet
-                                                            </label>{" "}
+                                                            </label>
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <select
@@ -647,15 +654,14 @@ class Adhesion extends React.Component {
                                                     </tr>
 
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
                                                                 }
                                                             >
                                                                 N° Compte
-                                                            </label>{" "}
+                                                            </label>
                                                         </td>
                                                         <div className="input-group input-group-sm ">
                                                             <input
@@ -694,8 +700,7 @@ class Adhesion extends React.Component {
                                                         </div>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            {" "}
+                                                        <td style={tableBorder}>
                                                             <label
                                                                 style={
                                                                     labelColor
@@ -1012,7 +1017,7 @@ class Adhesion extends React.Component {
                                                                             }}
                                                                         >
                                                                             <div className="row">
-                                                                                <div className="col-md-4">
+                                                                                <div className="col-md-3">
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td>
@@ -1438,7 +1443,7 @@ class Adhesion extends React.Component {
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
-                                                                                <div className="col-md-4">
+                                                                                <div className="col-md-3">
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td>
@@ -1901,7 +1906,7 @@ class Adhesion extends React.Component {
                                                                                         </tr>
                                                                                     </table>
                                                                                 </div>
-                                                                                <div className="col-md-4">
+                                                                                <div className="col-md-3">
                                                                                     <table>
                                                                                         <tr>
                                                                                             <td>

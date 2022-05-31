@@ -11,7 +11,102 @@ export default class SuiviCredit extends React.Component {
             loading: false,
             Decision: "Accepté",
             Motivation: "Client crédible",
+            RefTypeCredit: "",
+            RefProduitCredit: "",
+            CodeAgence: "",
+            CodeGuichet: "",
+            DateDemande: "",
+            DateOctroi: "",
+            DateEcheance: "",
+            DateTranche: "",
+            NbrTranche: "",
+            NumCompteEpargne: "",
+            NumCompteCredit: "",
+            NomCompte: "",
+            Duree: "",
+            Dufferee: "",
+            Grace: "",
+            NumDossier: "",
+            MontantDemande: "",
+            ObjeFinance: "",
+            MontantAccorde: "",
+            Decision: "",
+            Motivation: "",
+            CodeMonnaie: "",
+            Interval: "",
+            ModeRemboursement: "",
+            TauxInteret: "",
+            CompteInteret: "",
+            TauxInteretRetard: "",
+            CompteInteretRetard: "",
+            InteretRetardIn: "",
+            InteretCalcule: "",
+            TotCumule: "",
+            RemboursCapitalIn: "",
+            RemboursInteretIn: "",
+            InteretSpotIn: "",
+            RemboursEparneProgr: "",
+            RemboursInteretRetarIn: "",
+            RemboursCapital: "",
+            RemboursInteret: "",
+            RemboursEpargneProgr: "",
+            RemboursInteretRetard: "",
+            CapitalRestant: "",
+            InteretRestant: "",
+            CapitalEchu: "",
+            EpargneEchu: "",
+            InteretEchu: "",
+            InteretRetardEchu: "",
+            CapitalDu: "",
+            InteretDu: "",
+            EpargneDu: "",
+            AvanceInteret: "",
+            NonEchu: "",
+            PourcentageProvision: "",
+            JourRetard: "",
+            SourceFinancement: "",
+            Gestionnaire: "",
+            Octroye: "",
+            numAdherant: "",
+            NumMensualite: "",
+            FraisEtudeDossier: "",
+            CompteEtudeDossier: "",
+            FraisCommission: "",
+            CompteCommission: "",
+            Animateur: "",
+            Accorde: "",
+            AccordePar: "",
+            OctroyePar: "",
+            DateTombeEcheance: "",
+            NomUtilisateur: "",
+            Cloture: "",
+            CloturePar: "",
+            DateCloture: "",
+            Radie: "",
+            CapitalRadie: "",
+            InteretRadie: "",
+            DateRadiation: "",
+            NumCompteHB: "",
+            MontantRadie: "",
+            Anticipation: "",
+            Reechelonne: "",
+            DateReechellonement: "",
+            MontantReechelonne: "",
+            NbrTrancheReechellonne: "",
+            DureeReechellone: "",
+            GroupeSolidaire: "",
+            Cyclable: "",
+            Cycle: "",
+            RefMode: "",
+            TrancheDecalage: "",
+            PeriodiciteDecalage: "",
+            DureeDecalage: "",
+            DateDecale: "",
+            fetchData: null,
         };
+        this.handleMainSave = this.handleMainSave.bind(this);
+        this.addNewCredit = this.addNewCredit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
     }
 
     componentDidMount() {
@@ -19,7 +114,22 @@ export default class SuiviCredit extends React.Component {
             this.setState({ isloading: false });
         }, 1000);
     }
+    //get data in input
+    handleChange(event) {
+        this.setState({
+            // Computed property names
+            // keys of the objects are computed dynamically
+            [event.target.name]: event.target.value,
+        });
+    }
 
+    handleMainSave = async () => {};
+    addNewCredit = async (e) => {
+        e.preventDefault();
+
+        this.setState({ disabled: !this.state.disabled });
+        console.log(this.state);
+    };
     render() {
         let myspinner = {
             margin: "5px auto",
@@ -169,6 +279,7 @@ export default class SuiviCredit extends React.Component {
                                                         onChange={
                                                             this.handleChange
                                                         }
+                                                        disabled
                                                     />
                                                 </div>
                                                 <div className="input-group input-group-sm ">
@@ -176,7 +287,7 @@ export default class SuiviCredit extends React.Component {
                                                         type="text"
                                                         placeholder="Num Cpte Crédit"
                                                         name="NumCompteCredit"
-                                                        readOnly
+                                                        disabled
                                                         style={{
                                                             borderRadius: "0px",
                                                         }}
@@ -210,10 +321,18 @@ export default class SuiviCredit extends React.Component {
                                                         value={
                                                             this.state
                                                                 .NumDossier
+                                                                ? this.state
+                                                                      .NumDossier
+                                                                : this.state
+                                                                      .fetchData &&
+                                                                  this.state
+                                                                      .fetchData
+                                                                      .NumDossier
                                                         }
                                                         onChange={
                                                             this.handleChange
                                                         }
+                                                        disabled
                                                     />
                                                 </div>
                                                 <div className="input-group input-group-sm ">
@@ -221,7 +340,7 @@ export default class SuiviCredit extends React.Component {
                                                         type="text"
                                                         placeholder="N° Demande"
                                                         name="NumDemande"
-                                                        readOnly
+                                                        disabled
                                                         style={{
                                                             borderRadius: "0px",
                                                         }}
@@ -244,11 +363,25 @@ export default class SuiviCredit extends React.Component {
                                                 }}
                                             >
                                                 <div className="form-check form-switch">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="flexSwitchCheckDefault"
-                                                    />
+                                                    {this.state.fetchData &&
+                                                    this.state.fetchData
+                                                        .Accorde == "1" ? (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckDefault"
+                                                            disabled
+                                                            checked
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckDefault"
+                                                            disabled
+                                                        />
+                                                    )}
+
                                                     <label
                                                         className="form-check-label"
                                                         for="flexSwitchCheckDefault"
@@ -257,11 +390,25 @@ export default class SuiviCredit extends React.Component {
                                                     </label>
                                                 </div>
                                                 <div className="form-check form-switch">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="flexSwitchCheckChecked"
-                                                    />
+                                                    {this.state.fetchData &&
+                                                    this.state.fetchData
+                                                        .Octroye == "1" ? (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckChecked"
+                                                            disabled
+                                                            checked
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckChecked"
+                                                            disabled
+                                                        />
+                                                    )}
+
                                                     <label
                                                         class="form-check-label"
                                                         for="flexSwitchCheckChecked"
@@ -270,11 +417,25 @@ export default class SuiviCredit extends React.Component {
                                                     </label>
                                                 </div>
                                                 <div className="form-check form-switch">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="flexSwitchCheckDisabled"
-                                                    />
+                                                    {this.state.fetchData &&
+                                                    this.state.fetchData
+                                                        .Reechelonne == "1" ? (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckDisabled"
+                                                            disabled
+                                                            checked
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckDisabled"
+                                                            disabled
+                                                        />
+                                                    )}
+
                                                     <label
                                                         className="form-check-label"
                                                         for="flexSwitchCheckDisabled"
@@ -283,11 +444,25 @@ export default class SuiviCredit extends React.Component {
                                                     </label>
                                                 </div>
                                                 <div className="form-check form-switch">
-                                                    <input
-                                                        className="form-check-input"
-                                                        type="checkbox"
-                                                        id="flexSwitchCheckCheckedDisabled"
-                                                    />
+                                                    {this.state.fetchData &&
+                                                    this.state.fetchData
+                                                        .Cloture == "1" ? (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckCheckedDisabled"
+                                                            disabled
+                                                            checked
+                                                        />
+                                                    ) : (
+                                                        <input
+                                                            className="form-check-input"
+                                                            type="checkbox"
+                                                            id="flexSwitchCheckCheckedDisabled"
+                                                            disabled
+                                                        />
+                                                    )}
+
                                                     <label
                                                         className="form-check-label"
                                                         for="flexSwitchCheckCheckedDisabled"
@@ -312,15 +487,40 @@ export default class SuiviCredit extends React.Component {
                                                                     fontSize:
                                                                         "12px",
                                                                 }}
-                                                                id="saveMainBtn"
+                                                                id="addMainBtn"
                                                                 className="btn btn-primary "
+                                                                onClick={
+                                                                    this
+                                                                        .addNewCredit
+                                                                }
+                                                            >
+                                                                Ajouter
+                                                                <i className="fas fa-pencil"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <button
+                                                                type="button"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                    width: "100%",
+                                                                    height: "30px",
+                                                                    fontSize:
+                                                                        "12px",
+                                                                }}
+                                                                id="saveMainBtn"
+                                                                className="btn btn-primary mt-1"
                                                                 onClick={
                                                                     this
                                                                         .handleMainSave
                                                                 }
                                                             >
                                                                 Valider
-                                                                <i className="fas fa-check"></i>
+                                                                {""}{" "}
+                                                                <i className="fas fa-database"></i>
                                                             </button>
                                                         </td>
                                                     </tr>
@@ -337,7 +537,7 @@ export default class SuiviCredit extends React.Component {
                                                                         "12px",
                                                                 }}
                                                                 id="updateMainBtn"
-                                                                className="btn btn-success"
+                                                                className="btn btn-success mt-1"
                                                                 onClick={
                                                                     this
                                                                         .handleMainUpdate
@@ -384,24 +584,52 @@ export default class SuiviCredit extends React.Component {
                                                             </td>
                                                             <td>
                                                                 <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
+                                                                    <select
                                                                         style={{
-                                                                            borderRadius:
-                                                                                "0px",
+                                                                            border: "0px",
                                                                         }}
-                                                                        className="form-control font-weight-bold"
+                                                                        className="font-weight-bold"
                                                                         name="RefProduitCredit"
                                                                         value={
                                                                             this
                                                                                 .state
                                                                                 .RefProduitCredit
+                                                                                ? this
+                                                                                      .state
+                                                                                      .RefProduitCredit
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .RefProduitCredit
                                                                         }
                                                                         onChange={
                                                                             this
                                                                                 .handleChange
                                                                         }
-                                                                    />
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                    >
+                                                                        <option value="">
+                                                                            Sélectionnez
+                                                                        </option>
+                                                                        <option value="Crédit au groupe solidaire">
+                                                                            Crédit
+                                                                            au
+                                                                            GS
+                                                                        </option>
+                                                                        <option value="Crédit Individuel">
+                                                                            Crédit
+                                                                            Individuel
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -422,24 +650,76 @@ export default class SuiviCredit extends React.Component {
                                                             </td>
                                                             <td>
                                                                 <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
+                                                                    <select
                                                                         style={{
-                                                                            borderRadius:
-                                                                                "0px",
+                                                                            border: "0px",
                                                                         }}
-                                                                        className="form-control font-weight-bold"
+                                                                        className="font-weight-bold"
                                                                         name="RefTypeCredit"
                                                                         value={
                                                                             this
                                                                                 .state
                                                                                 .RefTypeCredit
+                                                                                ? this
+                                                                                      .state
+                                                                                      .RefTypeCredit
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .RefTypeCredit
                                                                         }
                                                                         onChange={
                                                                             this
                                                                                 .handleChange
                                                                         }
-                                                                    />
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                    >
+                                                                        <option value="">
+                                                                            Sélectionnez
+                                                                        </option>
+                                                                        {this
+                                                                            .state
+                                                                            .RefProduitCredit ==
+                                                                            "Crédit au groupe solidaire" && (
+                                                                            <>
+                                                                                <option value="CREDIT TUINUKE">
+                                                                                    CREDIT
+                                                                                    TUINUKE
+                                                                                </option>
+                                                                                <option value="CREDIT INUKA">
+                                                                                    CREDIT
+                                                                                    INUKA
+                                                                                </option>
+                                                                            </>
+                                                                        )}
+                                                                        {this
+                                                                            .state
+                                                                            .RefProduitCredit ==
+                                                                            "Crédit Individuel" && (
+                                                                            <>
+                                                                                <option value="CREDIT A LA CONSOMMATION">
+                                                                                    CREDIT
+                                                                                    A
+                                                                                    LA
+                                                                                    CONSOMMATION
+                                                                                </option>
+                                                                                <option value="CREDIT PETIT COMMERCE">
+                                                                                    CREDIT
+                                                                                    PETIT
+                                                                                    COMMERCE
+                                                                                </option>
+                                                                            </>
+                                                                        )}
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -472,6 +752,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .Gestionnaire
+                                                                                ? this
+                                                                                      .state
+                                                                                      .Gestionnaire
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .Gestionnaire
                                                                         }
                                                                         onChange={
                                                                             this
@@ -509,24 +799,52 @@ export default class SuiviCredit extends React.Component {
                                                             </td>
                                                             <td>
                                                                 <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
+                                                                    <select
                                                                         style={{
-                                                                            borderRadius:
-                                                                                "0px",
+                                                                            border: "0px",
                                                                         }}
-                                                                        className="form-control font-weight-bold"
+                                                                        className="font-weight-bold"
                                                                         name="ObjeFinance"
                                                                         value={
                                                                             this
                                                                                 .state
                                                                                 .ObjeFinance
+                                                                                ? this
+                                                                                      .state
+                                                                                      .ObjeFinance
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .ObjeFinance
                                                                         }
                                                                         onChange={
                                                                             this
                                                                                 .handleChange
                                                                         }
-                                                                    />
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                    >
+                                                                        <option value="">
+                                                                            Sélectionnez
+                                                                        </option>
+                                                                        <option value="Commerce">
+                                                                            Commerce
+                                                                        </option>
+                                                                        <option value="Scolarité">
+                                                                            Scolarité
+                                                                        </option>
+                                                                        <option value="Autre">
+                                                                            Autre
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -547,24 +865,47 @@ export default class SuiviCredit extends React.Component {
                                                             </td>
                                                             <td>
                                                                 <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
+                                                                    <select
                                                                         style={{
-                                                                            borderRadius:
-                                                                                "0px",
+                                                                            border: "0px",
                                                                         }}
-                                                                        className="form-control font-weight-bold"
+                                                                        className="font-weight-bold"
                                                                         name="Gestionnaire"
                                                                         value={
                                                                             this
                                                                                 .state
                                                                                 .Gestionnaire
+                                                                                ? this
+                                                                                      .state
+                                                                                      .Gestionnaire
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .Gestionnaire
                                                                         }
                                                                         onChange={
                                                                             this
                                                                                 .handleChange
                                                                         }
-                                                                    />
+                                                                        disabled={
+                                                                            this
+                                                                                .state
+                                                                                .disabled
+                                                                                ? "disabled"
+                                                                                : ""
+                                                                        }
+                                                                    >
+                                                                        <option value="">
+                                                                            Sélectionnez
+                                                                        </option>
+                                                                        <option value="DESTIN KASIGWA">
+                                                                            DESTIN
+                                                                            KASIGWA
+                                                                        </option>
+                                                                    </select>
                                                                 </div>
                                                             </td>
                                                         </tr>
@@ -598,6 +939,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .CapitalDu
+                                                                                ? this
+                                                                                      .state
+                                                                                      .CapitalDu
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .CapitalDu
                                                                         }
                                                                         onChange={
                                                                             this
@@ -648,6 +999,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .montantDemande
+                                                                                ? this
+                                                                                      .state
+                                                                                      .montantDemande
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .montantDemande
                                                                         }
                                                                         onChange={
                                                                             this
@@ -677,15 +1038,24 @@ export default class SuiviCredit extends React.Component {
                                                                     <select
                                                                         type="text"
                                                                         style={{
-                                                                            borderRadius:
-                                                                                "0px",
+                                                                            border: "0px",
                                                                         }}
-                                                                        className="form-control font-weight-bold"
+                                                                        className="font-weight-bold"
                                                                         name="CodeMonnaie"
                                                                         value={
                                                                             this
                                                                                 .state
                                                                                 .CodeMonnaie
+                                                                                ? this
+                                                                                      .state
+                                                                                      .CodeMonnaie
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .CodeMonnaie
                                                                         }
                                                                         onChange={
                                                                             this
@@ -731,6 +1101,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .TauxInteret
+                                                                                ? this
+                                                                                      .state
+                                                                                      .TauxInteret
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .TauxInteret
                                                                         }
                                                                         onChange={
                                                                             this
@@ -781,6 +1161,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .CapitalDu
+                                                                                ? this
+                                                                                      .state
+                                                                                      .CapitalDu
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .CapitalDu
                                                                         }
                                                                         onChange={
                                                                             this
@@ -819,6 +1209,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .InteretRestant
+                                                                                ? this
+                                                                                      .state
+                                                                                      .InteretRestant
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .InteretRestant
                                                                         }
                                                                         onChange={
                                                                             this
@@ -857,6 +1257,16 @@ export default class SuiviCredit extends React.Component {
                                                                             this
                                                                                 .state
                                                                                 .TotCumule
+                                                                                ? this
+                                                                                      .state
+                                                                                      .TotCumule
+                                                                                : this
+                                                                                      .state
+                                                                                      .fetchData &&
+                                                                                  this
+                                                                                      .state
+                                                                                      .fetchData
+                                                                                      .TotCumule
                                                                         }
                                                                         onChange={
                                                                             this
@@ -914,10 +1324,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .DateDemande
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .DateDemande
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .DateDemande
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -941,24 +1368,53 @@ export default class SuiviCredit extends React.Component {
                                                                 </td>
                                                                 <td>
                                                                     <div className="input-group input-group-sm ">
-                                                                        <input
+                                                                        <select
                                                                             type="text"
                                                                             style={{
-                                                                                borderRadius:
-                                                                                    "0px",
+                                                                                border: "0px",
                                                                             }}
-                                                                            className="form-control font-weight-bold"
+                                                                            className="font-weight-bold"
                                                                             name="FrequenceRembours"
                                                                             value={
                                                                                 this
                                                                                     .state
                                                                                     .FrequenceRembours
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .FrequenceRembours
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .FrequenceRembours
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
                                                                             }
-                                                                        />
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
+                                                                        >
+                                                                            <option value="">
+                                                                                Sélectionnez
+                                                                            </option>
+                                                                            <option value="Journalier">
+                                                                                Journalier
+                                                                            </option>
+                                                                            <option value="Hebdomadaire">
+                                                                                Hebdomadaire
+                                                                            </option>
+                                                                            <option value="Mensuel">
+                                                                                Mensuelle
+                                                                            </option>
+                                                                        </select>
                                                                     </div>
                                                                 </td>
                                                             </tr>
@@ -992,10 +1448,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .NbrTranche
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .NbrTranche
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .NbrTranche
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1042,10 +1515,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .Duree
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .Duree
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .Duree
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1080,10 +1570,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .Interval
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .Interval
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .Interval
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1119,10 +1626,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .Grace
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .Grace
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .Grace
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1169,10 +1693,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .TauxInteretRetard
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .TauxInteretRetard
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .TauxInteretRetard
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1208,10 +1749,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .PeriodiciteDecalage
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .PeriodiciteDecalage
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .PeriodiciteDecalage
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1246,10 +1804,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .Cycle
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .Cycle
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .Cycle
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1301,6 +1876,13 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .handleChange
                                                                             }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
                                                                         />
                                                                     </div>
                                                                 </td>
@@ -1334,10 +1916,27 @@ export default class SuiviCredit extends React.Component {
                                                                                 this
                                                                                     .state
                                                                                     .NomUtilisateur
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .NomUtilisateur
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .NomUtilisateur
                                                                             }
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1377,6 +1976,13 @@ export default class SuiviCredit extends React.Component {
                                                                             onChange={
                                                                                 this
                                                                                     .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
                                                                             }
                                                                         />
                                                                     </div>
@@ -1541,6 +2147,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumCompteCredit
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumCompteCredit
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumCompteCredit
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -1581,6 +2197,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumDossier
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumDossier
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumDossier
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -1620,6 +2246,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .DescriptionGarantie
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .DescriptionGarantie
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .DescriptionGarantie
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -1767,6 +2403,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                     this
                                                                                                                         .state
                                                                                                                         .Decision
+                                                                                                                        ? this
+                                                                                                                              .state
+                                                                                                                              .Decision
+                                                                                                                        : this
+                                                                                                                              .state
+                                                                                                                              .fetchData &&
+                                                                                                                          this
+                                                                                                                              .state
+                                                                                                                              .fetchData
+                                                                                                                              .Decision
                                                                                                                 }
                                                                                                                 onChange={
                                                                                                                     this
@@ -1774,7 +2420,7 @@ export default class SuiviCredit extends React.Component {
                                                                                                                 }
                                                                                                             >
                                                                                                                 <option value="Accepeté">
-                                                                                                                    Accepeté
+                                                                                                                    Accepté
                                                                                                                 </option>
                                                                                                                 <option value="Refusé">
                                                                                                                     Refusé
@@ -1812,6 +2458,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                     this
                                                                                                                         .state
                                                                                                                         .Motivation
+                                                                                                                        ? this
+                                                                                                                              .state
+                                                                                                                              .Motivation
+                                                                                                                        : this
+                                                                                                                              .state
+                                                                                                                              .fetchData &&
+                                                                                                                          this
+                                                                                                                              .state
+                                                                                                                              .fetchData
+                                                                                                                              .Motivation
                                                                                                                 }
                                                                                                                 onChange={
                                                                                                                     this
@@ -1867,6 +2523,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         this
                                                                                                                             .state
                                                                                                                             .DateOctroi
+                                                                                                                            ? this
+                                                                                                                                  .state
+                                                                                                                                  .DateOctroi
+                                                                                                                            : this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData &&
+                                                                                                                              this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData
+                                                                                                                                  .DateOctroi
                                                                                                                     }
                                                                                                                     onChange={
                                                                                                                         this
@@ -1906,6 +2572,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         this
                                                                                                                             .state
                                                                                                                             .DateEcheance
+                                                                                                                            ? this
+                                                                                                                                  .state
+                                                                                                                                  .DateEcheance
+                                                                                                                            : this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData &&
+                                                                                                                              this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData
+                                                                                                                                  .DateEcheance
                                                                                                                     }
                                                                                                                     onChange={
                                                                                                                         this
@@ -1951,6 +2627,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         this
                                                                                                                             .state
                                                                                                                             .DateTombeEcheance
+                                                                                                                            ? this
+                                                                                                                                  .state
+                                                                                                                                  .DateTombeEcheance
+                                                                                                                            : this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData &&
+                                                                                                                              this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData
+                                                                                                                                  .DateTombeEcheance
                                                                                                                     }
                                                                                                                     onChange={
                                                                                                                         this
@@ -1991,6 +2677,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         this
                                                                                                                             .state
                                                                                                                             .Interval
+                                                                                                                            ? this
+                                                                                                                                  .state
+                                                                                                                                  .Interval
+                                                                                                                            : this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData &&
+                                                                                                                              this
+                                                                                                                                  .state
+                                                                                                                                  .fetchData
+                                                                                                                                  .Interval
                                                                                                                     }
                                                                                                                     onChange={
                                                                                                                         this
@@ -2044,7 +2740,7 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         "12px",
                                                                                                                 }}
                                                                                                                 id="updateGarantieBtn"
-                                                                                                                className="btn btn-success"
+                                                                                                                className="btn btn-success mt-1"
                                                                                                                 onClick={
                                                                                                                     this
                                                                                                                         .handleEditGarantie
@@ -2129,6 +2825,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumCompteCredit
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumCompteCredit
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumCompteCredit
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2169,6 +2875,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumDossier
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumDossier
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumDossier
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2209,6 +2925,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .RemboursCapital
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .RemboursCapital
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .RemboursCapital
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2319,6 +3045,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumCompteCredit
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumCompteCredit
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumCompteCredit
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2359,6 +3095,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .NumDossier
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .NumDossier
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .NumDossier
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2399,6 +3145,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .RemboursInteret
+                                                                                                                ? this
+                                                                                                                      .state
+                                                                                                                      .RemboursInteret
+                                                                                                                : this
+                                                                                                                      .state
+                                                                                                                      .fetchData &&
+                                                                                                                  this
+                                                                                                                      .state
+                                                                                                                      .fetchData
+                                                                                                                      .RemboursInteret
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -2486,11 +3242,28 @@ export default class SuiviCredit extends React.Component {
                                                                                                 }
                                                                                             >
                                                                                                 <div className="form-check form-switch">
-                                                                                                    <input
-                                                                                                        className="form-check-input"
-                                                                                                        type="checkbox"
-                                                                                                        id="cloturer"
-                                                                                                    />
+                                                                                                    {this
+                                                                                                        .state
+                                                                                                        .fetchData &&
+                                                                                                    this
+                                                                                                        .state
+                                                                                                        .fetchData
+                                                                                                        .Cloture ? (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="cloturer"
+                                                                                                            checked
+                                                                                                            disabled
+                                                                                                        />
+                                                                                                    ) : (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="cloturer"
+                                                                                                        />
+                                                                                                    )}
+
                                                                                                     <label
                                                                                                         className="form-check-label"
                                                                                                         for="cloturer"

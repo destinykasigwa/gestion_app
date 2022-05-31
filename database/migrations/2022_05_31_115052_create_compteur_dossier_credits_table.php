@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('compteur_dossier_credits', function (Blueprint $table) {
             $table->id();
+            $table->string("refDossier", 20)->nullable()->default("ND0000");
             $table->timestamps();
         });
     }

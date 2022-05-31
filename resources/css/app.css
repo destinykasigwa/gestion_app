@@ -36,3 +36,11 @@
     overflow-y: scroll;
     height: auto;
    }
+   table td {
+     border: 1px solid #fff;
+     padding: 2px;
+   }
+   form table td {
+    border: 0px;
+   padding: 0px;
+  }

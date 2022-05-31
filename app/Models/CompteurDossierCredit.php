@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class CompteurDossierCredit extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        "refDossier",
+    ];
 }
