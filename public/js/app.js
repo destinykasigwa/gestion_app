@@ -19719,7 +19719,9 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
     _this.state = {
       disabled: true,
       isloading: true,
-      loading: false
+      loading: false,
+      Decision: "Accepté",
+      Motivation: "Client crédible"
     };
     return _this;
   }
@@ -19748,7 +19750,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
 
       var labelColor = {
         fontWeight: "bold",
-        color: "#fff",
+        color: "steelblue",
         padding: "1px",
         fontSize: "14px"
       };
@@ -19813,12 +19815,1685 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                 style: {
                   background: "#dcdcdc"
                 },
-                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
                   className: "row",
                   style: {
                     padding: "10px",
                     border: "2px solid #fff"
-                  }
+                  },
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "col-md-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                      style: {
+                        padding: "10px",
+                        border: "2px solid #fff"
+                      },
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "input-group input-group-sm ",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          type: "text",
+                          style: {
+                            borderRadius: "0px"
+                          },
+                          className: "form-control font-weight-bold",
+                          placeholder: "Num\xE9ro compte...",
+                          name: "compteToSearch",
+                          value: this.state.compteToSearch,
+                          onChange: this.handleChange
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("button", {
+                            type: "button",
+                            style: {
+                              borderRadius: "0px"
+                            },
+                            className: "btn btn-primary",
+                            onClick: this.handleAccount,
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                              className: "fas fa-search"
+                            })
+                          })
+                        })]
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "col-md-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                      style: {
+                        padding: "10px",
+                        border: "2px solid #fff"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "input-group input-group-sm ",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          type: "text",
+                          style: {
+                            borderRadius: "0px"
+                          },
+                          className: "form-control font-weight-bold",
+                          placeholder: "Num\xE9ro compte Epargne...",
+                          name: "NumCompteEpargne",
+                          value: this.state.fetchData && this.state.fetchData.NumCompteEpargne,
+                          onChange: this.handleChange
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "input-group input-group-sm ",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          type: "text",
+                          placeholder: "Num Cpte Cr\xE9dit",
+                          name: "NumCompteCredit",
+                          readOnly: true,
+                          style: {
+                            borderRadius: "0px"
+                          },
+                          className: "form-control mt-1 font-weight-bold",
+                          value: this.state.fetchData && this.state.fetchData.NumCompteCredit
+                        })
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "col-md-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                      style: {
+                        padding: "10px",
+                        border: "2px solid #fff"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "input-group input-group-sm ",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          type: "text",
+                          style: {
+                            borderRadius: "0px"
+                          },
+                          className: "form-control font-weight-bold",
+                          placeholder: "N\xB0 Dossier...",
+                          name: "NumDossier",
+                          value: this.state.NumDossier,
+                          onChange: this.handleChange
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "input-group input-group-sm ",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          type: "text",
+                          placeholder: "N\xB0 Demande",
+                          name: "NumDemande",
+                          readOnly: true,
+                          style: {
+                            borderRadius: "0px"
+                          },
+                          className: "form-control mt-1 font-weight-bold",
+                          value: this.state.fetchData && this.state.fetchData.NumDemande
+                        })
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "col-md-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                      style: {
+                        padding: "5px",
+                        border: "2px solid #fff"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "form-check form-switch",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          className: "form-check-input",
+                          type: "checkbox",
+                          id: "flexSwitchCheckDefault"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                          className: "form-check-label",
+                          "for": "flexSwitchCheckDefault",
+                          children: "Accord\xE9"
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "form-check form-switch",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          className: "form-check-input",
+                          type: "checkbox",
+                          id: "flexSwitchCheckChecked"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                          "class": "form-check-label",
+                          "for": "flexSwitchCheckChecked",
+                          children: "Octroy\xE9"
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "form-check form-switch",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          className: "form-check-input",
+                          type: "checkbox",
+                          id: "flexSwitchCheckDisabled"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                          className: "form-check-label",
+                          "for": "flexSwitchCheckDisabled",
+                          children: "R\xE9echelonner"
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "form-check form-switch",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                          className: "form-check-input",
+                          type: "checkbox",
+                          id: "flexSwitchCheckCheckedDisabled"
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                          className: "form-check-label",
+                          "for": "flexSwitchCheckCheckedDisabled",
+                          children: "Clotur\xE9"
+                        })]
+                      })]
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                    className: "col-md-2",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                              type: "button",
+                              style: {
+                                borderRadius: "0px",
+                                width: "100%",
+                                height: "30px",
+                                fontSize: "12px"
+                              },
+                              id: "saveMainBtn",
+                              className: "btn btn-primary ",
+                              onClick: this.handleMainSave,
+                              children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-check"
+                              })]
+                            })
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                              type: "button",
+                              style: {
+                                borderRadius: "0px",
+                                width: "100%",
+                                height: "30px",
+                                fontSize: "12px"
+                              },
+                              id: "updateMainBtn",
+                              className: "btn btn-success",
+                              onClick: this.handleMainUpdate,
+                              children: ["Modifier", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-check"
+                              })]
+                            })
+                          })
+                        })]
+                      })
+                    })
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                    className: "row",
+                    style: {
+                      padding: "10px",
+                      border: "2px solid #fff"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "col-md-3",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "0px solid #fff"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Produit de cr\xE9dit"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "RefProduitCredit",
+                                  value: this.state.RefProduitCredit,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Type Cr\xE9dit"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "RefTypeCredit",
+                                  value: this.state.RefTypeCredit,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Recouvreur"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "Gestionnaire",
+                                  value: this.state.Gestionnaire,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          })]
+                        })
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "col-md-3",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "0px solid #fff"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Objet"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "ObjeFinance",
+                                  value: this.state.ObjeFinance,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Gestionnaire"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "Gestionnaire",
+                                  value: this.state.Gestionnaire,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Solde capital"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "CapitalDu",
+                                  value: this.state.CapitalDu,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          })]
+                        })
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "col-md-3",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "0px solid #fff"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "M. Demande"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "montantDemande",
+                                  value: this.state.montantDemande,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Monnaie"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "CodeMonnaie",
+                                  value: this.state.CodeMonnaie,
+                                  onChange: this.handleChange,
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                    value: "CDF",
+                                    children: "CDF"
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                    value: "USD",
+                                    children: "USD"
+                                  })]
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Taux int\xE9r\xEAt"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "TauxInteret",
+                                  value: this.state.TauxInteret,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          })]
+                        })
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "col-md-3",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                        style: {
+                          padding: "10px",
+                          border: "0px solid #fff"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Solde Cap."
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "CapitalDu",
+                                  value: this.state.CapitalDu,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Tot int\xE9r\xEAt"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "InteretRestant",
+                                  value: this.state.InteretRestant,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                              style: tableBorder,
+                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                style: labelColor,
+                                children: "Tot G\xE9n"
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "input-group input-group-sm ",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                  type: "text",
+                                  style: {
+                                    borderRadius: "0px"
+                                  },
+                                  className: "form-control font-weight-bold",
+                                  name: "TotCumule",
+                                  value: this.state.TotCumule,
+                                  onChange: this.handleChange
+                                })
+                              })
+                            })]
+                          })]
+                        })
+                      })
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                      className: "row",
+                      style: {
+                        padding: "10px",
+                        border: "0px solid #fff"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "col-md-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                          style: {
+                            padding: "10px",
+                            border: "0px solid #fff"
+                          },
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Date demande"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "DateDemande",
+                                    value: this.state.DateDemande,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Frequence de"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "FrequenceRembours",
+                                    value: this.state.FrequenceRembours,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Nbr Ech\xE9ance"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "NbrTranche",
+                                    value: this.state.NbrTranche,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            })]
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "col-md-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                          style: {
+                            padding: "10px",
+                            border: "0px solid #fff"
+                          },
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Duree(jrs)"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "Duree",
+                                    value: this.state.Duree,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Interval(jrs)"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "Interval",
+                                    value: this.state.Interval,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "P\xE9riode Grace"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "Grace",
+                                    value: this.state.Grace,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            })]
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "col-md-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                          style: {
+                            padding: "10px",
+                            border: "0px solid #fff"
+                          },
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Taux de retard"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "Duree",
+                                    value: this.state.TauxInteretRetard,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "P\xE9riode differ\xE9e"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "PeriodiciteDecalage",
+                                    value: this.state.PeriodiciteDecalage,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Cycle"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "Cycle",
+                                    value: this.state.Cycle,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            })]
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                        className: "col-md-3",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                          style: {
+                            padding: "10px",
+                            border: "0px solid #fff"
+                          },
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Agence"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "CodeAgence",
+                                    value: this.state.CodeAgence,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Utilisateur"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "NomUtilisateur",
+                                    value: this.state.NomUtilisateur,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                style: tableBorder,
+                                children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                  style: labelColor,
+                                  children: "Code Guichet"
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                    type: "text",
+                                    style: {
+                                      borderRadius: "0px"
+                                    },
+                                    className: "form-control font-weight-bold",
+                                    name: "CodeGuichet",
+                                    value: this.state.CodeGuichet,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })]
+                            })]
+                          })
+                        })
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                      className: "row",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                        className: "col-md-12",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("ul", {
+                          className: "nav nav-tabs",
+                          id: "myTab",
+                          role: "tablist",
+                          style: {
+                            fontWeight: "bold",
+                            background: "#dcdcdc",
+                            color: "#fff",
+                            padding: "5px"
+                          },
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                              className: "nav-link active",
+                              id: "garantie-tab",
+                              "data-toggle": "tab",
+                              href: "#garantie",
+                              role: "tab",
+                              "aria-controls": "garantie",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Garantie"]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                              className: "nav-link",
+                              id: "echeancier-tab",
+                              "data-toggle": "tab",
+                              href: "#echeancier",
+                              role: "tab",
+                              "aria-controls": "echeancier",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Echeancier & Octrois"]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                              className: "nav-link",
+                              id: "remboursementcap-tab",
+                              "data-toggle": "tab",
+                              href: "#remboursementcap",
+                              role: "tab",
+                              "aria-controls": "remboursementcap",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Remboursement en capital"]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                              className: "nav-link",
+                              id: "remboursementinteret-tab",
+                              "data-toggle": "tab",
+                              href: "#remboursementinteret",
+                              role: "tab",
+                              "aria-controls": "remboursementinteret",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Remboursement en int\xE9r\xEAt"]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("a", {
+                              className: "nav-link",
+                              id: "cloture-tab",
+                              "data-toggle": "tab",
+                              href: "#cloture",
+                              role: "tab",
+                              "aria-controls": "cloture",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Cl\xF4ture & Extourne"]
+                            })
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                          className: "tab-content",
+                          id: "myTabContent",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "tab-pane fade show active mt-2 col-md-12 ",
+                            id: "garantie",
+                            role: "tabpanel",
+                            "aria-labelledby": "garantie-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                className: "col-lg-12",
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    },
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                      className: "row",
+                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-3",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Compte"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumCompteCredit",
+                                                  value: this.state.NumCompteCredit,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Dossier"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumDossier",
+                                                  value: this.state.NumDossier,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Type garantie"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "DescriptionGarantie",
+                                                  value: this.state.DescriptionGarantie,
+                                                  onChange: this.handleChange,
+                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                    value: "",
+                                                    children: "S\xE9lectionnez"
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                    value: "Cautio solidaire",
+                                                    children: "Cautio solidaire"
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                    value: "Salaire",
+                                                    children: "Salaire"
+                                                  })]
+                                                })
+                                              })
+                                            })]
+                                          })]
+                                        })
+                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-2",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                  type: "button",
+                                                  style: {
+                                                    borderRadius: "0px",
+                                                    width: "100%",
+                                                    height: "30px",
+                                                    fontSize: "12px"
+                                                  },
+                                                  id: "saveGarantieBtn",
+                                                  className: "btn btn-primary",
+                                                  onClick: this.handleSaveGarantie,
+                                                  children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                    className: "fas fa-check"
+                                                  })]
+                                                })
+                                              })
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                  type: "button",
+                                                  style: {
+                                                    borderRadius: "0px",
+                                                    width: "100%",
+                                                    height: "30px",
+                                                    fontSize: "12px"
+                                                  },
+                                                  id: "updateGarantieBtn",
+                                                  className: "btn btn-success mt-1",
+                                                  onClick: this.handleEditGarantie,
+                                                  children: ["Modifier", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                    className: "fas fa-pen"
+                                                  })]
+                                                })
+                                              })
+                                            })]
+                                          })
+                                        })
+                                      })]
+                                    })
+                                  })
+                                })
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "tab-pane fade mt-2 col-md-12 ",
+                            id: "echeancier",
+                            role: "tabpanel",
+                            "aria-labelledby": "echeancier-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                className: "col-lg-12",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    }
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "row",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "col-md-12",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                      className: "row",
+                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-12",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                          className: "row",
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                            className: "col-md-2",
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                  style: tableBorder,
+                                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                    style: labelColor,
+                                                    children: "D\xE9cision"
+                                                  })]
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                    className: "input-group input-group-sm ",
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                                      type: "text",
+                                                      style: {
+                                                        borderRadius: "0px"
+                                                      },
+                                                      className: "form-control font-weight-bold",
+                                                      name: "Decision",
+                                                      value: this.state.Decision,
+                                                      onChange: this.handleChange,
+                                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                        value: "Accepet\xE9",
+                                                        children: "Accepet\xE9"
+                                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                        value: "Refus\xE9",
+                                                        children: "Refus\xE9"
+                                                      })]
+                                                    })
+                                                  })
+                                                })]
+                                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                  style: tableBorder,
+                                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                    style: labelColor,
+                                                    children: "Motif"
+                                                  })]
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                    className: "input-group input-group-sm ",
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("select", {
+                                                      type: "text",
+                                                      style: {
+                                                        borderRadius: "0px"
+                                                      },
+                                                      className: "form-control font-weight-bold",
+                                                      name: "Motivation",
+                                                      value: this.state.Motivation,
+                                                      onChange: this.handleChange,
+                                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                        value: "Client cr\xE9dible",
+                                                        children: "Client cr\xE9dible"
+                                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("option", {
+                                                        value: "Client non cr\xE9dible",
+                                                        children: "Client non cr\xE9dible"
+                                                      })]
+                                                    })
+                                                  })
+                                                })]
+                                              })]
+                                            })
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                            className: "col-md-3",
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                    style: tableBorder,
+                                                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                      style: labelColor,
+                                                      children: "Date Octroie"
+                                                    })]
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                      className: "input-group input-group-sm ",
+                                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                        type: "date",
+                                                        style: {
+                                                          borderRadius: "0px"
+                                                        },
+                                                        className: "form-control font-weight-bold",
+                                                        name: "DateOctroi",
+                                                        value: this.state.DateOctroi,
+                                                        onChange: this.handleChange
+                                                      })
+                                                    })
+                                                  })]
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                    style: tableBorder,
+                                                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                      style: labelColor,
+                                                      children: "Date Echce"
+                                                    })]
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                      className: "input-group input-group-sm ",
+                                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                        type: "date",
+                                                        style: {
+                                                          borderRadius: "0px"
+                                                        },
+                                                        className: "form-control font-weight-bold",
+                                                        name: "DateEcheance",
+                                                        value: this.state.DateEcheance,
+                                                        onChange: this.handleChange
+                                                      })
+                                                    })
+                                                  })]
+                                                })]
+                                              })
+                                            })
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                            className: "col-md-4",
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                    style: tableBorder,
+                                                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                      style: labelColor,
+                                                      children: "Tomb\xE9 d'Ech\xE9ance"
+                                                    })]
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                      className: "input-group input-group-sm ",
+                                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                        type: "date",
+                                                        style: {
+                                                          borderRadius: "0px"
+                                                        },
+                                                        className: "form-control font-weight-bold",
+                                                        name: "DateTombeEcheance",
+                                                        value: this.state.DateTombeEcheance,
+                                                        onChange: this.handleChange
+                                                      })
+                                                    })
+                                                  })]
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                                    style: tableBorder,
+                                                    children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                      style: labelColor,
+                                                      children: "Interv Tomb\xE9 d'Echce"
+                                                    })]
+                                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                      className: "input-group input-group-sm ",
+                                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                        type: "text",
+                                                        style: {
+                                                          borderRadius: "0px"
+                                                        },
+                                                        className: "form-control font-weight-bold",
+                                                        name: "Interval",
+                                                        value: this.state.Interval,
+                                                        onChange: this.handleChange
+                                                      })
+                                                    })
+                                                  })]
+                                                })]
+                                              })
+                                            })
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                            className: "col-md-2",
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("table", {
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                      type: "button",
+                                                      style: {
+                                                        borderRadius: "0px",
+                                                        width: "100%",
+                                                        height: "30px",
+                                                        fontSize: "12px"
+                                                      },
+                                                      id: "saveGarantieBtn",
+                                                      className: "btn btn-primary",
+                                                      onClick: this.handleSaveGarantie,
+                                                      children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                        className: "fas fa-check"
+                                                      })]
+                                                    })
+                                                  })
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                      type: "button",
+                                                      style: {
+                                                        borderRadius: "0px",
+                                                        width: "100%",
+                                                        height: "30px",
+                                                        fontSize: "12px"
+                                                      },
+                                                      id: "updateGarantieBtn",
+                                                      className: "btn btn-success",
+                                                      onClick: this.handleEditGarantie,
+                                                      children: ["Modifier", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                        className: "fas fa-pen"
+                                                      })]
+                                                    })
+                                                  })
+                                                })]
+                                              })
+                                            })
+                                          })]
+                                        })
+                                      })
+                                    })
+                                  })
+                                })]
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "tab-pane fade mt-2 col-md-12 ",
+                            id: "remboursementcap",
+                            role: "tabpanel",
+                            "aria-labelledby": "remboursementcap-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                className: "col-lg-12",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    }
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "row",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "col-md-12",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                      className: "row",
+                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-3",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Compte"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumCompteCredit",
+                                                  value: this.state.NumCompteCredit,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Dossier"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumDossier",
+                                                  value: this.state.NumDossier,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Montant Cap"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "RemboursCapital",
+                                                  value: this.state.RemboursCapital,
+                                                  onChange: this.handleChange
+                                                })
+                                              })
+                                            })]
+                                          })]
+                                        })
+                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-2",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("table", {
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                  type: "button",
+                                                  style: {
+                                                    borderRadius: "0px",
+                                                    width: "100%",
+                                                    height: "30px",
+                                                    fontSize: "12px"
+                                                  },
+                                                  id: "saveGarantieBtn",
+                                                  className: "btn btn-primary ",
+                                                  onClick: this.handleSaveCapitalRembourser,
+                                                  children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                    className: "fas fa-check"
+                                                  })]
+                                                })
+                                              })
+                                            })
+                                          })
+                                        })
+                                      })]
+                                    })
+                                  })
+                                })]
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "tab-pane fade mt-2 col-md-12 ",
+                            id: "remboursementinteret",
+                            role: "tabpanel",
+                            "aria-labelledby": "remboursementinteret-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                className: "col-lg-12",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    }
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "row",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "col-md-12",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                      className: "row",
+                                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-3",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Compte"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumCompteCredit",
+                                                  value: this.state.NumCompteCredit,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Num Dossier"
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "NumDossier",
+                                                  value: this.state.NumDossier,
+                                                  onChange: this.handleChange,
+                                                  disabled: true
+                                                })
+                                              })
+                                            })]
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("tr", {
+                                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("td", {
+                                              style: tableBorder,
+                                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                style: labelColor,
+                                                children: "Montant Int."
+                                              })]
+                                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                                className: "input-group input-group-sm ",
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  type: "text",
+                                                  style: {
+                                                    borderRadius: "0px"
+                                                  },
+                                                  className: "form-control font-weight-bold",
+                                                  name: "RemboursInteret",
+                                                  value: this.state.RemboursInteret,
+                                                  onChange: this.handleChange
+                                                })
+                                              })
+                                            })]
+                                          })]
+                                        })
+                                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-2",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("form", {
+                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("table", {
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                  type: "button",
+                                                  style: {
+                                                    borderRadius: "0px",
+                                                    width: "100%",
+                                                    height: "30px",
+                                                    fontSize: "12px"
+                                                  },
+                                                  id: "saveRemboursInterBtn",
+                                                  className: "btn btn-primary ",
+                                                  onClick: this.handleSaveCapitalRembourser,
+                                                  children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                    className: "fas fa-check"
+                                                  })]
+                                                })
+                                              })
+                                            })
+                                          })
+                                        })
+                                      })]
+                                    })
+                                  })
+                                })]
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                            className: "tab-pane fade mt-2 col-md-12 ",
+                            id: "cloture",
+                            role: "tabpanel",
+                            "aria-labelledby": "cloture-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                className: "col-lg-12",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    }
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                  className: "row",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                    className: "col-md-12",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                      className: "row",
+                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("div", {
+                                        className: "col-md-1",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("form", {
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              style: tableBorder,
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("div", {
+                                                className: "form-check form-switch",
+                                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("input", {
+                                                  className: "form-check-input",
+                                                  type: "checkbox",
+                                                  id: "cloturer"
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("label", {
+                                                  className: "form-check-label",
+                                                  "for": "cloturer",
+                                                  children: "Cloturer"
+                                                })]
+                                              })
+                                            })
+                                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("tr", {
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("td", {
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsxs)("button", {
+                                                type: "button",
+                                                style: {
+                                                  borderRadius: "0px",
+                                                  width: "100%",
+                                                  height: "30px",
+                                                  fontSize: "12px"
+                                                },
+                                                id: "SaveClotureDossierBtn",
+                                                className: "btn btn-primary ",
+                                                onClick: this.handleSaveClotureDossier,
+                                                children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_3__.jsx)("i", {
+                                                  className: "fas fa-check"
+                                                })]
+                                              })
+                                            })
+                                          })]
+                                        })
+                                      })
+                                    })
+                                  })
+                                })]
+                              })
+                            })
+                          })]
+                        })]
+                      })
+                    })]
+                  })]
                 })
               })]
             })

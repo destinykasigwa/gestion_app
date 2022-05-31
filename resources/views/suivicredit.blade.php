@@ -3,7 +3,7 @@
 @section('content-header')
     <div class="content-header">
         <div class="container-fluid">
-            <h2 class="text-muted">Montage crédit</h2>
+            <h2 class="text-muted">Suivi crédit</h2>
         </div>
     @endsection
     @section('body')
