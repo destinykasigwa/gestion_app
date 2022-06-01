@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string("Dufferee", 30)->nullable();
             $table->string("Grace", 5)->nullable();
             $table->string("NumDossier", 30)->nullable();
+            $table->string("NumDemande", 30)->nullable();
             $table->float("MontantDemande")->nullable()->default('0.00');
             $table->string("ObjeFinance", 30)->nullable();
             $table->float("MontantAccorde")->nullable()->default('0.00');
@@ -112,6 +113,7 @@ return new class extends Migration
             $table->string('PeriodiciteDecalage', 10)->nullable();
             $table->string('DureeDecalage', 10)->nullable();
             $table->string('DateDecale', 10)->nullable();
+            $table->string('TypeGarantie', 50)->nullable();
             $table->string('Homme', 10)->nullable();
             $table->string('Femme', 10)->nullable();
             $table->timestamps();

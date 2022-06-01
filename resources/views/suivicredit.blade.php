@@ -8,7 +8,7 @@
     @endsection
     @section('body')
         <div class="row">
-            <div class="container-fluid" id="suiviCreditContainer">
+            <div class="container-fluid" id="suiviCreditContainer" data-user=<?= Auth::user()->name ?>>
 
 
             </div>

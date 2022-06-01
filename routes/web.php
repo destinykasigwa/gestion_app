@@ -340,3 +340,27 @@ Route::post(
     "/rapport/journal/caisse",
     [JournalCaisseController::class, 'getJournal']
 );
+
+//RECHERCHE UN NUMERO DE COMPTE POUR LE MONTAGE DE CREDIT
+Route::get(
+    "credit/search/{id}",
+    [SuiviCreditController::class, 'getInfoCompte']
+);
+
+//QD ON CLIC SUR LE BOUTON NOUVEAU CREDIT
+Route::post(
+    "credit/nouveau",
+    [SuiviCreditController::class, 'getNewDossierNumber']
+);
+
+//ENREGISTRE UN NOUVEL MONTAGE DE CREDIT
+Route::post(
+    "credit/montagecredit",
+    [SuiviCreditController::class, 'saveNewMontageCredit']
+);
+
+//MET A JOUR LE CEDIT
+Route::post(
+    "montage/credit/update",
+    [SuiviCreditController::class, 'upDateCredit']
+);

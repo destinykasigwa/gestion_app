@@ -69,8 +69,13 @@ if (document.getElementById("adhesionContainer")) {
         document.getElementById("journalContainer")
     );
 } else if (document.getElementById("suiviCreditContainer")) {
+    const suiviCreditContainer = document.querySelector(
+        "#suiviCreditContainer"
+    );
+    const user = suiviCreditContainer.dataset.user;
+    console.log(user);
     ReactDOM.render(
-        <SuiviCredit />,
+        <SuiviCredit NomUtilisateur={user} />,
         document.getElementById("suiviCreditContainer")
     );
 }

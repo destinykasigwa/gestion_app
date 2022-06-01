@@ -27,6 +27,7 @@ class Portefeuille extends Model
         "Dufferee",
         "Grace",
         "NumDossier",
+        "NumDemande",
         "MontantDemande",
         "ObjeFinance",
         "MontantAccorde",
@@ -108,6 +109,7 @@ class Portefeuille extends Model
         'PeriodiciteDecalage',
         'DureeDecalage',
         'DateDecale',
+        'TypeGarantie',
         'Homme',
         'Femme',
     ];
