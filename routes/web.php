@@ -364,3 +364,10 @@ Route::post(
     "montage/credit/update",
     [SuiviCreditController::class, 'upDateCredit']
 );
+
+//ENREGISTRE L'ECHEANCIER
+
+Route::post(
+    "credit/echeancier/generate",
+    [SuiviCreditController::class, 'saveEcheancier']
+);

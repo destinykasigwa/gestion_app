@@ -114,6 +114,7 @@ return new class extends Migration
             $table->string('DureeDecalage', 10)->nullable();
             $table->string('DateDecale', 10)->nullable();
             $table->string('TypeGarantie', 50)->nullable();
+            $table->float("InteretPrecompte")->nullable()->default('0.00');
             $table->string('Homme', 10)->nullable();
             $table->string('Femme', 10)->nullable();
             $table->timestamps();

@@ -110,6 +110,7 @@ class Portefeuille extends Model
         'DureeDecalage',
         'DateDecale',
         'TypeGarantie',
+        "InteretPrecompte",
         'Homme',
         'Femme',
     ];
