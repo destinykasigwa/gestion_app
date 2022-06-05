@@ -59,6 +59,7 @@ class Portefeuille extends Model
         "InteretEchu",
         "InteretRetardEchu",
         "CapitalDu",
+        "CapitalRetard",
         "InteretDu",
         "EpargneDu",
         "AvanceInteret",

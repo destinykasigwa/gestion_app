@@ -16,15 +16,21 @@ export default class UpdateEcheancier extends React.Component {
             DateTombeEcheance: "",
             Interval: "",
             MontantAccorde: "",
+            NumDossier: "",
+            RefTypeCredit: "",
+            TauxInteret: "",
+            NbrTranche: "",
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleMainUpdate = this.handleMainUpdate.bind(this);
+        this.loadFunction = this.loadFunction.bind(this);
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
         }, 1000);
+        this.loadFunction();
     }
 
     // get data in input
@@ -43,6 +49,8 @@ export default class UpdateEcheancier extends React.Component {
             DateTombeEcheance: "",
             Interval: "",
             MontantAccorde: "",
+            TauxInteret: "",
+            NbrTranche: "",
         };
         //updating data from input
         if (
@@ -93,6 +101,18 @@ export default class UpdateEcheancier extends React.Component {
             return null;
         }
 
+        if (
+            current_state.TauxInteret &&
+            current_state.TauxInteret !== props.creditData.TauxInteret
+        ) {
+            return null;
+        }
+        if (
+            current_state.NbrTranche &&
+            current_state.NbrTranche !== props.creditData.NbrTranche
+        ) {
+            return null;
+        }
         //updating data from props below
         if (
             current_state.Decision !== props.creditData.Decision ||
@@ -144,12 +164,33 @@ export default class UpdateEcheancier extends React.Component {
             UpDateEcheancier.MontantAccorde = props.creditData.MontantAccorde;
         }
 
+        if (
+            current_state.TauxInteret !== props.creditData.TauxInteret ||
+            current_state.TauxInteret === props.creditData.TauxInteret
+        ) {
+            UpDateEcheancier.TauxInteret = props.creditData.TauxInteret;
+        }
+
+        if (
+            current_state.NbrTranche !== props.creditData.NbrTranche ||
+            current_state.NbrTranche === props.creditData.NbrTranche
+        ) {
+            UpDateEcheancier.NbrTranche = props.creditData.NbrTranche;
+        }
+
         return UpDateEcheancier;
+    }
+    loadFunction() {
+        this.setState({
+            NumDossier: this.props.numDossier,
+            RefTypeCredit: this.props.creditData.RefTypeCredit,
+        });
     }
 
     handleMainUpdate = async (e) => {
+        this.setState({ loading: true });
         e.preventDefault();
-        this.setState({ numDossier: this.props.numDossier });
+
         const res = await axios.post(
             "/montage/credit/update/echeancier",
             this.state
@@ -161,6 +202,7 @@ export default class UpdateEcheancier extends React.Component {
                 icon: "success",
                 button: "OK!",
             });
+            this.setState({ loading: false });
         }
 
         console.log(this.state);
@@ -529,7 +571,101 @@ export default class UpdateEcheancier extends React.Component {
                                                                     </div>
                                                                 </td>
                                                             </tr>
-
+                                                            <tr>
+                                                                <td
+                                                                    style={
+                                                                        tableBorder
+                                                                    }
+                                                                >
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Taux
+                                                                        intérêt
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="input-group input-group-sm ">
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                            }}
+                                                                            className="form-control font-weight-bold"
+                                                                            name="TauxInteret"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .TauxInteret
+                                                                            }
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td
+                                                                    style={
+                                                                        tableBorder
+                                                                    }
+                                                                >
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Nbr
+                                                                        Echéance
+                                                                    </label>
+                                                                </td>
+                                                                <td>
+                                                                    <div className="input-group input-group-sm ">
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                            }}
+                                                                            className="form-control font-weight-bold"
+                                                                            name="NbrTranche"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .NbrTranche
+                                                                                    ? this
+                                                                                          .state
+                                                                                          .NbrTranche
+                                                                                    : this
+                                                                                          .state
+                                                                                          .fetchData &&
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchData
+                                                                                          .NbrTranche
+                                                                            }
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                            disabled={
+                                                                                this
+                                                                                    .state
+                                                                                    .disabled
+                                                                                    ? "disabled"
+                                                                                    : ""
+                                                                            }
+                                                                        />
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
                                                             <tr>
                                                                 <td></td>
                                                                 <td>
@@ -547,11 +683,19 @@ export default class UpdateEcheancier extends React.Component {
                                                                         className="btn btn-primary mt-1"
                                                                         onClick={
                                                                             this
-                                                                                .handleSaveEcheancier
+                                                                                .handleMainUpdate
                                                                         }
                                                                     >
                                                                         Degressif
-                                                                        <i className="fas fa-database"></i>
+                                                                        <i
+                                                                            className={`${
+                                                                                this
+                                                                                    .state
+                                                                                    .loading
+                                                                                    ? "spinner-border spinner-border-sm"
+                                                                                    : "fas fa-check"
+                                                                            }`}
+                                                                        ></i>
                                                                     </button>
                                                                 </td>
                                                             </tr>

@@ -118,6 +118,8 @@ export default class SuiviCredit extends React.Component {
         this.handleSearch = this.handleSearch.bind(this);
         this.actualiser = this.actualiser.bind(this);
         this.handleSaveEcheancier = this.handleSaveEcheancier.bind(this);
+        this.AccordCredit = this.AccordCredit.bind(this);
+        this.decaisserCredit = this.decaisserCredit.bind(this);
     }
 
     componentDidMount() {
@@ -267,9 +269,7 @@ export default class SuiviCredit extends React.Component {
 
     handleSearch = async (e) => {
         e.preventDefault();
-        const res = await axios.get(
-            "/credit/search/" + this.state.compteToSearch
-        );
+        const res = await axios.post("/credit/search", this.state);
         if (res.data.success == 1) {
             this.setState({
                 fetchData2: res.data.data,
@@ -297,7 +297,12 @@ export default class SuiviCredit extends React.Component {
         this.setState({
             NumDossier: this.state.fetchData.NumDossier,
             RefTypeCredit: this.state.fetchData.RefTypeCredit,
-            InteretPrecompte: parseInt(this.state.MontantAccorde * 7) / 100,
+            NbrTranche: this.state.fetchData.NbrTranche,
+            // InteretPrecompte:
+            //     parseInt(
+            //         this.state.MontantAccorde * this.state.fetchData.TauxInteret
+            //     ) / 100,
+            TauxInteret: this.state.fetchData.TauxInteret,
         });
         console.log(NewCreditAccount);
     };
@@ -327,9 +332,59 @@ export default class SuiviCredit extends React.Component {
                 button: "OK!",
             });
             this.setState({ loading: false });
+        } else {
+            this.setState({
+                error_list: res.data.validate_error,
+                loading: false,
+            });
         }
 
         console.log(this.state);
+    };
+
+    //PERMET D'ACCORDER OU OCTROYER UN CREDIT
+    AccordCredit = async (e) => {
+        if (e.target.checked) {
+            const res = await axios.post("/credit/accord", this.state);
+            if (res.data.success == 1) {
+                Swal.fire({
+                    title: "Octroi de crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!",
+                });
+            }
+        }
+    };
+
+    //PERMET DE DECAISSER LE CREDIT
+    decaisserCredit = async (e) => {
+        if (e.target.checked) {
+            const res = await axios.post("/credit/decaissement", this.state);
+            if (res.data.success == 1) {
+                Swal.fire({
+                    title: "Octroi de crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!",
+                });
+            }
+        }
+    };
+
+    //PERMET DE CLOTURER UN CREDIT
+    ClotureCredit = async (e) => {
+        if (e.target.checked) {
+            const res = await axios.post("/credit/cloture", this.state);
+            if (res.data.success == 1) {
+                Swal.fire({
+                    title: "Clôture du crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!",
+                });
+            }
+        }
     };
 
     //to refresh
@@ -424,6 +479,56 @@ export default class SuiviCredit extends React.Component {
                                                     border: "2px solid #fff",
                                                 }}
                                             >
+                                                <tr>
+                                                    <td>
+                                                        {" "}
+                                                        <div className="input-group input-group-sm ">
+                                                            <select
+                                                                type="text"
+                                                                style={{
+                                                                    border: "0px",
+                                                                }}
+                                                                className="font-weight-bold"
+                                                                name="CodeMonnaie"
+                                                                value={
+                                                                    this.state
+                                                                        .CodeMonnaie
+                                                                        ? this
+                                                                              .state
+                                                                              .CodeMonnaie
+                                                                        : this
+                                                                              .state
+                                                                              .fetchData &&
+                                                                          this
+                                                                              .state
+                                                                              .fetchData
+                                                                              .CodeMonnaie
+                                                                }
+                                                                onChange={
+                                                                    this
+                                                                        .handleChange
+                                                                }
+                                                                // disabled={
+                                                                //     this.state
+                                                                //         .disabled
+                                                                //         ? "disabled"
+                                                                //         : ""
+                                                                // }
+                                                            >
+                                                                <option value="">
+                                                                    Dévise
+                                                                </option>
+                                                                <option value="CDF">
+                                                                    CDF
+                                                                </option>
+                                                                <option value="USD">
+                                                                    USD
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
                                                 <div className="input-group input-group-sm ">
                                                     <input
                                                         type="text"
@@ -441,6 +546,7 @@ export default class SuiviCredit extends React.Component {
                                                             this.handleChange
                                                         }
                                                     />
+
                                                     <td>
                                                         <button
                                                             type="button"
@@ -1320,70 +1426,7 @@ export default class SuiviCredit extends React.Component {
                                                                 </div>
                                                             </td>
                                                         </tr>
-                                                        <tr>
-                                                            <td
-                                                                style={
-                                                                    tableBorder
-                                                                }
-                                                            >
-                                                                {" "}
-                                                                <label
-                                                                    style={
-                                                                        labelColor
-                                                                    }
-                                                                >
-                                                                    Monnaie
-                                                                </label>
-                                                            </td>
-                                                            <td>
-                                                                <div className="input-group input-group-sm ">
-                                                                    <select
-                                                                        type="text"
-                                                                        style={{
-                                                                            border: "0px",
-                                                                        }}
-                                                                        className="font-weight-bold"
-                                                                        name="CodeMonnaie"
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .CodeMonnaie
-                                                                                ? this
-                                                                                      .state
-                                                                                      .CodeMonnaie
-                                                                                : this
-                                                                                      .state
-                                                                                      .fetchData &&
-                                                                                  this
-                                                                                      .state
-                                                                                      .fetchData
-                                                                                      .CodeMonnaie
-                                                                        }
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                        disabled={
-                                                                            this
-                                                                                .state
-                                                                                .disabled
-                                                                                ? "disabled"
-                                                                                : ""
-                                                                        }
-                                                                    >
-                                                                        <option value="">
-                                                                            Sélectionnez
-                                                                        </option>
-                                                                        <option value="CDF">
-                                                                            CDF
-                                                                        </option>
-                                                                        <option value="USD">
-                                                                            USD
-                                                                        </option>
-                                                                    </select>
-                                                                </div>
-                                                            </td>
-                                                        </tr>
+
                                                         <tr>
                                                             <td
                                                                 style={
@@ -2307,7 +2350,7 @@ export default class SuiviCredit extends React.Component {
                                                     >
                                                         <li className="nav-item">
                                                             <a
-                                                                className="nav-link active"
+                                                                className="nav-link"
                                                                 id="garantie-tab"
                                                                 data-toggle="tab"
                                                                 href="#garantie"
@@ -2321,7 +2364,7 @@ export default class SuiviCredit extends React.Component {
                                                         </li>
                                                         <li className="nav-item">
                                                             <a
-                                                                className="nav-link"
+                                                                className="nav-link active"
                                                                 id="echeancier-tab"
                                                                 data-toggle="tab"
                                                                 href="#echeancier"
@@ -2381,13 +2424,27 @@ export default class SuiviCredit extends React.Component {
                                                                 Extourne
                                                             </a>
                                                         </li>
+                                                        <li className="nav-item">
+                                                            <a
+                                                                className="nav-link"
+                                                                id="action-tab"
+                                                                data-toggle="tab"
+                                                                href="#action"
+                                                                role="tab"
+                                                                aria-controls="action"
+                                                                aria-selected="true"
+                                                            >
+                                                                <i className="fas fa-plus"></i>{" "}
+                                                                Action
+                                                            </a>
+                                                        </li>
                                                     </ul>
                                                     <div
                                                         className="tab-content"
                                                         id="myTabContent"
                                                     >
                                                         <div
-                                                            className="tab-pane fade show active mt-2 col-md-12 "
+                                                            className="tab-pane fade  mt-2 col-md-12 "
                                                             id="garantie"
                                                             role="tabpanel"
                                                             aria-labelledby="garantie-tab"
@@ -2614,7 +2671,7 @@ export default class SuiviCredit extends React.Component {
                                                         </div>
 
                                                         <div
-                                                            className="tab-pane fade mt-2 col-md-12 "
+                                                            className="tab-pane fade show active mt-2 col-md-12 "
                                                             id="echeancier"
                                                             role="tabpanel"
                                                             aria-labelledby="echeancier-tab"
@@ -2888,7 +2945,16 @@ export default class SuiviCredit extends React.Component {
                                                                                                                         borderRadius:
                                                                                                                             "0px",
                                                                                                                     }}
-                                                                                                                    className="form-control font-weight-bold"
+                                                                                                                    className={`form-control ${
+                                                                                                                        this
+                                                                                                                            .state
+                                                                                                                            .error_list &&
+                                                                                                                        this
+                                                                                                                            .state
+                                                                                                                            .error_list
+                                                                                                                            .MontantAccorde &&
+                                                                                                                        "is-invalid"
+                                                                                                                    }`}
                                                                                                                     name="MontantAccorde"
                                                                                                                     value={
                                                                                                                         this
@@ -3059,7 +3125,10 @@ export default class SuiviCredit extends React.Component {
                                                                                                                                     .state
                                                                                                                                     .fetchData
                                                                                                                                     .MontantAccorde *
-                                                                                                                                    7
+                                                                                                                                    this
+                                                                                                                                        .state
+                                                                                                                                        .fetchData
+                                                                                                                                        .TauxInteret
                                                                                                                             ) /
                                                                                                                             100
                                                                                                                         }
@@ -3112,34 +3181,75 @@ export default class SuiviCredit extends React.Component {
                                                                                                 <table>
                                                                                                     <tr>
                                                                                                         <td>
-                                                                                                            <button
-                                                                                                                type="button"
-                                                                                                                style={{
-                                                                                                                    borderRadius:
-                                                                                                                        "0px",
-                                                                                                                    width: "100%",
-                                                                                                                    height: "30px",
-                                                                                                                    fontSize:
-                                                                                                                        "12px",
-                                                                                                                }}
-                                                                                                                id="saveEcheancierBtn"
-                                                                                                                className="btn btn-primary"
-                                                                                                                onClick={
-                                                                                                                    this
-                                                                                                                        .handleSaveEcheancier
-                                                                                                                }
-                                                                                                            >
-                                                                                                                Degressif
-                                                                                                                <i
-                                                                                                                    className={`${
+                                                                                                            {this
+                                                                                                                .state
+                                                                                                                .fetchData &&
+                                                                                                            parseInt(
+                                                                                                                this
+                                                                                                                    .state
+                                                                                                                    .fetchData
+                                                                                                                    .MontantAccorde
+                                                                                                            ) >
+                                                                                                                0 ? (
+                                                                                                                <button
+                                                                                                                    type="button"
+                                                                                                                    style={{
+                                                                                                                        borderRadius:
+                                                                                                                            "0px",
+                                                                                                                        width: "100%",
+                                                                                                                        height: "30px",
+                                                                                                                        fontSize:
+                                                                                                                            "12px",
+                                                                                                                    }}
+                                                                                                                    id="saveEcheancierBtn"
+                                                                                                                    className="btn btn-primary"
+                                                                                                                    onClick={
                                                                                                                         this
-                                                                                                                            .state
-                                                                                                                            .loading
-                                                                                                                            ? "spinner-border spinner-border-sm"
-                                                                                                                            : "fas fa-database"
-                                                                                                                    }`}
-                                                                                                                ></i>{" "}
-                                                                                                            </button>
+                                                                                                                            .handleSaveEcheancier
+                                                                                                                    }
+                                                                                                                    disabled
+                                                                                                                >
+                                                                                                                    Degressif
+                                                                                                                    <i
+                                                                                                                        className={`${
+                                                                                                                            this
+                                                                                                                                .state
+                                                                                                                                .loading
+                                                                                                                                ? "spinner-border spinner-border-sm"
+                                                                                                                                : "fas fa-check"
+                                                                                                                        }`}
+                                                                                                                    ></i>{" "}
+                                                                                                                </button>
+                                                                                                            ) : (
+                                                                                                                <button
+                                                                                                                    type="button"
+                                                                                                                    style={{
+                                                                                                                        borderRadius:
+                                                                                                                            "0px",
+                                                                                                                        width: "100%",
+                                                                                                                        height: "30px",
+                                                                                                                        fontSize:
+                                                                                                                            "12px",
+                                                                                                                    }}
+                                                                                                                    id="saveEcheancierBtn"
+                                                                                                                    className="btn btn-primary"
+                                                                                                                    onClick={
+                                                                                                                        this
+                                                                                                                            .handleSaveEcheancier
+                                                                                                                    }
+                                                                                                                >
+                                                                                                                    Degressif
+                                                                                                                    <i
+                                                                                                                        className={`${
+                                                                                                                            this
+                                                                                                                                .state
+                                                                                                                                .loading
+                                                                                                                                ? "spinner-border spinner-border-sm"
+                                                                                                                                : "fas fa-check"
+                                                                                                                        }`}
+                                                                                                                    ></i>{" "}
+                                                                                                                </button>
+                                                                                                            )}
                                                                                                         </td>
                                                                                                     </tr>
                                                                                                     {this
@@ -3711,6 +3821,26 @@ export default class SuiviCredit extends React.Component {
                                                                                                             className="form-check-input"
                                                                                                             type="checkbox"
                                                                                                             id="cloturer"
+                                                                                                            name="Cloture"
+                                                                                                            value={
+                                                                                                                this
+                                                                                                                    .state
+                                                                                                                    .Cloture
+                                                                                                                    ? this
+                                                                                                                          .state
+                                                                                                                          .Cloture
+                                                                                                                    : this
+                                                                                                                          .state
+                                                                                                                          .fetchData &&
+                                                                                                                      this
+                                                                                                                          .state
+                                                                                                                          .fetchData
+                                                                                                                          .Cloture
+                                                                                                            }
+                                                                                                            onChange={
+                                                                                                                this
+                                                                                                                    .ClotureCredit
+                                                                                                            }
                                                                                                         />
                                                                                                     )}
 
@@ -3723,7 +3853,7 @@ export default class SuiviCredit extends React.Component {
                                                                                                 </div>
                                                                                             </td>
                                                                                         </tr>
-                                                                                        <tr>
+                                                                                        {/* <tr>
                                                                                             <td>
                                                                                                 <button
                                                                                                     type="button"
@@ -3745,6 +3875,166 @@ export default class SuiviCredit extends React.Component {
                                                                                                     Valider
                                                                                                     <i className="fas fa-check"></i>
                                                                                                 </button>
+                                                                                            </td>
+                                                                                        </tr> */}
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        <div
+                                                            className="tab-pane fade mt-2 col-md-12 "
+                                                            id="action"
+                                                            role="tabpanel"
+                                                            aria-labelledby="action-tab"
+                                                        >
+                                                            <div
+                                                                className="row"
+                                                                style={{
+                                                                    padding:
+                                                                        "10px",
+                                                                    border: "2px solid #fff",
+                                                                }}
+                                                            >
+                                                                <div className="col-lg-12">
+                                                                    <div className="card card-default">
+                                                                        <div
+                                                                            className="card-header"
+                                                                            style={{
+                                                                                background:
+                                                                                    "#DCDCDC",
+                                                                                textAlign:
+                                                                                    "center",
+                                                                                color: "#fff",
+                                                                            }}
+                                                                        ></div>
+                                                                    </div>
+                                                                    <div className="row">
+                                                                        <div className="col-md-12">
+                                                                            <div className="row">
+                                                                                <div className="col-md-1">
+                                                                                    <form>
+                                                                                        <tr>
+                                                                                            <td
+                                                                                                style={
+                                                                                                    tableBorder
+                                                                                                }
+                                                                                            >
+                                                                                                <div className="form-check form-switch">
+                                                                                                    {this
+                                                                                                        .state
+                                                                                                        .fetchData &&
+                                                                                                    this
+                                                                                                        .state
+                                                                                                        .fetchData
+                                                                                                        .Accorde ? (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="Accorde"
+                                                                                                            name="Accorde"
+                                                                                                            checked
+                                                                                                            disabled
+                                                                                                        />
+                                                                                                    ) : (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="Accorde"
+                                                                                                            name="Accorde"
+                                                                                                            value={
+                                                                                                                this
+                                                                                                                    .state
+                                                                                                                    .Accorde
+                                                                                                                    ? this
+                                                                                                                          .state
+                                                                                                                          .Accorde
+                                                                                                                    : this
+                                                                                                                          .state
+                                                                                                                          .fetchData &&
+                                                                                                                      this
+                                                                                                                          .state
+                                                                                                                          .fetchData
+                                                                                                                          .Accorde
+                                                                                                            }
+                                                                                                            onChange={
+                                                                                                                this
+                                                                                                                    .AccordCredit
+                                                                                                            }
+                                                                                                        />
+                                                                                                    )}
+
+                                                                                                    <label
+                                                                                                        className="form-check-label"
+                                                                                                        for="Accorde"
+                                                                                                    >
+                                                                                                        Accorder
+                                                                                                    </label>
+                                                                                                </div>
+                                                                                            </td>
+                                                                                        </tr>
+
+                                                                                        <tr>
+                                                                                            <td
+                                                                                                style={
+                                                                                                    tableBorder
+                                                                                                }
+                                                                                            >
+                                                                                                <div className="form-check form-switch">
+                                                                                                    {this
+                                                                                                        .state
+                                                                                                        .fetchData &&
+                                                                                                    this
+                                                                                                        .state
+                                                                                                        .fetchData
+                                                                                                        .Octroye ? (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="Octroye"
+                                                                                                            name="Octroye"
+                                                                                                            checked
+                                                                                                            disabled
+                                                                                                        />
+                                                                                                    ) : (
+                                                                                                        <input
+                                                                                                            className="form-check-input"
+                                                                                                            type="checkbox"
+                                                                                                            id="Octroye"
+                                                                                                            name=""
+                                                                                                            value={
+                                                                                                                this
+                                                                                                                    .state
+                                                                                                                    .Octroye
+                                                                                                                    ? this
+                                                                                                                          .state
+                                                                                                                          .Octroye
+                                                                                                                    : this
+                                                                                                                          .state
+                                                                                                                          .fetchData &&
+                                                                                                                      this
+                                                                                                                          .state
+                                                                                                                          .fetchData
+                                                                                                                          .Octroye
+                                                                                                            }
+                                                                                                            onChange={
+                                                                                                                this
+                                                                                                                    .decaisserCredit
+                                                                                                            }
+                                                                                                        />
+                                                                                                    )}
+
+                                                                                                    <label
+                                                                                                        className="form-check-label"
+                                                                                                        for="Octroye"
+                                                                                                    >
+                                                                                                        Decaisser
+                                                                                                    </label>
+                                                                                                </div>
                                                                                             </td>
                                                                                         </tr>
                                                                                     </form>

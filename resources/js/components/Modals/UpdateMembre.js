@@ -574,6 +574,9 @@ export default class UpdateMembre extends React.Component {
                     this.setState({ disabled: !this.state.disabled });
                 } else {
                     console.log(this.state);
+                    this.setState({
+                        error_list: response.data.validate_error,
+                    });
                 }
             });
     };

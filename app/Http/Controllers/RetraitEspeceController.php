@@ -277,8 +277,8 @@ class RetraitEspeceController extends Controller
                 //DEBITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
                 Transactions::create([
                     "NumTransaction" => $NumTransaction,
-                    "DateTransaction" => $request->DateTransaction,
-                    "DateSaisie" => $request->DateTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
                     "Taux" => 1,
                     "TypeTransaction" => "C",
                     "CodeMonnaie" => 2,
@@ -310,13 +310,13 @@ class RetraitEspeceController extends Controller
                     "cinquanteFancSortie" => $request->cinquanteFanc,
                     "montantSortie" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
-                    "DateTransaction" => $request->DateTransaction
+                    "DateTransaction" => $date
                 ]);
                 //CREDITE LE COMPTE CONTRE PARTIE  
                 Dummy::create([
                     "NumTransaction" => $NumTransaction,
-                    "DateTransaction" => $request->DateTransaction,
-                    "DateSaisie" => $request->DateTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
                     "Taux" => 1,
                     "TypeTransaction" => "C",
                     "CodeMonnaie" => 2,
@@ -334,8 +334,8 @@ class RetraitEspeceController extends Controller
                 //DEBITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN USD
                 Transactions::create([
                     "NumTransaction" => $NumTransaction,
-                    "DateTransaction" => $request->DateTransaction,
-                    "DateSaisie" => $request->DateTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
                     "Taux" => 1,
                     "TypeTransaction" => "C",
                     "CodeMonnaie" => 1,
@@ -365,13 +365,13 @@ class RetraitEspeceController extends Controller
                     "unDollarsSortie" => $request->oneDollar,
                     "montantSortie" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
-                    "DateTransaction" => $request->DateTransaction
+                    "DateTransaction" => $date
                 ]);
                 //DEBITE LE COMPTE CONTRE PARTIE  
                 Dummy::create([
                     "NumTransaction" => $NumTransaction,
-                    "DateTransaction" => $request->DateTransaction,
-                    "DateSaisie" => $request->DateTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
                     "Taux" => 1,
                     "TypeTransaction" => "C",
                     "CodeMonnaie" => 2,

@@ -181,7 +181,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/charts/inline.html" class="nav-link">
+                            <a href="{{ route('rapport.credit') }}" class="nav-link">
                                 <i class="fas fa-file"></i>
                                 <p>Rapport crédit</p>
                             </a>

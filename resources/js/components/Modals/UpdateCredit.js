@@ -67,8 +67,8 @@ export default class UpdateCredit extends React.Component {
         }
 
         if (
-            current_state.RefProduitCredit &&
-            current_state.RefProduitCredit !== props.creditData.RefProduitCredit
+            current_state.RefTypeCredit &&
+            current_state.RefTypeCredit !== props.creditData.RefTypeCredit
         ) {
             return null;
         }
@@ -353,8 +353,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .RefProduitCredit ??
-                                                                                ""
+                                                                                    .RefProduitCredit
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -404,8 +403,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .RefTypeCredit ??
-                                                                                ""
+                                                                                    .RefTypeCredit
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -467,8 +465,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .Gestionnaire ??
-                                                                                ""
+                                                                                    .Gestionnaire
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -515,8 +512,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .ObjeFinance ??
-                                                                                ""
+                                                                                    .ObjeFinance
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -565,8 +561,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .Gestionnaire ??
-                                                                                ""
+                                                                                    .Gestionnaire
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -613,8 +608,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .MontantDemande ??
-                                                                                ""
+                                                                                    .MontantDemande
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -653,8 +647,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .TauxInteret ??
-                                                                                ""
+                                                                                    .TauxInteret
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -704,8 +697,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .DateDemande ??
-                                                                                ""
+                                                                                    .DateDemande
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -743,8 +735,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .ModeRemboursement ??
-                                                                                ""
+                                                                                    .ModeRemboursement
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -796,8 +787,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .NbrTranche ??
-                                                                                ""
+                                                                                    .NbrTranche
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -835,8 +825,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .Cycle ??
-                                                                                ""
+                                                                                    .Cycle
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -875,8 +864,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .Duree ??
-                                                                                ""
+                                                                                    .Duree
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -913,8 +901,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .CodeMonnaie ??
-                                                                                ""
+                                                                                    .CodeMonnaie
                                                                             }
                                                                             onChange={
                                                                                 this
@@ -965,8 +952,7 @@ export default class UpdateCredit extends React.Component {
                                                                             value={
                                                                                 this
                                                                                     .state
-                                                                                    .NumDossier ??
-                                                                                ""
+                                                                                    .NumDossier
                                                                             }
                                                                             onChange={
                                                                                 this

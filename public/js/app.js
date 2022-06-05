@@ -2187,7 +2187,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_RepertoireCaisse__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./components/RepertoireCaisse */ "./resources/js/components/RepertoireCaisse.js");
 /* harmony import */ var _components_JournalCaisse__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/JournalCaisse */ "./resources/js/components/JournalCaisse.js");
 /* harmony import */ var _components_SuiviCredit__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/SuiviCredit */ "./resources/js/components/SuiviCredit.js");
-/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+/* harmony import */ var _components_RapportCredit__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./components/RapportCredit */ "./resources/js/components/RapportCredit.js");
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes React and other helpers. It's a great starting point while
@@ -2214,33 +2215,36 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+
 if (document.getElementById("adhesionContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById("adhesionContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Adhesion__WEBPACK_IMPORTED_MODULE_1__["default"], {}), document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById("DepotEspeceContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_DepotEspece__WEBPACK_IMPORTED_MODULE_2__["default"], {}), document.getElementById("DepotEspeceContainer"));
 } else if (document.getElementById("RetraitEspeceContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById("RetraitEspeceContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_RetraitEspece__WEBPACK_IMPORTED_MODULE_3__["default"], {}), document.getElementById("RetraitEspeceContainer"));
 } else if (document.getElementById("positionnementContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById("positionnementContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Positionnement__WEBPACK_IMPORTED_MODULE_4__["default"], {}), document.getElementById("positionnementContainer"));
 } else if (document.getElementById("ApprovisionnementContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById("ApprovisionnementContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Approvisionnement__WEBPACK_IMPORTED_MODULE_5__["default"], {}), document.getElementById("ApprovisionnementContainer"));
 } else if (document.getElementById("DelestageContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_Delestage__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById("DelestageContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_Delestage__WEBPACK_IMPORTED_MODULE_6__["default"], {}), document.getElementById("DelestageContainer"));
 } else if (document.getElementById("EntreeTresorContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_EntreeTresor__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById("EntreeTresorContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_EntreeTresor__WEBPACK_IMPORTED_MODULE_7__["default"], {}), document.getElementById("EntreeTresorContainer"));
 } else if (document.getElementById("soldeContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_SoldePage__WEBPACK_IMPORTED_MODULE_8__["default"], {}), document.getElementById("soldeContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_SoldePage__WEBPACK_IMPORTED_MODULE_8__["default"], {}), document.getElementById("soldeContainer"));
 } else if (document.getElementById("repertoireContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_RepertoireCaisse__WEBPACK_IMPORTED_MODULE_9__["default"], {}), document.getElementById("repertoireContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_RepertoireCaisse__WEBPACK_IMPORTED_MODULE_9__["default"], {}), document.getElementById("repertoireContainer"));
 } else if (document.getElementById("journalContainer")) {
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_JournalCaisse__WEBPACK_IMPORTED_MODULE_10__["default"], {}), document.getElementById("journalContainer"));
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_JournalCaisse__WEBPACK_IMPORTED_MODULE_10__["default"], {}), document.getElementById("journalContainer"));
 } else if (document.getElementById("suiviCreditContainer")) {
   var suiviCreditContainer = document.querySelector("#suiviCreditContainer");
   var user = suiviCreditContainer.dataset.user;
   console.log(user);
-  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_12__.jsx)(_components_SuiviCredit__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_SuiviCredit__WEBPACK_IMPORTED_MODULE_11__["default"], {
     NomUtilisateur: user
   }), document.getElementById("suiviCreditContainer"));
+} else if (document.getElementById("rapportCreditContainer")) {
+  react_dom__WEBPACK_IMPORTED_MODULE_0__.render( /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_13__.jsx)(_components_RapportCredit__WEBPACK_IMPORTED_MODULE_12__["default"], {}), document.getElementById("rapportCreditContainer"));
 }
 
 /***/ }),
@@ -12698,8 +12702,6 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this$state$RefProdui, _this$state$RefTypeCr, _this$state$Gestionna, _this$state$ObjeFinan, _this$state$Gestionna2, _this$state$MontantDe, _this$state$TauxInter, _this$state$DateDeman, _this$state$ModeRembo, _this$state$NbrTranch, _this$state$Cycle, _this$state$Duree, _this$state$CodeMonna, _this$state$NumDossie;
-
       var labelColor = {
         fontWeight: "bold",
         color: "steelblue",
@@ -12776,7 +12778,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "RefProduitCredit",
-                                      value: (_this$state$RefProdui = this.state.RefProduitCredit) !== null && _this$state$RefProdui !== void 0 ? _this$state$RefProdui : "",
+                                      value: this.state.RefProduitCredit,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -12807,7 +12809,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "RefTypeCredit",
-                                      value: (_this$state$RefTypeCr = this.state.RefTypeCredit) !== null && _this$state$RefTypeCr !== void 0 ? _this$state$RefTypeCr : "",
+                                      value: this.state.RefTypeCredit,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -12845,7 +12847,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "Gestionnaire",
-                                      value: (_this$state$Gestionna = this.state.Gestionnaire) !== null && _this$state$Gestionna !== void 0 ? _this$state$Gestionna : "",
+                                      value: this.state.Gestionnaire,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -12876,7 +12878,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "ObjeFinance",
-                                      value: (_this$state$ObjeFinan = this.state.ObjeFinance) !== null && _this$state$ObjeFinan !== void 0 ? _this$state$ObjeFinan : "",
+                                      value: this.state.ObjeFinance,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -12910,7 +12912,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "Gestionnaire",
-                                      value: (_this$state$Gestionna2 = this.state.Gestionnaire) !== null && _this$state$Gestionna2 !== void 0 ? _this$state$Gestionna2 : "",
+                                      value: this.state.Gestionnaire,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -12939,7 +12941,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "MontantDemande",
-                                      value: (_this$state$MontantDe = this.state.MontantDemande) !== null && _this$state$MontantDe !== void 0 ? _this$state$MontantDe : "",
+                                      value: this.state.MontantDemande,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -12961,7 +12963,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "TauxInteret",
-                                      value: (_this$state$TauxInter = this.state.TauxInteret) !== null && _this$state$TauxInter !== void 0 ? _this$state$TauxInter : "",
+                                      value: this.state.TauxInteret,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -12994,7 +12996,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "DateDemande",
-                                      value: (_this$state$DateDeman = this.state.DateDemande) !== null && _this$state$DateDeman !== void 0 ? _this$state$DateDeman : "",
+                                      value: this.state.DateDemande,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -13016,7 +13018,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "ModeRemboursement",
-                                      value: (_this$state$ModeRembo = this.state.ModeRemboursement) !== null && _this$state$ModeRembo !== void 0 ? _this$state$ModeRembo : "",
+                                      value: this.state.ModeRemboursement,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -13051,7 +13053,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "NbrTranche",
-                                      value: (_this$state$NbrTranch = this.state.NbrTranche) !== null && _this$state$NbrTranch !== void 0 ? _this$state$NbrTranch : "",
+                                      value: this.state.NbrTranche,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -13073,7 +13075,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "Cycle",
-                                      value: (_this$state$Cycle = this.state.Cycle) !== null && _this$state$Cycle !== void 0 ? _this$state$Cycle : "",
+                                      value: this.state.Cycle,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -13095,7 +13097,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "form-control font-weight-bold",
                                       name: "Duree",
-                                      value: (_this$state$Duree = this.state.Duree) !== null && _this$state$Duree !== void 0 ? _this$state$Duree : "",
+                                      value: this.state.Duree,
                                       onChange: this.handleChange
                                     })
                                   })
@@ -13117,7 +13119,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       },
                                       className: "font-weight-bold",
                                       name: "CodeMonnaie",
-                                      value: (_this$state$CodeMonna = this.state.CodeMonnaie) !== null && _this$state$CodeMonna !== void 0 ? _this$state$CodeMonna : "",
+                                      value: this.state.CodeMonnaie,
                                       onChange: this.handleChange,
                                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
                                         value: "",
@@ -13150,7 +13152,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
                                       className: "form-control font-weight-bold",
                                       placeholder: "N\xB0 Dossier...",
                                       name: "NumDossier",
-                                      value: (_this$state$NumDossie = this.state.NumDossier) !== null && _this$state$NumDossie !== void 0 ? _this$state$NumDossie : "",
+                                      value: this.state.NumDossier,
                                       onChange: this.handleChange,
                                       disabled: true
                                     })
@@ -13212,7 +13214,7 @@ var UpdateCredit = /*#__PURE__*/function (_React$Component) {
         return null;
       }
 
-      if (current_state.RefProduitCredit && current_state.RefProduitCredit !== props.creditData.RefProduitCredit) {
+      if (current_state.RefTypeCredit && current_state.RefTypeCredit !== props.creditData.RefTypeCredit) {
         return null;
       }
 
@@ -13407,12 +13409,11 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                e.preventDefault();
-
                 _this.setState({
-                  numDossier: _this.props.numDossier
+                  loading: true
                 });
 
+                e.preventDefault();
                 _context.next = 4;
                 return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/montage/credit/update/echeancier", _this.state);
 
@@ -13425,6 +13426,10 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
                     text: res.data.msg,
                     icon: "success",
                     button: "OK!"
+                  });
+
+                  _this.setState({
+                    loading: false
                   });
                 }
 
@@ -13453,10 +13458,15 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
       DateEcheance: "",
       DateTombeEcheance: "",
       Interval: "",
-      MontantAccorde: ""
+      MontantAccorde: "",
+      NumDossier: "",
+      RefTypeCredit: "",
+      TauxInteret: "",
+      NbrTranche: ""
     };
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.handleMainUpdate = _this.handleMainUpdate.bind(_assertThisInitialized(_this));
+    _this.loadFunction = _this.loadFunction.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -13470,12 +13480,21 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
           isloading: false
         });
       }, 1000);
+      this.loadFunction();
     } // get data in input
 
   }, {
     key: "handleChange",
     value: function handleChange(event) {
       this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "loadFunction",
+    value: function loadFunction() {
+      this.setState({
+        NumDossier: this.props.numDossier,
+        RefTypeCredit: this.props.creditData.RefTypeCredit
+      });
     }
   }, {
     key: "render",
@@ -13722,6 +13741,51 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
                                   })
                                 })]
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                  style: tableBorder,
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                                    style: labelColor,
+                                    children: "Taux int\xE9r\xEAt"
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                                    className: "input-group input-group-sm ",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                      type: "text",
+                                      style: {
+                                        borderRadius: "0px"
+                                      },
+                                      className: "form-control font-weight-bold",
+                                      name: "TauxInteret",
+                                      value: this.state.TauxInteret,
+                                      onChange: this.handleChange
+                                    })
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                  style: tableBorder,
+                                  children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("label", {
+                                    style: labelColor,
+                                    children: "Nbr Ech\xE9ance"
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                                    className: "input-group input-group-sm ",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                      type: "text",
+                                      style: {
+                                        borderRadius: "0px"
+                                      },
+                                      className: "form-control font-weight-bold",
+                                      name: "NbrTranche",
+                                      value: this.state.NbrTranche ? this.state.NbrTranche : this.state.fetchData && this.state.fetchData.NbrTranche,
+                                      onChange: this.handleChange,
+                                      disabled: this.state.disabled ? "disabled" : ""
+                                    })
+                                  })
+                                })]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
                                     type: "button",
@@ -13733,9 +13797,9 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
                                     },
                                     id: "saveGarantieBtn",
                                     className: "btn btn-primary mt-1",
-                                    onClick: this.handleSaveEcheancier,
+                                    onClick: this.handleMainUpdate,
                                     children: ["Degressif", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
-                                      className: "fas fa-database"
+                                      className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-check")
                                     })]
                                   })
                                 })]
@@ -13763,7 +13827,9 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
         DateEcheance: "",
         DateTombeEcheance: "",
         Interval: "",
-        MontantAccorde: ""
+        MontantAccorde: "",
+        TauxInteret: "",
+        NbrTranche: ""
       }; //updating data from input
 
       if (current_state.Decision && current_state.Decision !== props.creditData.Decision) {
@@ -13791,6 +13857,14 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
       }
 
       if (current_state.MontantAccorde && current_state.MontantAccorde !== props.creditData.MontantAccorde) {
+        return null;
+      }
+
+      if (current_state.TauxInteret && current_state.TauxInteret !== props.creditData.TauxInteret) {
+        return null;
+      }
+
+      if (current_state.NbrTranche && current_state.NbrTranche !== props.creditData.NbrTranche) {
         return null;
       } //updating data from props below
 
@@ -13821,6 +13895,14 @@ var UpdateEcheancier = /*#__PURE__*/function (_React$Component) {
 
       if (current_state.MontantAccorde !== props.creditData.MontantAccorde || current_state.MontantAccorde === props.creditData.MontantAccorde) {
         UpDateEcheancier.MontantAccorde = props.creditData.MontantAccorde;
+      }
+
+      if (current_state.TauxInteret !== props.creditData.TauxInteret || current_state.TauxInteret === props.creditData.TauxInteret) {
+        UpDateEcheancier.TauxInteret = props.creditData.TauxInteret;
+      }
+
+      if (current_state.NbrTranche !== props.creditData.NbrTranche || current_state.NbrTranche === props.creditData.NbrTranche) {
+        UpDateEcheancier.NbrTranche = props.creditData.NbrTranche;
       }
 
       return UpDateEcheancier;
@@ -13945,6 +14027,10 @@ var UpdateMembre = /*#__PURE__*/function (_React$Component) {
           });
         } else {
           console.log(_this.state);
+
+          _this.setState({
+            error_list: response.data.validate_error
+          });
         }
       });
     });
@@ -17479,6 +17565,1350 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
   }]);
 
   return Positionnement;
+}(react__WEBPACK_IMPORTED_MODULE_1__.Component);
+
+
+
+/***/ }),
+
+/***/ "./resources/js/components/RapportCredit.js":
+/*!**************************************************!*\
+  !*** ./resources/js/components/RapportCredit.js ***!
+  \**************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (/* binding */ RapportCredit)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! sweetalert2 */ "./node_modules/sweetalert2/dist/sweetalert2.all.js");
+/* harmony import */ var sweetalert2__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(sweetalert2__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react/jsx-runtime */ "./node_modules/react/jsx-runtime.js");
+function _typeof(obj) { "@babel/helpers - typeof"; return _typeof = "function" == typeof Symbol && "symbol" == typeof Symbol.iterator ? function (obj) { return typeof obj; } : function (obj) { return obj && "function" == typeof Symbol && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }, _typeof(obj); }
+
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); Object.defineProperty(Constructor, "prototype", { writable: false }); return Constructor; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); Object.defineProperty(subClass, "prototype", { writable: false }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _createSuper(Derived) { var hasNativeReflectConstruct = _isNativeReflectConstruct(); return function _createSuperInternal() { var Super = _getPrototypeOf(Derived), result; if (hasNativeReflectConstruct) { var NewTarget = _getPrototypeOf(this).constructor; result = Reflect.construct(Super, arguments, NewTarget); } else { result = Super.apply(this, arguments); } return _possibleConstructorReturn(this, result); }; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } else if (call !== void 0) { throw new TypeError("Derived constructors may only return object or undefined"); } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _isNativeReflectConstruct() { if (typeof Reflect === "undefined" || !Reflect.construct) return false; if (Reflect.construct.sham) return false; if (typeof Proxy === "function") return true; try { Boolean.prototype.valueOf.call(Reflect.construct(Boolean, [], function () {})); return true; } catch (e) { return false; } }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
+
+
+
+var RapportCredit = /*#__PURE__*/function (_React$Component) {
+  _inherits(RapportCredit, _React$Component);
+
+  var _super = _createSuper(RapportCredit);
+
+  function RapportCredit(props) {
+    var _this;
+
+    _classCallCheck(this, RapportCredit);
+
+    _this = _super.call(this, props);
+
+    _defineProperty(_assertThisInitialized(_this), "fetchData", /*#__PURE__*/_asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee() {
+      var res;
+      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/rapport/data");
+
+            case 2:
+              res = _context.sent;
+
+              if (res.data.success == 1) {
+                _this.setState({
+                  getData: res.data.data
+                });
+              }
+
+              console.log(_this.state.getData);
+
+            case 5:
+            case "end":
+              return _context.stop();
+          }
+        }
+      }, _callee);
+    })));
+
+    _defineProperty(_assertThisInitialized(_this), "getEcheancier", /*#__PURE__*/function () {
+      var _ref2 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee2(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context2.next = 5;
+                  break;
+                }
+
+                _context2.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/rapport/echeancier", _this.state);
+
+              case 3:
+                res = _context2.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange echeancier !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    fetchEcheancier: res.data.data,
+                    fetchSommeInteret: res.data.sommeInteret
+                  });
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange echeancier !",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+                console.log(_this.state.fetchEcheancier);
+
+              case 6:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2);
+      }));
+
+      return function (_x) {
+        return _ref2.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "getTableauAmmort", /*#__PURE__*/function () {
+      var _ref3 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee3(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context3.next = 6;
+                  break;
+                }
+
+                _context3.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/rapport/tableau-ammortisement", _this.state);
+
+              case 3:
+                res = _context3.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange tableau Ammortissement  !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    fetchTableauAmortiss: res.data.data,
+                    fetchSommeInteret: res.data.sommeInteret
+                  });
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange Tableau d'Ammortissement !",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+                }
+
+                console.log(_this.state.fetchTableauAmortiss);
+
+              case 6:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }));
+
+      return function (_x2) {
+        return _ref3.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "getBalanceAge", /*#__PURE__*/function () {
+      var _ref4 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee4(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee4$(_context4) {
+          while (1) {
+            switch (_context4.prev = _context4.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context4.next = 5;
+                  break;
+                }
+
+                _context4.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/rapport/balance-agee", _this.state);
+
+              case 3:
+                res = _context4.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange Balance Agée !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+
+                  _this.setState({
+                    fetchBalanceAgee: res.data.data
+                  });
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Affichange echeancier !",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context4.stop();
+            }
+          }
+        }, _callee4);
+      }));
+
+      return function (_x3) {
+        return _ref4.apply(this, arguments);
+      };
+    }());
+
+    _this.state = {
+      disabled: true,
+      isloading: true,
+      loading: false,
+      getData: null,
+      fetchEcheancier: null,
+      fetchTableauAmortiss: null,
+      fetchBalanceAgee: null,
+      fetchSommeInteret: null,
+      Echeancier: "",
+      // dataToSearch1: "",
+      // dataToSearch2: "",
+      NumCompteEpargne: "",
+      NumCompteCredit: "",
+      NumDossier: ""
+    };
+    _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
+    _this.fetchData = _this.fetchData.bind(_assertThisInitialized(_this));
+    _this.getEcheancier = _this.getEcheancier.bind(_assertThisInitialized(_this));
+    _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
+    _this.getBalanceAge = _this.getBalanceAge.bind(_assertThisInitialized(_this));
+    _this.PrintEcheancier = _this.PrintEcheancier.bind(_assertThisInitialized(_this));
+    _this.getTableauAmmort = _this.getTableauAmmort.bind(_assertThisInitialized(_this));
+    _this.PrintTableauAmmo = _this.PrintTableauAmmo.bind(_assertThisInitialized(_this));
+    return _this;
+  }
+
+  _createClass(RapportCredit, [{
+    key: "componentDidMount",
+    value: function componentDidMount() {
+      var _this2 = this;
+
+      setTimeout(function () {
+        _this2.setState({
+          isloading: false
+        });
+      }, 1000);
+      this.fetchData();
+    } //get data in input
+
+  }, {
+    key: "handleChange",
+    value: function handleChange(event) {
+      this.setState(_defineProperty({}, event.target.name, event.target.value));
+    }
+  }, {
+    key: "PrintEcheancier",
+    value: function PrintEcheancier(e) {
+      e.preventDefault();
+      var printableElements = document.getElementById("printmeEcheancier").innerHTML;
+      var orderHtml = "<html ><head><title></title>  </head><body>" + printableElements + "</body></html>";
+      var oldPage = document.body.innerHTML;
+      document.body.innerHTML = orderHtml;
+      window.print();
+      document.body.innerHTML = oldPage;
+    }
+  }, {
+    key: "PrintTableauAmmo",
+    value: function PrintTableauAmmo(e) {
+      e.preventDefault();
+      var printableElements = document.getElementById("print-tableau-ammortis").innerHTML;
+      var orderHtml = "<html ><head><title></title>  </head><body>" + printableElements + "</body></html>";
+      var oldPage = document.body.innerHTML;
+      document.body.innerHTML = orderHtml;
+      window.print();
+      document.body.innerHTML = oldPage;
+    } //to refresh
+
+  }, {
+    key: "actualiser",
+    value: function actualiser() {
+      location.reload();
+    }
+  }, {
+    key: "render",
+    value: function render() {
+      var myspinner = _defineProperty({
+        margin: "5px auto",
+        width: "3rem",
+        height: "3rem",
+        marginTop: "180px",
+        border: "0px"
+      }, "height", "200px");
+
+      var compteur = 0;
+
+      var dateParser = function dateParser(num) {
+        var options = {
+          // weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        };
+        var timestamp = Date.parse(num);
+        var date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+        return date.toString();
+      }; //PERMET DE FORMATER LES CHIFFRES
+
+
+      var numberFormat = function numberFormat() {
+        var number = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
+        var locales = [//undefined,  // Your own browser
+        "en-US" // United States
+        //'de-DE',    // Germany
+        //'ru-RU',    // Russia
+        //'hi-IN',    // India
+        ];
+        var opts = {
+          minimumFractionDigits: 2
+        };
+        var index = 3;
+        var nombre = number.toLocaleString(locales[index], opts);
+
+        if (nombre === isNaN) {
+          nombre = 0.0;
+        } else {
+          return nombre;
+        }
+      };
+
+      return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+        children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          id: "rowspinner",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+            className: "myspinner",
+            style: myspinner,
+            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              className: "spinner-border",
+              role: "status"
+            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("span", {
+              style: {
+                marginLeft: "-20px"
+              },
+              children: "Chargement..."
+            })]
+          })
+        }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+          className: "row",
+          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+            className: "col-lg-12 card",
+            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+              className: "card card-default",
+              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-header",
+                style: {
+                  background: "#DCDCDC",
+                  textAlign: "center",
+                  color: "#fff",
+                  marginTop: "5px"
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                  style: {
+                    height: "30px",
+                    "float": "right",
+                    background: "green",
+                    border: "0px",
+                    padding: "3px",
+                    marginLeft: "5px"
+                  },
+                  onClick: this.actualiser,
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                    className: "fas fa-sync"
+                  }), " ", "Actualiser", " "]
+                })
+              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                className: "card-body",
+                style: {
+                  background: "#dcdcdc"
+                },
+                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "row",
+                  style: {
+                    padding: "10px",
+                    border: "2px solid #fff"
+                  },
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "card-body",
+                    style: {
+                      background: "#dcdcdc"
+                    },
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("form", {
+                      method: "POST",
+                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                        className: "row",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                                  className: "input-group input-group-sm ",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                    style: {
+                                      border: "0px"
+                                    },
+                                    type: "text",
+                                    className: "form-control",
+                                    placeholder: "N\xB0 Dossier",
+                                    name: "NumDossier",
+                                    value: this.state.NumDossier,
+                                    onChange: this.handleChange
+                                  })
+                                })
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                  className: "form-check",
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                    className: "form-check-input",
+                                    type: "radio",
+                                    name: "flexRadioDefault",
+                                    id: "flexRadioDefault1",
+                                    onChange: this.getEcheancier,
+                                    value: this.state.Echeancier
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("label", {
+                                    "class": "form-check-label",
+                                    "for": "flexRadioDefault1",
+                                    children: [" ", "Ech\xE9ancier simple", " "]
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                  "class": "form-check",
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                    "class": "form-check-input",
+                                    type: "radio",
+                                    name: "flexRadioDefault",
+                                    id: "flexRadioDefault2",
+                                    onChange: this.getTableauAmmort
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("label", {
+                                    className: "form-check-label",
+                                    "for": "flexRadioDefault2",
+                                    children: [" ", "Tableau d'amortissement"]
+                                  })]
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                                  "class": "form-check",
+                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                    "class": "form-check-input",
+                                    type: "radio",
+                                    name: "flexRadioDefault",
+                                    id: "flexRadioDefault3",
+                                    onChange: this.getBalanceAge
+                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("label", {
+                                    className: "form-check-label",
+                                    "for": "flexRadioDefault3",
+                                    children: [" ", "Balance Ag\xE9e"]
+                                  })]
+                                })]
+                              })
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                          className: "col-md-9",
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("ul", {
+                            className: "nav nav-tabs",
+                            id: "myTab",
+                            role: "tablist",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                              className: "nav-item",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                                className: "nav-link active",
+                                id: "home-tab",
+                                "data-toggle": "tab",
+                                href: "#home",
+                                role: "tab",
+                                "aria-controls": "home",
+                                "aria-selected": "true",
+                                children: "Recherche par num Dossier"
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                              className: "nav-item",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                                className: "nav-link",
+                                id: "profile-tab",
+                                "data-toggle": "tab",
+                                href: "#profile",
+                                role: "tab",
+                                "aria-controls": "profile",
+                                "aria-selected": "false",
+                                children: "Recherche par num compte Cr\xE9dit"
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("li", {
+                              className: "nav-item",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("a", {
+                                className: "nav-link",
+                                id: "contact-tab",
+                                "data-toggle": "tab",
+                                href: "#contact",
+                                role: "tab",
+                                "aria-controls": "contact",
+                                "aria-selected": "false",
+                                children: "Recherche par num compte Epargne"
+                              })
+                            })]
+                          }), this.state.getData && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                            className: "tab-content",
+                            id: "myTabContent",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              className: "tab-pane fade show active mt-2",
+                              id: "home",
+                              role: "tabpanel",
+                              "aria-labelledby": "home-tab",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                      list: "NumDossier",
+                                      name: "NumDossier",
+                                      style: _defineProperty({
+                                        height: "37px",
+                                        borderRadius: " 0px",
+                                        border: "0px"
+                                      }, "border", "2px solid green"),
+                                      required: "required",
+                                      autofocus: "autofocus",
+                                      placeholder: "Saisir num de doss...",
+                                      value: this.state.NumDossier,
+                                      onChange: this.handleChange
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("datalist", {
+                                      id: "NumDossier",
+                                      children: this.state.getData.map(function (data) {
+                                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                          value: data.NumDossier
+                                        });
+                                      })
+                                    })]
+                                  })
+                                })
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              className: "tab-pane fade mt-2",
+                              id: "profile",
+                              role: "tabpanel",
+                              "aria-labelledby": "profile-tab",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                      list: "NumCompteCredit",
+                                      name: "NumCompteCredit",
+                                      style: _defineProperty({
+                                        height: "37px",
+                                        borderRadius: " 0px",
+                                        border: "3px"
+                                      }, "border", "2px solid #000"),
+                                      required: "required",
+                                      autofocus: "autofocus",
+                                      placeholder: "Saisir compte...",
+                                      value: this.state.NumCompteCredit,
+                                      onChange: this.handleChange
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("datalist", {
+                                      id: "NumCompteCredit",
+                                      children: this.state.getData.map(function (data) {
+                                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                          value: data.NumCompteCredit
+                                        });
+                                      })
+                                    })]
+                                  })
+                                })
+                              })
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              className: "tab-pane fade mt-2",
+                              id: "contact",
+                              role: "tabpanel",
+                              "aria-labelledby": "contact-tab",
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tr", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("input", {
+                                      list: "NumCompteEpargne",
+                                      name: "NumCompteEpargne",
+                                      style: _defineProperty({
+                                        height: "37px",
+                                        borderRadius: " 0px",
+                                        border: "0px"
+                                      }, "border", "2px solid orange"),
+                                      required: "required",
+                                      autofocus: "autofocus",
+                                      placeholder: "Saisir un compte...",
+                                      value: this.state.NumCompteEpargne,
+                                      onChange: this.handleChange
+                                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("datalist", {
+                                      id: "NumCompteEpargne",
+                                      children: this.state.getData.map(function (data) {
+                                        return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("option", {
+                                          value: data.NumCompteEpargne
+                                        });
+                                      })
+                                    })]
+                                  })
+                                })
+                              })
+                            })]
+                          })]
+                        })]
+                      })
+                    })
+                  })
+                })
+              }), this.state.fetchEcheancier && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
+                  "class": "solid"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "row",
+                  id: "printmeEcheancier",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                    className: "card",
+                    style: {
+                      margin: "0 auto",
+                      width: "90%"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      style: {
+                        margin: "0 auto",
+                        width: "90%"
+                      },
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        style: {
+                          textAlign: "center"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
+                            children: "ACTION POUR LA PAIX L'EDUCATION ET LE DEFENSE DES DROITS HUMAINS"
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                        id: "table",
+                        "class": "table",
+                        align: "center",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                              style: {
+                                width: "30%",
+                                height: "90px"
+                              },
+                              src: "uploads/membres/default.jpg"
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: {
+                              border: "0px"
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                              style: {
+                                textAlign: "center"
+                              },
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+                                children: "\xABA.P.E.D.H\xBB"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+                                children: ["Goma RDC", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "T\xE9l\xE9phone: +243971926713", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Courriel: info@apedh-assoc.org", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {})]
+                              })]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            align: "right",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              style: {
+                                marginLeft: "0px"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                                    style: {
+                                      width: "30%",
+                                      height: " 90px"
+                                    },
+                                    src: "uploads/membres/default.jpg"
+                                  })
+                                })
+                              })
+                            })
+                          })]
+                        })
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "row title-echeancier",
+                      style: {
+                        margin: "0px auto",
+                        marginTop: "50px"
+                      },
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                        style: {
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff"
+                        },
+                        children: "ECHEANCIER DE REMBOURSEMENT"
+                      }), " "]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      "class": "card-body",
+                      style: {
+                        marginLeft: "50px",
+                        marginRight: "50px",
+                        marginTop: "50px"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                        className: "row",
+                        style: {
+                          width: "100%",
+                          margin: "0px auto",
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff",
+                          border: "3px solid #444",
+                          borderRadius: "10px"
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-4",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Intitil\xE9 :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].NomCompte
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "C. epargne :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].NumCompteEpargne
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Type cr\xE9dit :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].RefTypeCredit
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Dur\xE9e :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].Duree
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Montant :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].MontantAccorde
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "N\xB0 Dossier :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.NumDossier
+                              })]
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-4",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "N\xB0 Cr\xE9dit :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].NumDemande
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Date octroi :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].DateOctroi
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "C. cr\xE9dit :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchEcheancier[0].NumCompteCredit
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Total int\xE9r\xEAt :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: numberFormat(parseInt(this.state.fetchSommeInteret.sommeInteret) + parseInt(this.state.fetchEcheancier[0].InteretPrecompte))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Total Capital :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: numberFormat(parseInt(this.state.fetchEcheancier[0].MontantAccorde))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Total \xE0 payer :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  background: "green",
+                                  fontSize: "20px"
+                                },
+                                children: numberFormat(parseInt(this.state.fetchEcheancier[0].InteretPrecompte) + parseInt(this.state.fetchEcheancier[0].MontantAccorde) + parseInt(this.state.fetchSommeInteret.sommeInteret))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Int\xE9r\xEAt prec."
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: parseInt(this.state.fetchEcheancier[0].InteretPrecompte)
+                              })]
+                            })]
+                          })
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                        className: "table table-bordered table-sm",
+                        style: {
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff"
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("thead", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "N\xB0"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "Date D'\xE9ch\xE9ance"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "Capital"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "Int\xEAret"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "C. Ammorti"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "Tot \xE0 payer"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "C. restant d\xFB"
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
+                              scope: "col",
+                              children: "Epargne"
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("tbody", {
+                          children: this.state.fetchEcheancier.map(function (res, index) {
+                            return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: compteur++
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", res.DateTranch, " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.Capital)), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.Interet)), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.CapAmmorti)), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.TotalAp)), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.Cumul)), " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", numberFormat(parseInt(res.Epargne)), " "]
+                              })]
+                            }, index);
+                          })
+                        })]
+                      })]
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "row mb-1",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-file-excel"
+                        }), " ", "Exporter"]
+                      }), " ", "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-file-word"
+                        }), " ", "Export"]
+                      }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        onClick: this.PrintEcheancier,
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-print"
+                        }), " ", "Imprimer"]
+                      })]
+                    })
+                  })]
+                })]
+              }), this.state.fetchTableauAmortiss && /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
+                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("hr", {
+                  "class": "solid"
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                  className: "row",
+                  id: "print-tableau-ammortis",
+                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                    className: "card",
+                    style: {
+                      margin: "5px",
+                      width: "100%"
+                    },
+                    children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      style: {
+                        margin: "0 auto",
+                        width: "90%"
+                      },
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                        style: {
+                          textAlign: "center"
+                        },
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
+                            children: "ACTION POUR LA PAIX L'EDUCATION ET LE DEFENSE DES DROITS HUMAINS"
+                          })
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("table", {
+                        id: "table",
+                        "class": "table",
+                        align: "center",
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                            children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                              style: {
+                                width: "30%",
+                                height: "90px"
+                              },
+                              src: "uploads/membres/default.jpg"
+                            })]
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            style: {
+                              border: "0px"
+                            },
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                              style: {
+                                textAlign: "center"
+                              },
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
+                                children: "\xABA.P.E.D.H\xBB"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("p", {
+                                children: ["Goma RDC", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "T\xE9l\xE9phone: +243971926713", " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {}), "Courriel: info@apedh-assoc.org", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("br", {})]
+                              })]
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            align: "right",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                              style: {
+                                marginLeft: "0px"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h4", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("b", {
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("img", {
+                                    style: {
+                                      width: "30%",
+                                      height: " 90px"
+                                    },
+                                    src: "uploads/membres/default.jpg"
+                                  })
+                                })
+                              })
+                            })
+                          })]
+                        })
+                      })]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      className: "row title-echeancier",
+                      style: {
+                        margin: "0px auto",
+                        marginTop: "50px"
+                      },
+                      children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("h4", {
+                        style: {
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff"
+                        },
+                        children: ["TABLEAU D'AMMORTISSEMENT DE CREDIT AU", " ", dateParser(new Date())]
+                      }), " "]
+                    }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                      "class": "card-body",
+                      style: {
+                        marginLeft: "1px",
+                        marginRight: "5px",
+                        marginTop: "5px"
+                      },
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                        className: "row",
+                        style: {
+                          width: "100%",
+                          margin: "0px auto",
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff",
+                          border: "3px solid #444",
+                          borderRadius: "10px"
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Type cr\xE9dit :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].RefTypeCredit
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "N\xB0 COMPTE :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].NumCompteEpargne
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: ["Mode remb. :", " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].ModeRemboursement
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Gestionnaire :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].Gestionnaire
+                              })]
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: ["Dur\xE9e en jour :", " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].Duree
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: ["Nbre tranche :", " "]
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: this.state.fetchTableauAmortiss[0].NbrTranche
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Date Octroi :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", this.state.fetchTableauAmortiss[0].DateOctroi]
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Date Ech\xE9ance :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", this.state.fetchTableauAmortiss[0].DateTombeEcheance]
+                              })]
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Type Mensualit\xE9 :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                  children: [" ", this.state.fetchTableauAmortiss[0].ModeRemboursement]
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Taux d'int\xE9r\xEAt :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                  children: [" ", this.state.fetchTableauAmortiss[0].TauxInteret]
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Int\xE9r\xEAt rembours\xE9 :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                  children: [" ", isNaN(numberFormat(parseInt(this.state.fetchSommeInteret.sommeInteret))) ? "0.00" : numberFormat(parseInt(this.state.fetchSommeInteret.sommeInteret))]
+                                })
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Int\xE9r\xEAt en Retard :"
+                              }), parseInt(this.state.fetchTableauAmortiss[0].InteretRetardIn) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  background: "red",
+                                  color: "#fff"
+                                },
+                                children: isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].InteretRetardIn))) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].InteretRetardIn))
+                              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "0.00"
+                              })]
+                            })]
+                          })
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                          className: "col-md-3",
+                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                            className: "myhead-table",
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Montant Accord\xE9 :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: numberFormat(parseInt(this.state.fetchTableauAmortiss[0].MontantAccorde))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Capital Rembours\xE9 :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                                children: [" ", isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital))) ? "0.00" : null]
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Capital Restant d\xFB :"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRestant))) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRestant))
+                              })]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "Capital en Retard :"
+                              }), parseInt(this.state.fetchTableauAmortiss[0].CapitalRetard) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                style: {
+                                  background: "red",
+                                  color: "#fff"
+                                },
+                                children: isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRetard))) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRetard))
+                              }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                                children: "0.00"
+                              })]
+                            })]
+                          })
+                        })]
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
+                        className: "tableStyle",
+                        style: {
+                          background: "#444",
+                          padding: "5px",
+                          color: "#fff"
+                        },
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            rowspan: "2",
+                            children: "N\xB0"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            rowspan: "2",
+                            children: "Date Tranche"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            colspan: "4",
+                            children: "ECHEANCIER PREVISIONNEL"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            colspan: "3",
+                            children: "REMBOURS. EFFECTIFS"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            colspan: "3",
+                            children: "REMBOURS. EN RETARD"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            rowspan: "2",
+                            children: "TOT. EN RETARD"
+                          })]
+                        }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Capital"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Int\xE9r\xEAt"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Epargne"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "P\xE9nalit\xE9s"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Capital"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Int\xE9r\xEAt"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Epargne"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Capital"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Int\xE9r\xEAt"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            children: "Epargne"
+                          })]
+                        }), this.state.fetchTableauAmortiss.map(function (res, index) {
+                          return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
+                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: compteur++
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
+                              children: [" ", res.DateTranch, " "]
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: numberFormat(parseInt(res.CapAmmorti))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: numberFormat(parseInt(res.Interet))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: numberFormat(parseInt(res.Epargne))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: numberFormat(parseInt(res.Penalite))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: isNaN(numberFormat(parseInt(res.CapitalPaye))) ? "0.00" : numberFormat(parseInt(res.CapitalPaye))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: isNaN(numberFormat(parseInt(res.InteretPaye))) ? "0.00" : numberFormat(parseInt(res.InteretPaye))
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: isNaN(numberFormat(parseInt(res.EpargnePaye))) ? "0.00" : numberFormat(parseInt(res.EpargnePaye))
+                            }), parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "red",
+                                color: "#fff"
+                              },
+                              children: isNaN(numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye))) ? " 0.00" : numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye))
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: "0.00"
+                            }), parseInt(res.Interet) - parseInt(res.InteretPaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "red",
+                                color: "#fff"
+                              },
+                              children: isNaN(numberFormat(parseInt(res.Interet) - parseInt(res.InteretPaye))) ? "0.00" : numberFormat(parseInt(res.Interet) - parseInt(res.InteretPaye))
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: "0.00"
+                            }), parseInt(res.Epargne) - parseInt(res.EpargnePaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "red",
+                                color: "#fff"
+                              },
+                              children: isNaN(numberFormat(parseInt(res.Epargne) - parseInt(res.EpargnePaye))) ? "0.00" : numberFormat(parseInt(res.Epargne) - parseInt(res.EpargnePaye))
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: "0.00"
+                            }), parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "red",
+                                color: "#fff"
+                              },
+                              children: isNaN(numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye))) ? "0.00" : numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye))
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: "0.00"
+                            })]
+                          });
+                        })]
+                      })]
+                    })]
+                  })
+                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("div", {
+                  className: "row mb-1",
+                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6"
+                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
+                    className: "col-md-6",
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("span", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-file-excel"
+                        }), " ", "Exporter"]
+                      }), " ", "", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-file-word"
+                        }), " ", "Export"]
+                      }), " ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("button", {
+                        onClick: this.PrintTableauAmmo,
+                        type: "submit",
+                        className: "btn btn-success",
+                        children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("i", {
+                          className: "fas fa-print"
+                        }), " ", "Imprimer"]
+                      })]
+                    })
+                  })]
+                })]
+              })]
+            })
+          })
+        })
+      });
+    }
+  }]);
+
+  return RapportCredit;
 }(react__WEBPACK_IMPORTED_MODULE_1__.Component);
 
 
@@ -21230,7 +22660,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
               case 0:
                 e.preventDefault();
                 _context3.next = 3;
-                return axios__WEBPACK_IMPORTED_MODULE_2___default().get("/credit/search/" + _this.state.compteToSearch);
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/search", _this.state);
 
               case 3:
                 res = _context3.sent;
@@ -21265,7 +22695,12 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                 _this.setState({
                   NumDossier: _this.state.fetchData.NumDossier,
                   RefTypeCredit: _this.state.fetchData.RefTypeCredit,
-                  InteretPrecompte: parseInt(_this.state.MontantAccorde * 7) / 100
+                  NbrTranche: _this.state.fetchData.NbrTranche,
+                  // InteretPrecompte:
+                  //     parseInt(
+                  //         this.state.MontantAccorde * this.state.fetchData.TauxInteret
+                  //     ) / 100,
+                  TauxInteret: _this.state.fetchData.TauxInteret
                 });
 
                 console.log(NewCreditAccount);
@@ -21325,6 +22760,11 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                   _this.setState({
                     loading: false
                   });
+                } else {
+                  _this.setState({
+                    error_list: res.data.validate_error,
+                    loading: false
+                  });
                 }
 
                 console.log(_this.state);
@@ -21339,6 +22779,126 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
 
       return function (_x4) {
         return _ref4.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "AccordCredit", /*#__PURE__*/function () {
+      var _ref5 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee5(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee5$(_context5) {
+          while (1) {
+            switch (_context5.prev = _context5.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context5.next = 5;
+                  break;
+                }
+
+                _context5.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/accord", _this.state);
+
+              case 3:
+                res = _context5.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Octroi de crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context5.stop();
+            }
+          }
+        }, _callee5);
+      }));
+
+      return function (_x5) {
+        return _ref5.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "decaisserCredit", /*#__PURE__*/function () {
+      var _ref6 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee6(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee6$(_context6) {
+          while (1) {
+            switch (_context6.prev = _context6.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context6.next = 5;
+                  break;
+                }
+
+                _context6.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/decaissement", _this.state);
+
+              case 3:
+                res = _context6.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Octroi de crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context6.stop();
+            }
+          }
+        }, _callee6);
+      }));
+
+      return function (_x6) {
+        return _ref6.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "ClotureCredit", /*#__PURE__*/function () {
+      var _ref7 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee7(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee7$(_context7) {
+          while (1) {
+            switch (_context7.prev = _context7.next) {
+              case 0:
+                if (!e.target.checked) {
+                  _context7.next = 5;
+                  break;
+                }
+
+                _context7.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/cloture", _this.state);
+
+              case 3:
+                res = _context7.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Clôture du crédit !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context7.stop();
+            }
+          }
+        }, _callee7);
+      }));
+
+      return function (_x7) {
+        return _ref7.apply(this, arguments);
       };
     }());
 
@@ -21375,6 +22935,8 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
     _this.handleSearch = _this.handleSearch.bind(_assertThisInitialized(_this));
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
     _this.handleSaveEcheancier = _this.handleSaveEcheancier.bind(_assertThisInitialized(_this));
+    _this.AccordCredit = _this.AccordCredit.bind(_assertThisInitialized(_this));
+    _this.decaisserCredit = _this.decaisserCredit.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -21495,12 +23057,44 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                   },
                   children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                     className: "col-md-2",
-                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
+                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
                       style: {
                         padding: "10px",
                         border: "2px solid #fff"
                       },
-                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                      children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
+                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("td", {
+                          children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                            className: "input-group input-group-sm ",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
+                              type: "text",
+                              style: {
+                                border: "0px"
+                              },
+                              className: "font-weight-bold",
+                              name: "CodeMonnaie",
+                              value: this.state.CodeMonnaie ? this.state.CodeMonnaie : this.state.fetchData && this.state.fetchData.CodeMonnaie,
+                              onChange: this.handleChange // disabled={
+                              //     this.state
+                              //         .disabled
+                              //         ? "disabled"
+                              //         : ""
+                              // }
+                              ,
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+                                value: "",
+                                children: "D\xE9vise"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+                                value: "CDF",
+                                children: "CDF"
+                              }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
+                                value: "USD",
+                                children: "USD"
+                              })]
+                            })
+                          })]
+                        })
+                      }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                         className: "input-group input-group-sm ",
                         children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
                           type: "text",
@@ -21525,7 +23119,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                             })
                           })
                         })]
-                      })
+                      })]
                     })
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                     className: "col-md-2",
@@ -22022,39 +23616,6 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                               style: tableBorder,
                               children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
                                 style: labelColor,
-                                children: "Monnaie"
-                              })]
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
-                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                                className: "input-group input-group-sm ",
-                                children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("select", {
-                                  type: "text",
-                                  style: {
-                                    border: "0px"
-                                  },
-                                  className: "font-weight-bold",
-                                  name: "CodeMonnaie",
-                                  value: this.state.CodeMonnaie ? this.state.CodeMonnaie : this.state.fetchData && this.state.fetchData.CodeMonnaie,
-                                  onChange: this.handleChange,
-                                  disabled: this.state.disabled ? "disabled" : "",
-                                  children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
-                                    value: "",
-                                    children: "S\xE9lectionnez"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
-                                    value: "CDF",
-                                    children: "CDF"
-                                  }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("option", {
-                                    value: "USD",
-                                    children: "USD"
-                                  })]
-                                })
-                              })
-                            })]
-                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("tr", {
-                            children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("td", {
-                              style: tableBorder,
-                              children: [" ", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
-                                style: labelColor,
                                 children: "Taux int\xE9r\xEAt"
                               })]
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
@@ -22513,7 +24074,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
                             className: "nav-item",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
-                              className: "nav-link active",
+                              className: "nav-link",
                               id: "garantie-tab",
                               "data-toggle": "tab",
                               href: "#garantie",
@@ -22527,7 +24088,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
                             className: "nav-item",
                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
-                              className: "nav-link",
+                              className: "nav-link active",
                               id: "echeancier-tab",
                               "data-toggle": "tab",
                               href: "#echeancier",
@@ -22580,12 +24141,26 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                 className: "fas fa-plus"
                               }), " ", "Cl\xF4ture & Extourne"]
                             })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("li", {
+                            className: "nav-item",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("a", {
+                              className: "nav-link",
+                              id: "action-tab",
+                              "data-toggle": "tab",
+                              href: "#action",
+                              role: "tab",
+                              "aria-controls": "action",
+                              "aria-selected": "true",
+                              children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                                className: "fas fa-plus"
+                              }), " ", "Action"]
+                            })
                           })]
                         }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
                           className: "tab-content",
                           id: "myTabContent",
                           children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                            className: "tab-pane fade show active mt-2 col-md-12 ",
+                            className: "tab-pane fade  mt-2 col-md-12 ",
                             id: "garantie",
                             role: "tabpanel",
                             "aria-labelledby": "garantie-tab",
@@ -22697,7 +24272,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                               })
                             })
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
-                            className: "tab-pane fade mt-2 col-md-12 ",
+                            className: "tab-pane fade show active mt-2 col-md-12 ",
                             id: "echeancier",
                             role: "tabpanel",
                             "aria-labelledby": "echeancier-tab",
@@ -22855,7 +24430,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                         style: {
                                                           borderRadius: "0px"
                                                         },
-                                                        className: "form-control font-weight-bold",
+                                                        className: "form-control ".concat(this.state.error_list && this.state.error_list.MontantAccorde && "is-invalid"),
                                                         name: "MontantAccorde",
                                                         value: this.state.MontantAccorde ? this.state.MontantAccorde : this.state.fetchData && this.state.fetchData.MontantAccorde,
                                                         onChange: this.handleChange
@@ -22930,7 +24505,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                         },
                                                         className: "form-control font-weight-bold",
                                                         name: "InteretPrecompte",
-                                                        value: parseInt(this.state.fetchData.MontantAccorde * 7) / 100,
+                                                        value: parseInt(this.state.fetchData.MontantAccorde * this.state.fetchData.TauxInteret) / 100,
                                                         onChange: this.handleChange,
                                                         disabled: true
                                                       }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
@@ -22955,7 +24530,22 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("table", {
                                                 children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
                                                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
-                                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+                                                    children: this.state.fetchData && parseInt(this.state.fetchData.MontantAccorde) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
+                                                      type: "button",
+                                                      style: {
+                                                        borderRadius: "0px",
+                                                        width: "100%",
+                                                        height: "30px",
+                                                        fontSize: "12px"
+                                                      },
+                                                      id: "saveEcheancierBtn",
+                                                      className: "btn btn-primary",
+                                                      onClick: this.handleSaveEcheancier,
+                                                      disabled: true,
+                                                      children: ["Degressif", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                                                        className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-check")
+                                                      }), " "]
+                                                    }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
                                                       type: "button",
                                                       style: {
                                                         borderRadius: "0px",
@@ -22967,7 +24557,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                       className: "btn btn-primary",
                                                       onClick: this.handleSaveEcheancier,
                                                       children: ["Degressif", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
-                                                        className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-database")
+                                                        className: "".concat(this.state.loading ? "spinner-border spinner-border-sm" : "fas fa-check")
                                                       }), " "]
                                                     })
                                                   })
@@ -23320,8 +24910,8 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                       className: "row",
                                       children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
                                         className: "col-md-1",
-                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
-                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("form", {
+                                          children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
                                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
                                               style: tableBorder,
                                               children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
@@ -23335,7 +24925,10 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                 }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
                                                   className: "form-check-input",
                                                   type: "checkbox",
-                                                  id: "cloturer"
+                                                  id: "cloturer",
+                                                  name: "Cloture",
+                                                  value: this.state.Cloture ? this.state.Cloture : this.state.fetchData && this.state.fetchData.Cloture,
+                                                  onChange: this.ClotureCredit
                                                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
                                                   className: "form-check-label",
                                                   "for": "cloturer",
@@ -23343,21 +24936,95 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                 })]
                                               })
                                             })
+                                          })
+                                        })
+                                      })
+                                    })
+                                  })
+                                })]
+                              })
+                            })
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                            className: "tab-pane fade mt-2 col-md-12 ",
+                            id: "action",
+                            role: "tabpanel",
+                            "aria-labelledby": "action-tab",
+                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                              className: "row",
+                              style: {
+                                padding: "10px",
+                                border: "2px solid #fff"
+                              },
+                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                                className: "col-lg-12",
+                                children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                  className: "card card-default",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                    className: "card-header",
+                                    style: {
+                                      background: "#DCDCDC",
+                                      textAlign: "center",
+                                      color: "#fff"
+                                    }
+                                  })
+                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                  className: "row",
+                                  children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                    className: "col-md-12",
+                                    children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                      className: "row",
+                                      children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("div", {
+                                        className: "col-md-1",
+                                        children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("form", {
+                                          children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
+                                            children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
+                                              style: tableBorder,
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                                                className: "form-check form-switch",
+                                                children: [this.state.fetchData && this.state.fetchData.Accorde ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                                                  className: "form-check-input",
+                                                  type: "checkbox",
+                                                  id: "Accorde",
+                                                  name: "Accorde",
+                                                  checked: true,
+                                                  disabled: true
+                                                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                                                  className: "form-check-input",
+                                                  type: "checkbox",
+                                                  id: "Accorde",
+                                                  name: "Accorde",
+                                                  value: this.state.Accorde ? this.state.Accorde : this.state.fetchData && this.state.fetchData.Accorde,
+                                                  onChange: this.AccordCredit
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+                                                  className: "form-check-label",
+                                                  "for": "Accorde",
+                                                  children: "Accorder"
+                                                })]
+                                              })
+                                            })
                                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("tr", {
                                             children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("td", {
-                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("button", {
-                                                type: "button",
-                                                style: {
-                                                  borderRadius: "0px",
-                                                  width: "100%",
-                                                  height: "30px",
-                                                  fontSize: "12px"
-                                                },
-                                                id: "SaveClotureDossierBtn",
-                                                className: "btn btn-primary ",
-                                                onClick: this.handleSaveClotureDossier,
-                                                children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
-                                                  className: "fas fa-check"
+                                              style: tableBorder,
+                                              children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsxs)("div", {
+                                                className: "form-check form-switch",
+                                                children: [this.state.fetchData && this.state.fetchData.Octroye ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                                                  className: "form-check-input",
+                                                  type: "checkbox",
+                                                  id: "Octroye",
+                                                  name: "Octroye",
+                                                  checked: true,
+                                                  disabled: true
+                                                }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("input", {
+                                                  className: "form-check-input",
+                                                  type: "checkbox",
+                                                  id: "Octroye",
+                                                  name: "",
+                                                  value: this.state.Octroye ? this.state.Octroye : this.state.fetchData && this.state.fetchData.Octroye,
+                                                  onChange: this.decaisserCredit
+                                                }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("label", {
+                                                  className: "form-check-label",
+                                                  "for": "Octroye",
+                                                  children: "Decaisser"
                                                 })]
                                               })
                                             })
@@ -23648,7 +25315,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, ".tableDepotEspece{\r\n    background: #dcdcdc;\r\n      color: #0000;\r\n      padding: 8px;\r\n      margin: 3px;\r\n      border: 2px solid #fff;\r\n      text-align: center;\r\n      width: 100%;\r\n   }\r\n   .tableDepotEspece tr,td{\r\n    border: 2px solid #FFF;\r\n    padding: 5px;\r\n   }\r\n   .tableDepotEspece{\r\n    background: #dcdcdc;\r\n      color: #000;\r\n      padding: 8px;\r\n      margin: 3px;\r\n      border: 2px solid #fff;\r\n      text-align: center;\r\n      width: 100%; \r\n   }\r\n\r\n   .tableDepotEspece tr,td{\r\n    border: 2px solid #fff;\r\n    padding: 0px;\r\n\r\n   }\r\n\r\n\r\n   .positionnement-table-div,.operation-recente-div,.billetage-div{\r\n    overflow-y: scroll;\r\n    height: 300px;\r\n   }\r\n   .appro-table-div{\r\n    overflow-y: scroll;\r\n    height: auto;\r\n   }\r\n   table td {\r\n     border: 1px solid #fff;\r\n     padding: 2px;\r\n   }\r\n   form table td {\r\n    border: 0px;\r\n   padding: 0px;\r\n  }", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, ".tableDepotEspece{\r\n    background: #dcdcdc;\r\n      color: #0000;\r\n      padding: 8px;\r\n      margin: 3px;\r\n      border: 2px solid #fff;\r\n      text-align: center;\r\n      width: 100%;\r\n   }\r\n   .tableDepotEspece tr,td{\r\n    border: 2px solid #FFF;\r\n    padding: 5px;\r\n   }\r\n   .tableDepotEspece{\r\n    background: #dcdcdc;\r\n      color: #000;\r\n      padding: 8px;\r\n      margin: 3px;\r\n      border: 2px solid #fff;\r\n      text-align: center;\r\n      width: 100%; \r\n   }\r\n\r\n   .tableDepotEspece tr,td{\r\n    border: 2px solid #fff;\r\n    padding: 0px;\r\n\r\n   }\r\n\r\n\r\n   .positionnement-table-div,.operation-recente-div,.billetage-div{\r\n    overflow-y: scroll;\r\n    height: 300px;\r\n   }\r\n   .appro-table-div{\r\n    overflow-y: scroll;\r\n    height: auto;\r\n   }\r\n   table td {\r\n     border: 1px solid #fff;\r\n     padding: 2px;\r\n   }\r\n   form table td {\r\n    border: 0px;\r\n   padding: 0px;\r\n  }\r\n\r\n  .myhead-table td{\r\n   border:0px;\r\n   color: #fff;\r\n   font-weight: bold;\r\n   \r\n  }\r\n\r\n  ", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

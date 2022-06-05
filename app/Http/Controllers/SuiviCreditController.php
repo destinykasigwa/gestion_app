@@ -3,11 +3,16 @@
 namespace App\Http\Controllers;
 
 use App\Models\Comptes;
-use App\Models\CompteurDossierCredit;
-use App\Models\Echeancier;
 use App\Models\Garantie;
+use App\Models\Echeancier;
 use App\Models\Portefeuille;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
+use App\Models\TauxJournalier;
+use App\Models\CompteurTransaction;
+use Illuminate\Support\Facades\Auth;
+use App\Models\CompteurDossierCredit;
+use Illuminate\Support\Facades\Validator;
 
 class SuiviCreditController extends Controller
 {
@@ -18,15 +23,28 @@ class SuiviCreditController extends Controller
     }
     //RECUPERE LES INFORMATIONS RELATIVES A UN COMPTE RECHERCHE
 
-    public function getInfoCompte($id)
+    public function getInfoCompte(Request $request)
     {
-        $data = Comptes::where("NumAdherant", "=", $id)->first();
-        if ($data) {
-            $data2 = Portefeuille::where("NumCompteEpargne", "=", $data->NumCompte)->first();
+        if ($request->CodeMonnaie == "CDF") {
+            $data = Comptes::where("NumAdherant", "=", $request->compteToSearch)->where("CodeMonnaie", "=", 2)->first();
+            if ($data) {
+                $data2 = Portefeuille::where("NumCompteEpargne", "=", $data->NumCompte)->first();
 
-            return response()->json(["success" => 1, "data" => $data, "data2" => $data2]);
+                return response()->json(["success" => 1, "data" => $data, "data2" => $data2]);
+            } else {
+                return response()->json(["success" => 0, "msg" => "Aucun numéro de compte trouvé"]);
+            }
+        } else if ($request->CodeMonnaie == "USD") {
+            $data = Comptes::where("NumAdherant", "=", $request->compteToSearch)->where("CodeMonnaie", "=", 1)->first();
+            if ($data) {
+                $data2 = Portefeuille::where("NumCompteEpargne", "=", $data->NumCompte)->first();
+
+                return response()->json(["success" => 1, "data" => $data, "data2" => $data2]);
+            } else {
+                return response()->json(["success" => 0, "msg" => "Aucun numéro de compte trouvé"]);
+            }
         } else {
-            return response()->json(["success" => 0, "msg" => "Aucun numéro de compte trouvé"]);
+            return response()->json(["success" => 0, "msg" => "Veuillez sélectionner la devise avant de continuer."]);
         }
     }
 
@@ -186,7 +204,211 @@ class SuiviCreditController extends Controller
     //ENREGISTRE L'ECHEANCIER
     public function saveEcheancier(Request $request)
     {
+        $validator = validator::make($request->all(), [
+            'MontantAccorde' => 'required',
+
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'validate_error' => $validator->errors()
+            ]);
+        } else {
+            //MET  LE PORTE FEUILLE A JOUR
+            Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                "Decision" => $request->Decision,
+                "Motivation" => $request->Motivation,
+                "DateOctroi" => $request->DateOctroi,
+                "DateEcheance" => $request->DateEcheance,
+                "DateTombeEcheance" => $request->DateTombeEcheance,
+                "Interval" => $request->Interval,
+                "MontantAccorde" => $request->MontantAccorde,
+                "InteretPrecompte" => $request->RefTypeCredit == "CREDIT TUINUKE" ? $request->MontantAccorde * $request->TauxInteret / 100 : null,
+            ]);
+            // ENEGISTRE L'ECHEANCIER
+            if ($request->RefTypeCredit == "CREDIT TUINUKE") {
+                Echeancier::create([
+                    "NumDossier" => $request->NumDossier,
+                    "NumMensualite"  => 0,
+                    "NbreJour" => date('t'),
+                    "Capital" => $request->MontantAccorde,
+                    "Interet" => 0,
+                    "Cumul"  => $request->MontantAccorde,
+                    // "SoldeCapital" => $request->MontantAccorde,
+                    // "SoldeInteret" => 0,
+                ]);
+
+                //COMPLETE L'ECHEANCIER
+                $capital = $request->MontantAccorde;
+                $interet = 0;
+                // $interetApayer = $capital * $interet / 100;
+                $capitalAmorti = $capital / $request->NbrTranche;
+                // $totalAp = $interetApayer + $capitalAmorti;
+                // $capitalRestantDu = $capital - $capitalAmorti;
+                // $dateRembours = date('Y-m-d', strtotime("+1 day"));
+                //             $maxDays=date('t');
+                // $currentDayOfMonth=date('j');
+
+                // if($maxDays == $currentDayOfMonth){
+                //   //Last day of month
+                // }else{
+                //   //Not last day of the month
+                // }
+                $maxDays = date('t');
+                $dates = array($request->DateTombeEcheance);
+                for ($i = 1; $i < $maxDays; $i++) {
+                    $NewDate = date('Y-m-d', strtotime("+" . $i . " days"));
+                    $dates[] = $NewDate;
+                }
+
+                foreach ($dates as $dt) {
+
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    Echeancier::create([
+                        "NumDossier" => $request->NumDossier,
+                        "NumMensualite" => 0,
+                        "NbreJour" => $lastRowData->NbreJour - 1,
+                        "Capital" =>  $lastRowData->Capital - $capitalAmorti,
+                        "Interet" =>  $interet,
+                        "CapAmmorti" => $capitalAmorti,
+                        "TotalAp" => $capitalAmorti + $interet,
+                        "Cumul"  => $lastRowData->Capital - $capitalAmorti,
+                        // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
+                        "DateTranch" =>  $dt,
+                        "DateDebut" => $request->DateTranche,
+                        "InteretPrev" => $interet,
+                        // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
+                    ]);
+
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                }
+
+
+
+
+
+                return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
+            } else if ($request->RefTypeCredit == "CREDIT INUKA") {
+                Echeancier::create([
+                    "NumDossier" => $request->NumDossier,
+                    "NumMensualite"  => 0,
+                    "NbreJour" => $request->NbrTranche,
+                    "Capital" => $request->MontantAccorde,
+                    "Interet" => 0,
+                    "Cumul"  => $request->MontantAccorde,
+                    // "SoldeCapital" => $request->MontantAccorde,
+                    // "SoldeInteret" => 0,
+                ]);
+
+                //COMPLETE L'ECHEANCIER
+                // $capitalRestantDu = $capital - $capitalAmorti;
+                // $dateRembours = date('Y-m-d', strtotime("+1 day"));
+                //             $maxDays=date('t');
+                // $currentDayOfMonth=date('j');
+
+                // if($maxDays == $currentDayOfMonth){
+                //   //Last day of month
+                // }else{
+                //   //Not last day of the month
+                // }
+                $maxDays = date('t');
+                $dates = array($request->DateTombeEcheance);
+                for ($i = 1; $i < $request->NbrTranche; $i++) {
+                    $NewDate = date('Y-m-d', strtotime("+" . $i . "week"));
+                    $dates[] = $NewDate;
+                }
+
+                foreach ($dates as $dt) {
+                    $capital = $request->MontantAccorde;
+                    $interet = $request->TauxInteret;
+                    $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
+                    $capitalAmorti = $capital / $request->NbrTranche;
+                    $epargneObligatoire = 7000 - ($interetApayer + $capitalAmorti);
+                    $totalAp = $interetApayer + $capitalAmorti +  $epargneObligatoire;
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    Echeancier::create([
+                        "NumDossier" => $request->NumDossier,
+                        "NumMensualite" => 0,
+                        "NbreJour" => $lastRowData->NbreJour - 1,
+                        "Capital" =>  $lastRowData->Capital - $capitalAmorti,
+                        "Interet" =>  $interetApayer,
+                        "CapAmmorti" => $capitalAmorti,
+                        "TotalAp" => $totalAp,
+                        "Cumul"  => $lastRowData->Capital - $capitalAmorti,
+                        // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
+                        "DateTranch" =>  $dt,
+                        "DateDebut" => $request->DateTranche,
+                        "InteretPrev" => $interetApayer,
+                        "Epargne" => $epargneObligatoire
+                        // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
+                    ]);
+
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                }
+
+
+
+
+
+                return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
+            } else if ($request->RefTypeCredit == "CREDIT A LA CONSOMMATION" or $request->RefTypeCredit == "CREDIT PETIT COMMERCE") {
+
+                Echeancier::create([
+                    "NumDossier" => $request->NumDossier,
+                    "NumMensualite"  => 0,
+                    "NbreJour" => $request->NbrTranche,
+                    "Capital" => $request->MontantAccorde,
+                    "Interet" => 0,
+                    "Cumul"  => $request->MontantAccorde,
+                ]);
+
+                $dates = array($request->DateTombeEcheance);
+                for ($i = 1; $i < $request->NbrTranche; $i++) {
+                    $NewDate = date('Y-m-d', strtotime("+" . $i . "month"));
+                    $dates[] = $NewDate;
+                }
+
+                foreach ($dates as $dt) {
+                    $capital = $request->MontantAccorde;
+                    $interet = $request->TauxInteret;
+                    $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
+                    $capitalAmorti = $capital / $request->NbrTranche;
+                    $totalAp = $interetApayer + $capitalAmorti;
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    Echeancier::create([
+                        "NumDossier" => $request->NumDossier,
+                        "NumMensualite" => 0,
+                        "NbreJour" => $lastRowData->NbreJour - 1,
+                        "Capital" =>  $lastRowData->Capital - $capitalAmorti,
+                        "Interet" =>  $interetApayer,
+                        "CapAmmorti" => $capitalAmorti,
+                        "TotalAp" => $totalAp,
+                        "Cumul"  => $lastRowData->Capital - $capitalAmorti,
+                        // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
+                        "DateTranch" =>  $dt,
+                        "DateDebut" => $request->DateTranche,
+                        "InteretPrev" => $interetApayer,
+                        // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
+                    ]);
+
+                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                }
+                return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
+            }
+        }
+    }
+
+    //MET A JOUR L'ECHEANCIER
+
+    public     function upDateEcheancier(Request $request)
+    {
+
+        //SUPPRIME LA LIGNE CORRESPONDANT A CE NUMERO DE DOSSIER DANS ECHEANCIER
+        Echeancier::where("NumDossier", "=", $request->NumDossier)->delete();
+
+
         //MET  LE PORTE FEUILLE A JOUR
+
         Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
             "Decision" => $request->Decision,
             "Motivation" => $request->Motivation,
@@ -195,25 +417,27 @@ class SuiviCreditController extends Controller
             "DateTombeEcheance" => $request->DateTombeEcheance,
             "Interval" => $request->Interval,
             "MontantAccorde" => $request->MontantAccorde,
-            "InteretPrecompte" => $request->InteretPrecompte,
+            "InteretPrecompte" => $request->MontantAccorde * $request->TauxInteret / 100,
         ]);
-        // ENEGISTRE L'ECHEANCIER
+
         if ($request->RefTypeCredit == "CREDIT TUINUKE") {
+            //GENERE L'ECHEANCIER POUR LE CREDIT TUINUKA
             Echeancier::create([
                 "NumDossier" => $request->NumDossier,
                 "NumMensualite"  => 0,
-                "NbreJour" => date('t'),
+                "NbreJour" => $request->NbrTranche,
                 "Capital" => $request->MontantAccorde,
                 "Interet" => 0,
-                "SoldeCapital" => $request->MontantAccorde,
-                "SoldeInteret" => 0,
+                "Cumul"  => $request->MontantAccorde,
+                // "SoldeCapital" => $request->MontantAccorde,
+                // "SoldeInteret" => 0,
             ]);
 
             //PREMIERE TRANCHE
             $capital = $request->MontantAccorde;
             $interet = 0;
             // $interetApayer = $capital * $interet / 100;
-            $capitalAmorti = $capital / 30;
+            $capitalAmorti = $capital / $request->NbrTranche;
             // $totalAp = $interetApayer + $capitalAmorti;
             // $capitalRestantDu = $capital - $capitalAmorti;
             // $dateRembours = date('Y-m-d', strtotime("+1 day"));
@@ -225,16 +449,16 @@ class SuiviCreditController extends Controller
             // }else{
             //   //Not last day of the month
             // }
-            $maxDays = date('t');
+            // $maxDays = date('t');
             $dates = array($request->DateTombeEcheance);
-            for ($i = 1; $i <= $maxDays; $i++) {
+            for ($i = 1; $i <  $request->NbrTranche; $i++) {
                 $NewDate = date('Y-m-d', strtotime("+" . $i . " days"));
                 $dates[] = $NewDate;
             }
 
             foreach ($dates as $dt) {
 
-                $lastRowData = Echeancier::latest()->first();
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
                 Echeancier::create([
                     "NumDossier" => $request->NumDossier,
                     "NumMensualite" => 0,
@@ -245,20 +469,338 @@ class SuiviCreditController extends Controller
                     "TotalAp" => $capitalAmorti + $interet,
                     "Cumul"  => $lastRowData->Capital - $capitalAmorti,
                     // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
-                    "DateTranche" =>  $dt,
+                    "DateTranch" =>  $dt,
                     "DateDebut" => $request->DateTranche,
                     "InteretPrev" => $interet,
                     // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                 ]);
 
-                $lastRowData = Echeancier::latest()->first();
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
             }
 
 
+            return response()->json(["success" => 1, "msg" => "Modification bien effectuée", "NumDossier" => $request->NumDossier]);
+        } else if ("CREDIT INUKA") {
 
+            //GENERE L'ECHEANCIER POUR LE CREDIT INUKA
+            Echeancier::create([
+                "NumDossier" => $request->NumDossier,
+                "NumMensualite"  => 0,
+                "NbreJour" => $request->NbrTranche,
+                "Capital" => $request->MontantAccorde,
+                "Interet" => 0,
+                "Cumul"  => $request->MontantAccorde,
+                // "SoldeCapital" => $request->MontantAccorde,
+                // "SoldeInteret" => 0,
+            ]);
+
+            $dates = array($request->DateTombeEcheance);
+            for ($i = 1; $i < $request->NbrTranche; $i++) {
+                $NewDate = date('Y-m-d', strtotime("+" . $i . "week"));
+                $dates[] = $NewDate;
+            }
+
+            foreach ($dates as $dt) {
+                $capital = $request->MontantAccorde;
+                $interet = $request->TauxInteret;
+                $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
+                $capitalAmorti = $capital / $request->NbrTranche;
+                $epargneObligatoire = 7000 - ($interetApayer + $capitalAmorti);
+                $totalAp = $interetApayer + $capitalAmorti +  $epargneObligatoire;
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                Echeancier::create([
+                    "NumDossier" => $request->NumDossier,
+                    "NumMensualite" => 0,
+                    "NbreJour" => $lastRowData->NbreJour - 1,
+                    "Capital" =>  $lastRowData->Capital - $capitalAmorti,
+                    "Interet" =>  $interetApayer,
+                    "CapAmmorti" => $capitalAmorti,
+                    "TotalAp" => $totalAp,
+                    "Cumul"  => $lastRowData->Capital - $capitalAmorti,
+                    // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
+                    "DateTranch" =>  $dt,
+                    "DateDebut" => $request->DateTranche,
+                    "InteretPrev" => $interetApayer,
+                    "Epargne" => $epargneObligatoire
+
+                    // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
+                ]);
+
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+            }
+            return response()->json(["success" => 1, "msg" => "Modification bien effectuée", "NumDossier" => $request->NumDossier]);
+        } else if ($request->RefTypeCredit == "CREDIT A LA CONSOMMATION" or $request->RefTypeCredit == "CREDIT PETIT COMMERCE") {
+
+            // //GENERE L'ECHEANCIER POUR LE CREDIT INDIVIDUEL
+            Echeancier::create([
+                "NumDossier" => $request->NumDossier,
+                "NumMensualite"  => 0,
+                "NbreJour" => $request->NbrTranche,
+                "Capital" => $request->MontantAccorde,
+                "Interet" => 0,
+                "Cumul"  => $request->MontantAccorde,
+            ]);
+            $dates = array($request->DateTombeEcheance);
+            for ($i = 1; $i < $request->NbrTranche; $i++) {
+                $NewDate = date('Y-m-d', strtotime("+" . $i . "month"));
+                $dates[] = $NewDate;
+            }
+
+            foreach ($dates as $dt) {
+                $capital = $request->MontantAccorde;
+                $interet = $request->TauxInteret;
+                $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
+                $capitalAmorti = $capital / $request->NbrTranche;
+                $totalAp = $interetApayer + $capitalAmorti;
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                Echeancier::create([
+                    "NumDossier" => $request->NumDossier,
+                    "NumMensualite" => 0,
+                    "NbreJour" => $lastRowData->NbreJour - 1,
+                    "Capital" =>  $lastRowData->Capital - $capitalAmorti,
+                    "Interet" =>  $interetApayer,
+                    "CapAmmorti" => $capitalAmorti,
+                    "TotalAp" => $totalAp,
+                    "Cumul"  => $lastRowData->Capital - $capitalAmorti,
+                    // "SoldeCapital" => $lastRowData->Capital - $capitalAmorti,
+                    "DateTranch" =>  $dt,
+                    "DateDebut" => $request->DateTranche,
+                    "InteretPrev" => $interetApayer,
+                    // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
+                ]);
+
+                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+            }
             return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
-        } else if ($request->RefTypeCredit == "CREDIT INUKA") {
         }
+    }
+
+    //PERMET D'ACCORDER UN CREDIT
+
+
+    public function AccordCredit(Request $request)
+    {
+        Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+            "Accorde" => 1,
+        ]);
+
+        return response()->json(["success" => 1, "msg" => "Ce crédit a bien été accordé merci."]);
+    }
+
+    //PERMET DE CLOTURER UN CREDIT
+
+
+    public function  ClotureCredit(Request $request)
+    {
+        Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+            "Cloture" => 1,
+        ]);
+
+        return response()->json(["success" => 1, "msg" => "Ce crédit a bien été Clôturé merci."]);
+    }
+
+
+    //PERMET DE DECAISSER UN CREDIT
+    public function DeccaissementCredit(Request $request)
+    {
+
+        Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+            "Octroye" => 1,
+        ]);
+        //ENREGISTRE TOUT D'ABORD LE COMPTE CREDIT DU BENEFICIAIRE S'IL n'EXISTE PAS
+        $dataCredit = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+        //RECUPERE LES INFORMATIONS DU MEMBRE CORRESPONDANT
+        $infoMembre = Comptes::where("NumCompte", "=", $dataCredit->NumCompteEpargne)->first();
+
+
+        $checkIfCompteCreditExist = Comptes::where("NumCompte", "=", $dataCredit->NumCompteCredit)->first();
+        if (!$checkIfCompteCreditExist) {
+
+            //ON CREE UN NOUVEL NUMERO DE CREDIT POUR CE MEMBRE 
+            Comptes::create([
+                'CodeAgence' => $dataCredit->codeAgence,
+                'NumCompte' => $dataCredit->NumCompteCredit,
+                'NomCompte' => $infoMembre->NomCompte,
+                'CodeMonnaie' => $dataCredit->CodeMonnaie == "USD" ? 1 : 2,
+                'NumAdherant' => $dataCredit->NumCompteCredit,
+                'RefTypeCompte' => 3,
+                'RefCadre' => 32,
+                'RefGroupe' => 320,
+                'RefSousGroupe' => 321,
+            ]);
+        }
+
+
+        //APRES LA CREATION DE SON COMPTE CREDIT ON DEBITE LE COMPTE DE CREDIT   
+        //CREE UN NUMERO DE TRANSACTION
+
+        if ($dataCredit->CodeMonnaie == "CDF") {
+
+
+            $numCompteCreditCDF = 3270000000202;
+
+            CompteurTransaction::create([
+                'fakevalue' => "0000",
+            ]);
+            $numOperation = [];
+            $numOperation = CompteurTransaction::latest()->first();
+            $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+            //RECUPERE LA DATE DU SYSTEME
+
+            $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+            //RECUPERE LE TAUX JOURNALIER
+            $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" => $date,
+                "TypeTransaction" => "D",
+                "CodeMonnaie" => 2,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $numCompteCreditCDF,
+                "NumComptecp" => $dataCredit->NumCompteCredit,
+                "Debit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                "Debitfc" => $dataCredit->MontantAccorde,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                "refCompteMembre" => $numCompteCreditCDF,
+            ]);
+            //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
+
+
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" => $date,
+                "TypeTransaction" => "D",
+                "CodeMonnaie" => 2,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $dataCredit->NumCompteCredit,
+                "NumComptecp" =>  $numCompteCreditCDF,
+                "Debit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                "Debitfc" => $dataCredit->MontantAccorde,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                "refCompteMembre" => $dataCredit->NumCompteCredit,
+            ]);
+
+            //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
+
+
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" =>  $date,
+                "TypeTransaction" => "C",
+                "CodeMonnaie" => 2,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $dataCredit->NumCompteEpargne,
+                "NumComptecp" =>  $dataCredit->NumCompteCredit,
+                "Credit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Credit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                "Creditfc" => $dataCredit->MontantAccorde,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                "refCompteMembre" => $dataCredit->NumCompteEpargne,
+            ]);
+        } else if ($dataCredit->CodeMonnaie == "USD") {
+
+            $numCompteCreditUSD = 3270000000201;
+
+
+            CompteurTransaction::create([
+                'fakevalue' => "0000",
+            ]);
+            $numOperation = [];
+            $numOperation = CompteurTransaction::latest()->first();
+            $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+            //RECUPERE LA DATE DU SYSTEME
+
+            $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+            //RECUPERE LE TAUX JOURNALIER
+            $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+            //DEBITE LE COMPTE CREDIT USD
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" => $date,
+                "TypeTransaction" => "D",
+                "CodeMonnaie" => 1,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $numCompteCreditUSD,
+                "NumComptecp" => $dataCredit->NumCompteCredit,
+                "Debit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Debit$" => $dataCredit->MontantAccorde,
+                "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                "refCompteMembre" => $numCompteCreditUSD,
+            ]);
+            //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
+
+
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" => $date,
+                "TypeTransaction" => "D",
+                "CodeMonnaie" => 1,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $dataCredit->NumCompteCredit,
+                "NumComptecp" =>  $numCompteCreditUSD,
+                "Debit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Debit$" => $dataCredit->MontantAccorde,
+                "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                "refCompteMembre" => $dataCredit->NumCompteCredit,
+            ]);
+
+            //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
+
+
+            Transactions::create([
+                "NumTransaction" => $NumTransaction,
+                "DateTransaction" => $date,
+                "DateSaisie" => $date,
+                "TypeTransaction" => "C",
+                "CodeMonnaie" => 1,
+                "CodeAgence" => "20",
+                "NumDossier" => "DOS00" . $numOperation->id,
+                "NumDemande" => "V00" . $numOperation->id,
+                "NumCompte" => $dataCredit->NumCompteEpargne,
+                "NumComptecp" =>  $dataCredit->NumCompteCredit,
+                "Credit" => $dataCredit->MontantAccorde,
+                "Operant" =>  Auth::user()->name,
+                "Credit$" => $dataCredit->MontantAccorde,
+                "Creditfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                "NomUtilisateur" => Auth::user()->name,
+                "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier . " Compte crédit " . $dataCredit->NumCompteCredit,
+                "refCompteMembre" => $dataCredit->NumCompteEpargne,
+            ]);
+        }
+
+
+        return response()->json(["success" => 1, "msg" => "Ce crédit a bien été décaissé merci."]);
     }
 
     public function getSuiviCreditPage()

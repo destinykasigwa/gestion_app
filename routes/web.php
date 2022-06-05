@@ -16,6 +16,7 @@ use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\JournalCaisseController;
+use App\Http\Controllers\RapportCreditController;
 use App\Http\Controllers\RepertoireCaisseController;
 use App\Http\Controllers\SoldeController;
 use App\Http\Controllers\SuiviCreditController;
@@ -50,6 +51,7 @@ Route::get('/solde', [SoldeController::class, 'getSoldePage'])->name('membre.sol
 Route::get('/repertoirecaisse', [RepertoireCaisseController::class, 'getRepertoirePage'])->name('caisse.repertoire');
 Route::get('/journal', [JournalCaisseController::class, 'getJournaCaissePage'])->name('caisse.journal');
 Route::get('/suivicredit', [SuiviCreditController::class, 'getSuiviCreditPage'])->name('credit.suivi');
+Route::get('/rapport-credit', [RapportCreditController::class, 'getRapportCreditPage'])->name('rapport.credit');
 // Route::post('/createnew', [AdhesionMembreController::class,'update']);
 // Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);
@@ -342,8 +344,8 @@ Route::post(
 );
 
 //RECHERCHE UN NUMERO DE COMPTE POUR LE MONTAGE DE CREDIT
-Route::get(
-    "credit/search/{id}",
+Route::post(
+    "credit/search",
     [SuiviCreditController::class, 'getInfoCompte']
 );
 
@@ -370,4 +372,50 @@ Route::post(
 Route::post(
     "credit/echeancier/generate",
     [SuiviCreditController::class, 'saveEcheancier']
+);
+//MET A JOUR L'ECHEANCIER
+Route::post(
+    "montage/credit/update/echeancier",
+    [SuiviCreditController::class, 'upDateEcheancier']
+);
+
+
+//PERMET D'ACCORDER UN CREDIT
+Route::post(
+    "credit/accord",
+    [SuiviCreditController::class, 'AccordCredit']
+);
+
+//PERMET DE DECAISSER UN CREDIT UN CREDIT
+Route::post(
+    "credit/decaissement",
+    [SuiviCreditController::class, 'DeccaissementCredit']
+);
+
+//PERMET DE CLOTURE UN CREDIT
+Route::post(
+    "
+    credit/cloture",
+    [SuiviCreditController::class, 'ClotureCredit']
+);
+
+//RECUPERE LE RAPPORT CREDIT
+Route::get(
+    "
+    rapport/data",
+    [RapportCreditController::class, 'getRapportCredit']
+);
+
+//PERMET D'AFICHER L'ECHEANCIER
+Route::post(
+    "
+    rapport/echeancier",
+    [RapportCreditController::class, 'getEcheancier']
+);
+
+//RECUPERE LE TABLEAU D'AMMORTISSEMENT DU CREDIT
+Route::post(
+    "
+    rapport/tableau-ammortisement",
+    [RapportCreditController::class, 'getTableauAmmortissement']
 );

@@ -25,7 +25,7 @@ return new class extends Migration
             $table->float("CapAmmorti")->nullable()->default("0.00");
             $table->float("TotalAp")->nullable()->default("0.00");
             $table->float("Cumul")->nullable()->default("0.00");
-            $table->float("DateTranche")->nullable()->default("0.00");
+            $table->float("DateTranch")->nullable()->default("0.00");
             $table->float("DateDebut")->nullable()->default("0.00");
             $table->float("Sms")->nullable()->default("0");
             $table->float("InteretPrev")->nullable()->default("0.00");

@@ -24,6 +24,7 @@ import SoldePage from "./components/SoldePage";
 import RepertoireCaisse from "./components/RepertoireCaisse";
 import JournalCaisse from "./components/JournalCaisse";
 import SuiviCredit from "./components/SuiviCredit";
+import RapportCredit from "./components/RapportCredit";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -77,5 +78,10 @@ if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(
         <SuiviCredit NomUtilisateur={user} />,
         document.getElementById("suiviCreditContainer")
+    );
+} else if (document.getElementById("rapportCreditContainer")) {
+    ReactDOM.render(
+        <RapportCredit />,
+        document.getElementById("rapportCreditContainer")
     );
 }

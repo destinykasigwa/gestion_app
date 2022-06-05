@@ -22,7 +22,7 @@ class Echeancier extends Model
         // "SoldeCapital",
         // "SoldeInteret",
         "Cumul",
-        "DateTranche",
+        "DateTranch",
         "DateDebut",
         "Sms",
         "InteretPrev",

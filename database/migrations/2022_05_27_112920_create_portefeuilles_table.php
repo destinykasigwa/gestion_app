@@ -63,6 +63,7 @@ return new class extends Migration
             $table->float("InteretEchu")->nullable()->default('0.00');
             $table->float("InteretRetardEchu")->nullable()->default('0.00');
             $table->float("CapitalDu")->nullable()->default('0.00');
+            $table->float("CapitalRetard")->nullable()->default('0.00');
             $table->float("InteretDu")->nullable()->default('0.00');
             $table->float("EpargneDu")->nullable()->default('0.00');
             $table->float("AvanceInteret")->nullable()->default('0.00');
