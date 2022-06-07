@@ -120,6 +120,10 @@ export default class SuiviCredit extends React.Component {
         this.handleSaveEcheancier = this.handleSaveEcheancier.bind(this);
         this.AccordCredit = this.AccordCredit.bind(this);
         this.decaisserCredit = this.decaisserCredit.bind(this);
+        this.handleSaveCapitalRembourser =
+            this.handleSaveCapitalRembourser.bind(this);
+        this.handleSaveInteretRembourser =
+            this.handleSaveInteretRembourser.bind(this);
     }
 
     componentDidMount() {
@@ -384,6 +388,59 @@ export default class SuiviCredit extends React.Component {
                     button: "OK!",
                 });
             }
+        }
+    };
+
+    //REMBOURSEMENT EN CAPITAL
+    handleSaveCapitalRembourser = async (e) => {
+        e.preventDefault();
+        const res = await axios.post(
+            "/credit/remboursement/capital",
+            this.state
+        );
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Remboursement en capital !",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            document
+                .getElementById("saveRemboursBtn")
+                .setAttribute("disabled", "disabled");
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Remboursement en capital !",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
+        console.log(this.state);
+    };
+    handleSaveInteretRembourser = async (e) => {
+        e.preventDefault();
+        const res = await axios.post(
+            "/credit/remboursement/interet",
+            this.state
+        );
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Remboursement en capital !",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            document
+                .getElementById("saveRemboursBtn")
+                .setAttribute("disabled", "disabled");
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Remboursement en capital !",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
         }
     };
 
@@ -3485,16 +3542,6 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .RemboursCapital
-                                                                                                                ? this
-                                                                                                                      .state
-                                                                                                                      .RemboursCapital
-                                                                                                                : this
-                                                                                                                      .state
-                                                                                                                      .fetchData &&
-                                                                                                                  this
-                                                                                                                      .state
-                                                                                                                      .fetchData
-                                                                                                                      .RemboursCapital
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -3521,14 +3568,14 @@ export default class SuiviCredit extends React.Component {
                                                                                                             fontSize:
                                                                                                                 "12px",
                                                                                                         }}
-                                                                                                        id="saveGarantieBtn"
+                                                                                                        id="saveRemboursBtn"
                                                                                                         className="btn btn-primary "
                                                                                                         onClick={
                                                                                                             this
                                                                                                                 .handleSaveCapitalRembourser
                                                                                                         }
                                                                                                     >
-                                                                                                        Valider
+                                                                                                        Rembourser
                                                                                                         <i className="fas fa-check"></i>
                                                                                                     </button>
                                                                                                 </td>
@@ -3705,16 +3752,6 @@ export default class SuiviCredit extends React.Component {
                                                                                                             this
                                                                                                                 .state
                                                                                                                 .RemboursInteret
-                                                                                                                ? this
-                                                                                                                      .state
-                                                                                                                      .RemboursInteret
-                                                                                                                : this
-                                                                                                                      .state
-                                                                                                                      .fetchData &&
-                                                                                                                  this
-                                                                                                                      .state
-                                                                                                                      .fetchData
-                                                                                                                      .RemboursInteret
                                                                                                         }
                                                                                                         onChange={
                                                                                                             this
@@ -3745,7 +3782,7 @@ export default class SuiviCredit extends React.Component {
                                                                                                         className="btn btn-primary "
                                                                                                         onClick={
                                                                                                             this
-                                                                                                                .handleSaveCapitalRembourser
+                                                                                                                .handleSaveInteretRembourser
                                                                                                         }
                                                                                                     >
                                                                                                         Valider

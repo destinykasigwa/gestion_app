@@ -259,13 +259,15 @@ class RetraitEspeceController extends Controller
             $numOperation = CompteurTransaction::latest()->first();
             $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
 
-            //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
-            $numCompteCaissierUSD = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
-            $CompteCaissierUSD = $numCompteCaissierUSD->NumCompte;
 
+            //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
+            $numCompteCaissierUSD = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
+            $CompteCaissierUSD = $numCompteCaissierUSD->NumCompte;
+            $intituleCompteCaissierUSD = $numCompteCaissierUSD->NomCompte;
             //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
-            $numCompteCaissierCDF = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
+            $numCompteCaissierCDF = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
             $CompteCaissierCDF = $numCompteCaissierCDF->NumCompte;
+            $intituleCompteCaissierCDF = $numCompteCaissierCDF->NomCompte;
 
             //  $numCompteContrePartie="5700003032202";
             //  $numCompteContrePartieUSD="5700003032201";
@@ -280,7 +282,7 @@ class RetraitEspeceController extends Controller
                     "DateTransaction" => $date,
                     "DateSaisie" => $date,
                     "Taux" => 1,
-                    "TypeTransaction" => "C",
+                    "TypeTransaction" => "D",
                     "CodeMonnaie" => 2,
                     "CodeAgence" => "20",
                     "NumDossier" => "DOS00" . $numOperation->id,
@@ -291,6 +293,27 @@ class RetraitEspeceController extends Controller
                     "Operant" => $request->operant,
                     "Debit$" => $request->montantRetrait / $tauxDuJour,
                     "Debitfc" => $request->montantRetrait,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => $request->libelle,
+                ]);
+
+                //CREDITE LE COMPTE CAISSE DU CAISSIER CONCERNE EN CDF
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
+                    "Taux" => 1,
+                    "TypeTransaction" => "C",
+                    "CodeMonnaie" => 2,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $CompteCaissierCDF,
+                    "NumComptecp" => $compteCDF,
+                    "Credit" => $request->montantRetrait,
+                    "Operant" => $intituleCompteCaissierCDF,
+                    "Credit$" => $request->montantRetrait / $tauxDuJour,
+                    "Creditfc" => $request->montantRetrait,
                     "NomUtilisateur" => Auth::user()->name,
                     "Libelle" => $request->libelle,
                 ]);
@@ -337,7 +360,7 @@ class RetraitEspeceController extends Controller
                     "DateTransaction" => $date,
                     "DateSaisie" => $date,
                     "Taux" => 1,
-                    "TypeTransaction" => "C",
+                    "TypeTransaction" => "D",
                     "CodeMonnaie" => 1,
                     "CodeAgence" => "20",
                     "NumDossier" => "DOS00" . $numOperation->id,
@@ -348,6 +371,27 @@ class RetraitEspeceController extends Controller
                     "Operant" => $request->operant,
                     "Debit$" => $request->montantRetrait,
                     "Debitfc" => $request->montantRetrait * $tauxDuJour,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => $request->libelle,
+                ]);
+
+                //CREDITE LE COMPTE CAISSE DU CAISSIER CONCERNE
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
+                    "Taux" => 1,
+                    "TypeTransaction" => "C",
+                    "CodeMonnaie" => 1,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $CompteCaissierUSD,
+                    "NumComptecp" => $request->numCompte,
+                    "Credit" => $request->montantRetrait,
+                    "Operant" => $intituleCompteCaissierUSD,
+                    "Credit$" => $request->montantRetrait,
+                    "Creditfc" => $request->montantRetrait * $tauxDuJour,
                     "NomUtilisateur" => Auth::user()->name,
                     "Libelle" => $request->libelle,
                 ]);

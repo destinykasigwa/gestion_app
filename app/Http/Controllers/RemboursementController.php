@@ -1,0 +1,1196 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Echeancier;
+use App\Models\Portefeuille;
+use App\Models\Transactions;
+use Illuminate\Http\Request;
+use App\Models\TauxJournalier;
+use Illuminate\Support\Facades\DB;
+use App\Models\CompteurTransaction;
+use App\Models\Remboursementcredit;
+use Illuminate\Support\Facades\Auth;
+
+class RemboursementController extends Controller
+{
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
+    //PERMET D'EFFECTUER UN REMBOURSEMENT MANUEL EN CAPITAL
+
+    public function remboursementEnCapital(Request $request)
+    {
+        if (isset($request->NumDossier) and isset($request->RemboursCapital)) {
+
+            //AVANT TOUTE CHOSE ON VERIFIE SI LE SOLDE DU MEMBRE EST SUFFISANT
+
+            //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
+            $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+            if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                $soldeMembreCDF = Transactions::select(
+                    DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
+                )->where("NumCompte", '=', $getPorteFeuilledata->NumCompteEpargne)
+                    ->groupBy("NumCompte")
+                    ->first();
+
+                if ($soldeMembreCDF->soldeMembreCDF < $request->RemboursCapital) {
+                    return response()->json(['success' => 0, 'msg' => "le solde de ce compte est insuffisant veuillez d'abord effectué un dépot à ce compte solde disponible CDF: " . $soldeMembreCDF->soldeMembreCDF . " .00" . ""]);
+                }
+            } else if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                $soldeMembreUSD = Transactions::select(
+                    DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+                )->where("NumCompte", '=', $getPorteFeuilledata->NumCompteEpargne)
+                    ->groupBy("NumCompte")
+                    ->first();
+
+                if ($soldeMembreUSD->soldeMembreUSD < $request->RemboursCapital) {
+                    return response()->json(['success' => 0, 'msg' => "le solde de ce compte est insuffisant veuillez d'abord effectué un dépot à ce compte solde disponible USD: " . $soldeMembreUSD->soldeMembreUSD . " .00" . ""]);
+                }
+            }
+
+
+            // ON VERIFIE SI LA PERSONNE NE PAS A RETARD DE REMBOURSEMENT
+
+            $getNbrJrRetard = Remboursementcredit::where("NumDossie", "=", $request->NumDossier)->first();
+            if ($getNbrJrRetard->JoursRetard > 0) {
+                if ($getNbrJrRetard->CapitalPaye + $request->RemboursCapital >= $getNbrJrRetard->CapitalAmmortie) {
+                    Remboursementcredit::where("NumDossie", "=", $request->NumDossier)->where("JoursRetard", ">", 0)->update([
+                        "CapitalPaye" => $getNbrJrRetard->CapitalPaye + $request->RemboursCapital,
+                        "JoursRetard" => 0,
+                    ]);
+                    //RECUPERE LE CREDIT CORRESPONDANT A CE MEMBRE
+
+                    //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                    $totCapPaye = Remboursementcredit::select(
+                        DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                    )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                        ->groupBy("remboursementcredits.NumDossie")
+                        ->first();
+
+                    $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+                    //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
+                    $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                    Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                        "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                        "CapitalRestant" => $capRestant,
+                        "JourRetard" => 0,
+                    ]);
+                    //RENSEIGNE LE PAYEMENT
+                    Echeancier::where("NumDossier", "=", $request->NumDossier)
+                        ->where("echeanciers.statutPayement", "=", 0)
+                        ->where("echeanciers.CapAmmorti", ">", 0)
+                        ->update([
+                            "statutPayement" => 1,
+                        ])->limit(1);
+                } else {
+                    Remboursementcredit::where("NumDossie", "=", $request->NumDossier)->where("JoursRetard", ">", 0)->update([
+                        "CapitalPaye" => $getNbrJrRetard->CapitalPaye + $request->RemboursCapital,
+                    ]);
+                    //RECUPERE LE REMBOURSEMENT ATTENDU POUR CE MEMBRE
+
+                    $getRoumboursement = Echeancier::where("echeanciers.NumDossier", "=", $request->NumDossier)->where("echeanciers.statutPayement", "=", 0)->where("echeanciers.CapAmmorti", ">", 0)
+                        ->join('portefeuilles', 'portefeuilles.NumDossier', '=', 'echeanciers.NumDossier')
+                        ->join('comptes', 'comptes.NumCompte', '=', 'portefeuilles.NumCompteEpargne')
+                        ->join('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.ReferenceEch')
+                        ->limit(1)->first();
+                    $capitalEnRetard = $getRoumboursement->CapitalAmmortie - $getRoumboursement->CapitalPaye;
+                    $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+
+                    //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                    $totCapPaye = Remboursementcredit::select(
+                        DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                    )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                        ->groupBy("remboursementcredits.NumDossie")
+                        ->first();
+                    //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
+                    $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                    Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                        "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                        "CapitalRestant" => $capRestant,
+                        "JourRetard" => $getPorteFeuilledata->JourRetard + 1,
+                        "CapitalRetard" => $capitalEnRetard,
+                    ]);
+                }
+                //PASSE LES ECRITURE DE DEBIT ET CREDIT SUR LE COMPTE
+
+
+
+
+                if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditUSD = 3270000000201;
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital,
+                        "Debitfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital,
+                        "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 1,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditUSD,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital,
+                    //     "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditUSD,
+                    // ]);
+
+
+
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                } else if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Debitfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Creditfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 2,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditCDF,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "Creditfc" =>  $request->RemboursCapital,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditCDF,
+                    // ]);
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                }
+            }
+            //RECUPERE LE CREDIT CORRESPONDANT A CE MEMBRE
+
+            $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+
+            //RECUPERE LE REMBOURSEMENT ATTENDU POUR CE MEMBRE
+
+            $getRoumboursement = Echeancier::where("echeanciers.NumDossier", "=", $request->NumDossier)->where("echeanciers.statutPayement", "=", 0)->where("echeanciers.CapAmmorti", ">", 0)
+                ->join('portefeuilles', 'portefeuilles.NumDossier', '=', 'echeanciers.NumDossier')
+                ->join('comptes', 'comptes.NumCompte', '=', 'portefeuilles.NumCompteEpargne')
+                ->join('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.ReferenceEch')
+                ->limit(1)->first();
+
+            //Si le montant à rembourser equivaut au montant que le membre doit payer pour cette tranche cad Cap  Ammorti
+            if ($request->RemboursCapital == $getRoumboursement->CapAmmorti) {
+                Remboursementcredit::create([
+                    "RefEcheance" => $getRoumboursement->ReferenceEch,
+                    "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                    "NumCompteCredit" => $getPorteFeuilledata->NumCompteCredit,
+                    "NumDossie" => $getPorteFeuilledata->NumCompteCredit,
+                    "RefTypCredit" => $getPorteFeuilledata->RefTypeCredit,
+                    "NomCompte" => $getPorteFeuilledata->NomCompte,
+                    "DateTranche" => $getRoumboursement->DateTranch,
+                    // "DateRetard" =>$getRoumboursement->DateTranch,
+                    // "JoursRetard",
+                    // "InteretAmmorti",
+                    // "InteretPaye",
+                    // "InteretS",
+                    "CapitalAmmortie" => $getRoumboursement->CapAmmorti,
+                    "CapitalPaye"  => $request->RemboursCapital,
+                    // "CapitalS",
+                    // "EpargneAmmorti",
+                    // "EpargnePaye",
+                    // "EpargneS",
+                    "CodeGuichet" => $getPorteFeuilledata->CodeGuichet,
+                    "NumAdherent" => $getPorteFeuilledata->numAdherant,
+                ]);
+                //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
+                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                $totCapPaye = Remboursementcredit::select(
+                    DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                    ->groupBy("remboursementcredits.NumDossie")
+                    ->first();
+
+                $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                    "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                    "CapitalRestant" => $getPorteFeuilledata->CapitalRestant + $capRestant,
+                ]);
+
+                if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+                    $numCompteCreditUSD = 3270000000201;
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital,
+                        "Debitfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital,
+                        "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 1,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditUSD,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital,
+                    //     "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditUSD,
+
+                    // ]);
+                } else if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Debitfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Creditfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 2,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditCDF,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "Creditfc" =>  $request->RemboursCapital,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditCDF,
+                    // ]);
+                }
+                //RENSEIGNE LE PAYEMENT
+                Echeancier::where("ReferenceEch", "=", $getRoumboursement->ReferenceEch)
+                    // ->where("echeanciers.statutPayement", "=", 0)
+                    // ->where("echeanciers.CapAmmorti", ">", 0)
+                    ->update([
+                        "statutPayement" => 1,
+                    ]);
+                // ->limit(1);
+
+
+
+
+                return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+
+                //SI MONTANT REMBOURSER EST INFERIEUR AU CAPIATL ATENDU
+            } else if ($request->RemboursCapital < $getRoumboursement->CapAmmorti) {
+
+                $capitalEnRetard = $getRoumboursement->CapAmmorti - $request->RemboursCapital;
+                Remboursementcredit::create([
+                    "RefEcheance" => $getRoumboursement->ReferenceEch,
+                    "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                    "NumCompteCredit" => $getPorteFeuilledata->NumCompteCredit,
+                    "NumDossie" => $getPorteFeuilledata->NumDossier,
+                    "RefTypCredit" => $getPorteFeuilledata->RefTypeCredit,
+                    "NomCompte" => $getPorteFeuilledata->NomCompte,
+                    "DateTranche" => $getRoumboursement->DateTranch,
+                    "DateRetard" => $getRoumboursement->DateTranch,
+                    "JoursRetard" => 1,
+                    // "InteretAmmorti",
+                    // "InteretPaye",
+                    // "InteretS",
+                    "CapitalAmmortie" => $getRoumboursement->CapAmmorti,
+                    "CapitalPaye"  => $request->RemboursCapital,
+                    // "CapitalS",
+                    // "EpargneAmmorti",
+                    // "EpargnePaye",
+                    // "EpargneS",
+                    "CodeGuichet" => $getPorteFeuilledata->CodeGuichet,
+                    "NumAdherent" => $getPorteFeuilledata->numAdherant,
+                ]);
+
+                // $NbrJrRetard  = Remboursementcredit::orderBy('id', 'desc')->first()->JoursRetard;
+                // Remboursementcredit::where()
+
+                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                $totCapPaye = Remboursementcredit::select(
+                    DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                    ->groupBy("remboursementcredits.NumDossie")
+                    ->first();
+                //RENSEIGNE LE CAPITAL EN RETARD ET LE CAP REMBOURSE ET LE CAPITAL RESTANT
+                $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                $capitalEnRetard = $getRoumboursement->CapAmmorti - $getRoumboursement->CapitalPaye;
+                Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                    "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                    "CapitalRestant" => $capRestant,
+                    "CapitalRetard" =>  $capitalEnRetard,
+                ]);
+
+
+
+
+                if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+                    $numCompteCreditUSD = 3270000000201;
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital,
+                        "Debitfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital,
+                        "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 1,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditUSD,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital,
+                    //     "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditUSD,
+                    // ]);
+
+
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                } else if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Debitfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Creditfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 2,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditCDF,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "Creditfc" =>  $request->RemboursCapital,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditCDF,
+                    // ]);
+
+
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                } else {
+                    return response()->json(['success' => 0, 'msg' => 'Ooops un problème est servenue veuillez contacter votre administrateur système.']);
+                }
+                //SI LE MONTANT REMBOURSER EST SUPERIEUR A CAPITAL DU CA SIGNIFIE QUE LE MEMBRE EST EN AVANCE EN CAPITAL
+
+
+
+            } else if ($request->RemboursCapital > $getRoumboursement->CapAmmorti) {
+                //RECUPERE LE REMBOURSEMENT ATTENDU POUR CE MEMBRE
+
+                $getRoumboursement = Echeancier::where("echeanciers.NumDossier", "=", $request->NumDossier)->where("echeanciers.statutPayement", "=", 0)->where("echeanciers.CapAmmorti", ">", 0)
+                    ->join('portefeuilles', 'portefeuilles.NumDossier', '=', 'echeanciers.NumDossier')
+                    ->join('comptes', 'comptes.NumCompte', '=', 'portefeuilles.NumCompteEpargne')
+                    ->join('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.ReferenceEch')
+                    ->limit(1)->first();
+                $capitalEnRetard = $getRoumboursement->CapitalAmmortie - $getRoumboursement->CapitalPaye;
+                $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+
+                //RECUPEPERE LA SOMME DU CAPITAL QU'IL DEVRAIT PAYE POUR CETTE TRANCHE
+                $capAmmortie = $getRoumboursement->CapAmmorti;
+                $capitalAvance = $request->RemboursCapital - $getRoumboursement->CapAmmorti;
+
+
+                Remboursementcredit::create([
+                    "RefEcheance" => $getRoumboursement->ReferenceEch,
+                    "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                    "NumCompteCredit" => $getPorteFeuilledata->NumCompteCredit,
+                    "NumDossie" => $getPorteFeuilledata->NumCompteCredit,
+                    "RefTypCredit" => $getPorteFeuilledata->RefTypeCredit,
+                    "NomCompte" => $getPorteFeuilledata->NomCompte,
+                    "DateTranche" => $getRoumboursement->DateTranch,
+                    // "DateRetard" =>$getRoumboursement->DateTranch,
+                    // "JoursRetard",
+                    // "InteretAmmorti",
+                    // "InteretPaye",
+                    // "InteretS",
+                    "CapitalAmmortie" => $getRoumboursement->CapAmmorti,
+                    "CapitalPaye"  => $request->RemboursCapital,
+                    // "CapitalS",
+                    // "EpargneAmmorti",
+                    // "EpargnePaye",
+                    // "EpargneS",
+                    "CodeGuichet" => $getPorteFeuilledata->CodeGuichet,
+                    "NumAdherent" => $getPorteFeuilledata->numAdherant,
+                ]);
+                //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
+                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                $totCapPaye = Remboursementcredit::select(
+                    DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                    ->groupBy("remboursementcredits.NumDossie")
+                    ->first();
+
+                $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                    "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                    "CapitalRestant" => $getPorteFeuilledata->CapitalRestant + $capRestant,
+                ]);
+
+                //RENSEIGNE LE PAYEMENT
+                Echeancier::where("ReferenceEch ", "=", $getRoumboursement->ReferenceEch)
+                    ->update([
+                        "statutPayement" => 1,
+                    ]);
+
+                //PASSE LES ECRITURES DE DEBIT ET CREDIT SUR COMPTE
+
+
+
+                if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+                    $numCompteCreditUSD = 3270000000201;
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital,
+                        "Debitfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital,
+                        "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 1,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditUSD,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital,
+                    //     "Creditfc" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditUSD,
+                    // ]);
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                } else if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Debitfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $request->RemboursCapital,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                        "Creditfc" =>  $request->RemboursCapital,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 2,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditCDF,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $request->RemboursCapital,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $request->RemboursCapital * $tauxDuJour,
+                    //     "Creditfc" =>  $request->RemboursCapital,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditCDF,
+                    // ]);
+
+
+
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                }
+
+                //PUIS RENSEIGNE LE PAIEMENT SUR LA TRANCHE SUIVANTE
+
+
+
+                //RECUPERE LE REMBOURSEMENT ATTENDU POUR CE MEMBRE
+
+                $getRoumboursement = Echeancier::where("echeanciers.NumDossier", "=", $request->NumDossier)->where("echeanciers.statutPayement", "=", 0)->where("echeanciers.CapAmmorti", ">", 0)
+                    ->join('portefeuilles', 'portefeuilles.NumDossier', '=', 'echeanciers.NumDossier')
+                    ->join('comptes', 'comptes.NumCompte', '=', 'portefeuilles.NumCompteEpargne')
+                    ->join('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.ReferenceEch')
+                    ->limit(1)->first();
+                $capitalEnRetard = $getRoumboursement->CapitalAmmortie - $getRoumboursement->CapitalPaye;
+                $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+
+                //RECUPEPERE LA SOMME DU CAPITAL QU'IL DEVRAIT PAYE POUR CETTE TRANCHE
+                $capAmmortie = $getRoumboursement->CapAmmorti;
+                $capitalAvance = $request->RemboursCapital - $getRoumboursement->CapAmmorti;
+
+
+                Remboursementcredit::create([
+                    "RefEcheance" => $getRoumboursement->ReferenceEch,
+                    "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                    "NumCompteCredit" => $getPorteFeuilledata->NumCompteCredit,
+                    "NumDossie" => $getPorteFeuilledata->NumCompteCredit,
+                    "RefTypCredit" => $getPorteFeuilledata->RefTypeCredit,
+                    "NomCompte" => $getPorteFeuilledata->NomCompte,
+                    "DateTranche" => $getRoumboursement->DateTranch,
+                    // "DateRetard" =>$getRoumboursement->DateTranch,
+                    // "JoursRetard",
+                    // "InteretAmmorti",
+                    // "InteretPaye",
+                    // "InteretS",
+                    "CapitalAmmortie" => $capAmmortie,
+                    "CapitalPaye"  => $capitalAvance,
+                    // "CapitalS",
+                    // "EpargneAmmorti",
+                    // "EpargnePaye",
+                    // "EpargneS",
+                    "CodeGuichet" => $getPorteFeuilledata->CodeGuichet,
+                    "NumAdherent" => $getPorteFeuilledata->numAdherant,
+                ]);
+                //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
+                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+                $totCapPaye = Remboursementcredit::select(
+                    DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
+                )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
+                    ->groupBy("remboursementcredits.NumDossie")
+                    ->first();
+
+                $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
+                Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                    "RemboursCapital" => $totCapPaye->totCapitalPaye,
+                    "CapitalRestant" => $getPorteFeuilledata->CapitalRestant + $capRestant,
+                ]);
+
+                //RENSEIGNE LE PAYEMENT
+                Echeancier::where("ReferenceEch ", "=", $getRoumboursement->ReferenceEch)
+                    ->update([
+                        "statutPayement" => 1,
+                    ]);
+
+                //PASSE LES ECRITURES DE DEBIT ET CREDIT SUR COMPTE
+
+
+
+                if ($getPorteFeuilledata->CodeMonnaie == "USD") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+                    $numCompteCreditUSD = 3270000000201;
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $capitalAvance,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $capitalAvance,
+                        "Debitfc" =>  $capitalAvance * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement tranche du capital en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 1,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $capitalAvance,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" =>  $capitalAvance,
+                        "Creditfc" =>  $capitalAvance * $tauxDuJour,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement tranche capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 1,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditUSD,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" => $capitalAvance,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $capitalAvance,
+                    //     "Creditfc" =>  $capitalAvance * $tauxDuJour,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement tranche capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditUSD,
+                    // ]);
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                } else if ($getPorteFeuilledata->CodeMonnaie == "CDF") {
+                    //CREDITE LE COMPTE EPARGNE DU MEMBRE
+                    $numCompteCreditCDF = 3270000000202;
+
+
+                    CompteurTransaction::create([
+                        'fakevalue' => "0000",
+                    ]);
+                    $numOperation = [];
+                    $numOperation = CompteurTransaction::latest()->first();
+                    $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                    //RECUPERE LA DATE DU SYSTEME
+
+                    $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                    //RECUPERE LE TAUX JOURNALIER
+                    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "D",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteEpargne,
+                        "NumComptecp" => $getPorteFeuilledata->NumCompteCredit,
+                        "Debit" =>  $capitalAvance,
+                        "Operant" =>  Auth::user()->name,
+                        "Debit$" =>  $capitalAvance * $tauxDuJour,
+                        "Debitfc" =>  $capitalAvance,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement tranche capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE SON COMPTE CREDIT
+                    Transactions::create([
+                        "NumTransaction" => $NumTransaction,
+                        "DateTransaction" => $date,
+                        "DateSaisie" => $date,
+                        "TypeTransaction" => "C",
+                        "CodeMonnaie" => 2,
+                        "CodeAgence" => "20",
+                        "NumDossier" => "DOS00" . $numOperation->id,
+                        "NumDemande" => "V00" . $numOperation->id,
+                        "NumCompte" => $getPorteFeuilledata->NumCompteCredit,
+                        "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                        "Credit" =>  $capitalAvance,
+                        "Operant" =>  Auth::user()->name,
+                        "Credit$" => $capitalAvance * $tauxDuJour,
+                        "Creditfc" =>  $capitalAvance,
+                        "NomUtilisateur" => Auth::user()->name,
+                        "Libelle" => "Remboursement tranche capital de votre crédit en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                        "refCompteMembre" => $getPorteFeuilledata->numAdherant,
+                    ]);
+
+                    //CREDITE LE COMPTE CREDIT AGR
+
+                    // Transactions::create([
+                    //     "NumTransaction" => $NumTransaction,
+                    //     "DateTransaction" => $date,
+                    //     "DateSaisie" => $date,
+                    //     "TypeTransaction" => "C",
+                    //     "CodeMonnaie" => 2,
+                    //     "CodeAgence" => "20",
+                    //     "NumDossier" => "DOS00" . $numOperation->id,
+                    //     "NumDemande" => "V00" . $numOperation->id,
+                    //     "NumCompte" => $numCompteCreditCDF,
+                    //     "NumComptecp" =>  $getPorteFeuilledata->NumCompteEpargne,
+                    //     "Credit" =>  $capitalAvance,
+                    //     "Operant" =>  Auth::user()->name,
+                    //     "Credit$" =>  $capitalAvance * $tauxDuJour,
+                    //     "Creditfc" => $capitalAvance,
+                    //     "NomUtilisateur" => Auth::user()->name,
+                    //     "Libelle" => "Remboursement tranche capital du crédit octroyé à " . $getPorteFeuilledata->NomCompte . " en date du " . $date . " Numéro dossier " . $getPorteFeuilledata->NumDossier,
+                    //     "refCompteMembre" => $numCompteCreditCDF,
+                    // ]);
+
+                    return response()->json(['success' => 1, 'msg' => 'Remboursement bien effectué.']);
+                }
+            }
+        } else {
+            return response()->json(['success' => 0, 'msg' => 'Veuillez renseigner le montant.']);
+        }
+    }
+}

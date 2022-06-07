@@ -96,8 +96,6 @@ class EntreeTresorController extends Controller
         $data = Delestage::where("id", "=", $id)->first();
 
         //CREDITE LE COMPTE CAISSE TRANSFERT INTER GUICHET CDF
-
-
         Transactions::create([
             "NumTransaction" => $data->Reference,
             "DateTransaction" => $data->DateTransaction,

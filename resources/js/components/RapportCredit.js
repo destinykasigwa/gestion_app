@@ -1613,17 +1613,22 @@ export default class RapportCredit extends React.Component {
                                                                     <td>
                                                                         {" "}
                                                                         {isNaN(
-                                                                            numberFormat(
-                                                                                parseInt(
-                                                                                    this
-                                                                                        .state
-                                                                                        .fetchTableauAmortiss[0]
-                                                                                        .RemboursCapital
-                                                                                )
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchTableauAmortiss[0]
+                                                                                    .RemboursCapital
                                                                             )
                                                                         )
                                                                             ? "0.00"
-                                                                            : null}
+                                                                            : numberFormat(
+                                                                                  parseInt(
+                                                                                      this
+                                                                                          .state
+                                                                                          .fetchTableauAmortiss[0]
+                                                                                          .RemboursCapital
+                                                                                  )
+                                                                              )}
                                                                     </td>
                                                                 </tr>
                                                                 <tr>
@@ -1634,14 +1639,18 @@ export default class RapportCredit extends React.Component {
                                                                     </td>
                                                                     <td>
                                                                         {isNaN(
-                                                                            numberFormat(
+                                                                            parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .fetchTableauAmortiss[0]
+                                                                                    .MontantAccorde
+                                                                            ) -
                                                                                 parseInt(
                                                                                     this
                                                                                         .state
                                                                                         .fetchTableauAmortiss[0]
-                                                                                        .CapitalRestant
+                                                                                        .RemboursCapital
                                                                                 )
-                                                                            )
                                                                         )
                                                                             ? "0.00"
                                                                             : numberFormat(
@@ -1649,8 +1658,14 @@ export default class RapportCredit extends React.Component {
                                                                                       this
                                                                                           .state
                                                                                           .fetchTableauAmortiss[0]
-                                                                                          .CapitalRestant
-                                                                                  )
+                                                                                          .MontantAccorde
+                                                                                  ) -
+                                                                                      parseInt(
+                                                                                          this
+                                                                                              .state
+                                                                                              .fetchTableauAmortiss[0]
+                                                                                              .RemboursCapital
+                                                                                      )
                                                                               )}
                                                                     </td>
                                                                 </tr>
@@ -1988,26 +2003,24 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
+                                                                                    parseInt(
+                                                                                        res.CapAmmorti
+                                                                                    ) -
                                                                                         parseInt(
-                                                                                            res.CapAmmorti
+                                                                                            res.CapitalPaye
+                                                                                        ) +
+                                                                                        parseInt(
+                                                                                            res.Interet
                                                                                         ) -
-                                                                                            parseInt(
-                                                                                                res.CapitalPaye
-                                                                                            ) +
-                                                                                            parseInt(
-                                                                                                res.Interet
-                                                                                            ) -
-                                                                                            parseInt(
-                                                                                                res.InteretPaye
-                                                                                            ) +
-                                                                                            parseInt(
-                                                                                                res.Epargne
-                                                                                            ) -
-                                                                                            parseInt(
-                                                                                                res.EpargnePaye
-                                                                                            )
-                                                                                    )
+                                                                                        parseInt(
+                                                                                            res.InteretPaye
+                                                                                        ) +
+                                                                                        parseInt(
+                                                                                            res.Epargne
+                                                                                        ) -
+                                                                                        parseInt(
+                                                                                            res.EpargnePaye
+                                                                                        )
                                                                                 )
                                                                                     ? "0.00"
                                                                                     : numberFormat(

@@ -43,6 +43,8 @@ export default class Positionnement extends React.Component {
             soldeUSD: "",
             getAllOperat: null,
             getCompteurDocument: null,
+            soldeCDF: "",
+            soldeUSD: "",
         };
         this.handleAccount = this.handleAccount.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -91,7 +93,7 @@ export default class Positionnement extends React.Component {
         if (getData.data.success == 1) {
             this.setState({
                 fetchData: getData.data.data,
-                getMembreSolde: getData.data.soldeMembre,
+                // getMembreSolde: getData.data.soldeMembre,
                 getCompteurDocument: getData.data.numdoc,
             });
             this.setState({
@@ -99,8 +101,8 @@ export default class Positionnement extends React.Component {
                 refCompte: this.state.fetchData.refCompte,
                 numCompte: this.state.fetchData.numCompte,
                 operant: this.state.fetchData.intituleCompte,
-                soldeCDF: this.state.getMembreSolde[1].soldeMembreCDF,
-                soldeUSD: this.state.getMembreSolde[0].soldeMembreUSD,
+                soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
+                soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD,
                 adresse:
                     this.state.fetchData.CommuneActuelle +
                     " " +
@@ -111,7 +113,7 @@ export default class Positionnement extends React.Component {
                 beneficiaire: this.state.fetchData.intituleCompte,
                 numDocument: "DC000" + this.state.getCompteurDocument,
             });
-            console.log(this.state.getMembreSolde);
+            console.log(this.state.fetchData);
             //disabled valider button
             document
                 .getElementById("validerbtn")
@@ -124,7 +126,7 @@ export default class Positionnement extends React.Component {
                 button: "OK!",
             });
         }
-        // console.log(this.state.fetchData);
+        console.log(this.state.fetchData);
     };
 
     saveOperation = async (e) => {
@@ -563,13 +565,12 @@ export default class Positionnement extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .getMembreSolde &&
+                                                                            .soldeUSD &&
                                                                         numberFormat(
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[0]
-                                                                                    .soldeMembreUSD
+                                                                                    .soldeUSD
                                                                             )
                                                                         )
                                                                     }
@@ -599,13 +600,12 @@ export default class Positionnement extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .getMembreSolde &&
+                                                                            .soldeCDF &&
                                                                         numberFormat(
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[1]
-                                                                                    .soldeMembreCDF
+                                                                                    .soldeCDF
                                                                             )
                                                                         )
                                                                     }

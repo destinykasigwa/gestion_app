@@ -31,6 +31,7 @@ class Echeancier extends Model
         "CapitalEffectif",
         "Reechelonne",
         "Epargne",
-        "Penalite"
+        "Penalite",
+        "statutPeyement"
     ];
 }

@@ -637,7 +637,7 @@ class SuiviCreditController extends Controller
         if ($dataCredit->CodeMonnaie == "CDF") {
 
 
-            $numCompteCreditCDF = 3270000000202;
+            // $numCompteCreditCDF = 3270000000202;
 
             CompteurTransaction::create([
                 'fakevalue' => "0000",
@@ -651,25 +651,25 @@ class SuiviCreditController extends Controller
             //RECUPERE LE TAUX JOURNALIER
             $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
 
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" => $date,
-                "TypeTransaction" => "D",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $numCompteCreditCDF,
-                "NumComptecp" => $dataCredit->NumCompteCredit,
-                "Debit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
-                "Debitfc" => $dataCredit->MontantAccorde,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-                "refCompteMembre" => $numCompteCreditCDF,
-            ]);
+            // Transactions::create([
+            //     "NumTransaction" => $NumTransaction,
+            //     "DateTransaction" => $date,
+            //     "DateSaisie" => $date,
+            //     "TypeTransaction" => "D",
+            //     "CodeMonnaie" => 2,
+            //     "CodeAgence" => "20",
+            //     "NumDossier" => "DOS00" . $numOperation->id,
+            //     "NumDemande" => "V00" . $numOperation->id,
+            //     "NumCompte" => $numCompteCreditCDF,
+            //     "NumComptecp" => $dataCredit->NumCompteCredit,
+            //     "Debit" => $dataCredit->MontantAccorde,
+            //     "Operant" =>  Auth::user()->name,
+            //     "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+            //     "Debitfc" => $dataCredit->MontantAccorde,
+            //     "NomUtilisateur" => Auth::user()->name,
+            //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+            //     "refCompteMembre" => $numCompteCreditCDF,
+            // ]);
             //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
 
 
@@ -683,7 +683,7 @@ class SuiviCreditController extends Controller
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
                 "NumCompte" => $dataCredit->NumCompteCredit,
-                "NumComptecp" =>  $numCompteCreditCDF,
+                "NumComptecp" =>  $dataCredit->NumCompteEpargne,
                 "Debit" => $dataCredit->MontantAccorde,
                 "Operant" =>  Auth::user()->name,
                 "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
@@ -717,7 +717,7 @@ class SuiviCreditController extends Controller
             ]);
         } else if ($dataCredit->CodeMonnaie == "USD") {
 
-            $numCompteCreditUSD = 3270000000201;
+            // $numCompteCreditUSD = 3270000000201;
 
 
             CompteurTransaction::create([
@@ -733,25 +733,25 @@ class SuiviCreditController extends Controller
             $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
 
             //DEBITE LE COMPTE CREDIT USD
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" => $date,
-                "TypeTransaction" => "D",
-                "CodeMonnaie" => 1,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $numCompteCreditUSD,
-                "NumComptecp" => $dataCredit->NumCompteCredit,
-                "Debit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Debit$" => $dataCredit->MontantAccorde,
-                "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-                "refCompteMembre" => $numCompteCreditUSD,
-            ]);
+            // Transactions::create([
+            //     "NumTransaction" => $NumTransaction,
+            //     "DateTransaction" => $date,
+            //     "DateSaisie" => $date,
+            //     "TypeTransaction" => "D",
+            //     "CodeMonnaie" => 1,
+            //     "CodeAgence" => "20",
+            //     "NumDossier" => "DOS00" . $numOperation->id,
+            //     "NumDemande" => "V00" . $numOperation->id,
+            //     "NumCompte" => $numCompteCreditUSD,
+            //     "NumComptecp" => $dataCredit->NumCompteCredit,
+            //     "Debit" => $dataCredit->MontantAccorde,
+            //     "Operant" =>  Auth::user()->name,
+            //     "Debit$" => $dataCredit->MontantAccorde,
+            //     "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+            //     "NomUtilisateur" => Auth::user()->name,
+            //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+            //     "refCompteMembre" => $numCompteCreditUSD,
+            // ]);
             //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
 
 
@@ -765,7 +765,7 @@ class SuiviCreditController extends Controller
                 "NumDossier" => "DOS00" . $numOperation->id,
                 "NumDemande" => "V00" . $numOperation->id,
                 "NumCompte" => $dataCredit->NumCompteCredit,
-                "NumComptecp" =>  $numCompteCreditUSD,
+                "NumComptecp" =>  $dataCredit->NumCompteEpargne,
                 "Debit" => $dataCredit->MontantAccorde,
                 "Operant" =>  Auth::user()->name,
                 "Debit$" => $dataCredit->MontantAccorde,

@@ -61,7 +61,7 @@ class RapportCreditController extends Controller
                 ->orWhere("portefeuilles.NumCompteEpargne", "=", $request->NumCompteEpargne)
                 ->orWhere("portefeuilles.NumCompteCredit", "=", $request->NumCompteCredit)
                 ->leftJoin('echeanciers', 'echeanciers.NumDossier', '=', 'portefeuilles.NumDossier')
-                ->leftJoin('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.id')
+                ->leftJoin('remboursementcredits', 'remboursementcredits.RefEcheance', '=', 'echeanciers.ReferenceEch')
                 //   ->select('echeanciers.*')
                 ->get();
 

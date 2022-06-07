@@ -922,7 +922,7 @@ export default class JournalCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetchTot[0]
+                                                                                .fetchTot
                                                                                 .totDebit
                                                                         )
                                                                     )}
@@ -942,7 +942,7 @@ export default class JournalCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetchTot[0]
+                                                                                .fetchTot
                                                                                 .totCredit
                                                                         )
                                                                     )}
@@ -1064,7 +1064,7 @@ export default class JournalCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetTotUSD[0]
+                                                                                .fetTotUSD
                                                                                 .totDebitUSD
                                                                         )
                                                                     )}
@@ -1084,7 +1084,7 @@ export default class JournalCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetTotUSD[0]
+                                                                                .fetTotUSD
                                                                                 .totCreditUSD
                                                                         )
                                                                     )}

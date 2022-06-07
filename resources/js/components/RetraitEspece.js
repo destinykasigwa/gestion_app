@@ -1593,9 +1593,11 @@ export default class RetraitEspece extends React.Component {
                                         </h3>
                                         <div className="col-md-5 billetage-div">
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -2082,9 +2084,11 @@ export default class RetraitEspece extends React.Component {
                                         </h3>
                                         <div className="col-md-5 billetage-div">
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -2469,9 +2473,11 @@ export default class RetraitEspece extends React.Component {
                                             </h3>
 
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -2663,9 +2669,11 @@ export default class RetraitEspece extends React.Component {
                                                 Opérations recentes en USD
                                             </h3>
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>

@@ -106,7 +106,8 @@ class Adhesion extends React.Component {
         const getData = await axios.post("/createnew");
         this.setState({
             numCompte: "330000" + getData.data.lastId + "201",
-            compteAbrege: getData.data.lastId + "20",
+            compteAbrege: getData.data.lastId,
+            // compteAbrege: getData.data.lastId + "20",
         });
 
         // console.log(this.state.fetchLastId);

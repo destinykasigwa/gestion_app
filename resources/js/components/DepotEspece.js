@@ -46,8 +46,6 @@ export default class DepotEspece extends React.Component {
             getLastestOperationUSD: null,
             getSommeCDF: null,
             getSommeUSD: null,
-            getMembreSoldeCDF: null,
-            getMembreSolde: null,
             fetchDaylyAproCDF: null,
             fetchDaylyAproUSD: null,
             soldeCDF: "",
@@ -144,15 +142,14 @@ export default class DepotEspece extends React.Component {
         if (getData.data.success == 1) {
             this.setState({
                 fetchData: getData.data.data,
-                getMembreSolde: getData.data.soldeMembre,
+                soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
+                soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD,
             });
             this.setState({
                 disabled: !this.state.disabled,
                 refCompte: this.state.fetchData.refCompte,
                 numCompte: this.state.fetchData.numCompte,
                 operant: this.state.fetchData.intituleCompte,
-                soldeCDF: this.state.getMembreSolde[1].soldeMembreCDF,
-                soldeUSD: this.state.getMembreSolde[0].soldeMembreUSD,
             });
             console.log(this.state.getMembreSolde);
             //disabled valider button
@@ -197,7 +194,7 @@ export default class DepotEspece extends React.Component {
     //ACCEPT A SPECIIQUE APPRO ITEM CDF
 
     acceptItemCDF(id) {
-        const question = confirm("vous le vous vraiment accepter cette appro?");
+        const question = confirm("voulez vous vraiment accepter cette appro?");
         if (question == true) {
             axios.delete("accept/appro/cdf/" + id).then((response) => {
                 if (response.data.success == 1) {
@@ -456,7 +453,7 @@ export default class DepotEspece extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .otherMention
+                                                                            .intituleCompte
                                                                             ? this
                                                                                   .state
                                                                                   .intituleCompte
@@ -619,13 +616,12 @@ export default class DepotEspece extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .getMembreSolde &&
+                                                                            .soldeUSD &&
                                                                         numberFormat(
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[0]
-                                                                                    .soldeMembreUSD
+                                                                                    .soldeUSD
                                                                             )
                                                                         )
                                                                     }
@@ -655,13 +651,12 @@ export default class DepotEspece extends React.Component {
                                                                     value={
                                                                         this
                                                                             .state
-                                                                            .getMembreSolde &&
+                                                                            .soldeCDF &&
                                                                         numberFormat(
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSolde[1]
-                                                                                    .soldeMembreCDF
+                                                                                    .soldeCDF
                                                                             )
                                                                         )
                                                                     }
@@ -2373,9 +2368,11 @@ export default class DepotEspece extends React.Component {
                                         </h3>
                                         <div className="col-md-5 billetage-div">
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -2862,9 +2859,11 @@ export default class DepotEspece extends React.Component {
                                         </h3>
                                         <div className="col-md-5 billetage-div">
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -3249,9 +3248,11 @@ export default class DepotEspece extends React.Component {
                                             </h3>
 
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>
@@ -3443,9 +3444,11 @@ export default class DepotEspece extends React.Component {
                                                 Opérations recentes en USD
                                             </h3>
                                             <table
-                                                className="table"
+                                                className="tableStyle"
                                                 style={{
-                                                    background: "#dcdcdc",
+                                                    background: "#444",
+                                                    padding: "5px",
+                                                    color: "#fff",
                                                 }}
                                             >
                                                 <thead>

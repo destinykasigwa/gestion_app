@@ -17,6 +17,7 @@ use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\JournalCaisseController;
 use App\Http\Controllers\RapportCreditController;
+use App\Http\Controllers\RemboursementController;
 use App\Http\Controllers\RepertoireCaisseController;
 use App\Http\Controllers\SoldeController;
 use App\Http\Controllers\SuiviCreditController;
@@ -418,4 +419,18 @@ Route::post(
     "
     rapport/tableau-ammortisement",
     [RapportCreditController::class, 'getTableauAmmortissement']
+);
+
+//PERMET D'EFFECTUER UN REMBOURSEMENT MANUEL CAPITAL
+Route::post(
+    "
+    credit/remboursement/capital",
+    [RemboursementController::class, 'remboursementEnCapital']
+);
+
+//PERMET D'EFFECTUER UN REMBOURSEMENT MANUEL INTERET
+Route::post(
+    "
+    credit/remboursement/interet",
+    [RemboursementController::class, 'remboursementEnInteret']
 );

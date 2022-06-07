@@ -23,7 +23,7 @@ class JournalCaisseController extends Controller
             $data = Transactions::where("transactions.NomUtilisateur", "=", $request->userName)
                 ->where("transactions.CodeAgence", "=", $codeAgence)
                 ->where("comptes.CodeMonnaie", "=", 2)
-                ->where("comptes.RefTypeCompte", "=", 5)
+                // ->where("comptes.RefTypeCompte", "=", 5)
                 // ->orWhere("comptes.RefTypeCompte", "=", 7)
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
@@ -47,12 +47,13 @@ class JournalCaisseController extends Controller
             )->where("transactions.NomUtilisateur", '=', $request->userName)
                 ->where("transactions.CodeAgence", "=", $codeAgence)
                 ->where("comptes.CodeMonnaie", "=", 2)
-                ->where("comptes.RefTypeCompte", "=", 5)
+                // ->where("comptes.RefTypeCompte", "=", 5)
                 // ->orWhere("comptes.RefTypeCompte", "=", 7)
+                // ->orWhere("comptes.RefTypeCompte", "=", 3)
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
                 ->groupBy("transactions.NomUtilisateur")
-                ->get();
+                ->first();
 
 
 
@@ -64,7 +65,7 @@ class JournalCaisseController extends Controller
             $dataUSD = Transactions::where("transactions.NomUtilisateur", "=", $request->userName)
                 ->where("transactions.CodeAgence", "=", $codeAgence)
                 ->where("comptes.CodeMonnaie", "=", 1)
-                ->where("comptes.RefTypeCompte", "=", 5)
+                // ->where("comptes.RefTypeCompte", "=", 5)
                 // ->orWhere("comptes.RefTypeCompte", "=", 7)
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
@@ -81,19 +82,20 @@ class JournalCaisseController extends Controller
 
 
             //RECUPERE LE SOMME DE DEPOT ET DE RETRAIT
-            //RECUPERE LE TOTAUX CDF
+            //RECUPERE LE TOTAUX USD
             $dataTotUSD = Transactions::select(
                 DB::raw("SUM(transactions.Credit$) as  totCreditUSD"),
                 DB::raw("SUM(transactions.Debit$) as totDebitUSD"),
             )->where("transactions.NomUtilisateur", '=', $request->userName)
                 ->where("transactions.CodeAgence", "=", $codeAgence)
                 ->where("comptes.CodeMonnaie", "=", 1)
-                ->where("comptes.RefTypeCompte", "=", 5)
+                // ->where("comptes.RefTypeCompte", "=", 5)
                 // ->orWhere("comptes.RefTypeCompte", "=", 7)
+                // ->orWhere("comptes.RefTypeCompte", "=", 3)
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
                 ->groupBy("transactions.NomUtilisateur")
-                ->get();
+                ->first();
 
 
 

@@ -35,6 +35,7 @@ class RepertoireCaisseController extends Controller
                     'comptes.NomCompte as NomCompt',
                     'transactions.NumCompte as NumCompt',
                     'transactions.Operant as Initiateur',
+                    'transactions.Libelle as Description'
                 ]);
 
 
@@ -50,7 +51,7 @@ class RepertoireCaisseController extends Controller
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
                 ->groupBy("transactions.NomUtilisateur")
-                ->get();
+                ->first();
 
 
 
@@ -72,6 +73,7 @@ class RepertoireCaisseController extends Controller
                     'comptes.NomCompte as NomCompt',
                     'transactions.NumCompte as NumCompt',
                     'transactions.Operant as Initiateur',
+                    'transactions.Libelle as Description'
                 ]);
 
 
@@ -87,7 +89,7 @@ class RepertoireCaisseController extends Controller
                 ->whereBetween('transactions.DateTransaction', [$dateDebut, $dateFin])
                 ->join("comptes", 'transactions.NumCompte', '=', 'comptes.NumCompte')
                 ->groupBy("transactions.NomUtilisateur")
-                ->get();
+                ->first();
 
 
 

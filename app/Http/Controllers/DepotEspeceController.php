@@ -30,13 +30,26 @@ class DepotEspeceController extends Controller
   public function getAccount($id)
   {
     //RECUPERE LES INFO DU MEMBRE RECHERCHE
-    $data = AdhesionMembre::where('numCompte', 'like', '%' . $id . '%')->first();
+    $data = AdhesionMembre::where('compteAbrege', '=', $id)->first();
+
+    //RECUPERE LE COMPTE EN CDF 
 
     //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
-    $soldeMembre = Transactions::select(
-      DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+    $compteMembreCDF = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 2)->first()->NumCompte;
+    $soldeMembreCDF = Transactions::select(
+      // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
       DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
-    )->where("NumCompte", 'like', '%' . $id . '%')
+    )->where("NumCompte", '=', $compteMembreCDF)
+      ->groupBy("NumCompte")
+      ->get();
+
+
+    //RECUPERE LE SOLDE DU MEMBRE EN FC EN USD
+    $compteMembreUSD = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 1)->first()->NumCompte;
+    $soldeMembreUSD = Transactions::select(
+      // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+      DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+    )->where("NumCompte", '=', $compteMembreUSD)
       ->groupBy("NumCompte")
       ->get();
 
@@ -45,10 +58,12 @@ class DepotEspeceController extends Controller
     $lastId = CompteurDocument::orderBy('id', 'desc')->first();
     $numDoc = $lastId->id;
 
+
+
     if ($data) {
 
       return response()->json([
-        "success" => 1, 'data' =>  $data, "soldeMembre" => $soldeMembre, "numdoc" => $numDoc
+        "success" => 1, 'data' =>  $data, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeMembreUSD, "numdoc" => $numDoc
       ]);
     } else {
 
@@ -136,13 +151,13 @@ class DepotEspeceController extends Controller
       $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "D00" . $numOperation->id;
 
       //RECUPERE LE COMPTE DU CAISSIER CONCERNE USD 
-      $numCompteCaissierUSD = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
+      $numCompteCaissierUSD = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "1")->first();
       $CompteCaissierUSD = $numCompteCaissierUSD->NumCompte;
-
+      $intituleCompteCaissierUSD = $numCompteCaissierUSD->NomCompte;
       //RECUPERE LE COMPTE DU CAISSIER CONCERNE CDF
-      $numCompteCaissierCDF = Comptes::where("NumAdherant", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
+      $numCompteCaissierCDF = Comptes::where("caissierId", "=", Auth::user()->id)->where("CodeMonnaie", "=", "2")->first();
       $CompteCaissierCDF = $numCompteCaissierCDF->NumCompte;
-
+      $intituleCompteCaissierCDF = $numCompteCaissierCDF->NomCompte;
       //  $numCompteContrePartie="5700003032202";
       //  $numCompteContrePartieUSD="5700003032201";
       if ($request->devise == "CDF") {
@@ -164,11 +179,37 @@ class DepotEspeceController extends Controller
           "NumCompte" => $compteCDF,
           "NumComptecp" => $CompteCaissierCDF,
           "Operant" => $request->operant,
-          "Credit"  => $request->montantDepot / $tauxDuJour,
+          "Credit"  => $request->montantDepot,
+          "Credit$"  => $request->montantDepot / $tauxDuJour,
           "Creditfc" => $request->montantDepot,
           "NomUtilisateur" => Auth::user()->name,
           "Libelle" => $request->libelle,
         ]);
+
+
+        //DEBITE LE COMPTE DU CAISSIER CONCERNE
+        Transactions::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
+          "Taux" => 1,
+          "TypeTransaction" => "D",
+          "CodeMonnaie" => 2,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $CompteCaissierCDF,
+          "NumComptecp" => $compteCDF,
+          "Operant" => $intituleCompteCaissierCDF,
+          "Debit"  => $request->montantDepot,
+          "Debit$"  => $request->montantDepot / $tauxDuJour,
+          "Debitfc" => $request->montantDepot,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
+        ]);
+
+
+
         //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
         $lastInsertedId = Transactions::latest()->first();
         //COMPLETE LE BILLETAGE
@@ -222,10 +263,33 @@ class DepotEspeceController extends Controller
           "Credit" => $request->montantDepot,
           "Operant" => $request->operant,
           "Credit$" => $request->montantDepot,
-          "Creditcdf" => $request->montantDepot *  $tauxDuJour,
+          "Creditfc" => $request->montantDepot *  $tauxDuJour,
           "NomUtilisateur" => Auth::user()->name,
           "Libelle" => $request->libelle,
         ]);
+
+        //DEBITE LE COMPTE DU CAISSIER EN USD
+
+        Transactions::create([
+          "NumTransaction" => $NumTransaction,
+          "DateTransaction" => $date,
+          "DateSaisie" => $date,
+          "Taux" => 1,
+          "TypeTransaction" => "D",
+          "CodeMonnaie" => 1,
+          "CodeAgence" => "20",
+          "NumDossier" => "DOS00" . $numOperation->id,
+          "NumDemande" => "V00" . $numOperation->id,
+          "NumCompte" => $CompteCaissierUSD,
+          "NumComptecp" => $request->numCompte,
+          "Debit" => $request->montantDepot,
+          "Operant" => $intituleCompteCaissierUSD,
+          "Debit$" => $request->montantDepot,
+          "Debitfc" => $request->montantDepot *  $tauxDuJour,
+          "NomUtilisateur" => Auth::user()->name,
+          "Libelle" => $request->libelle,
+        ]);
+
         //RECUPERE LA DERNIER ID DU L'OPERATION INSEREE
         $lastInsertedId = Transactions::latest()->first();
         //COMPLETE LE BILLETAGE
@@ -311,12 +375,14 @@ class DepotEspeceController extends Controller
     //RECUPERE 8 OPERATIONS RECENTES CDF
 
 
-    $operationCDF = Transactions::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "2")
-      ->paginate(8)->All();
+    $operationCDF = Transactions::where("NomUtilisateur", "=", Auth::user()->name)
+      ->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "2")
+      ->paginate(12)->All();
 
     //RECUPERE 6 OPERATIONS RECENTES USD    
-    $operationUSD = Transactions::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "1")
-      ->paginate(6)->All();
+    $operationUSD = Transactions::where("NomUtilisateur", "=", Auth::user()->name)
+      ->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "1")
+      ->paginate(12)->All();
 
     $soldeOperationCDF = Transactions::select(
       DB::raw("SUM(Debitfc) as sommeDeDebitCDF"),

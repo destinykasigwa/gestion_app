@@ -811,6 +811,9 @@ export default class RepertoireCaisse extends React.Component {
                                                                 Initiateur
                                                             </td>
                                                             <td scope="col">
+                                                                Libellé
+                                                            </td>
+                                                            <td scope="col">
                                                                 Entrée
                                                             </td>
                                                             <td scope="col">
@@ -845,6 +848,11 @@ export default class RepertoireCaisse extends React.Component {
                                                                         <td>
                                                                             {
                                                                                 res.Initiateur
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                res.Description
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -910,7 +918,7 @@ export default class RepertoireCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetchTot[0]
+                                                                                .fetchTot
                                                                                 .totCredit
                                                                         )
                                                                     )}
@@ -931,7 +939,7 @@ export default class RepertoireCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetchTot[0]
+                                                                                .fetchTot
                                                                                 .totDebit
                                                                         )
                                                                     )}
@@ -977,6 +985,11 @@ export default class RepertoireCaisse extends React.Component {
                                                                         <td>
                                                                             {
                                                                                 res.Initiateur
+                                                                            }
+                                                                        </td>
+                                                                        <td>
+                                                                            {
+                                                                                res.Description
                                                                             }
                                                                         </td>
                                                                         <td>
@@ -1042,7 +1055,7 @@ export default class RepertoireCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetTotUSD[0]
+                                                                                .fetTotUSD
                                                                                 .totCreditUSD
                                                                         )
                                                                     )}
@@ -1063,7 +1076,7 @@ export default class RepertoireCaisse extends React.Component {
                                                                         parseInt(
                                                                             this
                                                                                 .state
-                                                                                .fetTotUSD[0]
+                                                                                .fetTotUSD
                                                                                 .totDebitUSD
                                                                         )
                                                                     )}

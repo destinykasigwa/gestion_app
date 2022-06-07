@@ -2626,7 +2626,8 @@ var Adhesion = /*#__PURE__*/function (_React$Component) {
 
                 _this.setState({
                   numCompte: "330000" + getData.data.lastId + "201",
-                  compteAbrege: getData.data.lastId + "20"
+                  compteAbrege: getData.data.lastId // compteAbrege: getData.data.lastId + "20",
+
                 }); // console.log(this.state.fetchLastId);
                 //clean data in all in put
 
@@ -7366,16 +7367,15 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                 if (getData.data.success == 1) {
                   _this.setState({
                     fetchData: getData.data.data,
-                    getMembreSolde: getData.data.soldeMembre
+                    soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
+                    soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD
                   });
 
                   _this.setState({
                     disabled: !_this.state.disabled,
                     refCompte: _this.state.fetchData.refCompte,
                     numCompte: _this.state.fetchData.numCompte,
-                    operant: _this.state.fetchData.intituleCompte,
-                    soldeCDF: _this.state.getMembreSolde[1].soldeMembreCDF,
-                    soldeUSD: _this.state.getMembreSolde[0].soldeMembreUSD
+                    operant: _this.state.fetchData.intituleCompte
                   });
 
                   console.log(_this.state.getMembreSolde); //disabled valider button
@@ -7501,8 +7501,6 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
       getLastestOperationUSD: null,
       getSommeCDF: null,
       getSommeUSD: null,
-      getMembreSoldeCDF: null,
-      getMembreSolde: null,
       fetchDaylyAproCDF: null,
       fetchDaylyAproUSD: null,
       soldeCDF: "",
@@ -7558,7 +7556,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
     key: "acceptItemCDF",
     value: //ACCEPT A SPECIIQUE APPRO ITEM CDF
     function acceptItemCDF(id) {
-      var question = confirm("vous le vous vraiment accepter cette appro?");
+      var question = confirm("voulez vous vraiment accepter cette appro?");
 
       if (question == true) {
         axios__WEBPACK_IMPORTED_MODULE_3___default()["delete"]("accept/appro/cdf/" + id).then(function (response) {
@@ -7802,7 +7800,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.otherMention ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
+                                value: this.state.intituleCompte ? this.state.intituleCompte : this.state.fetchData && this.state.fetchData.intituleCompte,
                                 disabled: true,
                                 onChange: this.handleChange
                               })
@@ -7895,7 +7893,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[0].soldeMembreUSD)),
+                                value: this.state.soldeUSD && numberFormat(parseInt(this.state.soldeUSD)),
                                 disabled: true
                               })
                             })]
@@ -7913,7 +7911,7 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[1].soldeMembreCDF)),
+                                value: this.state.soldeCDF && numberFormat(parseInt(this.state.soldeCDF)),
                                 disabled: true
                               })
                             })]
@@ -8656,9 +8654,11 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                   className: "col-md-5 billetage-div",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -8815,9 +8815,11 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("div", {
                   className: "col-md-5 billetage-div",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -8948,9 +8950,11 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en CDF"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -9050,9 +9054,11 @@ var DepotEspece = /*#__PURE__*/function (_React$Component) {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en USD"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_5__.jsx)("th", {
@@ -10702,14 +10708,14 @@ var JournalCaisse = /*#__PURE__*/function (_React$Component) {
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot[0].totDebit))
+                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot.totDebit))
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: {
                               fontSize: "23px",
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot[0].totCredit))
+                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot.totCredit))
                           })]
                         })
                       })]
@@ -10774,14 +10780,14 @@ var JournalCaisse = /*#__PURE__*/function (_React$Component) {
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD[0].totDebitUSD))
+                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD.totDebitUSD))
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: {
                               fontSize: "23px",
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD[0].totCreditUSD))
+                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD.totCreditUSD))
                           })]
                         })
                       })]
@@ -16432,6 +16438,8 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
   var _super = _createSuper(Positionnement);
 
   function Positionnement(props) {
+    var _this$state;
+
     var _this;
 
     _classCallCheck(this, Positionnement);
@@ -16455,7 +16463,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                 if (getData.data.success == 1) {
                   _this.setState({
                     fetchData: getData.data.data,
-                    getMembreSolde: getData.data.soldeMembre,
+                    // getMembreSolde: getData.data.soldeMembre,
                     getCompteurDocument: getData.data.numdoc
                   });
 
@@ -16464,8 +16472,8 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                     refCompte: _this.state.fetchData.refCompte,
                     numCompte: _this.state.fetchData.numCompte,
                     operant: _this.state.fetchData.intituleCompte,
-                    soldeCDF: _this.state.getMembreSolde[1].soldeMembreCDF,
-                    soldeUSD: _this.state.getMembreSolde[0].soldeMembreUSD,
+                    soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
+                    soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD,
                     adresse: _this.state.fetchData.CommuneActuelle + " " + _this.state.fetchData.QuartierActuelle,
                     telBeneficiaire: _this.state.fetchData.phone1,
                     typepiece: _this.state.fetchData.typepiece,
@@ -16474,7 +16482,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                     numDocument: "DC000" + _this.state.getCompteurDocument
                   });
 
-                  console.log(_this.state.getMembreSolde); //disabled valider button
+                  console.log(_this.state.fetchData); //disabled valider button
 
                   document.getElementById("validerbtn").removeAttribute("disabled", "disabled");
                 } else {
@@ -16484,10 +16492,11 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                     icon: "error",
                     button: "OK!"
                   });
-                } // console.log(this.state.fetchData);
+                }
 
+                console.log(_this.state.fetchData);
 
-              case 5:
+              case 6:
               case "end":
                 return _context.stop();
             }
@@ -16596,7 +16605,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       }, _callee3);
     })));
 
-    _this.state = {
+    _this.state = (_this$state = {
       disabled: true,
       isloading: true,
       loading: false,
@@ -16632,7 +16641,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
       soldeUSD: "",
       getAllOperat: null,
       getCompteurDocument: null
-    };
+    }, _defineProperty(_this$state, "soldeCDF", ""), _defineProperty(_this$state, "soldeUSD", ""), _this$state);
     _this.handleAccount = _this.handleAccount.bind(_assertThisInitialized(_this));
     _this.handleChange = _this.handleChange.bind(_assertThisInitialized(_this));
     _this.actualiser = _this.actualiser.bind(_assertThisInitialized(_this));
@@ -16967,7 +16976,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[0].soldeMembreUSD)),
+                                value: this.state.soldeUSD && numberFormat(parseInt(this.state.soldeUSD)),
                                 disabled: true
                               })
                             })]
@@ -16985,7 +16994,7 @@ var Positionnement = /*#__PURE__*/function (_React$Component) {
                                   borderRadius: "0px"
                                 },
                                 name: "intituleCompte",
-                                value: this.state.getMembreSolde && numberFormat(parseInt(this.state.getMembreSolde[1].soldeMembreCDF)),
+                                value: this.state.soldeCDF && numberFormat(parseInt(this.state.soldeCDF)),
                                 disabled: true
                               })
                             })]
@@ -18740,13 +18749,13 @@ var RapportCredit = /*#__PURE__*/function (_React$Component) {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                                 children: "Capital Rembours\xE9 :"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("td", {
-                                children: [" ", isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital))) ? "0.00" : null]
+                                children: [" ", isNaN(parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital)) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital))]
                               })]
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                                 children: "Capital Restant d\xFB :"
                               }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
-                                children: isNaN(numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRestant))) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].CapitalRestant))
+                                children: isNaN(parseInt(this.state.fetchTableauAmortiss[0].MontantAccorde) - parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital)) ? "0.00" : numberFormat(parseInt(this.state.fetchTableauAmortiss[0].MontantAccorde) - parseInt(this.state.fetchTableauAmortiss[0].RemboursCapital))
                               })]
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("tr", {
                               children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -18861,7 +18870,7 @@ var RapportCredit = /*#__PURE__*/function (_React$Component) {
                                 background: "red",
                                 color: "#fff"
                               },
-                              children: isNaN(numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye))) ? "0.00" : numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye))
+                              children: isNaN(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye)) ? "0.00" : numberFormat(parseInt(res.CapAmmorti) - parseInt(res.CapitalPaye) + parseInt(res.Interet) - parseInt(res.InteretPaye) + parseInt(res.Epargne) - parseInt(res.EpargnePaye))
                             }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: "0.00"
                             })]
@@ -19627,6 +19636,9 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                             children: "Initiateur"
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             scope: "col",
+                            children: "Libell\xE9"
+                          }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            scope: "col",
                             children: "Entr\xE9e"
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             scope: "col",
@@ -19644,6 +19656,8 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                               children: res.NomCompt
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: res.Initiateur
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: res.Description
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: numberFormat(parseInt(res.CreditFC))
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -19678,14 +19692,14 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot[0].totCredit))
+                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot.totCredit))
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: {
                               fontSize: "23px",
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot[0].totDebit))
+                            children: this.state.fetchTot && numberFormat(parseInt(this.state.fetchTot.totDebit))
                           })]
                         })
                       })]
@@ -19710,6 +19724,8 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                               children: res.NomCompt
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: res.Initiateur
+                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: res.Description
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: numberFormat(parseInt(res.CreditUSD))
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
@@ -19744,14 +19760,14 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD[0].totCreditUSD))
+                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD.totCreditUSD))
                           }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                             style: {
                               fontSize: "23px",
                               background: "green",
                               color: "#fff"
                             },
-                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD[0].totDebitUSD))
+                            children: this.state.fetTotUSD && numberFormat(parseInt(this.state.fetTotUSD.totDebitUSD))
                           })]
                         })
                       })]
@@ -20905,9 +20921,11 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "col-md-5 billetage-div",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
@@ -21064,9 +21082,11 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                 }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
                   className: "col-md-5 billetage-div",
                   children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
@@ -21197,9 +21217,11 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en CDF"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
@@ -21299,9 +21321,11 @@ var RetraitEspece = /*#__PURE__*/function (_React$Component) {
                     className: "text-muted",
                     children: "Op\xE9rations recentes en USD"
                   }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("table", {
-                    className: "table",
+                    className: "tableStyle",
                     style: {
-                      background: "#dcdcdc"
+                      background: "#444",
+                      padding: "5px",
+                      color: "#fff"
                     },
                     children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("thead", {
                       children: [/*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("th", {
@@ -22902,6 +22926,96 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
       };
     }());
 
+    _defineProperty(_assertThisInitialized(_this), "handleSaveCapitalRembourser", /*#__PURE__*/function () {
+      var _ref8 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee8(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee8$(_context8) {
+          while (1) {
+            switch (_context8.prev = _context8.next) {
+              case 0:
+                e.preventDefault();
+                _context8.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/remboursement/capital", _this.state);
+
+              case 3:
+                res = _context8.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Remboursement en capital !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("saveRemboursBtn").setAttribute("disabled", "disabled");
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Remboursement en capital !",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+                }
+
+                console.log(_this.state);
+
+              case 6:
+              case "end":
+                return _context8.stop();
+            }
+          }
+        }, _callee8);
+      }));
+
+      return function (_x8) {
+        return _ref8.apply(this, arguments);
+      };
+    }());
+
+    _defineProperty(_assertThisInitialized(_this), "handleSaveInteretRembourser", /*#__PURE__*/function () {
+      var _ref9 = _asyncToGenerator( /*#__PURE__*/_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().mark(function _callee9(e) {
+        var res;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default().wrap(function _callee9$(_context9) {
+          while (1) {
+            switch (_context9.prev = _context9.next) {
+              case 0:
+                e.preventDefault();
+                _context9.next = 3;
+                return axios__WEBPACK_IMPORTED_MODULE_2___default().post("/credit/remboursement/interet", _this.state);
+
+              case 3:
+                res = _context9.sent;
+
+                if (res.data.success == 1) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Remboursement en capital !",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!"
+                  });
+                  document.getElementById("saveRemboursBtn").setAttribute("disabled", "disabled");
+                } else if (res.data.success == 0) {
+                  sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
+                    title: "Remboursement en capital !",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!"
+                  });
+                }
+
+              case 5:
+              case "end":
+                return _context9.stop();
+            }
+          }
+        }, _callee9);
+      }));
+
+      return function (_x9) {
+        return _ref9.apply(this, arguments);
+      };
+    }());
+
     _this.state = (_this$state = {
       disabled: true,
       isloading: true,
@@ -22937,6 +23051,8 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
     _this.handleSaveEcheancier = _this.handleSaveEcheancier.bind(_assertThisInitialized(_this));
     _this.AccordCredit = _this.AccordCredit.bind(_assertThisInitialized(_this));
     _this.decaisserCredit = _this.decaisserCredit.bind(_assertThisInitialized(_this));
+    _this.handleSaveCapitalRembourser = _this.handleSaveCapitalRembourser.bind(_assertThisInitialized(_this));
+    _this.handleSaveInteretRembourser = _this.handleSaveInteretRembourser.bind(_assertThisInitialized(_this));
     return _this;
   }
 
@@ -24708,7 +24824,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                   },
                                                   className: "form-control font-weight-bold",
                                                   name: "RemboursCapital",
-                                                  value: this.state.RemboursCapital ? this.state.RemboursCapital : this.state.fetchData && this.state.fetchData.RemboursCapital,
+                                                  value: this.state.RemboursCapital,
                                                   onChange: this.handleChange
                                                 })
                                               })
@@ -24729,10 +24845,10 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                     height: "30px",
                                                     fontSize: "12px"
                                                   },
-                                                  id: "saveGarantieBtn",
+                                                  id: "saveRemboursBtn",
                                                   className: "btn btn-primary ",
                                                   onClick: this.handleSaveCapitalRembourser,
-                                                  children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
+                                                  children: ["Rembourser", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                                                     className: "fas fa-check"
                                                   })]
                                                 })
@@ -24841,7 +24957,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                   },
                                                   className: "form-control font-weight-bold",
                                                   name: "RemboursInteret",
-                                                  value: this.state.RemboursInteret ? this.state.RemboursInteret : this.state.fetchData && this.state.fetchData.RemboursInteret,
+                                                  value: this.state.RemboursInteret,
                                                   onChange: this.handleChange
                                                 })
                                               })
@@ -24864,7 +24980,7 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
                                                   },
                                                   id: "saveRemboursInterBtn",
                                                   className: "btn btn-primary ",
-                                                  onClick: this.handleSaveCapitalRembourser,
+                                                  onClick: this.handleSaveInteretRembourser,
                                                   children: ["Valider", /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_7__.jsx)("i", {
                                                     className: "fas fa-check"
                                                   })]

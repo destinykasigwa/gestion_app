@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::create('echeanciers', function (Blueprint $table) {
-            $table->id();
+            $table->bigInteger("ReferenceEch");
             $table->string("RefEcheancier", 20)->nullable();
             $table->string("IdMembreGs", 30)->nullable();
             $table->string("NumDossier", 20)->nullable();
@@ -35,6 +35,8 @@ return new class extends Migration
             $table->float("Reechelonne")->nullable()->default("0");
             $table->float("Epargne")->nullable()->default("0.00");
             $table->float("Penalite")->nullable()->default("0.00");
+            $table->integer("statutPeyement")->nullable()->default("0");
+
 
 
             $table->timestamps();
