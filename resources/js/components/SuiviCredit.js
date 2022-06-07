@@ -426,22 +426,23 @@ export default class SuiviCredit extends React.Component {
         );
         if (res.data.success == 1) {
             Swal.fire({
-                title: "Remboursement en capital !",
+                title: "Remboursement en Intérêt !",
                 text: res.data.msg,
                 icon: "success",
                 button: "OK!",
             });
             document
-                .getElementById("saveRemboursBtn")
+                .getElementById("saveRemboursInterBtn")
                 .setAttribute("disabled", "disabled");
         } else if (res.data.success == 0) {
             Swal.fire({
-                title: "Remboursement en capital !",
+                title: "Remboursement en Intérêt !",
                 text: res.data.msg,
                 icon: "error",
                 button: "OK!",
             });
         }
+        console.log(this.state);
     };
 
     //to refresh

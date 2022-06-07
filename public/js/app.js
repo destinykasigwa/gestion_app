@@ -10191,7 +10191,20 @@ var JournalCaisse = /*#__PURE__*/function (_React$Component) {
         fontSize: "14px",
         textAlign: "left"
       };
-      var compteur = 1; //PERMET DE FORMATER LES CHIFFRES
+      var compteur = 1; //PERMET DE FORMATER LES DATES
+
+      var dateParser = function dateParser(num) {
+        var options = {
+          // weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        };
+        var timestamp = Date.parse(num);
+        var date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+        return date.toString();
+      }; //PERMET DE FORMATER LES CHIFFRES
+
 
       var numberFormat = function numberFormat() {
         var number = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : 0;
@@ -10612,7 +10625,7 @@ var JournalCaisse = /*#__PURE__*/function (_React$Component) {
                           borderBottom: "4px solid green"
                         },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("b", {
-                          children: ["JOURNAL DES OPERATIONS AGENCE DE GOMA DU", " ", this.state.dateToSearch1, " ", "AU", " ", this.state.dateToSearch2]
+                          children: ["JOURNAL DES OPERATIONS AGENCE DE GOMA DU", " ", dateParser(this.state.dateToSearch1), " ", "AU", " ", dateParser(this.state.dateToSearch2)]
                         })
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
@@ -18835,9 +18848,19 @@ var RapportCredit = /*#__PURE__*/function (_React$Component) {
                               children: numberFormat(parseInt(res.Epargne))
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: numberFormat(parseInt(res.Penalite))
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            }), parseInt(res.CapitalPaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "green"
+                              },
                               children: isNaN(numberFormat(parseInt(res.CapitalPaye))) ? "0.00" : numberFormat(parseInt(res.CapitalPaye))
-                            }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              children: isNaN(numberFormat(parseInt(res.CapitalPaye))) ? "0.00" : numberFormat(parseInt(res.CapitalPaye))
+                            }), parseInt(res.InteretPaye) > 0 ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
+                              style: {
+                                background: "green"
+                              },
+                              children: isNaN(numberFormat(parseInt(res.InteretPaye))) ? "0.00" : numberFormat(parseInt(res.InteretPaye))
+                            }) : /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: isNaN(numberFormat(parseInt(res.InteretPaye))) ? "0.00" : numberFormat(parseInt(res.InteretPaye))
                             }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("td", {
                               children: isNaN(numberFormat(parseInt(res.EpargnePaye))) ? "0.00" : numberFormat(parseInt(res.EpargnePaye))
@@ -19164,7 +19187,20 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
 
       var agence = ["allAgence"];
       var users = ["allUsers"];
-      var repertoire = ["billetage", "Opérations_en_suspens", "Repertoire_de_caisse"];
+      var repertoire = ["billetage", "Opérations_en_suspens", "Repertoire_de_caisse"]; //PERMET DE FORMATER LES DATES
+
+      var dateParser = function dateParser(num) {
+        var options = {
+          // weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric"
+        };
+        var timestamp = Date.parse(num);
+        var date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+        return date.toString();
+      };
+
       return /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)(react__WEBPACK_IMPORTED_MODULE_1__.Fragment, {
         children: this.state.isloading ? /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("div", {
           className: "row",
@@ -19600,7 +19636,7 @@ var RepertoireCaisse = /*#__PURE__*/function (_React$Component) {
                           borderBottom: "4px solid green"
                         },
                         children: /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsxs)("b", {
-                          children: ["REPERTOIRE CAISSE DU DU", " ", this.state.dateToSearch1, " ", "AU", " ", this.state.dateToSearch2]
+                          children: ["REPERTOIRE CAISSE DU", " ", dateParser(this.state.dateToSearch1), " ", "AU", " ", dateParser(this.state.dateToSearch2)]
                         })
                       })
                     }), /*#__PURE__*/(0,react_jsx_runtime__WEBPACK_IMPORTED_MODULE_4__.jsx)("h3", {
@@ -22988,22 +23024,24 @@ var SuiviCredit = /*#__PURE__*/function (_React$Component) {
 
                 if (res.data.success == 1) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-                    title: "Remboursement en capital !",
+                    title: "Remboursement en Intérêt !",
                     text: res.data.msg,
                     icon: "success",
                     button: "OK!"
                   });
-                  document.getElementById("saveRemboursBtn").setAttribute("disabled", "disabled");
+                  document.getElementById("saveRemboursInterBtn").setAttribute("disabled", "disabled");
                 } else if (res.data.success == 0) {
                   sweetalert2__WEBPACK_IMPORTED_MODULE_3___default().fire({
-                    title: "Remboursement en capital !",
+                    title: "Remboursement en Intérêt !",
                     text: res.data.msg,
                     icon: "error",
                     button: "OK!"
                   });
                 }
 
-              case 5:
+                console.log(_this.state);
+
+              case 6:
               case "end":
                 return _context9.stop();
             }

@@ -119,6 +119,22 @@ export default class JournalCaisse extends React.Component {
         };
         let compteur = 1;
 
+        //PERMET DE FORMATER LES DATES
+        const dateParser = (num) => {
+            const options = {
+                // weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let timestamp = Date.parse(num);
+
+            let date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+
+            return date.toString();
+        };
+
         //PERMET DE FORMATER LES CHIFFRES
         const numberFormat = (number = 0) => {
             let locales = [
@@ -761,15 +777,15 @@ export default class JournalCaisse extends React.Component {
                                                             JOURNAL DES
                                                             OPERATIONS AGENCE DE
                                                             GOMA DU{" "}
-                                                            {
+                                                            {dateParser(
                                                                 this.state
                                                                     .dateToSearch1
-                                                            }{" "}
+                                                            )}{" "}
                                                             AU{" "}
-                                                            {
+                                                            {dateParser(
                                                                 this.state
                                                                     .dateToSearch2
-                                                            }
+                                                            )}
                                                         </b>
                                                     </h4>
                                                 </div>

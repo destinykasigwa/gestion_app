@@ -1806,36 +1806,88 @@ export default class RapportCredit extends React.Component {
                                                                                 )
                                                                             )}
                                                                         </td>
-                                                                        <td>
-                                                                            {isNaN(
-                                                                                numberFormat(
-                                                                                    parseInt(
-                                                                                        res.CapitalPaye
+                                                                        {parseInt(
+                                                                            res.CapitalPaye
+                                                                        ) >
+                                                                        0 ? (
+                                                                            <td
+                                                                                style={{
+                                                                                    background:
+                                                                                        "green",
+                                                                                }}
+                                                                            >
+                                                                                {isNaN(
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            res.CapitalPaye
+                                                                                        )
                                                                                     )
                                                                                 )
-                                                                            )
-                                                                                ? "0.00"
-                                                                                : numberFormat(
-                                                                                      parseInt(
-                                                                                          res.CapitalPaye
-                                                                                      )
-                                                                                  )}
-                                                                        </td>
-                                                                        <td>
-                                                                            {isNaN(
-                                                                                numberFormat(
-                                                                                    parseInt(
-                                                                                        res.InteretPaye
+                                                                                    ? "0.00"
+                                                                                    : numberFormat(
+                                                                                          parseInt(
+                                                                                              res.CapitalPaye
+                                                                                          )
+                                                                                      )}
+                                                                            </td>
+                                                                        ) : (
+                                                                            <td>
+                                                                                {isNaN(
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            res.CapitalPaye
+                                                                                        )
                                                                                     )
                                                                                 )
-                                                                            )
-                                                                                ? "0.00"
-                                                                                : numberFormat(
-                                                                                      parseInt(
-                                                                                          res.InteretPaye
-                                                                                      )
-                                                                                  )}
-                                                                        </td>
+                                                                                    ? "0.00"
+                                                                                    : numberFormat(
+                                                                                          parseInt(
+                                                                                              res.CapitalPaye
+                                                                                          )
+                                                                                      )}
+                                                                            </td>
+                                                                        )}
+                                                                        {parseInt(
+                                                                            res.InteretPaye
+                                                                        ) >
+                                                                        0 ? (
+                                                                            <td
+                                                                                style={{
+                                                                                    background:
+                                                                                        "green",
+                                                                                }}
+                                                                            >
+                                                                                {isNaN(
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            res.InteretPaye
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                                    ? "0.00"
+                                                                                    : numberFormat(
+                                                                                          parseInt(
+                                                                                              res.InteretPaye
+                                                                                          )
+                                                                                      )}
+                                                                            </td>
+                                                                        ) : (
+                                                                            <td>
+                                                                                {isNaN(
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            res.InteretPaye
+                                                                                        )
+                                                                                    )
+                                                                                )
+                                                                                    ? "0.00"
+                                                                                    : numberFormat(
+                                                                                          parseInt(
+                                                                                              res.InteretPaye
+                                                                                          )
+                                                                                      )}
+                                                                            </td>
+                                                                        )}
                                                                         <td>
                                                                             {isNaN(
                                                                                 numberFormat(

@@ -144,6 +144,22 @@ export default class RepertoireCaisse extends React.Component {
             "Opérations_en_suspens",
             "Repertoire_de_caisse",
         ];
+
+        //PERMET DE FORMATER LES DATES
+        const dateParser = (num) => {
+            const options = {
+                // weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
+            };
+
+            let timestamp = Date.parse(num);
+
+            let date = new Date(timestamp).toLocaleDateString("fr-FR", options);
+
+            return date.toString();
+        };
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -762,17 +778,16 @@ export default class RepertoireCaisse extends React.Component {
                                                         }}
                                                     >
                                                         <b>
-                                                            REPERTOIRE CAISSE DU
-                                                            DU{" "}
-                                                            {
+                                                            REPERTOIRE CAISSE DU{" "}
+                                                            {dateParser(
                                                                 this.state
                                                                     .dateToSearch1
-                                                            }{" "}
+                                                            )}{" "}
                                                             AU{" "}
-                                                            {
+                                                            {dateParser(
                                                                 this.state
                                                                     .dateToSearch2
-                                                            }
+                                                            )}
                                                         </b>
                                                     </h4>
                                                 </div>
