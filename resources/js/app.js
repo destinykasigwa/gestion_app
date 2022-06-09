@@ -25,6 +25,7 @@ import RepertoireCaisse from "./components/RepertoireCaisse";
 import JournalCaisse from "./components/JournalCaisse";
 import SuiviCredit from "./components/SuiviCredit";
 import RapportCredit from "./components/RapportCredit";
+import Postage from "./components/Postage";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -84,4 +85,6 @@ if (document.getElementById("adhesionContainer")) {
         <RapportCredit />,
         document.getElementById("rapportCreditContainer")
     );
+} else if (document.getElementById("postageContainer")) {
+    ReactDOM.render(<Postage />, document.getElementById("postageContainer"));
 }

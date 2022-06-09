@@ -291,7 +291,6 @@ class RemboursementController extends Controller
             $getPorteFeuilledata = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
 
             //RECUPERE LE REMBOURSEMENT ATTENDU POUR CE MEMBRE
-
             $getRoumboursement = Echeancier::where("echeanciers.NumDossier", "=", $request->NumDossier)->where("echeanciers.statutPayement", "=", 0)->where("echeanciers.CapAmmorti", ">", 0)
                 ->join('portefeuilles', 'portefeuilles.NumDossier', '=', 'echeanciers.NumDossier')
                 ->join('comptes', 'comptes.NumCompte', '=', 'portefeuilles.NumCompteEpargne')
@@ -314,13 +313,13 @@ class RemboursementController extends Controller
                     "NumAdherent" => $getPorteFeuilledata->numAdherant,
                 ]);
                 //RENSEIGNE LE CAPITAL  REMBOURSE ET LE CAPITAL RESTANT
-                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
+
                 $totCapPaye = Remboursementcredit::select(
                     DB::raw("SUM(remboursementcredits.CapitalPaye) as  totCapitalPaye"),
                 )->where("remboursementcredits.NumDossie", "=", $request->NumDossier)
                     ->groupBy("remboursementcredits.NumDossie")
                     ->first();
-
+                //RECUPEPERE LA SOMME DU CAPITAL RESTANT
                 $capRestant = $getPorteFeuilledata->MontantAccorde - $totCapPaye->totCapitalPaye;
                 Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
                     "RemboursCapital" => $totCapPaye->totCapitalPaye,

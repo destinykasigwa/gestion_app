@@ -128,7 +128,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{ route('postage.caisse') }}" class="nav-link">
                                 <i class="fas fa-door-closed"></i>
                                 <p>Postage</p>
                             </a>

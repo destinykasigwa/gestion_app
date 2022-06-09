@@ -1806,6 +1806,7 @@ export default class RapportCredit extends React.Component {
                                                                                 )
                                                                             )}
                                                                         </td>
+
                                                                         {parseInt(
                                                                             res.CapitalPaye
                                                                         ) >
@@ -1817,10 +1818,8 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
-                                                                                        parseInt(
-                                                                                            res.CapitalPaye
-                                                                                        )
+                                                                                    parseInt(
+                                                                                        res.CapitalPaye
                                                                                     )
                                                                                 )
                                                                                     ? "0.00"

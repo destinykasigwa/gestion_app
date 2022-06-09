@@ -16,6 +16,7 @@ use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\JournalCaisseController;
+use App\Http\Controllers\PostageController;
 use App\Http\Controllers\RapportCreditController;
 use App\Http\Controllers\RemboursementController;
 use App\Http\Controllers\RepertoireCaisseController;
@@ -53,8 +54,7 @@ Route::get('/repertoirecaisse', [RepertoireCaisseController::class, 'getRepertoi
 Route::get('/journal', [JournalCaisseController::class, 'getJournaCaissePage'])->name('caisse.journal');
 Route::get('/suivicredit', [SuiviCreditController::class, 'getSuiviCreditPage'])->name('credit.suivi');
 Route::get('/rapport-credit', [RapportCreditController::class, 'getRapportCreditPage'])->name('rapport.credit');
-// Route::post('/createnew', [AdhesionMembreController::class,'update']);
-// Route::get('/edit-membre/{id}', [AdhesionMembreController::class,'updateMembre']);
+Route::get('/postage', [PostageController::class, 'getPostagePage'])->name('postage.caisse');
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);
 
 
@@ -433,4 +433,11 @@ Route::post(
     "
     credit/remboursement/interet",
     [RemboursementController::class, 'remboursementEnInteret']
+);
+
+//CLOTURE DE LA JOURNEE EN COURS
+Route::get(
+    "
+    cloture/journee",
+    [PostageController::class, 'clotureJournee']
 );
