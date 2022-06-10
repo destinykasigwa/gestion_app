@@ -116,13 +116,13 @@
                     </a>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="{{ route('postage.caisse') }}" class="nav-link">
                                 <i class="fas fa-donate"></i>
                                 <p>Taux</p>
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/layout/top-nav.html" class="nav-link">
+                            <a href="" class="nav-link">
                                 <i class="fas fa-calendar-alt"></i>
                                 <p>Date de saisie</p>
                             </a>

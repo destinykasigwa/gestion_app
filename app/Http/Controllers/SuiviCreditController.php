@@ -64,6 +64,7 @@ class SuiviCreditController extends Controller
             "NbrTranche" => $request->NbrTranche,
             "NumCompteEpargne" => $request->NumCompteEpargne,
             "NumCompteCredit" => $request->NumCompteCredit,
+            "NumCompteEpargneGarantie" => $request->NumCompteEpargneGarantie,
             "NomCompte" => $request->NomCompte,
             "Duree" => $request->Duree,
             "Dufferee" => $request->Dufferee,
@@ -263,7 +264,7 @@ class SuiviCreditController extends Controller
 
                 foreach ($dates as $dt) {
 
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                     Echeancier::create([
                         "NumDossier" => $request->NumDossier,
                         "NumMensualite" => 0,
@@ -280,7 +281,7 @@ class SuiviCreditController extends Controller
                         // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                     ]);
 
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 }
 
 
@@ -323,9 +324,9 @@ class SuiviCreditController extends Controller
                     $interet = $request->TauxInteret;
                     $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
                     $capitalAmorti = $capital / $request->NbrTranche;
-                    $epargneObligatoire = 7000 - ($interetApayer + $capitalAmorti);
+                    $epargneObligatoire = ($capitalAmorti * 5) / 100;
                     $totalAp = $interetApayer + $capitalAmorti +  $epargneObligatoire;
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                     Echeancier::create([
                         "NumDossier" => $request->NumDossier,
                         "NumMensualite" => 0,
@@ -343,7 +344,7 @@ class SuiviCreditController extends Controller
                         // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                     ]);
 
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 }
 
 
@@ -374,7 +375,7 @@ class SuiviCreditController extends Controller
                     $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
                     $capitalAmorti = $capital / $request->NbrTranche;
                     $totalAp = $interetApayer + $capitalAmorti;
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                     Echeancier::create([
                         "NumDossier" => $request->NumDossier,
                         "NumMensualite" => 0,
@@ -391,7 +392,7 @@ class SuiviCreditController extends Controller
                         // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                     ]);
 
-                    $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                    $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 }
                 return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
             }
@@ -458,7 +459,7 @@ class SuiviCreditController extends Controller
 
             foreach ($dates as $dt) {
 
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 Echeancier::create([
                     "NumDossier" => $request->NumDossier,
                     "NumMensualite" => 0,
@@ -475,7 +476,7 @@ class SuiviCreditController extends Controller
                     // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                 ]);
 
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
             }
 
 
@@ -505,9 +506,9 @@ class SuiviCreditController extends Controller
                 $interet = $request->TauxInteret;
                 $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
                 $capitalAmorti = $capital / $request->NbrTranche;
-                $epargneObligatoire = 7000 - ($interetApayer + $capitalAmorti);
+                $epargneObligatoire = ($capitalAmorti * 5) / 100;
                 $totalAp = $interetApayer + $capitalAmorti +  $epargneObligatoire;
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 Echeancier::create([
                     "NumDossier" => $request->NumDossier,
                     "NumMensualite" => 0,
@@ -526,7 +527,7 @@ class SuiviCreditController extends Controller
                     // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                 ]);
 
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
             }
             return response()->json(["success" => 1, "msg" => "Modification bien effectuée", "NumDossier" => $request->NumDossier]);
         } else if ($request->RefTypeCredit == "CREDIT A LA CONSOMMATION" or $request->RefTypeCredit == "CREDIT PETIT COMMERCE") {
@@ -552,7 +553,7 @@ class SuiviCreditController extends Controller
                 $interetApayer = $request->MontantAccorde * $request->TauxInteret / 100;
                 $capitalAmorti = $capital / $request->NbrTranche;
                 $totalAp = $interetApayer + $capitalAmorti;
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
                 Echeancier::create([
                     "NumDossier" => $request->NumDossier,
                     "NumMensualite" => 0,
@@ -569,7 +570,7 @@ class SuiviCreditController extends Controller
                     // "CumulCapital" => $lastRowData->Capital - $capitalAmorti,
                 ]);
 
-                $lastRowData  = Echeancier::orderBy('id', 'desc')->first();
+                $lastRowData  = Echeancier::orderBy('ReferenceEch', 'desc')->first();
             }
             return response()->json(["success" => 1, "msg" => "Géneration de l'écheancier bien effectuée"]);
         }
@@ -604,203 +605,226 @@ class SuiviCreditController extends Controller
     public function DeccaissementCredit(Request $request)
     {
 
-        Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
-            "Octroye" => 1,
-        ]);
-        //ENREGISTRE TOUT D'ABORD LE COMPTE CREDIT DU BENEFICIAIRE S'IL n'EXISTE PAS
-        $dataCredit = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
-        //RECUPERE LES INFORMATIONS DU MEMBRE CORRESPONDANT
-        $infoMembre = Comptes::where("NumCompte", "=", $dataCredit->NumCompteEpargne)->first();
 
-
-        $checkIfCompteCreditExist = Comptes::where("NumCompte", "=", $dataCredit->NumCompteCredit)->first();
-        if (!$checkIfCompteCreditExist) {
-
-            //ON CREE UN NOUVEL NUMERO DE CREDIT POUR CE MEMBRE 
-            Comptes::create([
-                'CodeAgence' => $dataCredit->codeAgence,
-                'NumCompte' => $dataCredit->NumCompteCredit,
-                'NomCompte' => $infoMembre->NomCompte,
-                'CodeMonnaie' => $dataCredit->CodeMonnaie == "USD" ? 1 : 2,
-                'NumAdherant' => $dataCredit->NumCompteCredit,
-                'RefTypeCompte' => 3,
-                'RefCadre' => 32,
-                'RefGroupe' => 320,
-                'RefSousGroupe' => 321,
+        if (isset($request->NumDossier)) {
+            Portefeuille::where("NumDossier", "=", $request->NumDossier)->update([
+                "Octroye" => 1,
             ]);
+            //ENREGISTRE TOUT D'ABORD LE COMPTE CREDIT DU BENEFICIAIRE S'IL n'EXISTE PAS
+            $dataCredit = Portefeuille::where("NumDossier", "=", $request->NumDossier)->first();
+            //RECUPERE LES INFORMATIONS DU MEMBRE CORRESPONDANT
+            $infoMembre = Comptes::where("NumCompte", "=", $dataCredit->NumCompteEpargne)->first();
+
+
+            $checkIfCompteCreditExist = Comptes::where("NumCompte", "=", $dataCredit->NumCompteCredit)->first();
+            if (!$checkIfCompteCreditExist) {
+
+                //ON CREE UN NOUVEL NUMERO DE CREDIT POUR CE MEMBRE 
+                Comptes::create([
+                    'CodeAgence' => $dataCredit->codeAgence,
+                    'NumCompte' => $dataCredit->NumCompteCredit,
+                    'NomCompte' => $infoMembre->NomCompte,
+                    'CodeMonnaie' => $dataCredit->CodeMonnaie == "USD" ? 1 : 2,
+                    'NumAdherant' => $dataCredit->NumCompteCredit,
+                    'RefTypeCompte' => 3,
+                    'RefCadre' => 32,
+                    'RefGroupe' => 320,
+                    'RefSousGroupe' => 321,
+                ]);
+            }
+
+            //VERIFIE SI UN NUMERO DE COMPTE EPARGNE GARANTIE N'EXISTE PAS POUR EN CREE UN
+            $checkIfCompteEpargneGarantieExist = Comptes::where("NumCompte", "=", $request->NumCompteEpargneGarantie)->first();
+            if (!$checkIfCompteEpargneGarantieExist) {
+                //ON CREE UN NOUVEL NUMERO DE EPARGNE GARANTIE POUR CE MEMBRE 
+                Comptes::create([
+                    'CodeAgence' => $dataCredit->codeAgence,
+                    'NumCompte' => $request->NumCompteEpargneGarantie,
+                    'NomCompte' => $infoMembre->NomCompte . " E.G",
+                    'CodeMonnaie' => $dataCredit->CodeMonnaie == "USD" ? 1 : 2,
+                    'NumAdherant' => $request->NumCompteEpargneGarantie,
+                    'RefTypeCompte' => 3,
+                    'RefCadre' => 33,
+                    'RefGroupe' => 334,
+                    'RefSousGroupe' => 3340,
+                ]);
+            }
+
+
+
+            //APRES LA CREATION DE SON COMPTE CREDIT ON DEBITE LE COMPTE DE CREDIT   
+            //CREE UN NUMERO DE TRANSACTION
+
+            if ($dataCredit->CodeMonnaie == "CDF") {
+
+
+                // $numCompteCreditCDF = 3270000000202;
+
+                CompteurTransaction::create([
+                    'fakevalue' => "0000",
+                ]);
+                $numOperation = [];
+                $numOperation = CompteurTransaction::latest()->first();
+                $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                //RECUPERE LA DATE DU SYSTEME
+
+                $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                //RECUPERE LE TAUX JOURNALIER
+                $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                // Transactions::create([
+                //     "NumTransaction" => $NumTransaction,
+                //     "DateTransaction" => $date,
+                //     "DateSaisie" => $date,
+                //     "TypeTransaction" => "D",
+                //     "CodeMonnaie" => 2,
+                //     "CodeAgence" => "20",
+                //     "NumDossier" => "DOS00" . $numOperation->id,
+                //     "NumDemande" => "V00" . $numOperation->id,
+                //     "NumCompte" => $numCompteCreditCDF,
+                //     "NumComptecp" => $dataCredit->NumCompteCredit,
+                //     "Debit" => $dataCredit->MontantAccorde,
+                //     "Operant" =>  Auth::user()->name,
+                //     "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                //     "Debitfc" => $dataCredit->MontantAccorde,
+                //     "NomUtilisateur" => Auth::user()->name,
+                //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                //     "refCompteMembre" => $numCompteCreditCDF,
+                // ]);
+                //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
+
+
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
+                    "TypeTransaction" => "D",
+                    "CodeMonnaie" => 2,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $dataCredit->NumCompteCredit,
+                    "NumComptecp" =>  $dataCredit->NumCompteEpargne,
+                    "Debit" => $dataCredit->MontantAccorde,
+                    "Operant" =>  Auth::user()->name,
+                    "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                    "Debitfc" => $dataCredit->MontantAccorde,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                    "refCompteMembre" => $dataCredit->NumCompteCredit,
+                ]);
+
+                //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
+
+
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" =>  $date,
+                    "TypeTransaction" => "C",
+                    "CodeMonnaie" => 2,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $dataCredit->NumCompteEpargne,
+                    "NumComptecp" =>  $dataCredit->NumCompteCredit,
+                    "Credit" => $dataCredit->MontantAccorde,
+                    "Operant" =>  Auth::user()->name,
+                    "Credit$" => $dataCredit->MontantAccorde / $tauxDuJour,
+                    "Creditfc" => $dataCredit->MontantAccorde,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                    "refCompteMembre" => $dataCredit->NumCompteEpargne,
+                ]);
+            } else if ($dataCredit->CodeMonnaie == "USD") {
+
+                // $numCompteCreditUSD = 3270000000201;
+
+
+                CompteurTransaction::create([
+                    'fakevalue' => "0000",
+                ]);
+                $numOperation = [];
+                $numOperation = CompteurTransaction::latest()->first();
+                $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
+                //RECUPERE LA DATE DU SYSTEME
+
+                $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
+                //RECUPERE LE TAUX JOURNALIER
+                $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
+
+                //DEBITE LE COMPTE CREDIT USD
+                // Transactions::create([
+                //     "NumTransaction" => $NumTransaction,
+                //     "DateTransaction" => $date,
+                //     "DateSaisie" => $date,
+                //     "TypeTransaction" => "D",
+                //     "CodeMonnaie" => 1,
+                //     "CodeAgence" => "20",
+                //     "NumDossier" => "DOS00" . $numOperation->id,
+                //     "NumDemande" => "V00" . $numOperation->id,
+                //     "NumCompte" => $numCompteCreditUSD,
+                //     "NumComptecp" => $dataCredit->NumCompteCredit,
+                //     "Debit" => $dataCredit->MontantAccorde,
+                //     "Operant" =>  Auth::user()->name,
+                //     "Debit$" => $dataCredit->MontantAccorde,
+                //     "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                //     "NomUtilisateur" => Auth::user()->name,
+                //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                //     "refCompteMembre" => $numCompteCreditUSD,
+                // ]);
+                //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
+
+
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
+                    "TypeTransaction" => "D",
+                    "CodeMonnaie" => 1,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $dataCredit->NumCompteCredit,
+                    "NumComptecp" =>  $dataCredit->NumCompteEpargne,
+                    "Debit" => $dataCredit->MontantAccorde,
+                    "Operant" =>  Auth::user()->name,
+                    "Debit$" => $dataCredit->MontantAccorde,
+                    "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
+                    "refCompteMembre" => $dataCredit->NumCompteCredit,
+                ]);
+
+                //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
+
+
+                Transactions::create([
+                    "NumTransaction" => $NumTransaction,
+                    "DateTransaction" => $date,
+                    "DateSaisie" => $date,
+                    "TypeTransaction" => "C",
+                    "CodeMonnaie" => 1,
+                    "CodeAgence" => "20",
+                    "NumDossier" => "DOS00" . $numOperation->id,
+                    "NumDemande" => "V00" . $numOperation->id,
+                    "NumCompte" => $dataCredit->NumCompteEpargne,
+                    "NumComptecp" =>  $dataCredit->NumCompteCredit,
+                    "Credit" => $dataCredit->MontantAccorde,
+                    "Operant" =>  Auth::user()->name,
+                    "Credit$" => $dataCredit->MontantAccorde,
+                    "Creditfc" => $dataCredit->MontantAccorde * $tauxDuJour,
+                    "NomUtilisateur" => Auth::user()->name,
+                    "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier . " Compte crédit " . $dataCredit->NumCompteCredit,
+                    "refCompteMembre" => $dataCredit->NumCompteEpargne,
+                ]);
+            }
+
+
+            return response()->json(["success" => 1, "msg" => "Ce crédit a bien été décaissé merci."]);
+        } else {
+            return response()->json(["success" => 0, "msg" => "Aucun numéro de dossier trouvé."]);
         }
-
-
-        //APRES LA CREATION DE SON COMPTE CREDIT ON DEBITE LE COMPTE DE CREDIT   
-        //CREE UN NUMERO DE TRANSACTION
-
-        if ($dataCredit->CodeMonnaie == "CDF") {
-
-
-            // $numCompteCreditCDF = 3270000000202;
-
-            CompteurTransaction::create([
-                'fakevalue' => "0000",
-            ]);
-            $numOperation = [];
-            $numOperation = CompteurTransaction::latest()->first();
-            $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
-            //RECUPERE LA DATE DU SYSTEME
-
-            $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
-            //RECUPERE LE TAUX JOURNALIER
-            $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
-
-            // Transactions::create([
-            //     "NumTransaction" => $NumTransaction,
-            //     "DateTransaction" => $date,
-            //     "DateSaisie" => $date,
-            //     "TypeTransaction" => "D",
-            //     "CodeMonnaie" => 2,
-            //     "CodeAgence" => "20",
-            //     "NumDossier" => "DOS00" . $numOperation->id,
-            //     "NumDemande" => "V00" . $numOperation->id,
-            //     "NumCompte" => $numCompteCreditCDF,
-            //     "NumComptecp" => $dataCredit->NumCompteCredit,
-            //     "Debit" => $dataCredit->MontantAccorde,
-            //     "Operant" =>  Auth::user()->name,
-            //     "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
-            //     "Debitfc" => $dataCredit->MontantAccorde,
-            //     "NomUtilisateur" => Auth::user()->name,
-            //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-            //     "refCompteMembre" => $numCompteCreditCDF,
-            // ]);
-            //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
-
-
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" => $date,
-                "TypeTransaction" => "D",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $dataCredit->NumCompteCredit,
-                "NumComptecp" =>  $dataCredit->NumCompteEpargne,
-                "Debit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Debit$" => $dataCredit->MontantAccorde / $tauxDuJour,
-                "Debitfc" => $dataCredit->MontantAccorde,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-                "refCompteMembre" => $dataCredit->NumCompteCredit,
-            ]);
-
-            //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
-
-
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" =>  $date,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 2,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $dataCredit->NumCompteEpargne,
-                "NumComptecp" =>  $dataCredit->NumCompteCredit,
-                "Credit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Credit$" => $dataCredit->MontantAccorde / $tauxDuJour,
-                "Creditfc" => $dataCredit->MontantAccorde,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-                "refCompteMembre" => $dataCredit->NumCompteEpargne,
-            ]);
-        } else if ($dataCredit->CodeMonnaie == "USD") {
-
-            // $numCompteCreditUSD = 3270000000201;
-
-
-            CompteurTransaction::create([
-                'fakevalue' => "0000",
-            ]);
-            $numOperation = [];
-            $numOperation = CompteurTransaction::latest()->first();
-            $NumTransaction = Auth::user()->name[0] . Auth::user()->name[1] . "R00" . $numOperation->id;
-            //RECUPERE LA DATE DU SYSTEME
-
-            $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
-            //RECUPERE LE TAUX JOURNALIER
-            $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
-
-            //DEBITE LE COMPTE CREDIT USD
-            // Transactions::create([
-            //     "NumTransaction" => $NumTransaction,
-            //     "DateTransaction" => $date,
-            //     "DateSaisie" => $date,
-            //     "TypeTransaction" => "D",
-            //     "CodeMonnaie" => 1,
-            //     "CodeAgence" => "20",
-            //     "NumDossier" => "DOS00" . $numOperation->id,
-            //     "NumDemande" => "V00" . $numOperation->id,
-            //     "NumCompte" => $numCompteCreditUSD,
-            //     "NumComptecp" => $dataCredit->NumCompteCredit,
-            //     "Debit" => $dataCredit->MontantAccorde,
-            //     "Operant" =>  Auth::user()->name,
-            //     "Debit$" => $dataCredit->MontantAccorde,
-            //     "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
-            //     "NomUtilisateur" => Auth::user()->name,
-            //     "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-            //     "refCompteMembre" => $numCompteCreditUSD,
-            // ]);
-            //PUIS ON DEBITE LE COMPTE CREDIT DU MEMBRE
-
-
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" => $date,
-                "TypeTransaction" => "D",
-                "CodeMonnaie" => 1,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $dataCredit->NumCompteCredit,
-                "NumComptecp" =>  $dataCredit->NumCompteEpargne,
-                "Debit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Debit$" => $dataCredit->MontantAccorde,
-                "Debitfc" => $dataCredit->MontantAccorde * $tauxDuJour,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Crédit à court terme octroyé à " . $infoMembre->NomCompte . " en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier,
-                "refCompteMembre" => $dataCredit->NumCompteCredit,
-            ]);
-
-            //APRES CETTE OPERATION ON CREDITE SON COMPTE EPARGNE
-
-
-            Transactions::create([
-                "NumTransaction" => $NumTransaction,
-                "DateTransaction" => $date,
-                "DateSaisie" => $date,
-                "TypeTransaction" => "C",
-                "CodeMonnaie" => 1,
-                "CodeAgence" => "20",
-                "NumDossier" => "DOS00" . $numOperation->id,
-                "NumDemande" => "V00" . $numOperation->id,
-                "NumCompte" => $dataCredit->NumCompteEpargne,
-                "NumComptecp" =>  $dataCredit->NumCompteCredit,
-                "Credit" => $dataCredit->MontantAccorde,
-                "Operant" =>  Auth::user()->name,
-                "Credit$" => $dataCredit->MontantAccorde,
-                "Creditfc" => $dataCredit->MontantAccorde * $tauxDuJour,
-                "NomUtilisateur" => Auth::user()->name,
-                "Libelle" => "Votre crédit à court terme octroyé en date du " . $date . " Numéro dossier " . $dataCredit->NumDossier . " Compte crédit " . $dataCredit->NumCompteCredit,
-                "refCompteMembre" => $dataCredit->NumCompteEpargne,
-            ]);
-        }
-
-
-        return response()->json(["success" => 1, "msg" => "Ce crédit a bien été décaissé merci."]);
     }
 
     public function getSuiviCreditPage()

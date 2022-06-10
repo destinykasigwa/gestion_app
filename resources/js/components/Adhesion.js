@@ -830,6 +830,7 @@ class Adhesion extends React.Component {
                                                     border: "3px solid #fff",
                                                     padding: "5px",
                                                 }}
+                                                className="table-img"
                                             >
                                                 <tr>
                                                     <td></td>

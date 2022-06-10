@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string("NbrTranche", 30)->nullable();
             $table->string("NumCompteEpargne", 30)->nullable();
             $table->string("NumCompteCredit", 30)->nullable();
+            $table->string("NumCompteEpargneGarantie", 30)->nullable();
             $table->string("NomCompte", 30)->nullable();
             $table->string("Duree", 30)->nullable();
             $table->string("Dufferee", 30)->nullable();

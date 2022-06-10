@@ -26,6 +26,7 @@ export default class SuiviCredit extends React.Component {
             NbrTranche: "",
             NumCompteEpargne: "",
             NumCompteCredit: "",
+            NumCompteEpargneGarantie: "",
             NomCompte: "",
             Duree: "",
             Dufferee: "",
@@ -83,7 +84,7 @@ export default class SuiviCredit extends React.Component {
             OctroyePar: "",
             DateTombeEcheance: "",
             NomUtilisateur: "",
-            Cloture: "",
+            Cloture: "0",
             CloturePar: "",
             DateCloture: "",
             Radie: "",
@@ -197,7 +198,6 @@ export default class SuiviCredit extends React.Component {
             MontantAccorde: "",
             Decision: "",
             Motivation: "",
-            CodeMonnaie: "",
             Interval: "",
             ModeRemboursement: "",
             TauxInteret: "",
@@ -243,7 +243,7 @@ export default class SuiviCredit extends React.Component {
             OctroyePar: "",
             DateTombeEcheance: "",
             NomUtilisateur: "",
-            Cloture: "",
+            // Cloture: "0",
             CloturePar: "",
             DateCloture: "",
             Radie: "",
@@ -292,9 +292,12 @@ export default class SuiviCredit extends React.Component {
         let numCompte = this.state.fetchData2.NumCompte;
         let NumCompteCredit = numCompte.substring(2);
         let NewCreditAccount = "32" + NumCompteCredit;
+        let NumEpargneG = numCompte.substring(3);
+        let EpargneGarantieEccount = "334" + NumEpargneG;
         this.setState({
             NumCompteCredit: NewCreditAccount,
             NumCompteEpargne: this.state.fetchData2.NumCompte,
+            NumCompteEpargneGarantie: EpargneGarantieEccount,
             NomCompte: this.state.fetchData2.NomCompte,
             numAdherant: this.state.fetchData2.NumAdherant,
         });
@@ -367,9 +370,16 @@ export default class SuiviCredit extends React.Component {
             const res = await axios.post("/credit/decaissement", this.state);
             if (res.data.success == 1) {
                 Swal.fire({
-                    title: "Octroi de crédit !",
+                    title: "Decaissement de crédit !",
                     text: res.data.msg,
                     icon: "success",
+                    button: "OK!",
+                });
+            } else if (res.data.success == 0) {
+                Swal.fire({
+                    title: "Decaissement de crédit !",
+                    text: res.data.msg,
+                    icon: "error",
                     button: "OK!",
                 });
             }

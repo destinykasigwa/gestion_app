@@ -790,8 +790,8 @@ class RemboursementController extends Controller
 
                 if ($getPorteFeuilledata->CodeMonnaie == "USD") {
                     //CREDITE LE COMPTE EPARGNE DU MEMBRE
-                    $numCompteCreditCDF = 3270000000202;
-                    $numCompteCreditUSD = 3270000000201;
+                    // $numCompteCreditCDF = 3270000000202;
+                    // $numCompteCreditUSD = 3270000000201;
 
                     CompteurTransaction::create([
                         'fakevalue' => "0000",
@@ -1019,8 +1019,8 @@ class RemboursementController extends Controller
 
                 if ($getPorteFeuilledata->CodeMonnaie == "USD") {
                     //CREDITE LE COMPTE EPARGNE DU MEMBRE
-                    $numCompteCreditCDF = 3270000000202;
-                    $numCompteCreditUSD = 3270000000201;
+                    // $numCompteCreditCDF = 3270000000202;
+                    // $numCompteCreditUSD = 3270000000201;
 
                     CompteurTransaction::create([
                         'fakevalue' => "0000",

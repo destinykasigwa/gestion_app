@@ -635,7 +635,7 @@ export default class Mendataire extends React.Component {
                                                         </td>
                                                         <td>
                                                             <input
-                                                            className="mt-1"
+                                                                className="mt-1"
                                                                 id="observation"
                                                                 style={{
                                                                     height: "40px",
@@ -670,12 +670,20 @@ export default class Mendataire extends React.Component {
                                                         border: "3px solid #fff",
                                                         padding: "5px",
                                                     }}
+                                                    className="table-img"
                                                 >
                                                     <tr>
                                                         <td></td>
                                                         <td>
                                                             <img
-                                                                src={`uploads/membres/${this.props.membreImage?this.props.membreImage:"default.jpg"}`}
+                                                                src={`uploads/membres/${
+                                                                    this.props
+                                                                        .membreImage
+                                                                        ? this
+                                                                              .props
+                                                                              .membreImage
+                                                                        : "default.jpg"
+                                                                }`}
                                                                 alt="image-du-membre"
                                                                 className="img-thumbnail"
                                                             />

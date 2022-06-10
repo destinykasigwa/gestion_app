@@ -93,6 +93,8 @@ class updateMembre extends Controller
   //ACTIVATE NEW ACCOUNT
   public function activateAccount(Request $request)
   {
+
+
     $refCompte = $request->get("refCompte");
     $compteEnFranc = $request->get("compteEnFranc");
     $dateOuverture = $request->get("dateOuverture");
@@ -105,6 +107,12 @@ class updateMembre extends Controller
     // $compteCaissePrincipaleCDF=5700003032202;
     $data = AdhesionMembre::where('numCompte', 'like', '%' . $refCompte . '%')->first();
     if ($devise == "CDF") {
+
+      // VERIFIE QUE LE CODE N PAS ENCORE ACTIVE
+      $checkCompte = Comptes::where("NumAdherant", "=", $refCompte)->where("CodeMonnaie", "=", 2)->first();
+      if ($checkCompte) {
+        return response()->json(["success" => 0, "msg" => "Ce compte est déjà activé en CDF"]);
+      }
       CompteurTransaction::create([
         'fakevalue' => "0000",
       ]);
@@ -122,6 +130,7 @@ class updateMembre extends Controller
         'DateNaissance' => $data->dateNaiss,
         'NumAdherant' => $refCompte,
       ]);
+      //DEBITE LE COMPTE DU MEMBRE DU MONTANT DE FOC
       Transactions::create([
         "NumTransaction" => "FOC000" . $numOperation->id,
         "DateTransaction" => $dateOuverture,
@@ -158,8 +167,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteAdhesionFC,
         "NumComptecp" =>  $compteEnFranc,
-        "Debit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
-        "Debitfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        "Credit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        "Creditfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
         // "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
@@ -169,6 +178,10 @@ class updateMembre extends Controller
 
       ]);
     } else if ($devise == "USD") {
+      $checkCompte = Comptes::where("NumAdherant", "=", $refCompte)->where("CodeMonnaie", "=", 1)->first();
+      if ($checkCompte) {
+        return response()->json(["success" => 0, "msg" => "Ce compte est déjà activé en USD"]);
+      }
       CompteurTransaction::create([
         'fakevalue' => "0000",
       ]);
@@ -199,7 +212,7 @@ class updateMembre extends Controller
         "NumComptecp" => $compteAdhesionUSD,
         "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
         "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
-        // "Valide" => 1,
+        "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
         // "refCompteMembre" => $idComptMembre,
@@ -221,8 +234,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteAdhesionUSD,
         "NumComptecp" => $numCompteDollars,
-        "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
-        "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        "Credit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        "Credit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
         // "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
@@ -237,12 +250,7 @@ class updateMembre extends Controller
 
   public function activatedAccount($id)
   {
-    $data = Transactions::where('transactions.refCompteMembre', '=', $id, 'and', 'transactions.Valide', '=', '1')
-      ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')
-      ->paginate(30, array(
-        'adhesion_membres.intituleCompte as name',
-        'transactions.NumCompte as numcompte', 'transactions.CodeMonnaie as codeMonn'
-      ));
+    $data = Comptes::where('comptes.NumAdherant', '=', $id)->get();
     return response()->json(["success" => 1, "data" => $data]);
   }
 

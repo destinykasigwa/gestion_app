@@ -44,6 +44,13 @@ export default class ActivateCompteM extends React.Component {
                         icon: "success",
                         button: "OK!",
                     });
+                } else if (response.data.success == 0) {
+                    Swal.fire({
+                        title: "Erreur",
+                        text: response.data.msg,
+                        icon: "error",
+                        button: "OK!",
+                    });
                 }
             });
         //   console.log(this.props.refCompt);

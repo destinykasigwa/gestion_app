@@ -22,6 +22,7 @@ class Portefeuille extends Model
         "NbrTranche",
         "NumCompteEpargne",
         "NumCompteCredit",
+        "NumCompteEpargneGarantie",
         "NomCompte",
         "Duree",
         "Dufferee",

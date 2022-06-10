@@ -441,3 +441,10 @@ Route::get(
     cloture/journee",
     [PostageController::class, 'clotureJournee']
 );
+
+//PERMET DE DEFINIR LA DATE DU SYSTEME
+Route::post(
+    "
+    datesystem/definir",
+    [PostageController::class, 'definrDateSysteme']
+);

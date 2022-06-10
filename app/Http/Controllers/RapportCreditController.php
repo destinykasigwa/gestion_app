@@ -28,7 +28,7 @@ class RapportCreditController extends Controller
         //SI L'UTILISATEUR TANTE D'AFFICHER L'ECHEANCIER SANS FOUNIR UN NUMERO A RECHERCHER
         if (isset($request->NumCompteEpargne) or isset($request->NumCompteCredit)  or isset($request->NumDossier)) {
             $data = Portefeuille::where("portefeuilles.NumDossier", "=", $request->NumDossier)
-                ->where("echeanciers.CapAmmorti", ">", 0)
+                // ->where("echeanciers.CapAmmorti", ">", 0)
                 ->orWhere("portefeuilles.NumCompteEpargne", "=", $request->NumCompteEpargne)
                 ->orWhere("portefeuilles.NumCompteCredit", "=", $request->NumCompteCredit)
                 ->join('echeanciers', 'echeanciers.NumDossier', '=', 'portefeuilles.NumDossier')

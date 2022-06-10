@@ -1857,10 +1857,8 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
-                                                                                        parseInt(
-                                                                                            res.InteretPaye
-                                                                                        )
+                                                                                    parseInt(
+                                                                                        res.InteretPaye
                                                                                     )
                                                                                 )
                                                                                     ? "0.00"
@@ -1873,35 +1871,53 @@ export default class RapportCredit extends React.Component {
                                                                         ) : (
                                                                             <td>
                                                                                 {isNaN(
-                                                                                    numberFormat(
-                                                                                        parseInt(
-                                                                                            res.InteretPaye
-                                                                                        )
+                                                                                    parseInt(
+                                                                                        res.InteretPaye
+                                                                                    )
+                                                                                )
+                                                                                    ? "0.00"
+                                                                                    : parseInt(
+                                                                                          res.InteretPaye
+                                                                                      )}
+                                                                            </td>
+                                                                        )}
+                                                                        {parseInt(
+                                                                            res.EpargnePaye
+                                                                        ) >
+                                                                        0 ? (
+                                                                            <td
+                                                                                style={{
+                                                                                    background:
+                                                                                        "green",
+                                                                                }}
+                                                                            >
+                                                                                {isNaN(
+                                                                                    parseInt(
+                                                                                        res.EpargnePaye
                                                                                     )
                                                                                 )
                                                                                     ? "0.00"
                                                                                     : numberFormat(
                                                                                           parseInt(
-                                                                                              res.InteretPaye
+                                                                                              res.EpargnePaye
                                                                                           )
                                                                                       )}
                                                                             </td>
-                                                                        )}
-                                                                        <td>
-                                                                            {isNaN(
-                                                                                numberFormat(
+                                                                        ) : (
+                                                                            <td>
+                                                                                {isNaN(
                                                                                     parseInt(
                                                                                         res.EpargnePaye
                                                                                     )
                                                                                 )
-                                                                            )
-                                                                                ? "0.00"
-                                                                                : numberFormat(
-                                                                                      parseInt(
-                                                                                          res.EpargnePaye
-                                                                                      )
-                                                                                  )}
-                                                                        </td>
+                                                                                    ? "0.00"
+                                                                                    : numberFormat(
+                                                                                          parseInt(
+                                                                                              res.EpargnePaye
+                                                                                          )
+                                                                                      )}
+                                                                            </td>
+                                                                        )}
                                                                         {parseInt(
                                                                             res.CapAmmorti
                                                                         ) -
@@ -1917,14 +1933,12 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
+                                                                                    parseInt(
+                                                                                        res.CapAmmorti
+                                                                                    ) -
                                                                                         parseInt(
-                                                                                            res.CapAmmorti
-                                                                                        ) -
-                                                                                            parseInt(
-                                                                                                res.CapitalPaye
-                                                                                            )
-                                                                                    )
+                                                                                            res.CapitalPaye
+                                                                                        )
                                                                                 )
                                                                                     ? " 0.00"
                                                                                     : numberFormat(
@@ -1958,14 +1972,12 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
+                                                                                    parseInt(
+                                                                                        res.Interet
+                                                                                    ) -
                                                                                         parseInt(
-                                                                                            res.Interet
-                                                                                        ) -
-                                                                                            parseInt(
-                                                                                                res.InteretPaye
-                                                                                            )
-                                                                                    )
+                                                                                            res.InteretPaye
+                                                                                        )
                                                                                 )
                                                                                     ? "0.00"
                                                                                     : numberFormat(
@@ -2000,14 +2012,12 @@ export default class RapportCredit extends React.Component {
                                                                                 }}
                                                                             >
                                                                                 {isNaN(
-                                                                                    numberFormat(
+                                                                                    parseInt(
+                                                                                        res.Epargne
+                                                                                    ) -
                                                                                         parseInt(
-                                                                                            res.Epargne
-                                                                                        ) -
-                                                                                            parseInt(
-                                                                                                res.EpargnePaye
-                                                                                            )
-                                                                                    )
+                                                                                            res.EpargnePaye
+                                                                                        )
                                                                                 )
                                                                                     ? "0.00"
                                                                                     : numberFormat(

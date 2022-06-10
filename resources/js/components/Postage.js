@@ -11,11 +11,13 @@ export default class Postage extends React.Component {
             loading: false,
             showDateContainer: false,
             dateWork: null,
+            Taux: "",
+            usd: 1,
             todayDate: new Date(),
             isClosing: false,
         };
         this.clotureBtn = this.clotureBtn.bind(this);
-        // this.definirDate = this.definirDate.bind(this);
+        this.definirDate = this.definirDate.bind(this);
         this.actualiser = this.actualiser.bind(this);
     }
 
@@ -40,6 +42,27 @@ export default class Postage extends React.Component {
                 title: "Clôture de la journée",
                 text: res.data.msg,
                 icon: "success",
+                button: "OK!",
+            });
+        }
+    };
+
+    //DEFINI LA DATE DU SYSTEME
+    definirDate = async (e) => {
+        e.preventDefault();
+        const res = await axios.post("/datesystem/definir", this.state);
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Date système",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Date système",
+                text: res.data.msg,
+                icon: "error",
                 button: "OK!",
             });
         }
@@ -315,8 +338,41 @@ export default class Postage extends React.Component {
                                                                 "#dcdcdc",
                                                         }}
                                                     >
-                                                        <form method="POST">
+                                                        <form>
                                                             <table>
+                                                                <tr>
+                                                                    <td
+                                                                        style={{
+                                                                            fontWeight:
+                                                                                "bold",
+                                                                            color: "steelblue",
+                                                                        }}
+                                                                    >
+                                                                        Taux
+                                                                    </td>
+                                                                </tr>
+                                                                <tr>
+                                                                    <td>
+                                                                        <input
+                                                                            style={{
+                                                                                height: "33px",
+                                                                                border: "1px solid steelblue",
+                                                                            }}
+                                                                            type="text"
+                                                                            onChange={(
+                                                                                e
+                                                                            ) =>
+                                                                                this.setState(
+                                                                                    {
+                                                                                        Taux: e
+                                                                                            .target
+                                                                                            .value,
+                                                                                    }
+                                                                                )
+                                                                            }
+                                                                        />
+                                                                    </td>
+                                                                </tr>
                                                                 <tr>
                                                                     <td
                                                                         style={{
@@ -329,6 +385,7 @@ export default class Postage extends React.Component {
                                                                         la date
                                                                     </td>
                                                                 </tr>
+
                                                                 <tr>
                                                                     <td>
                                                                         <input
@@ -402,7 +459,13 @@ export default class Postage extends React.Component {
                                                                 Date clôturée
                                                             </th>
                                                             <th scope="col">
-                                                                Date ouverte
+                                                                Date Jour
+                                                            </th>
+                                                            <th scope="col">
+                                                                Monnaie
+                                                            </th>
+                                                            <th scope="col">
+                                                                Taux jour
                                                             </th>
                                                         </tr>
                                                     </thead>
@@ -421,6 +484,34 @@ export default class Postage extends React.Component {
                                                                 {
                                                                     this.state
                                                                         .dateWork
+                                                                }
+                                                            </td>
+                                                            <td>{"USD"}</td>
+                                                            <td>
+                                                                {this.state.usd}
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <th scope="row">
+                                                                2
+                                                            </th>
+                                                            <td>
+                                                                {dateParser(
+                                                                    this.state
+                                                                        .todayDate
+                                                                )}
+                                                            </td>
+                                                            <td>
+                                                                {
+                                                                    this.state
+                                                                        .dateWork
+                                                                }
+                                                            </td>
+                                                            <td>{"CDF"}</td>
+                                                            <td>
+                                                                {
+                                                                    this.state
+                                                                        .Taux
                                                                 }
                                                             </td>
                                                         </tr>
