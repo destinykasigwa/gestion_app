@@ -58,6 +58,7 @@ export default class DepotEspece extends React.Component {
         this.getDaylyAppro = this.getDaylyAppro.bind(this);
         this.acceptItemCDF = this.acceptItemCDF.bind(this);
         this.acceptItemUSD = this.acceptItemUSD.bind(this);
+        this.addNewBtn = this.addNewBtn.bind(this);
     }
     //to refresh
     actualiser() {
@@ -237,6 +238,52 @@ export default class DepotEspece extends React.Component {
                 button: "OK!",
             });
         }
+    }
+    addNewBtn(e) {
+        e.preventDefault();
+        this.setState({
+            hundred: 0,
+            fitfty: 0,
+            twenty: 0,
+            ten: 0,
+            five: 0,
+            oneDollar: 0,
+            montantDepot: 0,
+            devise: "",
+            numCompte: "",
+            intitule: "",
+            vightMille: 0,
+            dixMille: 0,
+            cinqMille: 0,
+            milleFranc: 0,
+            cinqCentFr: 0,
+            deuxCentFranc: 0,
+            centFranc: 0,
+            cinquanteFanc: 0,
+            telDeposant: "",
+            operant: "",
+            deposantName: "",
+            codeAgence: "20",
+            libelle: "",
+            error_list: [],
+            taux: "2000",
+            fetchData: null,
+            compteToSearch: "",
+            refCompte: "",
+            getAllBilletage: null,
+            getBilletageUSD: null,
+            getLastestOperationCDF: null,
+            getLastestOperationUSD: null,
+            getSommeCDF: null,
+            getSommeUSD: null,
+            fetchDaylyAproCDF: null,
+            fetchDaylyAproUSD: null,
+            soldeCDF: "",
+            soldeUSD: "",
+        });
+        // document
+        //     .getElementById("validerbtn")
+        //     .removeAttribute("disabled", "disabled");
     }
     render() {
         let myspinner = {
@@ -667,6 +714,38 @@ export default class DepotEspece extends React.Component {
                                                     </table>
                                                 </form>
                                             </div>
+                                        </div>
+                                        <div className="col-md-2">
+                                            <table
+                                                style={{
+                                                    marginLeft: "5px",
+                                                    border: "3px solid #fff",
+                                                }}
+                                            >
+                                                <tr>
+                                                    <td>
+                                                        <button
+                                                            type="button"
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                                width: "100%",
+                                                                height: "30px",
+                                                                fontSize:
+                                                                    "12px",
+                                                            }}
+                                                            id="ajouterbtn"
+                                                            className="btn btn-primary"
+                                                            onClick={
+                                                                this.addNewBtn
+                                                            }
+                                                        >
+                                                            Ajouter{" "}
+                                                            <i className="fas fa-database"></i>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            </table>
                                         </div>
                                     </div>
 

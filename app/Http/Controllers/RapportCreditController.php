@@ -80,6 +80,28 @@ class RapportCreditController extends Controller
         }
     }
 
+    public function getTableauBalanceAgee(Request $request)
+    {
+        if (isset($request->Monnaie)) {
+            if ($request->Monnaie == "CDF") {
+                $dataBalanceAgee = Portefeuille::where("portefeuilles.CodeMonnaie", "=", $request->Monnaie)
+                    ->join("Comptes", "portefeuilles.NumCompteEpargne", "=", "Comptes.NumCompte")
+                    ->orderBy("portefeuilles.DateOctroi", "DESC")->get();
+
+                return response()->json(["success" => 1, "data" => $dataBalanceAgee]);
+            } else if ($request->Monnaie == "USD") {
+                $dataBalanceAgee = Portefeuille::where("portefeuilles.CodeMonnaie", "=", $request->Monnaie)
+                    ->join("Comptes", "portefeuilles.NumCompteEpargne", "=", "Comptes.NumCompte")
+                    ->orderBy("portefeuilles.DateOctroi", "DESC")->get();
+
+                return response()->json(["success" => 1, "data" => $dataBalanceAgee]);
+            }
+        } else {
+
+            return response()->json(["success" => 0, "msg" => "Veuillez renseigner la devise avant de continuer"]);
+        }
+    }
+
     public function getRapportCreditPage()
     {
         return view('rapport-credit');

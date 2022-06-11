@@ -31,36 +31,36 @@ class DepotEspeceController extends Controller
   {
     //RECUPERE LES INFO DU MEMBRE RECHERCHE
     $data = AdhesionMembre::where('compteAbrege', '=', $id)->first();
-
-    //RECUPERE LE COMPTE EN CDF 
-
-    //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
-    $compteMembreCDF = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 2)->first()->NumCompte;
-    $soldeMembreCDF = Transactions::select(
-      // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
-      DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
-    )->where("NumCompte", '=', $compteMembreCDF)
-      ->groupBy("NumCompte")
-      ->get();
-
-
-    //RECUPERE LE SOLDE DU MEMBRE EN FC EN USD
-    $compteMembreUSD = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 1)->first()->NumCompte;
-    $soldeMembreUSD = Transactions::select(
-      // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
-      DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
-    )->where("NumCompte", '=', $compteMembreUSD)
-      ->groupBy("NumCompte")
-      ->get();
-
-    //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
-    $lastId = [];
-    $lastId = CompteurDocument::orderBy('id', 'desc')->first();
-    $numDoc = $lastId->id;
-
-
-
     if ($data) {
+      //RECUPERE LE COMPTE EN CDF 
+
+      //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
+      $compteMembreCDF = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 2)->first()->NumCompte;
+      $soldeMembreCDF = Transactions::select(
+        // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+        DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
+      )->where("NumCompte", '=', $compteMembreCDF)
+        ->groupBy("NumCompte")
+        ->get();
+
+
+      //RECUPERE LE SOLDE DU MEMBRE EN FC EN USD
+      $compteMembreUSD = Comptes::where('NumAdherant', '=', $id)->where('CodeMonnaie', '=', 1)->first()->NumCompte;
+      $soldeMembreUSD = Transactions::select(
+        // DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+        DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
+      )->where("NumCompte", '=', $compteMembreUSD)
+        ->groupBy("NumCompte")
+        ->get();
+
+      //RECUPERE LE DERNIER ID POUR LA TABLE COMPTEUR DOCUMENT
+      $lastId = [];
+      $lastId = CompteurDocument::orderBy('id', 'desc')->first();
+      $numDoc = $lastId->id;
+
+
+
+
 
       return response()->json([
         "success" => 1, 'data' =>  $data, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeMembreUSD, "numdoc" => $numDoc

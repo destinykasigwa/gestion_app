@@ -421,6 +421,13 @@ Route::post(
     [RapportCreditController::class, 'getTableauAmmortissement']
 );
 
+//RECUPERE LE TABLEAU D'AMMORTISSEMENT DU CREDIT
+Route::post(
+    "
+    rapport/balance-agee",
+    [RapportCreditController::class, 'getTableauBalanceAgee']
+);
+
 //PERMET D'EFFECTUER UN REMBOURSEMENT MANUEL CAPITAL
 Route::post(
     "

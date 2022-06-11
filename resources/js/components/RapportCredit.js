@@ -12,9 +12,11 @@ export default class RapportCredit extends React.Component {
             getData: null,
             fetchEcheancier: null,
             fetchTableauAmortiss: null,
-            fetchBalanceAgee: null,
+            fetchBalanceAgee: [],
             fetchSommeInteret: null,
             Echeancier: "",
+            Monnaie: "",
+            dateToSearch: "",
             // dataToSearch1: "",
             // dataToSearch2: "",
             NumCompteEpargne: "",
@@ -29,6 +31,7 @@ export default class RapportCredit extends React.Component {
         this.PrintEcheancier = this.PrintEcheancier.bind(this);
         this.getTableauAmmort = this.getTableauAmmort.bind(this);
         this.PrintTableauAmmo = this.PrintTableauAmmo.bind(this);
+        // this.PrintTableauBalanceAgee=this.PrintTableauBalanceAgee.bind(this);
     }
 
     componentDidMount() {
@@ -298,7 +301,7 @@ export default class RapportCredit extends React.Component {
                                                                 </td>
                                                             </tr>
 
-                                                            {/* <tr>
+                                                            <tr>
                                                                 <td>
                                                                     <div className="input-group input-group-sm mt-1">
                                                                         <input
@@ -307,13 +310,13 @@ export default class RapportCredit extends React.Component {
                                                                                 height: "30px",
                                                                             }}
                                                                             type="date"
-                                                                            name="dataToSearch1"
+                                                                            name="dateToSearch"
                                                                             onChange={(
                                                                                 e
                                                                             ) =>
                                                                                 this.setState(
                                                                                     {
-                                                                                        dataToSearch1:
+                                                                                        dateToSearch:
                                                                                             e
                                                                                                 .target
                                                                                                 .value,
@@ -323,33 +326,42 @@ export default class RapportCredit extends React.Component {
                                                                         />
                                                                     </div>
                                                                 </td>
-                                                            </tr> */}
-                                                            {/* <tr>
+                                                            </tr>
+                                                            <tr>
                                                                 <td>
                                                                     <div className="input-group input-group-sm mt-1">
-                                                                        <input
+                                                                        <select
                                                                             style={{
                                                                                 border: "0px",
                                                                                 height: "30px",
                                                                             }}
-                                                                            type="date"
-                                                                            name="dataToSearch2"
+                                                                            name="Monnaie"
                                                                             onChange={(
                                                                                 e
                                                                             ) =>
                                                                                 this.setState(
                                                                                     {
-                                                                                        dataToSearch2:
+                                                                                        Monnaie:
                                                                                             e
                                                                                                 .target
                                                                                                 .value,
                                                                                     }
                                                                                 )
                                                                             }
-                                                                        />
+                                                                        >
+                                                                            <option value="">
+                                                                                Sélectionnez
+                                                                            </option>
+                                                                            <option value="CDF">
+                                                                                CDF{" "}
+                                                                            </option>
+                                                                            <option value="USD">
+                                                                                USD{" "}
+                                                                            </option>
+                                                                        </select>
                                                                     </div>
                                                                 </td>
-                                                            </tr> */}
+                                                            </tr>
 
                                                             <tr>
                                                                 <td>
@@ -2151,6 +2163,317 @@ export default class RapportCredit extends React.Component {
                                                         Imprimer
                                                     </button>
                                                 </span>
+                                            </div>
+                                        </div>
+                                    </React.Fragment>
+                                )}
+
+                                {/* BALANCE AGEE */}
+                                {this.state.fetchBalanceAgee.length != 0 && (
+                                    <React.Fragment>
+                                        <hr class="solid" />
+                                        <div
+                                            className="row"
+                                            id="print-tableau-ammortis"
+                                        >
+                                            <div
+                                                className="card"
+                                                style={{
+                                                    margin: "5px",
+                                                    width: "100%",
+                                                }}
+                                            >
+                                                <div
+                                                    style={{
+                                                        margin: "0 auto",
+                                                        width: "90%",
+                                                    }}
+                                                >
+                                                    {" "}
+                                                    <br />
+                                                    <br />
+                                                    <div
+                                                        style={{
+                                                            textAlign: "center",
+                                                        }}
+                                                    >
+                                                        <h4>
+                                                            <b>
+                                                                ACTION POUR LA
+                                                                PAIX L'EDUCATION
+                                                                ET LE DEFENSE
+                                                                DES DROITS
+                                                                HUMAINS
+                                                            </b>
+                                                        </h4>
+                                                    </div>
+                                                    <table
+                                                        id="table"
+                                                        class="table"
+                                                        align="center"
+                                                    >
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <img
+                                                                    style={{
+                                                                        width: "30%",
+                                                                        height: "90px",
+                                                                    }}
+                                                                    src="uploads/membres/default.jpg"
+                                                                />
+                                                            </td>
+                                                            <td
+                                                                style={{
+                                                                    border: "0px",
+                                                                }}
+                                                            >
+                                                                <div
+                                                                    style={{
+                                                                        textAlign:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    <h3>
+                                                                        «A.P.E.D.H»
+                                                                    </h3>
+                                                                    <p>
+                                                                        Goma RDC{" "}
+                                                                        <br />
+                                                                        Téléphone:
+                                                                        +243971926713{" "}
+                                                                        <br />
+                                                                        Courriel:
+                                                                        info@apedh-assoc.org
+                                                                        <br />
+                                                                    </p>
+                                                                </div>
+                                                            </td>
+                                                            <td align="right">
+                                                                <div
+                                                                    style={{
+                                                                        marginLeft:
+                                                                            "0px",
+                                                                    }}
+                                                                >
+                                                                    <h4>
+                                                                        <b>
+                                                                            <img
+                                                                                style={{
+                                                                                    width: "30%",
+                                                                                    height: " 90px",
+                                                                                }}
+                                                                                src="uploads/membres/default.jpg"
+                                                                            />
+                                                                        </b>
+                                                                    </h4>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
+                                                </div>
+                                                <div
+                                                    className="row title-echeancier"
+                                                    style={{
+                                                        margin: "0px auto",
+                                                        marginTop: "50px",
+                                                    }}
+                                                >
+                                                    {" "}
+                                                    <h4
+                                                        style={{
+                                                            background: "#444",
+                                                            padding: "5px",
+                                                            color: "#fff",
+                                                        }}
+                                                    >
+                                                        BALANCE AGEE EN{" "}
+                                                        {this.state.Monnaie}{" "}
+                                                        AFFICHEE EN DATE DU{" "}
+                                                        {dateParser(new Date())}
+                                                    </h4>{" "}
+                                                </div>
+                                            </div>
+
+                                            <div
+                                                class="card-body"
+                                                style={{
+                                                    marginLeft: "1px",
+                                                    marginRight: "5px",
+                                                    marginTop: "5px",
+                                                }}
+                                            >
+                                                <table
+                                                    className="tableStyle"
+                                                    style={{
+                                                        background: "#444",
+                                                        padding: "5px",
+                                                        color: "#fff",
+                                                    }}
+                                                >
+                                                    <thead>
+                                                        <tr>
+                                                            <td rowspan="2">
+                                                                N°
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                Num Dmnde
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                Num
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                NomCompte
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                Durée
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                Date Octroi
+                                                            </td>
+                                                            <td rowspan="2">
+                                                                Accordé
+                                                            </td>
+                                                            <td colspan="2">
+                                                                Remboursé
+                                                            </td>
+                                                            <td colspan="2">
+                                                                Restant dû
+                                                            </td>
+                                                            <td colspan="5">
+                                                                En retard En
+                                                                Jours
+                                                            </td>
+                                                            {/* <td rowspan="2">
+                                                            Epargne
+                                                        </td>
+                                                        <td rowspan="2">
+                                                            Date Retard
+                                                        </td> */}
+                                                            <td rowspan="2">
+                                                                Jour de Retard
+                                                            </td>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>Capital</td>
+                                                            {/* <td>Intérêt</td> */}
+                                                            <td>Intérêt</td>
+                                                            <td>Capital</td>
+                                                            <td>Intérêt</td>
+                                                            {/* <td>Intéret</td> */}
+                                                            <td>1 à 30</td>
+                                                            <td>31 à 60</td>
+                                                            <td>61 à 90</td>
+                                                            <td>91 à 180</td>
+                                                            <td>Plus de 180</td>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        {this.state
+                                                            .fetchBalanceAgee
+                                                            .length != 0 &&
+                                                            this.state.fetchBalanceAgee.map(
+                                                                (
+                                                                    res,
+                                                                    index
+                                                                ) => {
+                                                                    return (
+                                                                        <tr
+                                                                            key={
+                                                                                index
+                                                                            }
+                                                                        >
+                                                                            <td>
+                                                                                {
+                                                                                    compteur++
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.NumDemande
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.NumCompteCredit
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.NomCompte
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Duree
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.DateOctroi
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.MontantAccorde
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.RemboursCapital
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.RemboursInteretIn
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.CapitalRestant
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.InteretRestant
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Retard1
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Retard2
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Retard3
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Retard4
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.Retard5
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.JourRetard
+                                                                                }
+                                                                            </td>
+                                                                        </tr>
+                                                                    );
+                                                                }
+                                                            )}
+                                                    </tbody>
+                                                </table>
                                             </div>
                                         </div>
                                     </React.Fragment>
