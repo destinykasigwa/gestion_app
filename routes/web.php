@@ -15,6 +15,8 @@ use App\Http\Controllers\EntreeTresorController;
 use App\Http\Controllers\GetIndividualMendataire;
 use App\Http\Controllers\RetraitEspeceController;
 use App\Http\Controllers\AdhesionMembreController;
+use App\Http\Controllers\CrediteurController;
+use App\Http\Controllers\DebiteurController;
 use App\Http\Controllers\JournalCaisseController;
 use App\Http\Controllers\PostageController;
 use App\Http\Controllers\RapportCreditController;
@@ -22,6 +24,7 @@ use App\Http\Controllers\RemboursementController;
 use App\Http\Controllers\RepertoireCaisseController;
 use App\Http\Controllers\SoldeController;
 use App\Http\Controllers\SuiviCreditController;
+use App\Http\Controllers\TFRController;
 
 /*
 |--------------------------------------------------------------------------
@@ -55,6 +58,9 @@ Route::get('/journal', [JournalCaisseController::class, 'getJournaCaissePage'])-
 Route::get('/suivicredit', [SuiviCreditController::class, 'getSuiviCreditPage'])->name('credit.suivi');
 Route::get('/rapport-credit', [RapportCreditController::class, 'getRapportCreditPage'])->name('rapport.credit');
 Route::get('/postage', [PostageController::class, 'getPostagePage'])->name('postage.caisse');
+Route::get('/tfr', [TFRController::class, 'getTfrPage'])->name('tableau.tfr');
+Route::get('/crediteur', [CrediteurController::class, 'getCrediteurPage'])->name('credit.crediteur');
+Route::get('/debiteur', [DebiteurController::class, 'getDebiteurPage'])->name('debit.debiteur');
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);
 
 
@@ -454,4 +460,25 @@ Route::post(
     "
     datesystem/definir",
     [PostageController::class, 'definrDateSysteme']
+);
+
+//RECUPERE LES INFORMATIONS A AFFICHER SUR LE TFR
+Route::post(
+    "
+    etat-financier/tfr/data",
+    [TFRController::class, 'getTFRData']
+);
+
+//PERMET DE RECHERCHE UN NUMERO DE COMPTE 
+Route::get(
+    "
+    compte/credit/search/{compte}",
+    [CrediteurController::class, 'getAccount']
+);
+
+//SAVE DATA 
+Route::post(
+    "
+    crediteur/save/data",
+    [CrediteurController::class, 'saveDataCredit']
 );

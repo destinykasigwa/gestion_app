@@ -26,6 +26,9 @@ import JournalCaisse from "./components/JournalCaisse";
 import SuiviCredit from "./components/SuiviCredit";
 import RapportCredit from "./components/RapportCredit";
 import Postage from "./components/Postage";
+import Tfr from "./components/Tfr";
+import Crediteur from "./components/Crediteur";
+import Debiteur from "./components/Debiteur";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -87,4 +90,13 @@ if (document.getElementById("adhesionContainer")) {
     );
 } else if (document.getElementById("postageContainer")) {
     ReactDOM.render(<Postage />, document.getElementById("postageContainer"));
+} else if (document.getElementById("tfrContainer")) {
+    ReactDOM.render(<Tfr />, document.getElementById("tfrContainer"));
+} else if (document.getElementById("CrediteurContainer")) {
+    ReactDOM.render(
+        <Crediteur />,
+        document.getElementById("CrediteurContainer")
+    );
+} else if (document.getElementById("DebiteurContainer")) {
+    ReactDOM.render(<Debiteur />, document.getElementById("DebiteurContainer"));
 }

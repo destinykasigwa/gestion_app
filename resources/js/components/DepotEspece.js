@@ -142,7 +142,7 @@ export default class DepotEspece extends React.Component {
         );
         if (getData.data.success == 1) {
             this.setState({
-                fetchData: getData.data.data,
+                fetchData: getData.data.data[0],
                 soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
                 soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD,
             });
@@ -218,7 +218,7 @@ export default class DepotEspece extends React.Component {
     }
     //ACCEPT A SPECIFIC APPRO ITEM USD
     acceptItemUSD(id) {
-        const question = confirm("vous le vous vraiment accepter cette appro?");
+        const question = confirm("voulez vous vraiment accepter cette appro ?");
         if (question == true) {
             axios.delete("accept/appro/usd/" + id).then((response) => {
                 if (response.data.success == 1) {

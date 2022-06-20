@@ -149,12 +149,12 @@ export default class RetraitEspece extends React.Component {
             });
             this.setState({
                 disabled: !this.state.disabled,
-                refCompte: this.state.fetchData[0].refCompte,
-                numCompte: this.state.fetchData[0].numCompte,
-                operant: this.state.fetchData[0].intituleCompte,
-                montantRetrait: this.state.getPositionnementData[0].Montant,
-                devise: this.state.getPositionnementData[0].CodeMonnaie,
-                numDocument: this.state.getPositionnementData[0].NumDocument,
+                refCompte: this.state.fetchData.NumAdherant,
+                numCompte: this.state.fetchData.NumCompte,
+                operant: this.state.fetchData.NomCompte,
+                montantRetrait: this.state.getPositionnementData.Montant,
+                devise: this.state.getPositionnementData.CodeMonnaie,
+                numDocument: this.state.getPositionnementData.NumDocument,
             });
             // console.log(this.state.fetchData);
             //disabled valider button
@@ -360,8 +360,8 @@ export default class RetraitEspece extends React.Component {
                                                                 : this.state
                                                                       .fetchData &&
                                                                   this.state
-                                                                      .fetchData[0]
-                                                                      .numCompte
+                                                                      .fetchData
+                                                                      .NumCompte
                                                         }
                                                     />
                                                 </div>
@@ -416,8 +416,8 @@ export default class RetraitEspece extends React.Component {
                                                                                   .fetchData &&
                                                                               this
                                                                                   .state
-                                                                                  .fetchData[0]
-                                                                                  .intituleCompte
+                                                                                  .fetchData
+                                                                                  .NomCompte
                                                                     }
                                                                     disabled
                                                                     onChange={
@@ -491,8 +491,8 @@ export default class RetraitEspece extends React.Component {
                                                                                   .fetchData &&
                                                                               this
                                                                                   .state
-                                                                                  .fetchData[0]
-                                                                                  .numCompte
+                                                                                  .fetchData
+                                                                                  .NumCompte
                                                                     }
                                                                     disabled
                                                                     onChange={
@@ -575,7 +575,7 @@ export default class RetraitEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSoldeUSD[0]
+                                                                                    .getMembreSoldeUSD
                                                                                     .soldeMembreUSD
                                                                             )
                                                                         )
@@ -611,7 +611,7 @@ export default class RetraitEspece extends React.Component {
                                                                             parseInt(
                                                                                 this
                                                                                     .state
-                                                                                    .getMembreSoldeCDF[0]
+                                                                                    .getMembreSoldeCDF
                                                                                     .soldeMembreCDF
                                                                             )
                                                                         )
@@ -668,7 +668,7 @@ export default class RetraitEspece extends React.Component {
                                                                     this.state
                                                                         .getPositionnementData &&
                                                                     this.state
-                                                                        .getPositionnementData[0]
+                                                                        .getPositionnementData
                                                                         .NumDocument
                                                                 }
                                                                 disabled
@@ -708,7 +708,7 @@ export default class RetraitEspece extends React.Component {
                                                                               .getPositionnementData &&
                                                                           this
                                                                               .state
-                                                                              .getPositionnementData[0]
+                                                                              .getPositionnementData
                                                                               .CodeMonnaie
                                                                 }
                                                             >
@@ -759,7 +759,7 @@ export default class RetraitEspece extends React.Component {
                                                                               .getPositionnementData &&
                                                                           this
                                                                               .state
-                                                                              .getPositionnementData[0]
+                                                                              .getPositionnementData
                                                                               .Concerne
                                                                 }
                                                                 disabled={
@@ -797,7 +797,7 @@ export default class RetraitEspece extends React.Component {
                                                                     this.state
                                                                         .getPositionnementData &&
                                                                     this.state
-                                                                        .getPositionnementData[0]
+                                                                        .getPositionnementData
                                                                         .Retirant
                                                                 }
                                                                 disabled
@@ -830,7 +830,7 @@ export default class RetraitEspece extends React.Component {
                                                                     this.state
                                                                         .getPositionnementData &&
                                                                     this.state
-                                                                        .getPositionnementData[0]
+                                                                        .getPositionnementData
                                                                         .NumTel
                                                                 }
                                                                 disabled
@@ -871,7 +871,7 @@ export default class RetraitEspece extends React.Component {
                                                                               .getPositionnementData &&
                                                                           this
                                                                               .state
-                                                                              .getPositionnementData[0]
+                                                                              .getPositionnementData
                                                                               .Montant
                                                                 }
                                                                 disabled

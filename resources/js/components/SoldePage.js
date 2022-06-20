@@ -126,12 +126,7 @@ export default class SoldePage extends React.Component {
             padding: "3px",
             borderRadius: "0px",
         };
-        // var inputColor2 = {
-        //     height: "25px",
-        //     border: "1px solid white",
-        //     padding: "3px",
-        //     width: "60px",
-        // };
+
         var tableBorder = {
             border: "2px solid #fff",
             fontSize: "14px",
@@ -479,8 +474,8 @@ export default class SoldePage extends React.Component {
                                                 <div
                                                     className="card"
                                                     style={{
-                                                        margin: "5px",
-                                                        width: "100%",
+                                                        margin: "0 auto",
+                                                        width: "77%",
                                                     }}
                                                 >
                                                     <div

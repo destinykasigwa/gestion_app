@@ -97,6 +97,18 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{ route('debit.debiteur') }}" class="nav-link">
+                                <i class="fas fa-hand-holding-usd"></i>
+                                <p>Débiteur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('credit.crediteur') }}" class="nav-link">
+                                <i class="fas fa-money-bill"></i>
+                                <p>Créditeur</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{ route('membre.adhesion') }}" class="nav-link">
                                 <i class="fas fa-users"></i>
                                 <p>Adhésion</p>
@@ -222,7 +234,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="pages/UI/icons.html" class="nav-link">
+                            <a href="{{ route('tableau.tfr') }}" class="nav-link">
                                 <i class="fas fa-poll"></i>
                                 <p>TFR</p>
                             </a>

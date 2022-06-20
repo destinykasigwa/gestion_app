@@ -92,7 +92,7 @@ export default class Positionnement extends React.Component {
         );
         if (getData.data.success == 1) {
             this.setState({
-                fetchData: getData.data.data,
+                fetchData: getData.data.data[0],
                 // getMembreSolde: getData.data.soldeMembre,
                 getCompteurDocument: getData.data.numdoc,
             });

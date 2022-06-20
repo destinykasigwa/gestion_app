@@ -30,8 +30,8 @@ class DepotEspeceController extends Controller
   public function getAccount($id)
   {
     //RECUPERE LES INFO DU MEMBRE RECHERCHE
-    $data = AdhesionMembre::where('compteAbrege', '=', $id)->first();
-    if ($data) {
+    $data = AdhesionMembre::where('compteAbrege', '=', $id)->get();
+    if (count($data) != 0) {
       //RECUPERE LE COMPTE EN CDF 
 
       //RECUPERE LE SOLDE DU MEMBRE EN FC EN CDF
@@ -80,32 +80,32 @@ class DepotEspeceController extends Controller
 
     $dataRowExist = Positionnement::where("NumDocument", "=", $numDocument)->first();
     if ($dataRowExist) {
-      $dataPostione = Positionnement::where("NumDocument", "=", $numDocument)->get();
-      $numCompteMembre = $dataPostione[0]->RefCompte;
+      $dataPostione = Positionnement::where("NumDocument", "=", $numDocument)->first();
+      $numCompteMembre = $dataPostione->RefCompte;
       //RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE CDF
-      $dataCDF = Transactions::where('transactions.refCompteMembre', '=', $numCompteMembre)
-        ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie", "=", "2")
-        ->get();
+      $dataCDF = Comptes::where('Comptes.NumAdherant', '=', $numCompteMembre)
+        ->where("CodeMonnaie", "=", "2")
+        ->first();
       //RECUPERE LES INFO DU MEMBRE RECHERCHE POUR LE USD
-      $dataUSD = Transactions::where('transactions.refCompteMembre', '=', $numCompteMembre)
-        ->join('adhesion_membres', 'transactions.refCompteMembre', '=', 'adhesion_membres.refCompte')->where("CodeMonnaie", "=", "1")
-        ->get();
+      $dataUSD = Comptes::where('Comptes.NumAdherant', '=', $numCompteMembre)
+        ->where("CodeMonnaie", "=", "1")
+        ->first();
 
-      $NumeroCompteCDF = $dataCDF[0]->NumCompte;
-      $NumeroCompteUSD = $dataUSD[0]->NumCompte;
+      $dataCDF ? $NumeroCompteCDF = $dataCDF->NumCompte : null;
+      $dataUSD ? $NumeroCompteUSD = $dataUSD->NumCompte : null;
       //RECUPERE LE SOLDE DU MEMBRE EN FC 
       $soldeMembreCDF = Transactions::select(
         DB::raw("SUM(Creditfc)-SUM(Debitfc) as soldeMembreCDF"),
       )->where("NumCompte", '=', $NumeroCompteCDF)
         ->groupBy("NumCompte")
-        ->get();
+        ->first();
 
       //RECUPERE LE SOLDE DU MEMBRE EN USD
       $soldeMembreUSD = Transactions::select(
         DB::raw("SUM(Credit$)-SUM(Debit$) as soldeMembreUSD"),
       )->where("NumCompte", '=', $NumeroCompteUSD)
         ->groupBy("NumCompte")
-        ->get();
+        ->first();
 
 
 
