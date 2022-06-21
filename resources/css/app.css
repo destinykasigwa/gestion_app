@@ -36,6 +36,10 @@
     overflow-y: scroll;
     height: auto;
    }
+   .debiteur-table-div{
+    overflow-y: scroll;
+    height: 400px; 
+   }
    table td {
      border: 1px solid #fff;
      padding: 2px;

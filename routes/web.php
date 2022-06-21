@@ -482,3 +482,44 @@ Route::post(
     crediteur/save/data",
     [CrediteurController::class, 'saveDataCredit']
 );
+
+//PERMET D'OBTENIR LES INFORMATION D'UN COMPTE SUR LE QUEL ON VEUT EFFECTUER UN CREDIT 
+Route::post(
+    "
+    compte/debiteur/search/credit",
+    [DebiteurController::class, 'getDataCredit']
+);
+
+//PERMET D'OBTENIR LES INFORMATION D'UN COMPTE SUR LE QUEL ON VEUT EFFECTUER UN DEBIT
+Route::post(
+    "
+    compte/debiteur/search/debit",
+    [DebiteurController::class, 'getDataDebit']
+);
+
+//ENREGISTRE L'OPERATION POUR LE MENU DEBITEUR
+
+Route::post(
+    "
+    debiteur/save/data",
+    [DebiteurController::class, 'saveDataDebit']
+);
+
+//RECUPERE TOUTES LES OPERATIONS JOURNALIERES DU COMPTABLE
+
+Route::get(
+    "compte/operation/journalier/debiteur",
+    [DebiteurController::class, 'getDailyOperation']
+);
+
+//PERMET DE RECHERCHER UNE OPERATION MOYENNANT SA REFERENCE
+Route::get(
+    "compte/search/operation/reference/{ref}",
+    [DebiteurController::class, 'getSearchedOperation']
+);
+
+//PERMET D'EXTOURNER UNE OPERATION
+Route::get(
+    "compte/extourne/operation/{reference}",
+    [DebiteurController::class, 'extourneOperation']
+);

@@ -12,40 +12,115 @@ export default class Debiteur extends React.Component {
             fetchData: null,
             soldeCDF: "",
             soldeUSD: "",
+            compteToSearchCredit: "",
+            compteToSearchDebit: "",
+            Montant: "",
+            Libelle: "",
+            NomCompteDebit: "",
+            NomCompteCredit: "",
+            SoldeCompteCredit: "",
+            SoldeCompteDebit: "",
+            CodeMonnaieCredit: "",
+            CodeMonnaieDebit: "",
+            fetchDayOperation: "",
+            searchRefOperation: "",
+            fetchSearchedOperation: "",
         };
-
-        this.handleAccount = this.handleAccount.bind(this);
+        this.textInput = React.createRef();
+        this.actualiser = this.actualiser.bind(this);
+        this.handleAccountCredit = this.handleAccountCredit.bind(this);
+        this.handleAccountDebit = this.handleAccountDebit.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.addNewBtn = this.addNewBtn.bind(this);
+        this.getDayOperation = this.getDayOperation.bind(this);
+        this.handleSeachOperation = this.handleSeachOperation.bind(this);
+        this.extourneOperation = this.extourneOperation.bind(this);
     }
 
     componentDidMount() {
         setTimeout(() => {
             this.setState({ isloading: false });
         }, 1000);
+        this.getDayOperation();
+    }
+    //put focus on given input
+    focusTextInput() {
+        this.textInput.current.focus();
     }
 
-    //GET A SEACHED NUMBER
-    handleAccount = async (e) => {
+    //to refresh
+    actualiser() {
+        location.reload();
+    }
+
+    //GET DATA FROM INPUT
+    handleChange(event) {
+        this.setState({
+            // Computed property names
+            // keys of the objects are computed dynamically
+            [event.target.name]: event.target.value,
+        });
+    }
+
+    //GET A SEACHED NUMBER CREDIT ACCOUNT
+    handleAccountCredit = async (e) => {
         e.preventDefault();
-        const getData = await axios.get(
-            "compte/search/" + this.state.compteToSearch
+        const getData = await axios.post(
+            "/compte/debiteur/search/credit",
+            this.state
         );
         if (getData.data.success == 1) {
             this.setState({
-                fetchData: getData.data.data[0],
-                soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,
-                soldeUSD: getData.data.soldeMembreUSD[0].soldeMembreUSD,
+                fetchData: getData.data.data,
+                SoldeCompteCredit: getData.data.solde,
             });
             this.setState({
                 disabled: !this.state.disabled,
-                refCompte: this.state.fetchData.refCompte,
-                numCompte: this.state.fetchData.numCompte,
-                operant: this.state.fetchData.intituleCompte,
+                Operant: this.state.fetchData.NomCompte,
+                NomCompteCredit: this.state.fetchData.NomCompte,
+                refCompte: this.state.fetchData.NumAdherant,
+                CodeMonnaieCredit: this.state.fetchData.CodeMonnaie,
             });
-            console.log(this.state.getMembreSolde);
+            // console.log(this.state.getMembreSolde);
             //disabled valider button
-            document
-                .getElementById("validerbtn")
-                .removeAttribute("disabled", "disabled");
+        } else if (getData.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: getData.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
+    };
+
+    //GET A SEACHED NUMBER DEBIT ACCOUNT
+    handleAccountDebit = async (e) => {
+        e.preventDefault();
+        const getData = await axios.post(
+            "/compte/debiteur/search/debit",
+            this.state
+        );
+        if (getData.data.success == 1) {
+            this.setState({
+                fetchData: getData.data.data,
+                SoldeCompteDebit: getData.data.solde,
+            });
+            this.setState({
+                disabled: !this.state.disabled,
+                Operant: this.state.fetchData.NomCompte,
+                NomCompteDebit: this.state.fetchData.NomCompte,
+                refCompte: this.state.fetchData.NumAdherant,
+                CodeMonnaieDebit: this.state.fetchData.CodeMonnaie,
+            });
+            // console.log(this.state.getMembreSolde);
+            //disabled valider button
+        } else if (getData.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: getData.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
         } else {
             Swal.fire({
                 title: "Erreur",
@@ -54,7 +129,111 @@ export default class Debiteur extends React.Component {
                 button: "OK!",
             });
         }
-        // console.log(this.state.fetchData);
+    };
+
+    saveOperation = async (e) => {
+        e.preventDefault();
+        const res = await axios.post("/debiteur/save/data", this.state);
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Créditeur",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+            document
+                .getElementById("savebtn")
+                .setAttribute("disabled", "disabled");
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
+    };
+
+    addNewBtn(e) {
+        e.preventDefault();
+        this.setState({
+            soldeCDF: "",
+            soldeUSD: "",
+            compteToSearchCredit: "",
+            compteToSearchDebit: "",
+            Montant: "",
+            Libelle: "",
+            NomCompteDebit: "",
+            NomCompteCredit: "",
+            SoldeCompteCredit: "",
+            SoldeCompteDebit: "",
+            CodeMonnaieCredit: "",
+            CodeMonnaieDebit: "",
+        });
+        document
+            .getElementById("savebtn")
+            .removeAttribute("disabled", "disabled");
+
+        setTimeout(() => {
+            this.textInput.current.focus();
+        }, 10);
+    }
+    getDayOperation = async () => {
+        const res = await axios.get("/compte/operation/journalier/debiteur");
+        this.setState({
+            fetchDayOperation: res.data.data,
+        });
+    };
+
+    handleSeachOperation = async (ref) => {
+        const res = await axios.get(
+            "/compte/search/operation/reference/" + ref
+        );
+        if (res.data.success == 1) {
+            this.setState({
+                fetchSearchedOperation: res.data.data,
+            });
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
+    };
+    extourneOperation = async (reference) => {
+        let x = confirm("Etes-vous sûr de pouvoir extourné cette opération ?");
+        if (x == true) {
+            const res = await axios.get(
+                "/compte/extourne/operation/" + reference
+            );
+            if (res.data.success == 1) {
+                // this.setState({
+                //     fetchSearchedOperation: res.data.data,
+                // });
+                Swal.fire({
+                    title: "Créditeur",
+                    text: res.data.msg,
+                    icon: "success",
+                    button: "OK!",
+                });
+            } else if (res.data.success == 0) {
+                Swal.fire({
+                    title: "Erreur",
+                    text: res.data.msg,
+                    icon: "error",
+                    button: "OK!",
+                });
+            }
+        } else {
+            Swal.fire({
+                title: "Annulation",
+                text: "L'extourne n'a pas eu lieu",
+                icon: "info",
+                button: "OK!",
+            });
+        }
     };
 
     render() {
@@ -79,6 +258,11 @@ export default class Debiteur extends React.Component {
             padding: "3px",
             borderRadius: "0px",
         };
+        let tableBorder = {
+            border: "2px solid #fff",
+            fontSize: "14px",
+            textAlign: "center",
+        };
 
         //PERMET DE FORMATER LES CHIFFRES
         const numberFormat = (number = 0) => {
@@ -98,6 +282,7 @@ export default class Debiteur extends React.Component {
                 return nombre;
             }
         };
+        let compteur = 1;
         return (
             <React.Fragment>
                 {this.state.isloading ? (
@@ -159,7 +344,7 @@ export default class Debiteur extends React.Component {
                                                 border: "2px solid #fff",
                                             }}
                                         >
-                                            <div className="col-md-4">
+                                            <div className="col-md-3">
                                                 <form
                                                     style={{
                                                         padding: "10px",
@@ -173,12 +358,13 @@ export default class Debiteur extends React.Component {
                                                                 borderRadius:
                                                                     "0px",
                                                             }}
+                                                            ref={this.textInput}
                                                             className="form-control font-weight-bold"
-                                                            placeholder="Numéro compte..."
-                                                            name="compteToSearch"
+                                                            placeholder="Compte à créditer..."
+                                                            name="compteToSearchCredit"
                                                             value={
                                                                 this.state
-                                                                    .compteToSearch
+                                                                    .compteToSearchCredit
                                                             }
                                                             onChange={
                                                                 this
@@ -199,7 +385,7 @@ export default class Debiteur extends React.Component {
                                                                 className="btn btn-primary"
                                                                 onClick={
                                                                     this
-                                                                        .handleAccount
+                                                                        .handleAccountCredit
                                                                 }
                                                             >
                                                                 <i className="fas fa-search"></i>
@@ -215,11 +401,11 @@ export default class Debiteur extends React.Component {
                                                                     "0px",
                                                             }}
                                                             className="form-control font-weight-bold"
-                                                            placeholder="Numéro compte..."
-                                                            name="compteToSearch"
+                                                            placeholder="Compte à Débiter"
+                                                            name="compteToSearchDebit"
                                                             value={
                                                                 this.state
-                                                                    .compteToSearch
+                                                                    .compteToSearchDebit
                                                             }
                                                             onChange={
                                                                 this
@@ -240,60 +426,114 @@ export default class Debiteur extends React.Component {
                                                                 className="btn btn-primary"
                                                                 onClick={
                                                                     this
-                                                                        .handleAccount
+                                                                        .handleAccountDebit
                                                                 }
                                                             >
                                                                 <i className="fas fa-search"></i>
                                                             </button>
                                                         </td>
                                                     </div>
-                                                    <div className="input-group input-group-sm ">
-                                                        <input
-                                                            type="text"
-                                                            readOnly
-                                                            style={{
-                                                                height: "40px",
-                                                                background:
-                                                                    "#dcdcdc",
-                                                                border: "4px solid #fff",
-                                                            }}
-                                                            className="form-control mt-1 font-weight-bold"
-                                                            value={
-                                                                this.state
-                                                                    .fetchData &&
-                                                                this.state
-                                                                    .fetchData
-                                                                    .numCompte
-                                                            }
-                                                        />
-                                                    </div>
+                                                    <table>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Libellé
+                                                                </label>{" "}
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    className="form-control mt-1 font-weight-bold"
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                        height: "40px",
+                                                                        marginTop:
+                                                                            "1px",
+                                                                    }}
+                                                                    name="Libelle"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .Libelle
+                                                                    }
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </tr>
+                                                        <tr>
+                                                            <td>
+                                                                {" "}
+                                                                <label
+                                                                    style={
+                                                                        labelColor
+                                                                    }
+                                                                >
+                                                                    Montant
+                                                                </label>
+                                                            </td>
+                                                            <div className="input-group input-group-sm ">
+                                                                <input
+                                                                    type="text"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                    }}
+                                                                    name="Montant"
+                                                                    className="form-control mt-1 font-weight-bold"
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .Montant
+                                                                    }
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                />
+                                                            </div>
+                                                        </tr>
 
-                                                    <div className="input-group input-group-sm ">
-                                                        <input
-                                                            type="text"
-                                                            readOnly
-                                                            style={{
-                                                                height: "40px",
-                                                                background:
-                                                                    "#dcdcdc",
-                                                                border: "4px solid #fff",
-                                                            }}
-                                                            className="form-control mt-1 font-weight-bold"
-                                                            value={
-                                                                this.state
-                                                                    .fetchData &&
-                                                                this.state
-                                                                    .fetchData
-                                                                    .numCompte
-                                                            }
-                                                        />
-                                                    </div>
+                                                        <tr>
+                                                            <td></td>
+                                                            <td>
+                                                                <button
+                                                                    type="button"
+                                                                    style={{
+                                                                        borderRadius:
+                                                                            "0px",
+                                                                        width: "100%",
+                                                                        height: "30px",
+                                                                        fontSize:
+                                                                            "12px",
+                                                                    }}
+                                                                    id="savebtn"
+                                                                    className="btn btn-primary mt-1"
+                                                                    onClick={
+                                                                        this
+                                                                            .saveOperation
+                                                                    }
+                                                                >
+                                                                    Valider{" "}
+                                                                    <i className="fas fa-check"></i>
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </table>
                                                 </form>
                                             </div>
 
                                             {/* separate */}
 
-                                            <div className="col-md-3">
+                                            <div className="col-md-6">
                                                 <div
                                                     className="card-body"
                                                     style={{
@@ -316,8 +556,8 @@ export default class Debiteur extends React.Component {
                                                                             labelColor
                                                                         }
                                                                     >
-                                                                        Intitulé
-                                                                        c.
+                                                                        Crédit
+                                                                        sur
                                                                     </label>
                                                                 </td>
                                                                 <div className="input-group input-group-sm ">
@@ -327,161 +567,116 @@ export default class Debiteur extends React.Component {
                                                                             borderRadius:
                                                                                 "0px",
                                                                         }}
-                                                                        name="intituleCompte"
+                                                                        name="NomCompteCredit"
                                                                         className="form-control mt-1 font-weight-bold"
                                                                         value={
                                                                             this
                                                                                 .state
-                                                                                .intituleCompte
-                                                                                ? this
-                                                                                      .state
-                                                                                      .intituleCompte
-                                                                                : this
-                                                                                      .state
-                                                                                      .fetchData &&
-                                                                                  this
-                                                                                      .state
-                                                                                      .fetchData
-                                                                                      .intituleCompte
+                                                                                .NomCompteCredit
                                                                         }
                                                                         disabled
                                                                         onChange={
                                                                             this
                                                                                 .handleChange
                                                                         }
-                                                                    />
-                                                                </div>
-                                                            </tr>
-                                                            <tr>
-                                                                <td>
-                                                                    {" "}
-                                                                    <label
-                                                                        style={
-                                                                            labelColor
-                                                                        }
-                                                                    >
-                                                                        Code A.
-                                                                    </label>{" "}
-                                                                </td>
-                                                                <div className="input-group input-group-sm ">
+                                                                    />{" "}
                                                                     <input
-                                                                        className="form-control mt-1 font-weight-bold"
                                                                         type="text"
                                                                         style={{
                                                                             borderRadius:
                                                                                 "0px",
+                                                                            fontSize:
+                                                                                "17px",
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
                                                                         }}
-                                                                        name="codeAgence"
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .codeAgence
-                                                                        }
-                                                                        disabled
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </tr>
-
-                                                            <tr>
-                                                                <td>
-                                                                    {" "}
-                                                                    <label
-                                                                        style={
-                                                                            labelColor
-                                                                        }
-                                                                    >
-                                                                        Compte
-                                                                    </label>{" "}
-                                                                </td>
-                                                                <div className="input-group input-group-sm ">
-                                                                    <input
+                                                                        name="SoldeCompteCredit"
                                                                         className="form-control mt-1 font-weight-bold"
-                                                                        type="text"
-                                                                        style={{
-                                                                            borderRadius:
-                                                                                "0px",
-                                                                        }}
-                                                                        name="numCompte"
                                                                         value={
                                                                             this
                                                                                 .state
-                                                                                .numCompte
-                                                                                ? this
-                                                                                      .state
-                                                                                      .numCompte
-                                                                                : this
-                                                                                      .state
-                                                                                      .fetchData &&
-                                                                                  this
-                                                                                      .state
-                                                                                      .fetchData
-                                                                                      .numCompte
-                                                                        }
-                                                                        disabled
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                    />
-                                                                </div>
-                                                            </tr>
-                                                        </table>
-                                                    </form>
-                                                </div>
-                                            </div>
-
-                                            <div className="col-md-2">
-                                                <div
-                                                    className="card-body"
-                                                    style={{
-                                                        background: "#dcdcdc",
-                                                    }}
-                                                >
-                                                    <form
-                                                        style={{
-                                                            padding: "10px",
-                                                            border: "2px solid #fff",
-                                                            marginTop: "-15px",
-                                                        }}
-                                                    >
-                                                        <table>
-                                                            <tr>
-                                                                <td>
-                                                                    {" "}
-                                                                    <label
-                                                                        style={
-                                                                            labelColor
-                                                                        }
-                                                                    >
-                                                                        Solde
-                                                                    </label>{" "}
-                                                                </td>
-                                                                <div className="input-group input-group-sm ">
-                                                                    <input
-                                                                        type="text"
-                                                                        className="form-control mt-1 font-weight-bold"
-                                                                        style={{
-                                                                            borderRadius:
-                                                                                "0px",
-                                                                        }}
-                                                                        name="solde"
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .solde &&
-                                                                            numberFormat(
-                                                                                parseInt(
-                                                                                    this
-                                                                                        .state
-                                                                                        .solde
+                                                                                .SoldeCompteCredit &&
+                                                                            "Solde actuel: " +
+                                                                                numberFormat(
+                                                                                    parseInt(
+                                                                                        this
+                                                                                            .state
+                                                                                            .SoldeCompteCredit
+                                                                                    )
                                                                                 )
-                                                                            )
                                                                         }
                                                                         disabled
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    {" "}
+                                                                    <label
+                                                                        style={
+                                                                            labelColor
+                                                                        }
+                                                                    >
+                                                                        Débit
+                                                                        sur
+                                                                    </label>{" "}
+                                                                </td>
+                                                                <div className="input-group input-group-sm ">
+                                                                    <input
+                                                                        className="form-control mt-1 font-weight-bold"
+                                                                        type="text"
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                        }}
+                                                                        name="NomCompteDebit"
+                                                                        value={
+                                                                            this
+                                                                                .state
+                                                                                .NomCompteDebit
+                                                                        }
+                                                                        disabled
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
+                                                                    />{" "}
+                                                                    <input
+                                                                        type="text"
+                                                                        style={{
+                                                                            borderRadius:
+                                                                                "0px",
+                                                                            fontSize:
+                                                                                "17px",
+                                                                            background:
+                                                                                "green",
+                                                                            color: "#fff",
+                                                                        }}
+                                                                        name="SoldeCompteDebit"
+                                                                        className="form-control mt-1 font-weight-bold"
+                                                                        value={
+                                                                            this
+                                                                                .state
+                                                                                .SoldeCompteDebit &&
+                                                                            "Solde actuel: " +
+                                                                                numberFormat(
+                                                                                    parseInt(
+                                                                                        this
+                                                                                            .state
+                                                                                            .SoldeCompteDebit
+                                                                                    )
+                                                                                )
+                                                                        }
+                                                                        disabled
+                                                                        onChange={
+                                                                            this
+                                                                                .handleChange
+                                                                        }
                                                                     />
                                                                 </div>
                                                             </tr>
@@ -489,6 +684,7 @@ export default class Debiteur extends React.Component {
                                                     </form>
                                                 </div>
                                             </div>
+
                                             <div className="col-md-2">
                                                 <table
                                                     style={{
@@ -520,6 +716,241 @@ export default class Debiteur extends React.Component {
                                                             </button>
                                                         </td>
                                                     </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+
+                                        <div className="row">
+                                            <div className="col-md-8 debiteur-table-div">
+                                                <div className="col-md-4 float-end mt-1">
+                                                    <div className="input-group input-group-sm">
+                                                        <input
+                                                            type="text"
+                                                            style={{
+                                                                borderRadius:
+                                                                    "0px",
+                                                            }}
+                                                            ref={this.textInput}
+                                                            className="form-control font-weight-bold"
+                                                            placeholder="Rechercher..."
+                                                            name="searchRefOperation"
+                                                            value={
+                                                                this.state
+                                                                    .searchRefOperation
+                                                            }
+                                                            onChange={
+                                                                this
+                                                                    .handleChange
+                                                            }
+                                                        />
+                                                        <td>
+                                                            <button
+                                                                type="button"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                    width: "100%",
+                                                                    height: "30px",
+                                                                    fontSize:
+                                                                        "12px",
+                                                                }}
+                                                                className="btn btn-success"
+                                                                onClick={() => {
+                                                                    this.handleSeachOperation(
+                                                                        this
+                                                                            .state
+                                                                            .searchRefOperation
+                                                                    );
+                                                                }}
+                                                            >
+                                                                <i className="fas fa-search"></i>
+                                                            </button>
+                                                        </td>{" "}
+                                                        <button
+                                                            className="btn btn-success"
+                                                            onClick={() => {
+                                                                this.extourneOperation(
+                                                                    this.state
+                                                                        .searchRefOperation
+                                                                );
+                                                            }}
+                                                        >
+                                                            <i class="fas fa-exchange-alt"></i>
+                                                            Extouner
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <table
+                                                    className="tableStyle"
+                                                    style={{
+                                                        background: "#444",
+                                                        padding: "5px",
+                                                        color: "#fff",
+                                                    }}
+                                                >
+                                                    <thead>
+                                                        <th style={tableBorder}>
+                                                            #
+                                                        </th>
+                                                        <th style={tableBorder}>
+                                                            Reference
+                                                        </th>
+                                                        <th style={tableBorder}>
+                                                            Montant
+                                                        </th>
+                                                        <th style={tableBorder}>
+                                                            Devise
+                                                        </th>
+                                                        <th style={tableBorder}>
+                                                            Opération
+                                                        </th>
+
+                                                        <th style={tableBorder}>
+                                                            Libellé
+                                                        </th>
+                                                        <th style={tableBorder}>
+                                                            Action
+                                                        </th>
+                                                    </thead>
+                                                    {!this.state
+                                                        .fetchSearchedOperation &&
+                                                    this.state.fetchDayOperation
+                                                        ? this.state.fetchDayOperation.map(
+                                                              (res, index) => {
+                                                                  return (
+                                                                      <tr
+                                                                          key={
+                                                                              index
+                                                                          }
+                                                                      >
+                                                                          <td>
+                                                                              {" "}
+                                                                              {
+                                                                                  compteur++
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              {
+                                                                                  res.NumTransaction
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              {parseInt(
+                                                                                  res.Credit
+                                                                              ) >
+                                                                              0
+                                                                                  ? parseInt(
+                                                                                        res.Credit
+                                                                                    )
+                                                                                  : parseInt(
+                                                                                        res.Debit
+                                                                                    )}{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {res.CodeMonnaie ==
+                                                                              1
+                                                                                  ? "USD"
+                                                                                  : "CDF"}{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  res.TypeTransaction
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  res.Libelle
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              <button
+                                                                                  className="btn btn-success"
+                                                                                  onClick={() => {
+                                                                                      this.extourneOperation(
+                                                                                          res.NumTransaction
+                                                                                      );
+                                                                                  }}
+                                                                              >
+                                                                                  <i class="fas fa-exchange-alt"></i>
+                                                                                  Extouner
+                                                                              </button>
+                                                                          </td>
+                                                                      </tr>
+                                                                  );
+                                                              }
+                                                          )
+                                                        : this.state
+                                                              .fetchSearchedOperation &&
+                                                          this.state.fetchSearchedOperation.map(
+                                                              (res, index) => {
+                                                                  return (
+                                                                      <tr
+                                                                          key={
+                                                                              index
+                                                                          }
+                                                                      >
+                                                                          <td>
+                                                                              {" "}
+                                                                              {
+                                                                                  compteur++
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              {
+                                                                                  res.NumTransaction
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              {parseInt(
+                                                                                  res.Credit
+                                                                              ) >
+                                                                              0
+                                                                                  ? parseInt(
+                                                                                        res.Credit
+                                                                                    )
+                                                                                  : parseInt(
+                                                                                        res.Debit
+                                                                                    )}{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {res.CodeMonnaie ==
+                                                                              1
+                                                                                  ? "USD"
+                                                                                  : "CDF"}{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  res.TypeTransaction
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {
+                                                                                  res.Libelle
+                                                                              }{" "}
+                                                                          </td>
+                                                                          <td>
+                                                                              {" "}
+                                                                              <button
+                                                                                  className="btn btn-success"
+                                                                                  onClick={() => {
+                                                                                      this.extourneOperation(
+                                                                                          res.NumTransaction
+                                                                                      );
+                                                                                  }}
+                                                                              >
+                                                                                  <i class="fas fa-exchange-alt"></i>
+                                                                                  Extouner
+                                                                              </button>
+                                                                          </td>
+                                                                      </tr>
+                                                                  );
+                                                              }
+                                                          )}
                                                 </table>
                                             </div>
                                         </div>
