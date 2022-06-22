@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\AdhesionMembre;
-use App\Models\Comptes;
-use App\Models\CompteurTransaction;
-use App\Models\Transactions;
 use Exception;
+use App\Models\Comptes;
+use App\Models\Transactions;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Models\AdhesionMembre;
+use App\Models\TauxJournalier;
+use App\Models\CompteurTransaction;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth;
 
 class updateMembre extends Controller
 {
@@ -93,7 +94,7 @@ class updateMembre extends Controller
   //ACTIVATE NEW ACCOUNT
   public function activateAccount(Request $request)
   {
-
+    $tauxDuJour = TauxJournalier::orderBy('id', 'desc')->first()->TauxEnFc;
 
     $refCompte = $request->get("refCompte");
     $compteEnFranc = $request->get("compteEnFranc");
@@ -143,8 +144,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteEnFranc,
         "NumComptecp" => $compteAdhesionFC,
-        "Debit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
-        "Debitfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        "Debit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : $data->MontantPremiereMise))),
+        "Debitfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : $data->MontantPremiereMise))),
         "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
@@ -167,8 +168,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteAdhesionFC,
         "NumComptecp" =>  $compteEnFranc,
-        "Credit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
-        "Creditfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : ""))),
+        "Credit" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : $data->MontantPremiereMise))),
+        "Creditfc" => $data->critere1 == "A" ? 1000 : ($data->critere1 == "B" ? 2000 : ($data->critere1 == "C" ? 3000 : ($data->critere1 == "D" ? 5000 : $data->MontantPremiereMise))),
         // "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
@@ -210,8 +211,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $numCompteDollars,
         "NumComptecp" => $compteAdhesionUSD,
-        "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
-        "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        "Debit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : $data->MontantPremiereMise / $tauxDuJour))),
+        "Debit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : $data->MontantPremiereMise / $tauxDuJour))),
         "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,
@@ -234,8 +235,8 @@ class updateMembre extends Controller
         "NumDemande" => "V00" . $numOperation->id,
         "NumCompte" => $compteAdhesionUSD,
         "NumComptecp" => $numCompteDollars,
-        "Credit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
-        "Credit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : ""))),
+        "Credit" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : $data->MontantPremiereMise / $tauxDuJour))),
+        "Credit$" => $data->critere1 == "A" ? 5 : ($data->critere1 == "B" ? 10 : ($data->critere1 == "C" ? 20 : ($data->critere1 == "D" ? 50 : $data->MontantPremiereMise / $tauxDuJour))),
         // "Valide" => 1,
         "ValidePar" => Auth::user()->name,
         "DateValidation" => $dateOuverture,

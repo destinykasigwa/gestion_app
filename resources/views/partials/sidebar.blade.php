@@ -1,16 +1,28 @@
-<aside class="main-sidebar sidebar-dark-primary elevation-4">
+<style>
+    .disabledLink {
+        pointer-events: none;
+        cursor: default;
+        color: #cff !important;
+    }
+</style>
+<?php
+use Illuminate\Support\Facades\DB;
+$userInfo = DB::select('SELECT * FROM users WHERE id="' . Auth::user()->id . '"')[0];
+?>
 
-    <a href="index3.html" class="brand-link">
+<aside class="main-sidebar sidebar-dark-primary elevation-4" style="font-size: 16px">
+
+    <a href="home" class="brand-link">
         <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo"
             class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
+        <span class="brand-text font-weight-light">ECONOMISONS</span>
     </a>
 
     <div class="sidebar">
 
         <nav class="mt-2">
-            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
+                data-accordion="false">
                 <li class="nav-item menu-open">
                     <a href="#" class="nav-link active">
                         <i class="fas fa-tasks"></i>
@@ -20,12 +32,15 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview">
+                        <?php 
+                       if ($userInfo->caissier == 1)  {?>
                         <li class="nav-item">
                             <a href="{{ route('depot.espece') }}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
                                 <p>Dépot</p>
                             </a>
                         </li>
+
                         <li class="nav-item">
                             <a href="{{ route('retrait.espece') }}" class="nav-link">
                                 <i class="fas fa-money-bill"></i>
@@ -39,6 +54,30 @@
                                 <p>Visa</p>
                             </a>
                         </li>
+                        <?php }else {?>
+                        <li class="nav-item">
+                            <a href="{{ route('depot.espece') }}" class="nav-link disabledLink">
+                                <i class="fas fa-money-bill"></i>
+                                <p>Dépot</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('retrait.espece') }}" class="nav-link disabledLink">
+                                <i class="fas fa-money-bill"></i>
+                                <p>Retrait</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ route('retrait.positionnement') }}" class="nav-link disabledLink">
+                                <i class="fas fa-money-check"></i>
+
+                                <p>Visa</p>
+                            </a>
+                        </li>
+                        <?php } ?>
+
+
                         <li class="nav-item">
                             <a href="{{ route('appro.approvisionnement') }}" class="nav-link">
                                 <i class="fas fa-hand-holding-usd"></i>
@@ -114,6 +153,30 @@
                                 <p>Adhésion</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fas fa-money-bill"></i>
+                        <p>
+                            Payement Agent
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a href="{{ route('payement.agent') }}" class="nav-link">
+                                <i class="fas fa-money-bill"></i>
+                                <p>Payement</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="" class="nav-link">
+                                <i class="fas fa-file"></i>
+                                <p>Bulletin de paie</p>
+                            </a>
+                        </li>
+
                     </ul>
                 </li>
 
@@ -255,7 +318,10 @@
 
                     </ul>
                 </li>
+
+
                 <li class="nav-item">
+                    <?php  if ($userInfo->chefcaisse == 1) {?>
                     <a href="#" class="nav-link">
                         <i class="fas fa-cog"></i>
                         <p>
@@ -263,6 +329,15 @@
                             <i class="fas fa-angle-left right"></i>
                         </p>
                     </a>
+                    <?php }else {?>
+                    <a href="#" class="nav-link disabledLink">
+                        <i class="fas fa-cog"></i>
+                        <p>
+                            Paramètres
+                            <i class="fas fa-angle-left right"></i>
+                        </p>
+                    </a>
+                    <?php }?>
                     <ul class="nav nav-treeview">
                         <li class="nav-item">
                             <a href="pages/forms/general.html" class="nav-link">

@@ -117,8 +117,8 @@ class AdhesionMembreController extends Controller
                 "typeGestion" => $request->typeGestion,
                 "critere1" => $request->critere1,
                 "activationCompte" => $request->activationCompte,
-                "compteAbrege" => $request->compteAbrege
-
+                "compteAbrege" => $request->compteAbrege,
+                "MontantPremiereMise" => $request->MontantPremiereMise
             ]);
 
             // Comptes::create([

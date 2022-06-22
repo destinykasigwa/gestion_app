@@ -18,6 +18,7 @@ use App\Http\Controllers\AdhesionMembreController;
 use App\Http\Controllers\CrediteurController;
 use App\Http\Controllers\DebiteurController;
 use App\Http\Controllers\JournalCaisseController;
+use App\Http\Controllers\PayementAgentController;
 use App\Http\Controllers\PostageController;
 use App\Http\Controllers\RapportCreditController;
 use App\Http\Controllers\RemboursementController;
@@ -61,6 +62,7 @@ Route::get('/postage', [PostageController::class, 'getPostagePage'])->name('post
 Route::get('/tfr', [TFRController::class, 'getTfrPage'])->name('tableau.tfr');
 Route::get('/crediteur', [CrediteurController::class, 'getCrediteurPage'])->name('credit.crediteur');
 Route::get('/debiteur', [DebiteurController::class, 'getDebiteurPage'])->name('debit.debiteur');
+Route::get('/payement-agent', [PayementAgentController::class, 'getPayementAgentPage'])->name('payement.agent');
 Route::resource("/createnew", "App\Http\Controllers\AdhesionMembreController")->except(["destroy", "update", "edit", "index"]);
 
 
@@ -522,4 +524,17 @@ Route::get(
 Route::get(
     "compte/extourne/operation/{reference}",
     [DebiteurController::class, 'extourneOperation']
+);
+
+//RECUPERE TOUT LES AGENTS
+Route::get(
+    "agent/data/all",
+    [PayementAgentController::class, 'getAgent']
+);
+
+//PERMET DE SAUVEGARDER LE PAYEMENT DES AGENT
+
+Route::post(
+    "payement/agent/data",
+    [PayementAgentController::class, 'savePayementAgent']
 );

@@ -22,7 +22,11 @@ class DebiteurController extends Controller
     public function getDailyOperation()
     {
         $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
-        $data = Transactions::where("NomUtilisateur", "=", Auth::user()->name)->where("DateTransaction", "=", $date)->limit("20", "desc")->get();
+        $data = Transactions::where("NomUtilisateur", "=", Auth::user()->name)
+            ->where("DateTransaction", "=", $date)
+            ->groupBy("NumTransaction")
+            ->limit("20", "desc")
+            ->get();
         return response()->json(["success" => 1, "data" => $data]);
     }
 
@@ -378,7 +382,9 @@ class DebiteurController extends Controller
     {
         $data = Transactions::where("NumTransaction", "=", $reference)->first();
         if ($data) {
-            $data = Transactions::where("NumTransaction", "=", $reference)->get();
+            $data = Transactions::where("NumTransaction", "=", $reference)
+                ->groupBy("NumTransaction")
+                ->get();
             return response()->json(["success" => 1, "data" => $data]);
         } else {
             return response()->json(["success" => 0, "msg" => "L'opération correspondante à la référence recherchée n'a pas été trouvée."]);

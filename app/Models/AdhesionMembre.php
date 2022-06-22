@@ -50,6 +50,7 @@ class AdhesionMembre extends Model
         'critere1',
         'activationCompte',
         'compteAbrege',
-        'photoMembre'
+        'photoMembre',
+        'MontantPremiereMise'
     ];
 }

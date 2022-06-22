@@ -29,6 +29,7 @@ import Postage from "./components/Postage";
 import Tfr from "./components/Tfr";
 import Crediteur from "./components/Crediteur";
 import Debiteur from "./components/Debiteur";
+import PayementAgent from "./components/PayementAgent";
 if (document.getElementById("adhesionContainer")) {
     ReactDOM.render(<Adhesion />, document.getElementById("adhesionContainer"));
 } else if (document.getElementById("DepotEspeceContainer")) {
@@ -99,4 +100,9 @@ if (document.getElementById("adhesionContainer")) {
     );
 } else if (document.getElementById("DebiteurContainer")) {
     ReactDOM.render(<Debiteur />, document.getElementById("DebiteurContainer"));
+} else if (document.getElementById("PayementAgentContainer")) {
+    ReactDOM.render(
+        <PayementAgent />,
+        document.getElementById("PayementAgentContainer")
+    );
 }

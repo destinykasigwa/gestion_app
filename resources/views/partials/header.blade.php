@@ -66,7 +66,6 @@
             padding: 0px;
             font-size: 14px;
         }
-
     </style>
 </head>
 
@@ -96,8 +95,8 @@
             <ul class="navbar-nav ml-auto">
                 <!-- Messages Dropdown Menu -->
                 <li class="dropdown">
-                    <h5 class="mt-1" style="font-family:calibri;font-weight: bold;">@auth
-                        {{ Auth::user()->name }} @endauth </h5>
+                    <h5 class="mt-1" style="font-family:calibri;font-weight: bold;">
+                        {{ Auth::user()->name }} </h5>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -107,7 +106,8 @@
 
                 <!-- Notifications Dropdown Menu -->
                 <li class="dropdown" style="margin-left: 30px;">
-                    <a style="font-size: 20px; color:inherit;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <a style="font-size: 20px; color:inherit;" href="#" class="dropdown-toggle"
+                        data-toggle="dropdown">
                         <img style="height: 30px;width: 30px;" src="{{ asset('dist/img/user2-160x160.jpg') }}"
                             class="img-circle elevation-2" alt="User Image">
                         <!-- <span class="badge badge-warning navbar-badge">Detiny</span> -->
@@ -124,13 +124,13 @@
         </a><hr> --}}
                         <div class="mt-3 space-y-1">
                             <!-- Authentication -->
-                            <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                            <a class="dropdown-item" href="{{ route('logout') }}"
+                                onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                                 {{ __('Logout') }}
                             </a>
 
-                            <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                                class="d-none">
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                 @csrf
                             </form>
                         </div>

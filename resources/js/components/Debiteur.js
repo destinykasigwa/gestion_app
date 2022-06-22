@@ -580,38 +580,77 @@ export default class Debiteur extends React.Component {
                                                                                 .handleChange
                                                                         }
                                                                     />{" "}
-                                                                    <input
-                                                                        type="text"
-                                                                        style={{
-                                                                            borderRadius:
-                                                                                "0px",
-                                                                            fontSize:
-                                                                                "17px",
-                                                                            background:
-                                                                                "green",
-                                                                            color: "#fff",
-                                                                        }}
-                                                                        name="SoldeCompteCredit"
-                                                                        className="form-control mt-1 font-weight-bold"
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .SoldeCompteCredit &&
-                                                                            "Solde actuel: " +
-                                                                                numberFormat(
-                                                                                    parseInt(
-                                                                                        this
-                                                                                            .state
-                                                                                            .SoldeCompteCredit
+                                                                    {parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .SoldeCompteCredit
+                                                                    ) < 0 ? (
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                                fontSize:
+                                                                                    "17px",
+                                                                                background:
+                                                                                    "red",
+                                                                                color: "#fff",
+                                                                            }}
+                                                                            name="SoldeCompteCredit"
+                                                                            className="form-control mt-1 font-weight-bold"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .SoldeCompteCredit &&
+                                                                                "Solde actuel: " +
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .SoldeCompteCredit
+                                                                                        )
                                                                                     )
-                                                                                )
-                                                                        }
-                                                                        disabled
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                    />
+                                                                            }
+                                                                            disabled
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    ) : (
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                                fontSize:
+                                                                                    "17px",
+                                                                                background:
+                                                                                    "green",
+                                                                                color: "#fff",
+                                                                            }}
+                                                                            name="SoldeCompteCredit"
+                                                                            className="form-control mt-1 font-weight-bold"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .SoldeCompteCredit &&
+                                                                                "Solde actuel: " +
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .SoldeCompteCredit
+                                                                                        )
+                                                                                    )
+                                                                            }
+                                                                            disabled
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    )}
                                                                 </div>
                                                             </tr>
                                                             <tr>
@@ -646,38 +685,77 @@ export default class Debiteur extends React.Component {
                                                                                 .handleChange
                                                                         }
                                                                     />{" "}
-                                                                    <input
-                                                                        type="text"
-                                                                        style={{
-                                                                            borderRadius:
-                                                                                "0px",
-                                                                            fontSize:
-                                                                                "17px",
-                                                                            background:
-                                                                                "green",
-                                                                            color: "#fff",
-                                                                        }}
-                                                                        name="SoldeCompteDebit"
-                                                                        className="form-control mt-1 font-weight-bold"
-                                                                        value={
-                                                                            this
-                                                                                .state
-                                                                                .SoldeCompteDebit &&
-                                                                            "Solde actuel: " +
-                                                                                numberFormat(
-                                                                                    parseInt(
-                                                                                        this
-                                                                                            .state
-                                                                                            .SoldeCompteDebit
+                                                                    {parseInt(
+                                                                        this
+                                                                            .state
+                                                                            .SoldeCompteDebit
+                                                                    ) < 0 ? (
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                                fontSize:
+                                                                                    "17px",
+                                                                                background:
+                                                                                    "red",
+                                                                                color: "#fff",
+                                                                            }}
+                                                                            name="SoldeCompteDebit"
+                                                                            className="form-control mt-1 font-weight-bold"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .SoldeCompteDebit &&
+                                                                                "Solde actuel: " +
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .SoldeCompteDebit
+                                                                                        )
                                                                                     )
-                                                                                )
-                                                                        }
-                                                                        disabled
-                                                                        onChange={
-                                                                            this
-                                                                                .handleChange
-                                                                        }
-                                                                    />
+                                                                            }
+                                                                            disabled
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    ) : (
+                                                                        <input
+                                                                            type="text"
+                                                                            style={{
+                                                                                borderRadius:
+                                                                                    "0px",
+                                                                                fontSize:
+                                                                                    "17px",
+                                                                                background:
+                                                                                    "green",
+                                                                                color: "#fff",
+                                                                            }}
+                                                                            name="SoldeCompteDebit"
+                                                                            className="form-control mt-1 font-weight-bold"
+                                                                            value={
+                                                                                this
+                                                                                    .state
+                                                                                    .SoldeCompteDebit &&
+                                                                                "Solde actuel: " +
+                                                                                    numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .SoldeCompteDebit
+                                                                                        )
+                                                                                    )
+                                                                            }
+                                                                            disabled
+                                                                            onChange={
+                                                                                this
+                                                                                    .handleChange
+                                                                            }
+                                                                        />
+                                                                    )}
                                                                 </div>
                                                             </tr>
                                                         </table>

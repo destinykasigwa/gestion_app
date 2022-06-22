@@ -62,6 +62,7 @@ class Adhesion extends React.Component {
             fetchLastId: [],
             error_list: [],
             compteAbrege: "",
+            MontantPremiereMise: "",
         };
         this.textInput = React.createRef();
         this.handleChange = this.handleChange.bind(this);
@@ -153,6 +154,7 @@ class Adhesion extends React.Component {
             dateNaissLie: "",
             degreParante: "",
             activationCompte: "false",
+            MontantPremiereMise: "",
         });
         this.setState({ disabled: !this.state.disabled });
         setTimeout(() => {
@@ -3323,9 +3325,61 @@ class Adhesion extends React.Component {
                                                                                                 <option value="D">
                                                                                                     D
                                                                                                 </option>
+                                                                                                <option value="Autre">
+                                                                                                    Autre
+                                                                                                </option>
                                                                                             </select>
                                                                                         </td>
                                                                                     </tr>
+                                                                                    {this
+                                                                                        .state
+                                                                                        .critere1 ==
+                                                                                        "Autre" && (
+                                                                                        <tr>
+                                                                                            <td>
+                                                                                                <label
+                                                                                                    htmlFor="nomparain"
+                                                                                                    style={
+                                                                                                        labelColor
+                                                                                                    }
+                                                                                                >
+                                                                                                    M.
+                                                                                                    mise
+                                                                                                    en
+                                                                                                    FC
+                                                                                                </label>{" "}
+                                                                                            </td>
+                                                                                            <td>
+                                                                                                <input
+                                                                                                    id="MontantPremiereMise"
+                                                                                                    type="text"
+                                                                                                    style={
+                                                                                                        inputColor
+                                                                                                    }
+                                                                                                    name="MontantPremiereMise"
+                                                                                                    value={
+                                                                                                        this
+                                                                                                            .state
+                                                                                                            .MontantPremiereMise
+                                                                                                            ? this
+                                                                                                                  .state
+                                                                                                                  .MontantPremiereMise
+                                                                                                            : this
+                                                                                                                  .state
+                                                                                                                  .fetchData &&
+                                                                                                              this
+                                                                                                                  .state
+                                                                                                                  .fetchData
+                                                                                                                  .MontantPremiereMise
+                                                                                                    }
+                                                                                                    onChange={
+                                                                                                        this
+                                                                                                            .handleChange
+                                                                                                    }
+                                                                                                />
+                                                                                            </td>
+                                                                                        </tr>
+                                                                                    )}
                                                                                     <tr>
                                                                                         <td>
                                                                                             {" "}

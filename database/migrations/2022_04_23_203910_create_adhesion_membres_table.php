@@ -58,6 +58,7 @@ return new class extends Migration
             $table->string('activationCompte', 20)->nullable();
             $table->string('compteAbrege', 20)->nullable();
             $table->string('photoMembre', 250)->nullable()->default("default.jpg");
+            $table->float('MontantPremiereMise')->nullable()->default("0.00");
             $table->timestamps();
         });
     }

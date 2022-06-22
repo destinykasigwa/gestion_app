@@ -339,24 +339,51 @@ export default class SoldePage extends React.Component {
                                                                         <label>
                                                                             CDF
                                                                             :{" "}
-                                                                            <span
-                                                                                style={{
-                                                                                    background:
-                                                                                        "green",
-                                                                                    color: "#fff",
-                                                                                    padding:
-                                                                                        "5px",
-                                                                                }}
-                                                                            >
-                                                                                {numberFormat(
-                                                                                    parseInt(
-                                                                                        this
-                                                                                            .state
-                                                                                            .getSolde
-                                                                                            .soldeMembreCDF
-                                                                                    )
-                                                                                )}
-                                                                            </span>{" "}
+                                                                            {parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .getSolde
+                                                                                    .soldeMembreCDF
+                                                                            ) <
+                                                                            0 ? (
+                                                                                <span
+                                                                                    style={{
+                                                                                        background:
+                                                                                            "red",
+                                                                                        color: "#fff",
+                                                                                        padding:
+                                                                                            "5px",
+                                                                                    }}
+                                                                                >
+                                                                                    {numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .getSolde
+                                                                                                .soldeMembreCDF
+                                                                                        )
+                                                                                    )}
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span
+                                                                                    style={{
+                                                                                        background:
+                                                                                            "green",
+                                                                                        color: "#fff",
+                                                                                        padding:
+                                                                                            "5px",
+                                                                                    }}
+                                                                                >
+                                                                                    {numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .getSolde
+                                                                                                .soldeMembreCDF
+                                                                                        )
+                                                                                    )}
+                                                                                </span>
+                                                                            )}
                                                                         </label>
                                                                     )}
                                                                     <br />
@@ -366,24 +393,51 @@ export default class SoldePage extends React.Component {
                                                                         <label>
                                                                             USD
                                                                             :{" "}
-                                                                            <span
-                                                                                style={{
-                                                                                    background:
-                                                                                        "green",
-                                                                                    color: "#fff",
-                                                                                    padding:
-                                                                                        "5px",
-                                                                                }}
-                                                                            >
-                                                                                {numberFormat(
-                                                                                    parseInt(
-                                                                                        this
-                                                                                            .state
-                                                                                            .getSolde
-                                                                                            .soldeMembreUSD
-                                                                                    )
-                                                                                )}
-                                                                            </span>{" "}
+                                                                            {parseInt(
+                                                                                this
+                                                                                    .state
+                                                                                    .getSolde
+                                                                                    .soldeMembreUSD
+                                                                            ) <
+                                                                            0 ? (
+                                                                                <span
+                                                                                    style={{
+                                                                                        background:
+                                                                                            "red",
+                                                                                        color: "#fff",
+                                                                                        padding:
+                                                                                            "5px",
+                                                                                    }}
+                                                                                >
+                                                                                    {numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .getSolde
+                                                                                                .soldeMembreUSD
+                                                                                        )
+                                                                                    )}
+                                                                                </span>
+                                                                            ) : (
+                                                                                <span
+                                                                                    style={{
+                                                                                        background:
+                                                                                            "green",
+                                                                                        color: "#fff",
+                                                                                        padding:
+                                                                                            "5px",
+                                                                                    }}
+                                                                                >
+                                                                                    {numberFormat(
+                                                                                        parseInt(
+                                                                                            this
+                                                                                                .state
+                                                                                                .getSolde
+                                                                                                .soldeMembreUSD
+                                                                                        )
+                                                                                    )}
+                                                                                </span>
+                                                                            )}{" "}
                                                                         </label>
                                                                     )}
                                                                 </td>
@@ -909,8 +963,9 @@ export default class SoldePage extends React.Component {
                                                 <div
                                                     className="card"
                                                     style={{
-                                                        margin: "5px",
+                                                        margin: "0px auto",
                                                         width: "100%",
+                                                        width: "77%",
                                                     }}
                                                 >
                                                     <div

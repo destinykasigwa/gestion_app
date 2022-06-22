@@ -30,8 +30,8 @@ export default class ActivateCompteM extends React.Component {
         axios
             .post("activationcompte/membre/data", {
                 refCompte: this.props.refCompt,
-                compteEnFranc: "330100" + this.props.refCompt + "202",
-                numCompteDollars: "330000" + this.props.refCompt + "201",
+                compteEnFranc: "3301000000" + this.props.refCompt + "202",
+                numCompteDollars: "3300000000" + this.props.refCompt + "201",
                 dateOuverture: this.state.dateOuverture,
                 devise: this.props.devise,
                 idComptMembre: this.props.idComptM,
