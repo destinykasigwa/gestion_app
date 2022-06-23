@@ -10,6 +10,7 @@ class Agents extends Model
     use HasFactory;
     protected $fillable = [
         "NumCompte",
+        "NumcompteUSD",
         "NomAgent",
         "salaire",
         "Devise",

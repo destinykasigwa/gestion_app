@@ -538,3 +538,11 @@ Route::post(
     "payement/agent/data",
     [PayementAgentController::class, 'savePayementAgent']
 );
+
+//MET LA JOUR LA DATE DE PAIEMENT DES AGENT
+
+
+Route::post(
+    "payement/agent/moispayement/save",
+    [PayementAgentController::class, 'updateDatePayementAgent']
+);

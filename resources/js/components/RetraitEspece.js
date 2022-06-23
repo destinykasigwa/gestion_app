@@ -189,7 +189,7 @@ export default class RetraitEspece extends React.Component {
     };
 
     render() {
-        var myspinner = {
+        let myspinner = {
             margin: "5px auto",
             width: "3rem",
             height: "3rem",
@@ -197,13 +197,13 @@ export default class RetraitEspece extends React.Component {
             border: "0px",
             height: "200px",
         };
-        var labelColor = {
+        let labelColor = {
             fontWeight: "bold",
             color: "steelblue",
             padding: "3px",
             fontSize: "14px",
         };
-        var inputColor = {
+        let inputColor = {
             height: "25px",
             border: "1px solid steelblue",
             padding: "3px",

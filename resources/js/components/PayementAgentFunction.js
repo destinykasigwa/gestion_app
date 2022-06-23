@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import Swal from "sweetalert2";
 
@@ -7,16 +7,39 @@ function PayementAgentFunction(props) {
         { NumCompte: "", Montant: "" },
         { NumCompte: "", Montant: "" },
     ]);
+    // const [data, setData] = [];
 
     const handleChang = (index, event) => {
         const values = [...inputFields];
         values[index][event.target.name] = event.target.value;
         setInputFields(values);
+        setData(inputFields);
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log("inputfiels", inputFields);
+        // inputFields.forEach((element) => {
+        //     console.log("inputfiels", element.Montant);
+        //     console.log("inputfiels", element.NumCompte);
+        // });
+        const res = await axios.post("/payement/agent/data", inputFields);
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Payement des agents",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+            console.log("inputfiels", inputFields);
+        }
+        // console.log("inputfiels", inputFields[0].Montant);
     };
 
     const handleAddFields = () => {
@@ -30,7 +53,7 @@ function PayementAgentFunction(props) {
     };
 
     return (
-        <div className="col-md-6">
+        <div className="col-md-5">
             <form onSubmit={handleSubmit}>
                 {inputFields.map((inputField, index) => {
                     return (

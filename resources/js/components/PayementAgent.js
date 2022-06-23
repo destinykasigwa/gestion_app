@@ -11,6 +11,7 @@ export default class PayementAgent extends React.Component {
             isloading: true,
             loading: false,
             fetchData: null,
+            MoisAPayer: "",
 
             // Montant: [],
             // Compte: [],
@@ -18,8 +19,9 @@ export default class PayementAgent extends React.Component {
 
         this.actualiser = this.actualiser.bind(this);
         this.getAgent = this.getAgent.bind(this);
-        this.saveOperation = this.saveOperation.bind(this);
+        // this.saveOperation = this.saveOperation.bind(this);
         this.handleChange = this.handleChange.bind(this);
+        this.handleSubmitDate = this.handleSubmitDate.bind(this);
     }
     //STEND FOR REFRESHING PAGE
     actualiser() {
@@ -53,10 +55,28 @@ export default class PayementAgent extends React.Component {
         }
     };
 
-    saveOperation = async (e) => {
-        const res = await axios.post("/payement/agent/data", this.state);
+    handleSubmitDate = async (e) => {
         e.preventDefault();
-        console.log(this.state);
+
+        const res = await axios.post(
+            "/payement/agent/moispayement/save",
+            this.state
+        );
+        if (res.data.success == 1) {
+            Swal.fire({
+                title: "Succès",
+                text: res.data.msg,
+                icon: "success",
+                button: "OK!",
+            });
+        } else if (res.data.success == 0) {
+            Swal.fire({
+                title: "Erreur",
+                text: res.data.msg,
+                icon: "error",
+                button: "OK!",
+            });
+        }
     };
 
     render() {
@@ -67,6 +87,18 @@ export default class PayementAgent extends React.Component {
             marginTop: "180px",
             border: "0px",
             height: "200px",
+        };
+        let labelColor = {
+            fontWeight: "bold",
+            color: "steelblue",
+            padding: "3px",
+            fontSize: "14px",
+        };
+        let inputColor = {
+            height: "31px",
+            border: "1px solid steelblue",
+            padding: "3px",
+            borderRadius: "0px",
         };
         return (
             <React.Fragment>
@@ -123,12 +155,126 @@ export default class PayementAgent extends React.Component {
                                         }}
                                     >
                                         <div className="row">
-                                            <div className="col-md-6">
+                                            <div className="col-md-7">
+                                                <table
+                                                    style={{ border: "0px" }}
+                                                >
+                                                    <tr>
+                                                        <td
+                                                            style={{
+                                                                border: "0px",
+                                                            }}
+                                                        >
+                                                            {" "}
+                                                            <label
+                                                                style={
+                                                                    labelColor
+                                                                }
+                                                            >
+                                                                Mois à payer
+                                                            </label>{" "}
+                                                        </td>
+                                                        <td
+                                                            style={{
+                                                                border: "0px",
+                                                            }}
+                                                        >
+                                                            <div className="input-group input-group-sm ">
+                                                                <select
+                                                                    name="MoisAPayer"
+                                                                    className="form-control"
+                                                                    onChange={
+                                                                        this
+                                                                            .handleChange
+                                                                    }
+                                                                    style={
+                                                                        inputColor
+                                                                    }
+                                                                    value={
+                                                                        this
+                                                                            .state
+                                                                            .MoisAPayer
+                                                                    }
+                                                                >
+                                                                    <option value="">
+                                                                        Veuillez
+                                                                        sélectionnez
+                                                                        le mois
+                                                                    </option>
+                                                                    <option value="Janvier">
+                                                                        Janvier
+                                                                    </option>
+                                                                    <option value="Février">
+                                                                        Février
+                                                                    </option>
+                                                                    <option value="Mars">
+                                                                        Mars
+                                                                    </option>
+                                                                    <option value="Avril">
+                                                                        Avril
+                                                                    </option>
+                                                                    <option value="Mai">
+                                                                        Mai
+                                                                    </option>
+                                                                    <option value="Juin">
+                                                                        Juin
+                                                                    </option>
+                                                                    <option value="Juillet">
+                                                                        Juillet
+                                                                    </option>
+                                                                    <option value="Août">
+                                                                        Août
+                                                                    </option>
+                                                                    <option value="Séptembre">
+                                                                        Séptembre
+                                                                    </option>
+                                                                    <option value="Octobre">
+                                                                        Octobre
+                                                                    </option>
+                                                                    <option value="Novembre">
+                                                                        Novembre
+                                                                    </option>
+                                                                    <option value="Décembre">
+                                                                        Décembre
+                                                                    </option>
+                                                                </select>{" "}
+                                                            </div>
+                                                        </td>
+                                                        <td
+                                                            style={{
+                                                                border: "0px",
+                                                            }}
+                                                        >
+                                                            <button
+                                                                type="button"
+                                                                style={{
+                                                                    borderRadius:
+                                                                        "0px",
+                                                                    width: "100%",
+                                                                    height: "30px",
+                                                                    fontSize:
+                                                                        "12px",
+                                                                }}
+                                                                id="savebtn"
+                                                                className="btn btn-primary mt-1"
+                                                                onClick={
+                                                                    this
+                                                                        .handleSubmitDate
+                                                                }
+                                                            >
+                                                                <i className="fas fa-check"></i>
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </table>
                                                 <table className="tableDepot-payement-agent">
                                                     <thead>
                                                         <tr>
                                                             <th className="col-md-4">
-                                                                Compte Agent
+                                                                Compte CDF
+                                                            </th>
+                                                            <th className="col-md-4">
+                                                                Compte USD
                                                             </th>
                                                             <th className="col-md-4">
                                                                 Nom agent
@@ -156,6 +302,11 @@ export default class PayementAgent extends React.Component {
                                                                             <td>
                                                                                 {
                                                                                     res.NumCompte
+                                                                                }
+                                                                            </td>
+                                                                            <td>
+                                                                                {
+                                                                                    res.NumcompteUSD
                                                                                 }
                                                                             </td>
                                                                             <td>
@@ -204,7 +355,11 @@ export default class PayementAgent extends React.Component {
                                                     </tr>
                                                 </table> */}
                                             </div>
-                                            <PayementAgentFunction />
+                                            <PayementAgentFunction
+                                                MoisAPayer={
+                                                    this.state.MoisAPayer
+                                                }
+                                            />
                                         </div>
                                     </div>
                                 </div>

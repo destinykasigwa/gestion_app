@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('agents', function (Blueprint $table) {
             $table->id();
             $table->string("NumCompte", 30)->nullable();
+            $table->string("NumcompteUSD", 30)->nullable();
             $table->string("NomAgent", 30)->nullable();
             $table->float("salaire")->nullable()->default("0.00");
             $table->string("Devise", 10)->nullable();
