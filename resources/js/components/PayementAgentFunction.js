@@ -30,6 +30,9 @@ function PayementAgentFunction(props) {
                 icon: "success",
                 button: "OK!",
             });
+            document
+                .getElementById("savebtn")
+                .setAttribute("disabled", "disabled");
         } else if (res.data.success == 0) {
             Swal.fire({
                 title: "Erreur",

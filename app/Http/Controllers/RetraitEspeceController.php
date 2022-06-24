@@ -33,7 +33,7 @@ class RetraitEspeceController extends Controller
     public function getAllPositionnement()
     {
         $date = TauxJournalier::orderBy('id', 'desc')->first()->DateTaux;
-        $dataPositionnement = Positionnement::where("DateTransaction", "=", $date)->where("NomUtilisateur", "=", Auth::user()->name)->orderBy('id', 'desc')->paginate(20)->All();
+        $dataPositionnement = Positionnement::where("DateTransaction", "=", $date)->where("NomUtilisateur", "=", Auth::user()->name)->groupBy('NumTransaction', 'desc')->paginate(20)->All();
 
         return response()->json(["data" => $dataPositionnement]);
     }
@@ -273,7 +273,7 @@ class RetraitEspeceController extends Controller
             //  $numCompteContrePartieUSD="5700003032201";
             if ($request->devise == "CDF") {
                 //RECUPERE LE NUMERO DE COMPTE CDF DU MEMBRE CONCERNE
-                $getCompteMembreCDF = Transactions::where("refCompteMembre", "=", $request->refCompte)->Where("CodeMonnaie", "=", "2")->first();
+                $getCompteMembreCDF = Comptes::where("NumAdherant", "=", $request->refCompte)->Where("CodeMonnaie", "=", "2")->first();
                 $compteCDF = $getCompteMembreCDF->NumCompte;
 
                 //DEBITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF

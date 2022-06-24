@@ -98,7 +98,8 @@ export default class Positionnement extends React.Component {
             });
             this.setState({
                 disabled: !this.state.disabled,
-                refCompte: this.state.fetchData.refCompte,
+                refCompte: this.state.compteToSearch,
+                // refCompte: this.state.fetchData.refCompte,
                 numCompte: this.state.fetchData.numCompte,
                 operant: this.state.fetchData.intituleCompte,
                 soldeCDF: getData.data.soldeMembreCDF[0].soldeMembreCDF,

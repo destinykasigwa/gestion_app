@@ -34,7 +34,7 @@ export default class DepotEspece extends React.Component {
             operant: "",
             deposantName: "",
             codeAgence: "20",
-            libelle: "",
+            libelle: "DEPOT D'ESPECE",
             error_list: [],
             taux: "2000",
             fetchData: null,
@@ -148,7 +148,8 @@ export default class DepotEspece extends React.Component {
             });
             this.setState({
                 disabled: !this.state.disabled,
-                refCompte: this.state.fetchData.refCompte,
+                // refCompte: this.state.fetchData.refCompte
+                refCompte: this.state.compteToSearch,
                 numCompte: this.state.fetchData.numCompte,
                 operant: this.state.fetchData.intituleCompte,
             });

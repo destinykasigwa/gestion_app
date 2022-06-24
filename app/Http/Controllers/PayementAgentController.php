@@ -54,7 +54,7 @@ class PayementAgentController extends Controller
                         "refOperation" => $NumTransaction,
                         "NumCompte" => $key->NumCompte,
                         "Montant" => $key->Montant,
-                        "Devise" => "USD",
+                        "Devise" => "CDF",
                         "DatePay" => $date,
                         "AnneePay" => date("Y"),
                         // "MoisPay",
@@ -81,7 +81,7 @@ class PayementAgentController extends Controller
                     ]);
                     //ON DEBITE LE COMPTE DE CHARGE DU PESONNEL
 
-                    //CREDITE LE COMPTES DES MEMBRES
+                    //DEBITE  LE COMPTES DES CHARGE DU PERSONNEL
                     $compteChargePersonCDF = 6500000000202;
                     Transactions::create([
                         "NumTransaction" => $NumTransaction,
@@ -93,15 +93,15 @@ class PayementAgentController extends Controller
                         "CodeAgence" => "20",
                         "NumDossier" => "DOS00" . $numOperation->id,
                         "NumDemande" => "V00" . $numOperation->id,
-                        "NumCompte" =>  $key->NumCompte,
-                        "NumComptecp" => $compteChargePersonCDF,
+                        "NumCompte" => $compteChargePersonCDF,
+                        "NumComptecp" => $key->NumCompte,
                         "Debit"  => $key->Montant,
                         "Debit$"  => $key->Montant / $tauxDuJour,
                         "Debitfc" => $key->Montant,
                         "NomUtilisateur" => Auth::user()->name,
                         "Libelle" => "PAIEMENT DE VOTRE SALAIRE BENEVOLE",
                     ]);
-                } else if ($Devise == 2) {
+                } else if ($Devise == 1) {
                     CompteurTransaction::create([
                         'fakevalue' => "0000",
                     ]);
@@ -112,7 +112,7 @@ class PayementAgentController extends Controller
                         "refOperation" => $NumTransaction,
                         "NumCompte" => $key->NumCompte,
                         "Montant" => $key->Montant,
-                        "Devise" => "CDF",
+                        "Devise" => "USD",
                         "DatePay" => $date,
                         "AnneePay" => date("Y"),
                         // "MoisPay",
@@ -125,7 +125,7 @@ class PayementAgentController extends Controller
                         "DateSaisie" => $date,
                         "Taux" => 1,
                         "TypeTransaction" => "C",
-                        "CodeMonnaie" => 2,
+                        "CodeMonnaie" => 1,
                         "CodeAgence" => "20",
                         "NumDossier" => "DOS00" . $numOperation->id,
                         "NumDemande" => "V00" . $numOperation->id,
@@ -139,7 +139,7 @@ class PayementAgentController extends Controller
                     ]);
                     //ON DEBITE LE COMPTE DE CHARGE DU PESONNEL
 
-                    //CREDITE LE COMPTES DES MEMBRES
+                    //DEBITE LE COMPTES DES CHARGE DU PERSONNEL
                     $compteChargePersonCDF = 6500000000201;
                     Transactions::create([
                         "NumTransaction" => $NumTransaction,
@@ -147,12 +147,12 @@ class PayementAgentController extends Controller
                         "DateSaisie" => $date,
                         "Taux" => 1,
                         "TypeTransaction" => "D",
-                        "CodeMonnaie" => 2,
+                        "CodeMonnaie" => 1,
                         "CodeAgence" => "20",
                         "NumDossier" => "DOS00" . $numOperation->id,
                         "NumDemande" => "V00" . $numOperation->id,
-                        "NumCompte" =>  $key->NumCompte,
-                        "NumComptecp" => $compteChargePersonCDF,
+                        "NumCompte" => $compteChargePersonCDF,
+                        "NumComptecp" => $key->NumCompte,
                         "Debit"  => $key->Montant,
                         "Debit$"  => $key->Montant,
                         "Debitfc" => $key->Montant * $tauxDuJour,

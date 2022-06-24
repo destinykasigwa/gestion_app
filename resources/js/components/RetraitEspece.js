@@ -34,7 +34,7 @@ export default class RetraitEspece extends React.Component {
             operant: "",
             deposantName: "",
             codeAgence: "20",
-            libelle: "",
+            libelle: "RETRAIT D'ESPECE",
             error_list: [],
             taux: "2000",
             fetchData: null,

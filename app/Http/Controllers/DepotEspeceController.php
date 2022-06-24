@@ -58,12 +58,16 @@ class DepotEspeceController extends Controller
       $lastId = CompteurDocument::orderBy('id', 'desc')->first();
       $numDoc = $lastId->id;
 
-
+      if (count($soldeMembreUSD) != 0) {
+        $soldeUSD = $soldeMembreUSD;
+      } else {
+        $soldeUSD = $compteMembreCDF;
+      }
 
 
 
       return response()->json([
-        "success" => 1, 'data' =>  $data, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeMembreUSD, "numdoc" => $numDoc
+        "success" => 1, 'data' =>  $data, "soldeMembreCDF" => $soldeMembreCDF, "soldeMembreUSD" => $soldeUSD, "numdoc" => $numDoc
       ]);
     } else {
 
@@ -162,7 +166,7 @@ class DepotEspeceController extends Controller
       //  $numCompteContrePartieUSD="5700003032201";
       if ($request->devise == "CDF") {
         //RECUPERE LE NUMERO DE COMPTE CDF DU MEMBRE CONCERNE
-        $getCompteMembreCDF = Transactions::where("refCompteMembre", "=", $request->refCompte)->Where("CodeMonnaie", "=", "2")->first();
+        $getCompteMembreCDF = Comptes::where("NumAdherant", "=", $request->refCompte)->Where("CodeMonnaie", "=", "2")->first();
         $compteCDF = $getCompteMembreCDF->NumCompte;
 
         //CREDITE LE COMPTE DU MEMBRE SI C UNE OPERATION EN CDF
@@ -377,11 +381,13 @@ class DepotEspeceController extends Controller
 
     $operationCDF = Transactions::where("NomUtilisateur", "=", Auth::user()->name)
       ->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "2")
+      ->groupBy("NumTransaction")
       ->paginate(12)->All();
 
     //RECUPERE 6 OPERATIONS RECENTES USD    
     $operationUSD = Transactions::where("NomUtilisateur", "=", Auth::user()->name)
       ->where("DateTransaction", "=", $date)->where("CodeMonnaie", "=", "1")
+      ->groupBy("NumTransaction")
       ->paginate(12)->All();
 
     $soldeOperationCDF = Transactions::select(
